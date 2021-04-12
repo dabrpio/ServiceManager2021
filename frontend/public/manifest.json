@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SM21",
+  "name": "Service Manager 2021",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +21,7 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "manifest_version": 2,
+  "version": "0.1"
 }
