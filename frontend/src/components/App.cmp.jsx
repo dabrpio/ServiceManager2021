@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import EmployeeList from './EmployeeList';
 import Employee from './EmployeeList/Employee';
@@ -12,24 +12,6 @@ import Ticket from './TicketList/Ticket';
 function App() {
   return (
     <BrowserRouter>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/tickets">Tickets</Link>
-        </li>
-        <li>
-          <Link to="/employees">Employees</Link>
-        </li>
-        <li>
-          <Link to="/settings">Settings</Link>
-        </li>
-      </ul>
-
       <Switch>
         <Route exact path="/">
           <Home />
