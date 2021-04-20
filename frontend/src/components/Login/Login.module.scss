@@ -8,17 +8,30 @@
   justify-content: center;
 
   .login {
+    @include media-1 {
+      width: 260px;
+    }
+    @include media-2 {
+      width: 280px;
+    }
+    width: 240px;
     margin-top: -40px;
-    width: 280px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     &__heading {
+      @include media-1 {
+        font-size: 1.7rem;
+      }
+      @include media-2 {
+        font-size: 1.8rem;
+      }
+      font-size: 1.55rem;
       width: 100%;
       color: $color-2;
-      font-size: 1.8rem;
+
       text-align: center;
       margin: 1.3rem auto;
       font-family: $font-family-1;
@@ -30,15 +43,27 @@
       height: 1.6rem;
       padding-left: 20px;
       border: none;
-      border-bottom: 1.5px solid $color-2;
+      border-bottom: 2px solid $color-3;
       font-family: $font-family-1;
       font-weight: 700;
       font-size: 1.1rem;
       outline: $color-1;
+
+      &:focus {
+        border-bottom: 2px solid $color-2;
+      }
+
+      &:valid {
+        border-bottom: 2px solid $color-2;
+      }
+
+      &:invalid {
+        box-shadow: none;
+      }
     }
 
     .error {
-      border-bottom: 1.5px solid $color-4;
+      border-bottom: 2px solid $color-4;
 
       &::placeholder {
         color: $color-4;
@@ -64,7 +89,7 @@
       width: 100%;
       font-size: 12px;
       color: $color-4;
-      padding-left: 10px;
+      padding: 2px 0 0 20px;
     }
   }
 }
