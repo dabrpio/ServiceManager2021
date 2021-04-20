@@ -34,27 +34,33 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: ease-out 0.5s;
+
       margin: 3px;
       height: 2rem;
       width: 150px;
-      background-color: $color-5;
+      background-color: $color-2;
       text-align: center;
-      border-radius: 3px;
-
-      &:hover {
-        background-color: lighten($color-5, 10%);
-      }
 
       &__link {
+        @include media-1 {
+          color: $color-2;
+          font-size: 1.7rem;
+          background-color: $color-5;
+
+          &:hover {
+            background-color: lighten($color-5, 10%);
+          }
+        }
         width: 100%;
         height: 100%;
         text-decoration: none;
-        color: $color-2;
-        font-size: 1.7rem;
+        color: $color-5;
+        font-size: 1.4rem;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: ease-out 0.5s;
+        border-radius: 3px;
       }
     }
   }
