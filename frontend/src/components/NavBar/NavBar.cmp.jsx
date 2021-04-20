@@ -1,24 +1,41 @@
+import { Link } from 'react-router-dom';
+import {
+  BsPlusSquareFill,
+  BsFillPersonLinesFill,
+  BsFillHouseFill,
+  BsFillGearFill,
+  BsCardChecklist,
+} from 'react-icons/bs';
 import styles from './NavBar.module.scss';
 
 function NavBar() {
-  //TODO: replace h1 with icons
   return (
     <div className={styles.navbar}>
-      <ul className={styles.navbar__list}>
-        <li>
-          <h1 className={styles.name}>SM21</h1>
+      <ul className={styles.list}>
+        <li className={styles.list__item}>
+          <Link to="/" className={styles.list__item__link}>
+            <BsFillHouseFill />
+          </Link>
         </li>
-        <li className={styles.navbar__list__item}>
-          <h1>Home</h1>
+        <li className={styles.list__item}>
+          <Link to="/tickets" className={styles.list__item__link}>
+            <BsCardChecklist />
+          </Link>
         </li>
-        <li className={styles.navbar__list__item}>
-          <h1>Tickets</h1>
+        <li className={styles.list__item}>
+          <Link to="/tickets/new" className={styles.list__item__link}>
+            <BsPlusSquareFill />
+          </Link>
         </li>
-        <li className={styles.navbar__list__item}>
-          <h1>New</h1>
+        <li className={styles.list__item}>
+          <Link to="/employees" className={styles.list__item__link}>
+            <BsFillPersonLinesFill />
+          </Link>
         </li>
-        <li className={styles.navbar__list__item}>
-          <h1>Settings</h1>
+        <li className={styles.list__item}>
+          <Link to="/settings" className={styles.list__item__link}>
+            <BsFillGearFill />
+          </Link>
         </li>
       </ul>
     </div>

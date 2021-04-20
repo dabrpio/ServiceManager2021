@@ -1,5 +1,17 @@
+import NavBar from '../NavBar';
+
+import styles from './Home.module.scss';
+
 function Home() {
-  return <h2>Home</h2>;
+  return (
+    <>
+      <NavBar />
+
+      <div className={styles.home}>
+        <h1>home</h1>
+      </div>
+    </>
+  );
 }
 
 export default Home;

@@ -1,0 +1,8 @@
+@import '../../sass/config.scss';
+
+.ticket_list {
+  @include media-1 {
+    margin: 0 0 0 120px;
+  }
+  margin: 46px 0 0 0;
+}

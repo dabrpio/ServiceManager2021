@@ -1,12 +1,17 @@
 import { useParams } from 'react-router-dom';
+import NavBar from '../../NavBar';
+import styles from './Ticket.module.scss';
 
 function Ticket() {
   let { ticketId } = useParams();
 
   return (
-    <div>
-      <h3>{ticketId}</h3>
-    </div>
+    <>
+      <NavBar />
+      <div className={styles.ticket}>
+        <h3>{ticketId}</h3>
+      </div>
+    </>
   );
 }
 
