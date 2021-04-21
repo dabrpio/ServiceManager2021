@@ -16,7 +16,7 @@ function NavBar() {
           exact
           to={props.to}
           className={styles.list__item__link}
-          activeStyle={{ backgroundColor: '#e71d36' }}
+          activeStyle={{ backgroundColor: '#e71d36', color: '#011627' }}
         >
           {props.children}
         </NavLink>
@@ -24,7 +24,7 @@ function NavBar() {
     );
   };
   return (
-    <div className={styles.navbar}>
+    <nav className={styles.navbar}>
       <ul className={styles.list}>
         <NavBarLink to="/">
           <BsFillHouseFill />
@@ -42,7 +42,7 @@ function NavBar() {
           <BsFillGearFill />
         </NavBarLink>
       </ul>
-    </div>
+    </nav>
   );
 }
 

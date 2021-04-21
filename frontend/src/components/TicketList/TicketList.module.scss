@@ -1,8 +1,38 @@
 @import '../../sass/config.scss';
 
-.ticket_list {
+.wrapper {
   @include media-1 {
     margin: 0 0 0 120px;
+    padding: 2rem;
+  }
+  @include media-2 {
+    padding: 2rem 3rem;
   }
   margin: 46px 0 0 0;
+  padding: 1rem;
+
+  .ticket_list {
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+      margin: 2px;
+
+      .col_names,
+      .link {
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        align-items: center;
+        text-align: center;
+        border-bottom: 2px solid black;
+        text-decoration: none;
+        color: black;
+        padding: 5px;
+      }
+
+      .col_names {
+        padding: 10px;
+      }
+    }
+  }
 }
