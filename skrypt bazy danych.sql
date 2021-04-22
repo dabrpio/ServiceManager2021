@@ -1,3 +1,4 @@
+
 CREATE TABLE [dbo].[zlecenia] (
     [RMA]            SMALLINT    NOT NULL,
     [imie]           NCHAR (20)  NULL,
