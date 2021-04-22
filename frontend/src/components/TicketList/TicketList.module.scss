@@ -8,6 +8,10 @@
   @include media-2 {
     padding: 2rem 3rem;
   }
+
+  @include media-3 {
+    padding: 2rem 4.5rem;
+  }
   margin: 46px 0 0 0;
   padding: 1rem;
 
@@ -19,21 +23,43 @@
       &__row {
         margin: 2px;
         text-align: center;
-        border-bottom: 2px solid $color-2;
+        border-bottom: 1.5px solid $color-2;
         color: $color-2;
+        font-family: $font-family-1;
+
+        .media_wide {
+          &__date {
+            @include media-1 {
+              display: table-cell;
+            }
+            display: none;
+          }
+
+          &__kind {
+            @include media-2 {
+              display: table-cell;
+            }
+            display: none;
+          }
+        }
       }
     }
 
     &__head__row {
       .header {
-        padding: 10px;
+        padding: 10px 0;
+        font-weight: 600;
       }
     }
 
     &__body__row {
       cursor: pointer;
+
+      &:hover {
+        background-color: lighten($color-3, 50%);
+      }
       .data {
-        padding: 5px;
+        padding: 7px 0;
       }
     }
   }

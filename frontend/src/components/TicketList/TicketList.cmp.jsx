@@ -1,4 +1,5 @@
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import classnames from 'classnames';
 import NavBar from '../NavBar';
 import styles from './TicketList.module.scss';
 
@@ -12,12 +13,12 @@ function TicketList() {
       imie: 'lorem',
       nazwisko: 'ipsum',
       nr_tel: 123456789,
-      data_przyjecia: 'data',
+      data_przyjecia: '01.07.2021',
       rodzaj: 'telefon',
       marka: 'iPhone',
       model: '5s',
       usterka: 'zepsuta bateria',
-      status: 'do naprawy',
+      status: 'done',
       koszt_naprawy: 200,
       koszt_czesci: 100,
       informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
@@ -27,12 +28,12 @@ function TicketList() {
       imie: 'lorem',
       nazwisko: 'ipsum',
       nr_tel: 123456789,
-      data_przyjecia: 'data',
+      data_przyjecia: '01.07.2021',
       rodzaj: 'telefon',
       marka: 'iPhone',
       model: '5s',
       usterka: 'zepsuta bateria',
-      status: 'do naprawy',
+      status: 'done',
       koszt_naprawy: 200,
       koszt_czesci: 100,
       informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
@@ -42,12 +43,12 @@ function TicketList() {
       imie: 'lorem',
       nazwisko: 'ipsum',
       nr_tel: 123456789,
-      data_przyjecia: 'data',
+      data_przyjecia: '01.07.2021',
       rodzaj: 'telefon',
       marka: 'iPhone',
       model: '5s',
       usterka: 'zepsuta bateria',
-      status: 'do naprawy',
+      status: 'done',
       koszt_naprawy: 200,
       koszt_czesci: 100,
       informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
@@ -57,12 +58,12 @@ function TicketList() {
       imie: 'lorem',
       nazwisko: 'ipsum',
       nr_tel: 123456789,
-      data_przyjecia: 'data',
+      data_przyjecia: '01.07.2021',
       rodzaj: 'telefon',
       marka: 'iPhone',
       model: '5s',
       usterka: 'zepsuta bateria',
-      status: 'do naprawy',
+      status: 'done',
       koszt_naprawy: 200,
       koszt_czesci: 100,
       informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
@@ -72,12 +73,12 @@ function TicketList() {
       imie: 'lorem',
       nazwisko: 'ipsum',
       nr_tel: 123456789,
-      data_przyjecia: 'data',
+      data_przyjecia: '01.07.2021',
       rodzaj: 'telefon',
       marka: 'iPhone',
       model: '5s',
       usterka: 'zepsuta bateria',
-      status: 'do naprawy',
+      status: 'done',
       koszt_naprawy: 200,
       koszt_czesci: 100,
       informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
@@ -96,10 +97,20 @@ function TicketList() {
           <thead className={styles.ticket_table__head}>
             <tr className={styles.ticket_table__head__row}>
               <th className={styles.header}>RMA</th>
-              <th className={styles.header}>data</th>
-              <th className={styles.header}>status</th>
-              <th className={styles.header}>rodzaj</th>
+              <th
+                className={classnames(styles.header, styles.media_wide__date)}
+              >
+                data
+              </th>
+              <th
+                className={classnames(styles.header, styles.media_wide__kind)}
+              >
+                rodzaj
+              </th>
+              <th className={styles.header}>marka</th>
+              <th className={styles.header}>model</th>
               <th className={styles.header}>koszt</th>
+              <th className={styles.header}>status</th>
             </tr>
           </thead>
           <tbody className={styles.ticket_table__body}>
@@ -110,10 +121,20 @@ function TicketList() {
                 onClick={() => handleClick(element.RMA)}
               >
                 <td className={styles.data}>{element.RMA}</td>
-                <td className={styles.data}>{element.data_przyjecia}</td>
-                <td className={styles.data}>{element.status}</td>
-                <td className={styles.data}>{element.rodzaj}</td>
+                <td
+                  className={classnames(styles.data, styles.media_wide__date)}
+                >
+                  {element.data_przyjecia}
+                </td>
+                <td
+                  className={classnames(styles.data, styles.media_wide__kind)}
+                >
+                  {element.rodzaj}
+                </td>
+                <td className={styles.data}>{element.marka}</td>
+                <td className={styles.data}>{element.model}</td>
                 <td className={styles.data}>{element.koszt_naprawy}</td>
+                <td className={styles.data}>{element.status}</td>
               </tr>
             ))}
           </tbody>
