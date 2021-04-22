@@ -23,12 +23,12 @@
 
     &__heading {
       @include media-1 {
-        font-size: 1.7rem;
+        font-size: 1.55rem;
       }
       @include media-2 {
-        font-size: 1.8rem;
+        font-size: 1.7rem;
       }
-      font-size: 1.55rem;
+      font-size: 1.45rem;
       width: 100%;
       color: $color-2;
 
