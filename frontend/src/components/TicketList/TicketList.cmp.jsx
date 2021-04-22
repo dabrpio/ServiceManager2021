@@ -1,9 +1,10 @@
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import NavBar from '../NavBar';
 import styles from './TicketList.module.scss';
 
 function TicketList() {
   let { url } = useRouteMatch();
+  const history = useHistory();
 
   const temporaryTicketList = [
     {
@@ -83,32 +84,40 @@ function TicketList() {
     },
   ];
 
+  const handleClick = (id) => {
+    history.push(`${url}/${id}`);
+  };
+
   return (
     <>
       <NavBar />
       <div className={styles.wrapper}>
-        <ul className={styles.ticket_list}>
-          <li className={styles.ticket_list__item}>
-            <div className={styles.col_names}>
-              <p>RMA</p>
-              <p>data</p>
-              <p>status</p>
-              <p>rodzaj</p>
-              <p>koszt</p>
-            </div>
-          </li>
-          {temporaryTicketList.map((element) => (
-            <li className={styles.ticket_list__item} key={element.RMA}>
-              <Link to={`${url}/${element.RMA}`} className={styles.link}>
-                <p>{element.RMA}</p>
-                <p>{element.data_przyjecia}</p>
-                <p>{element.status}</p>
-                <p>{element.rodzaj}</p>
-                <p>{element.koszt_naprawy}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <table className={styles.ticket_table}>
+          <thead className={styles.ticket_table__head}>
+            <tr className={styles.ticket_table__head__row}>
+              <th className={styles.header}>RMA</th>
+              <th className={styles.header}>data</th>
+              <th className={styles.header}>status</th>
+              <th className={styles.header}>rodzaj</th>
+              <th className={styles.header}>koszt</th>
+            </tr>
+          </thead>
+          <tbody className={styles.ticket_table__body}>
+            {temporaryTicketList.map((element) => (
+              <tr
+                className={styles.ticket_table__body__row}
+                key={element.RMA}
+                onClick={() => handleClick(element.RMA)}
+              >
+                <td className={styles.data}>{element.RMA}</td>
+                <td className={styles.data}>{element.data_przyjecia}</td>
+                <td className={styles.data}>{element.status}</td>
+                <td className={styles.data}>{element.rodzaj}</td>
+                <td className={styles.data}>{element.koszt_naprawy}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );

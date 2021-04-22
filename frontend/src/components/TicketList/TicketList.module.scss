@@ -11,27 +11,29 @@
   margin: 46px 0 0 0;
   padding: 1rem;
 
-  .ticket_list {
-    display: flex;
-    flex-direction: column;
+  .ticket_table {
+    width: 100%;
 
-    &__item {
-      margin: 2px;
-
-      .col_names,
-      .link {
-        display: grid;
-        grid-template-columns: 20% 20% 20% 20% 20%;
-        align-items: center;
+    &__body,
+    &__head {
+      &__row {
+        margin: 2px;
         text-align: center;
-        border-bottom: 2px solid black;
-        text-decoration: none;
-        color: black;
-        padding: 5px;
+        border-bottom: 2px solid $color-2;
+        color: $color-2;
       }
+    }
 
-      .col_names {
+    &__head__row {
+      .header {
         padding: 10px;
+      }
+    }
+
+    &__body__row {
+      cursor: pointer;
+      .data {
+        padding: 5px;
       }
     }
   }
