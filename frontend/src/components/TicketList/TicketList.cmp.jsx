@@ -1,89 +1,12 @@
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import classnames from 'classnames';
 import NavBar from '../NavBar';
+import { exampleTicketList } from '../../temp/ExampleTicketList';
 import styles from './TicketList.module.scss';
 
 function TicketList() {
   let { url } = useRouteMatch();
   const history = useHistory();
-
-  const temporaryTicketList = [
-    {
-      RMA: 1,
-      imie: 'lorem',
-      nazwisko: 'ipsum',
-      nr_tel: 123456789,
-      data_przyjecia: '01.07.2021',
-      rodzaj: 'telefon',
-      marka: 'iPhone',
-      model: '5s',
-      usterka: 'zepsuta bateria',
-      status: 'done',
-      koszt_naprawy: 200,
-      koszt_czesci: 100,
-      informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    },
-    {
-      RMA: 2,
-      imie: 'lorem',
-      nazwisko: 'ipsum',
-      nr_tel: 123456789,
-      data_przyjecia: '01.07.2021',
-      rodzaj: 'telefon',
-      marka: 'iPhone',
-      model: '5s',
-      usterka: 'zepsuta bateria',
-      status: 'done',
-      koszt_naprawy: 200,
-      koszt_czesci: 100,
-      informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    },
-    {
-      RMA: 3,
-      imie: 'lorem',
-      nazwisko: 'ipsum',
-      nr_tel: 123456789,
-      data_przyjecia: '01.07.2021',
-      rodzaj: 'telefon',
-      marka: 'iPhone',
-      model: '5s',
-      usterka: 'zepsuta bateria',
-      status: 'done',
-      koszt_naprawy: 200,
-      koszt_czesci: 100,
-      informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    },
-    {
-      RMA: 4,
-      imie: 'lorem',
-      nazwisko: 'ipsum',
-      nr_tel: 123456789,
-      data_przyjecia: '01.07.2021',
-      rodzaj: 'telefon',
-      marka: 'iPhone',
-      model: '5s',
-      usterka: 'zepsuta bateria',
-      status: 'done',
-      koszt_naprawy: 200,
-      koszt_czesci: 100,
-      informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    },
-    {
-      RMA: 5,
-      imie: 'lorem',
-      nazwisko: 'ipsum',
-      nr_tel: 123456789,
-      data_przyjecia: '01.07.2021',
-      rodzaj: 'telefon',
-      marka: 'iPhone',
-      model: '5s',
-      usterka: 'zepsuta bateria',
-      status: 'done',
-      koszt_naprawy: 200,
-      koszt_czesci: 100,
-      informacje: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    },
-  ];
 
   const handleClick = (id) => {
     history.push(`${url}/${id}`);
@@ -114,7 +37,7 @@ function TicketList() {
             </tr>
           </thead>
           <tbody className={styles.ticket_table__body}>
-            {temporaryTicketList.map((element) => (
+            {exampleTicketList.map((element) => (
               <tr
                 className={styles.ticket_table__body__row}
                 key={element.RMA}
