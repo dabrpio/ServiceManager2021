@@ -15,4 +15,3 @@ CREATE TABLE [dbo].[zlecenia] (
     [informacje]     NCHAR (100) NULL,
     CONSTRAINT [PK_zlecenia] PRIMARY KEY CLUSTERED ([RMA] ASC)
 );
-test
