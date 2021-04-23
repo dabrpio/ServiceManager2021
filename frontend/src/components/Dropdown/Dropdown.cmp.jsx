@@ -26,7 +26,11 @@ const Dropdown = (props) => {
         className={styles.dropdown__header}
         onClick={toggleList}
       >
-        <h2 className={styles.dropdown__header__title}>
+        <h2
+          className={classnames(styles.dropdown__header__title, {
+            [styles.empty]: !title,
+          })}
+        >
           {title ?? defaultTitle}
         </h2>
       </button>

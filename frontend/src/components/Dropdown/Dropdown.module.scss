@@ -14,6 +14,11 @@
     background-color: $color-1;
     color: $color-2;
     cursor: pointer;
+    font-family: $font-family-1;
+
+    .empty {
+      color: $color-3;
+    }
 
     &__title {
       width: 100%;

@@ -49,6 +49,10 @@
       font-size: 1.1rem;
       outline: $color-1;
 
+      &::placeholder {
+        color: $color-3;
+      }
+
       &:focus {
         border-bottom: 2px solid $color-2;
       }

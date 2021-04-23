@@ -25,5 +25,37 @@
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+
+    .input {
+      width: 200px;
+      height: 30px;
+      margin: 5px 0;
+      padding: 0.3rem 1rem;
+      border: none;
+      border-bottom: 1.5px solid $color-3;
+      outline: $color-1;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      &[type='number'] {
+        -moz-appearance: textfield;
+      }
+
+      &:focus {
+        border-bottom: 1.5px solid $color-2;
+      }
+
+      &:valid {
+        border-bottom: 1.5px solid $color-2;
+      }
+
+      &:invalid {
+        border-bottom: 1.5px solid $color-4;
+      }
+    }
   }
 }

@@ -57,6 +57,44 @@ function Ticket() {
             list={statusTypes}
             resetThenSet={resetThenSet}
           />
+          <input
+            className={styles.input}
+            type="number"
+            min="0"
+            pattern={new RegExp('[0-9]{1,}')}
+            value={ticketData.cost ?? ''}
+            onChange={(event) =>
+              setTicketData({
+                ...ticketData,
+                cost: event.target.value,
+              })
+            }
+            placeholder="koszt"
+          />
+          <input
+            className={styles.input}
+            type="text"
+            value={ticketData.additional_info ?? ''}
+            onChange={(event) =>
+              setTicketData({
+                ...ticketData,
+                additional_info: event.target.value,
+              })
+            }
+            placeholder="dodatkowe informacje"
+          />
+          <input
+            className={styles.input}
+            type="text"
+            value={ticketData.password ?? ''}
+            onChange={(event) =>
+              setTicketData({
+                ...ticketData,
+                password: event.target.value,
+              })
+            }
+            placeholder="hasło"
+          />
         </form>
       </div>
     </>
