@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { deviceTypes } from '../../common/dropdownOptions';
+import {
+  deviceTypes,
+  brandTypes,
+  modelTypes,
+  statusTypes,
+} from '../../common/dropdownOptions';
 import NavBar from '../NavBar';
 import Dropdown from '../Dropdown';
 import styles from './Ticket.module.scss';
@@ -31,11 +36,28 @@ function Ticket() {
       <NavBar />
       <div className={styles.ticket}>
         <h2 className={styles.heading}>ZLECENIE {ticketId}</h2>
-        <Dropdown
-          defaultTitle="typ urządzenia"
-          list={deviceTypes}
-          resetThenSet={resetThenSet}
-        />
+        <form className={styles.form}>
+          <Dropdown
+            defaultTitle="typ urządzenia"
+            list={deviceTypes}
+            resetThenSet={resetThenSet}
+          />
+          <Dropdown
+            defaultTitle="producent"
+            list={brandTypes}
+            resetThenSet={resetThenSet}
+          />
+          <Dropdown
+            defaultTitle="model"
+            list={modelTypes}
+            resetThenSet={resetThenSet}
+          />
+          <Dropdown
+            defaultTitle="status"
+            list={statusTypes}
+            resetThenSet={resetThenSet}
+          />
+        </form>
       </div>
     </>
   );

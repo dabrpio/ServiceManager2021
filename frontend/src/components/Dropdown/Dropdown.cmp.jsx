@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import classnames from 'classnames';
 import styles from './Dropdown.module.scss';
 
 const Dropdown = (props) => {
@@ -30,7 +31,12 @@ const Dropdown = (props) => {
         </h2>
       </button>
       {listOpen && (
-        <div role="list" className={styles.dropdown__content}>
+        <div
+          role="list"
+          className={classnames(styles.dropdown__content, {
+            [styles.long_list]: list.length > 5,
+          })}
+        >
           {list.map((item) => (
             <button
               type="button"

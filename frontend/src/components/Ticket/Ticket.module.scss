@@ -20,4 +20,10 @@
     font-weight: 600;
     font-size: 1.2rem;
   }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
 }

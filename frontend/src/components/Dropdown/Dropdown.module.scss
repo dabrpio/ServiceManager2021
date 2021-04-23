@@ -3,7 +3,6 @@
 .dropdown {
   position: relative;
   display: inline-block;
-  margin: 20px 0;
 
   &__header {
     width: 200px;
@@ -22,6 +21,9 @@
       text-align: left;
     }
   }
+  .long_list {
+    padding: 0 10px;
+  }
 
   &__content {
     position: absolute;
@@ -31,7 +33,6 @@
     align-items: center;
     overflow-y: auto;
     max-height: 155px;
-    padding: 0 10px;
     background: $color-1;
 
     &__item {
