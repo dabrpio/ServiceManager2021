@@ -35,70 +35,119 @@ function Ticket() {
     <>
       <NavBar />
       <div className={styles.ticket}>
-        <h2 className={styles.heading}>ZLECENIE {ticketId}</h2>
         <form className={styles.form}>
-          <Dropdown
-            defaultTitle="typ urządzenia"
-            list={deviceTypes}
-            resetThenSet={resetThenSet}
-          />
-          <Dropdown
-            defaultTitle="producent"
-            list={brandTypes}
-            resetThenSet={resetThenSet}
-          />
-          <Dropdown
-            defaultTitle="model"
-            list={modelTypes}
-            resetThenSet={resetThenSet}
-          />
-          <Dropdown
-            defaultTitle="status"
-            list={statusTypes}
-            resetThenSet={resetThenSet}
-          />
-          <input
-            className={styles.input}
-            type="number"
-            min="0"
-            pattern={new RegExp('[0-9]{1,}')}
-            value={ticketData.cost ?? ''}
-            onChange={(event) =>
-              setTicketData({
-                ...ticketData,
-                cost: event.target.value,
-              })
-            }
-            placeholder="koszt"
-          />
-          <input
-            className={styles.input}
-            type="text"
-            value={ticketData.additional_info ?? ''}
-            onChange={(event) =>
-              setTicketData({
-                ...ticketData,
-                additional_info: event.target.value,
-              })
-            }
-            placeholder="dodatkowe informacje"
-          />
-          <input
-            className={styles.input}
-            type="text"
-            value={ticketData.password ?? ''}
-            onChange={(event) =>
-              setTicketData({
-                ...ticketData,
-                password: event.target.value,
-              })
-            }
-            placeholder="hasło"
-          />
+          <fieldset className={styles.form__ticket}>
+            <h2 className={styles.heading}>ZLECENIE {ticketId}</h2>
+            <Dropdown
+              defaultTitle="typ urządzenia"
+              list={deviceTypes}
+              resetThenSet={resetThenSet}
+            />
+            <Dropdown
+              defaultTitle="producent"
+              list={brandTypes}
+              resetThenSet={resetThenSet}
+            />
+            <Dropdown
+              defaultTitle="model"
+              list={modelTypes}
+              resetThenSet={resetThenSet}
+            />
+            <Dropdown
+              defaultTitle="status"
+              list={statusTypes}
+              resetThenSet={resetThenSet}
+            />
+            <TicketInput
+              ticketData={ticketData}
+              setTicketData={setTicketData}
+              valueType="cost"
+              text="koszt"
+              inputType="number"
+              min="0"
+              pattern={new RegExp('[0-9]{1,}')}
+            />
+            <TicketInput
+              ticketData={ticketData}
+              setTicketData={setTicketData}
+              valueType="additional_info"
+              text="dodatkowe informacje"
+              inputType="text"
+            />
+            <TicketInput
+              ticketData={ticketData}
+              setTicketData={setTicketData}
+              valueType="password"
+              text="hasło"
+              inputType="text"
+            />
+          </fieldset>
+          <fieldset className={styles.form__client_data}>
+            <h2 className={styles.heading}>DANE KLIENTA</h2>
+
+            <TicketInput
+              ticketData={ticketData}
+              setTicketData={setTicketData}
+              valueType="name"
+              text="imię"
+              inputType="text"
+            />
+            <TicketInput
+              ticketData={ticketData}
+              setTicketData={setTicketData}
+              valueType="surname"
+              text="nazwisko"
+              inputType="text"
+            />
+            <TicketInput
+              ticketData={ticketData}
+              setTicketData={setTicketData}
+              valueType="email"
+              text="email"
+              inputType="email"
+            />
+            <TicketInput
+              ticketData={ticketData}
+              setTicketData={setTicketData}
+              valueType="phone_number"
+              text="nr tel."
+              inputType="number"
+            />
+          </fieldset>
         </form>
       </div>
     </>
   );
 }
+
+const TicketInput = (props) => {
+  const {
+    ticketData,
+    setTicketData,
+    valueType,
+    text,
+    inputType,
+    min,
+    pattern,
+  } = props;
+  return (
+    <div className={styles.input_container}>
+      <input
+        className={styles.input}
+        type={inputType}
+        pattern={pattern}
+        min={min}
+        value={ticketData[valueType] ?? ''}
+        onChange={(event) =>
+          setTicketData({
+            ...ticketData,
+            [valueType]: event.target.value,
+          })
+        }
+        placeholder={text}
+      />
+    </div>
+  );
+};
 
 export default Ticket;
