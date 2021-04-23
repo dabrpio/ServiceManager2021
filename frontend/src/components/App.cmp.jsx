@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import EmployeeList from './EmployeeList';
-import Employee from './EmployeeList/Employee';
+import Employee from './Employee';
 import Home from './Home';
 import Login from './Login';
 import Settings from './Settings';
 import TicketList from './TicketList';
-import Ticket from './TicketList/Ticket';
+import Ticket from './Ticket';
 
 function App() {
   return (

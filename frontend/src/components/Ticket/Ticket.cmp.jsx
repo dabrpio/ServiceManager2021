@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import NavBar from '../../NavBar';
-import Dropdown from '../../common/dropdown';
+import { deviceTypes } from '../../common/dropdownOptions';
+import NavBar from '../NavBar';
+import Dropdown from '../Dropdown';
 import styles from './Ticket.module.scss';
 
 function Ticket() {
@@ -24,18 +25,6 @@ function Ticket() {
   const resetThenSet = (key, title) => {
     setTicketData({ ...ticketData, [key]: title });
   };
-
-  const deviceTypes = [
-    { title: 'Samsung', key: 'device_type', id: 1 },
-    { title: 'iPhone', key: 'device_type', id: 2 },
-    { title: 'Sony', key: 'device_type', id: 3 },
-    { title: 'Xiaomi', key: 'device_type', id: 4 },
-    { title: 'Hwawei', key: 'device_type', id: 5 },
-    { title: 'Motorola', key: 'device_type', id: 6 },
-    { title: 'BlackBerry', key: 'device_type', id: 7 },
-    { title: 'LG', key: 'device_type', id: 8 },
-    { title: 'Nokia', key: 'device_type', id: 9 },
-  ];
 
   return (
     <>
