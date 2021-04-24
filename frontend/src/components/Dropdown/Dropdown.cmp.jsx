@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import styles from './Dropdown.module.scss';
 
@@ -6,6 +6,7 @@ const Dropdown = (props) => {
   const [listOpen, setListOpen] = useState(false);
   const [title, setTitle] = useState(null);
   const { list, defaultTitle, resetThenSet } = props;
+  const node = useRef();
 
   const toggleList = () => {
     setListOpen(!listOpen);
@@ -19,8 +20,27 @@ const Dropdown = (props) => {
     toggleList();
   };
 
+  const handleClickOutside = (e) => {
+    if (node.current.contains(e.target)) {
+      return;
+    }
+    setListOpen(false);
+  };
+
+  useEffect(() => {
+    if (listOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [listOpen]);
+
   return (
-    <div className={styles.dropdown}>
+    <div className={styles.dropdown} ref={node}>
       <button
         type="button"
         className={styles.dropdown__header}
