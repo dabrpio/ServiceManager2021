@@ -19,56 +19,71 @@
   justify-content: center;
 
   .form {
-    display: flex;
-    flex-direction: column;
+    @include media-2 {
+      grid-template-areas: 'ticket client';
+      grid-template-columns: 1fr 1fr;
+    }
+
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'ticket'
+      'client';
 
     &__client_data {
-      margin-top: 15px;
+      grid-area: client;
+    }
+
+    &__ticket {
+      grid-area: ticket;
     }
 
     &__client_data,
     &__ticket {
+      width: 100%;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+
       .heading {
+        width: 70%;
         margin-bottom: 10px;
         font-family: $font-family-2;
         font-weight: 600;
         font-size: 1.2rem;
       }
 
-      .input_container {
-        width: 100%;
-        .input {
-          width: 200px;
-          height: 30px;
-          margin: 5px 0;
-          padding: 0.3rem 1rem;
-          border: none;
-          border-bottom: 1.5px solid $color-3;
-          outline: $color-1;
+      .input {
+        width: 70%;
+        height: 30px;
+        margin: 5px 0;
+        padding: 0.3rem 1rem;
+        border: none;
+        border-bottom: 1.5px solid $color-3;
+        outline: $color-1;
 
-          &::-webkit-outer-spin-button,
-          &::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-          }
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
 
-          &[type='number'] {
-            -moz-appearance: textfield;
-          }
+        &[type='number'] {
+          -moz-appearance: textfield;
+        }
 
-          &:focus {
-            border-bottom: 1.5px solid $color-2;
-          }
+        &:focus {
+          border-bottom: 1.5px solid $color-2;
+        }
 
-          &:valid {
-            border-bottom: 1.5px solid $color-2;
-          }
+        &:valid {
+          border-bottom: 1.5px solid $color-2;
+        }
 
-          &:invalid {
-            border-bottom: 1.5px solid $color-4;
-          }
+        &:invalid {
+          border-bottom: 1.5px solid $color-4;
         }
       }
     }

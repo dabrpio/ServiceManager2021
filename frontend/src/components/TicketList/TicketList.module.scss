@@ -29,14 +29,14 @@
 
         .media_wide {
           &__date {
-            @include media-1 {
+            @include media-2 {
               display: table-cell;
             }
             display: none;
           }
 
           &__kind {
-            @include media-2 {
+            @include media-3 {
               display: table-cell;
             }
             display: none;

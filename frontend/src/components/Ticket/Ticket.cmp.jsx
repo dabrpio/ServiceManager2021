@@ -131,22 +131,20 @@ const TicketInput = (props) => {
     pattern,
   } = props;
   return (
-    <div className={styles.input_container}>
-      <input
-        className={styles.input}
-        type={inputType}
-        pattern={pattern}
-        min={min}
-        value={ticketData[valueType] ?? ''}
-        onChange={(event) =>
-          setTicketData({
-            ...ticketData,
-            [valueType]: event.target.value,
-          })
-        }
-        placeholder={text}
-      />
-    </div>
+    <input
+      className={styles.input}
+      type={inputType}
+      pattern={pattern}
+      min={min}
+      value={ticketData[valueType] ?? ''}
+      onChange={(event) =>
+        setTicketData({
+          ...ticketData,
+          [valueType]: event.target.value,
+        })
+      }
+      placeholder={text}
+    />
   );
 };
 

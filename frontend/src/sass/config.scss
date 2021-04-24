@@ -12,12 +12,12 @@ $font-family-1: 'Roboto', sans-serif;
 $font-family-2: 'Roboto Slab', serif;
 
 @mixin media-1 {
-  @media screen and (min-width: 576px) {
+  @media screen and (min-width: 500px) {
     @content;
   }
 }
 @mixin media-2 {
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 700px) {
     @content;
   }
 }
