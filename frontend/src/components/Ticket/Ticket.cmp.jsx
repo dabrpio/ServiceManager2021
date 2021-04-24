@@ -8,6 +8,7 @@ import {
 } from '../../common/dropdownOptions';
 import NavBar from '../NavBar';
 import Dropdown from '../Dropdown';
+import FormButton from '../FormButton';
 import styles from './Ticket.module.scss';
 
 function Ticket() {
@@ -114,6 +115,11 @@ function Ticket() {
               inputType="number"
             />
           </fieldset>
+          <div className={styles.button_section}>
+            <FormButton text="ZAPISZ" color_dark={true} />
+            <FormButton text="DOKUMENT" color_bright={true} />
+            <FormButton text="GWARANCJA" color_bright={true} />
+          </div>
         </form>
       </div>
     </>

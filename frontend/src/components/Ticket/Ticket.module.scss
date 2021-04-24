@@ -20,7 +20,9 @@
 
   .form {
     @include media-2 {
-      grid-template-areas: 'ticket client';
+      grid-template-areas:
+        'ticket client'
+        'buttons buttons';
       grid-template-columns: 1fr 1fr;
     }
 
@@ -29,7 +31,8 @@
     grid-template-columns: 1fr;
     grid-template-areas:
       'ticket'
-      'client';
+      'client'
+      'buttons';
 
     &__client_data {
       grid-area: client;
@@ -56,12 +59,19 @@
       }
 
       .input {
+        @include media-1 {
+          font-size: 1rem;
+        }
         width: 70%;
         height: 30px;
         margin: 5px 0;
         padding: 0.3rem 1rem;
         border: none;
         border-bottom: 1.5px solid $color-3;
+        font-family: $font-family-1;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         outline: $color-1;
 
         &::-webkit-outer-spin-button,
@@ -86,6 +96,22 @@
           border-bottom: 1.5px solid $color-4;
         }
       }
+    }
+
+    .button_section {
+      @include media-2 {
+        grid-template-columns: 30% 30% 30%;
+        grid-template-rows: auto;
+        justify-content: space-between;
+        width: 90%;
+        margin: 50px auto 0;
+      }
+      grid-area: buttons;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      width: 70%;
+      margin: 20px auto 0;
     }
   }
 }
