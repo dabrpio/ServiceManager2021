@@ -29,15 +29,16 @@ namespace CommandApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CommandApiContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
+            services.AddDbContext<masterContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CommandApi", Version = "v1" });
             });
-            //services.AddScoped<ICommandApiRepo, MockCommandApiRepo>();
-            services.AddScoped<ICommandApiRepo, SqlCommandApiRepo>();
+           // services.AddScoped<ICommandApiRepo, SqlCommandApiRepo>();
+            services.AddScoped<IMasterRepo, SqlMasterRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
