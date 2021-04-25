@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import classnames from 'classnames';
 import styles from './FormInput.module.scss';
 
 const FormInput = (props) => {
@@ -10,16 +10,14 @@ const FormInput = (props) => {
     text,
     stateValue,
     setValue,
+    error,
   } = props;
-
-  useEffect(() => {
-    console.log(valueKey);
-    console.log(stateValue[valueKey]);
-  }, [stateValue]);
 
   return (
     <input
-      className={styles.input}
+      className={classnames(styles.input, {
+        [styles.error]: error,
+      })}
       type={inputType}
       pattern={pattern}
       min={min}

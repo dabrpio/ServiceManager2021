@@ -23,6 +23,9 @@ function Ticket() {
     password: null,
     status: null,
     additional_info: null,
+  });
+
+  const [clientData, setClientData] = useState({
     name: null,
     surname: null,
     email: null,
@@ -88,29 +91,29 @@ function Ticket() {
             <h2 className={styles.heading}>DANE KLIENTA</h2>
 
             <FormInput
-              stateValue={ticketData}
-              setValue={setTicketData}
+              stateValue={clientData}
+              setValue={setClientData}
               valueKey="name"
               text="imię"
               inputType="text"
             />
             <FormInput
-              stateValue={ticketData}
-              setValue={setTicketData}
+              stateValue={clientData}
+              setValue={setClientData}
               valueKey="surname"
               text="nazwisko"
               inputType="text"
             />
             <FormInput
-              stateValue={ticketData}
-              setValue={setTicketData}
+              stateValue={clientData}
+              setValue={setClientData}
               valueKey="email"
               text="email"
               inputType="email"
             />
             <FormInput
-              stateValue={ticketData}
-              setValue={setTicketData}
+              stateValue={clientData}
+              setValue={setClientData}
               valueKey="phone_number"
               text="nr tel."
               inputType="number"
