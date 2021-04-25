@@ -9,6 +9,7 @@ import {
 import NavBar from '../NavBar';
 import Dropdown from '../Dropdown';
 import FormButton from '../FormButton';
+import FormInput from '../FormInput';
 import styles from './Ticket.module.scss';
 
 function Ticket() {
@@ -22,6 +23,9 @@ function Ticket() {
     password: null,
     status: null,
     additional_info: null,
+  });
+
+  const [clientData, setClientData] = useState({
     name: null,
     surname: null,
     email: null,
@@ -59,26 +63,26 @@ function Ticket() {
               list={statusTypes}
               resetThenSet={resetThenSet}
             />
-            <TicketInput
-              ticketData={ticketData}
-              setTicketData={setTicketData}
-              valueType="cost"
+            <FormInput
+              stateValue={ticketData}
+              setValue={setTicketData}
+              valueKey="cost"
               text="koszt"
               inputType="number"
               min="0"
               pattern={new RegExp('[0-9]{1,}')}
             />
-            <TicketInput
-              ticketData={ticketData}
-              setTicketData={setTicketData}
-              valueType="additional_info"
+            <FormInput
+              stateValue={ticketData}
+              setValue={setTicketData}
+              valueKey="additional_info"
               text="dodatkowe informacje"
               inputType="text"
             />
-            <TicketInput
-              ticketData={ticketData}
-              setTicketData={setTicketData}
-              valueType="password"
+            <FormInput
+              stateValue={ticketData}
+              setValue={setTicketData}
+              valueKey="password"
               text="hasło"
               inputType="text"
             />
@@ -86,31 +90,31 @@ function Ticket() {
           <fieldset className={styles.form__client_data}>
             <h2 className={styles.heading}>DANE KLIENTA</h2>
 
-            <TicketInput
-              ticketData={ticketData}
-              setTicketData={setTicketData}
-              valueType="name"
+            <FormInput
+              stateValue={clientData}
+              setValue={setClientData}
+              valueKey="name"
               text="imię"
               inputType="text"
             />
-            <TicketInput
-              ticketData={ticketData}
-              setTicketData={setTicketData}
-              valueType="surname"
+            <FormInput
+              stateValue={clientData}
+              setValue={setClientData}
+              valueKey="surname"
               text="nazwisko"
               inputType="text"
             />
-            <TicketInput
-              ticketData={ticketData}
-              setTicketData={setTicketData}
-              valueType="email"
+            <FormInput
+              stateValue={clientData}
+              setValue={setClientData}
+              valueKey="email"
               text="email"
               inputType="email"
             />
-            <TicketInput
-              ticketData={ticketData}
-              setTicketData={setTicketData}
-              valueType="phone_number"
+            <FormInput
+              stateValue={clientData}
+              setValue={setClientData}
+              valueKey="phone_number"
               text="nr tel."
               inputType="number"
             />
@@ -125,33 +129,5 @@ function Ticket() {
     </>
   );
 }
-
-const TicketInput = (props) => {
-  const {
-    ticketData,
-    setTicketData,
-    valueType,
-    text,
-    inputType,
-    min,
-    pattern,
-  } = props;
-  return (
-    <input
-      className={styles.input}
-      type={inputType}
-      pattern={pattern}
-      min={min}
-      value={ticketData[valueType] ?? ''}
-      onChange={(event) =>
-        setTicketData({
-          ...ticketData,
-          [valueType]: event.target.value,
-        })
-      }
-      placeholder={text}
-    />
-  );
-};
 
 export default Ticket;

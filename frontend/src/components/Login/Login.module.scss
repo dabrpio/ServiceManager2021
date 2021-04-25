@@ -33,59 +33,9 @@
       color: $color-2;
 
       text-align: center;
-      margin: 1.3rem auto;
+      margin: 1rem auto;
       font-family: $font-family-1;
       font-weight: 600;
-    }
-
-    &__input {
-      width: 100%;
-      height: 1.6rem;
-      padding-left: 20px;
-      border: none;
-      border-bottom: 2px solid $color-3;
-      font-family: $font-family-1;
-      font-weight: 700;
-      font-size: 1.1rem;
-      outline: $color-1;
-
-      &::placeholder {
-        color: $color-3;
-      }
-
-      &:focus {
-        border-bottom: 2px solid $color-2;
-      }
-
-      &:valid {
-        border-bottom: 2px solid $color-2;
-      }
-
-      &:invalid {
-        box-shadow: none;
-      }
-    }
-
-    .error {
-      border-bottom: 2px solid $color-4;
-
-      &::placeholder {
-        color: $color-4;
-      }
-    }
-
-    &__button {
-      background-color: $color-2;
-      color: $color-1;
-      border: none;
-      width: 100%;
-      height: 2rem;
-      margin: 0.8rem auto;
-      cursor: pointer;
-      font-family: $font-family-1;
-      font-weight: 700;
-      font-size: 1.1rem;
-      box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.25);
     }
 
     .error_message {
