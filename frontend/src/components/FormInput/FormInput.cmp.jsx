@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styles from './FormInput.module.scss';
 
 const FormInput = (props) => {
@@ -10,18 +11,26 @@ const FormInput = (props) => {
     stateValue,
     setValue,
   } = props;
+
+  useEffect(() => {
+    console.log(valueKey);
+    console.log(stateValue[valueKey]);
+  }, [stateValue]);
+
   return (
     <input
       className={styles.input}
       type={inputType}
       pattern={pattern}
       min={min}
-      value={stateValue[valueKey] ?? ''}
+      value={(valueKey ? stateValue[valueKey] : stateValue) ?? ''}
       onChange={(event) =>
-        setValue({
-          ...stateValue,
-          [valueKey]: event.target.value,
-        })
+        valueKey
+          ? setValue({
+              ...stateValue,
+              [valueKey]: event.target.value,
+            })
+          : setValue(event.target.value)
       }
       placeholder={text}
     />
