@@ -25,11 +25,24 @@ namespace CommandApi.Controllers
         }
 
         //GET api/zlecenia/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetZlecenieByRma")]
         public ActionResult<Zlecenie>GetZlecenieByRma(int Rma){
             var commandItem = _repository.GetZlecenieByRma(Rma);
-            return Ok(commandItem);
+            if(commandItem!=null){
+                return Ok(commandItem);
+            }
+            else{
+                return NotFound();
+            }
         }
 
+
+        //POST api/zlecenia
+        [HttpPost]
+        public ActionResult<Zlecenie>CreateZlecenie(Zlecenie zlecenie){
+            _repository.CreateZlecenie(zlecenie);
+            _repository.SaveChanges();
+            return Ok(zlecenie);
+        }
     }
 }

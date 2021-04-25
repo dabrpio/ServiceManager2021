@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CommandApi.Models;
@@ -12,6 +13,15 @@ namespace CommandApi.Data
         {
             _context = context;
         }
+
+        public void CreateZlecenie(Zlecenie zlecenie)
+        {
+            if(zlecenie==null){
+                throw new ArgumentNullException(nameof(zlecenie));
+            }
+            _context.Zlecenia.Add(zlecenie);
+        }
+
         public IEnumerable<Zlecenie> GetAllZlecenia()
         {
             return _context.Zlecenia.ToList();
@@ -20,6 +30,11 @@ namespace CommandApi.Data
         public Zlecenie GetZlecenieByRma(int Rma)
         {
             return _context.Zlecenia.FirstOrDefault(p=>p.Rma==Rma);
+        }
+
+        public bool SaveChanges()
+        {
+           return (_context.SaveChanges()>=0);
         }
     }
 }
