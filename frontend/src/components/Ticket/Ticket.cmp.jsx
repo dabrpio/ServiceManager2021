@@ -19,21 +19,27 @@ function Ticket() {
     device_type: null,
     brand: null,
     model: null,
-    cost: null,
+    repair_cost: null,
+    customers_cost: null,
     password: null,
+    defect_description: null,
     status: null,
     additional_info: null,
-  });
-
-  const [clientData, setClientData] = useState({
     name: null,
     surname: null,
     email: null,
     phone_number: null,
   });
 
-  const resetThenSet = (key, title) => {
+  const setTicketDropdown = (key, title) => {
     setTicketData({ ...ticketData, [key]: title });
+  };
+
+  const setInputTicketData = (key, value) => {
+    setTicketData({
+      ...ticketData,
+      [key]: value,
+    });
   };
 
   return (
@@ -46,42 +52,58 @@ function Ticket() {
             <Dropdown
               defaultTitle="typ urządzenia"
               list={deviceTypes}
-              resetThenSet={resetThenSet}
+              resetThenSet={setTicketDropdown}
             />
             <Dropdown
               defaultTitle="producent"
               list={brandTypes}
-              resetThenSet={resetThenSet}
+              resetThenSet={setTicketDropdown}
             />
             <Dropdown
               defaultTitle="model"
               list={modelTypes}
-              resetThenSet={resetThenSet}
+              resetThenSet={setTicketDropdown}
             />
             <Dropdown
               defaultTitle="status"
               list={statusTypes}
-              resetThenSet={resetThenSet}
+              resetThenSet={setTicketDropdown}
             />
             <FormInput
-              stateValue={ticketData}
-              setValue={setTicketData}
-              valueKey="cost"
-              text="koszt"
+              stateValue={ticketData.defect_description}
+              resetThenSet={setInputTicketData}
+              valueKey="defect_description"
+              text="usterka"
+              inputType="text"
+            />
+            <FormInput
+              stateValue={ticketData.repair_cost}
+              resetThenSet={setInputTicketData}
+              valueKey="repair_cost"
+              text="koszt części"
               inputType="number"
               min="0"
-              pattern={new RegExp('[0-9]{1,}')}
+              inputPattern="[0-9]{1,}"
             />
             <FormInput
-              stateValue={ticketData}
-              setValue={setTicketData}
+              stateValue={ticketData.customers_cost}
+              resetThenSet={setInputTicketData}
+              valueKey="customers_cost"
+              text="koszt naprawy"
+              inputType="number"
+              min="0"
+              inputPattern="[0-9]{1,}"
+            />
+            <FormInput
+              stateValue={ticketData.additional_info}
+              resetThenSet={setInputTicketData}
               valueKey="additional_info"
               text="dodatkowe informacje"
               inputType="text"
             />
             <FormInput
-              stateValue={ticketData}
-              setValue={setTicketData}
+              stateValue={ticketData.password}
+              resetThenSet={setInputTicketData}
               valueKey="password"
               text="hasło"
               inputType="text"
@@ -91,32 +113,35 @@ function Ticket() {
             <h2 className={styles.heading}>DANE KLIENTA</h2>
 
             <FormInput
-              stateValue={clientData}
-              setValue={setClientData}
+              stateValue={ticketData.name}
+              resetThenSet={setInputTicketData}
               valueKey="name"
               text="imię"
               inputType="text"
+              inputPattern="[A-Za-z]{1,10}"
             />
             <FormInput
-              stateValue={clientData}
-              setValue={setClientData}
+              stateValue={ticketData.surname}
+              resetThenSet={setInputTicketData}
               valueKey="surname"
               text="nazwisko"
               inputType="text"
+              inputPattern="[A-Za-z]{1,10}"
             />
             <FormInput
-              stateValue={clientData}
-              setValue={setClientData}
+              stateValue={ticketData.email}
+              resetThenSet={setInputTicketData}
               valueKey="email"
               text="email"
               inputType="email"
             />
             <FormInput
-              stateValue={clientData}
-              setValue={setClientData}
+              stateValue={ticketData.phone_number}
+              resetThenSet={setInputTicketData}
               valueKey="phone_number"
               text="nr tel."
               inputType="number"
+              inputPattern="[0-9]{9}"
             />
           </fieldset>
           <div className={styles.button_section}>

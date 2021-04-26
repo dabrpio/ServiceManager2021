@@ -43,14 +43,12 @@ const Dropdown = (props) => {
     <div className={styles.dropdown} ref={node}>
       <button
         type="button"
-        className={styles.dropdown__header}
+        className={classnames(styles.dropdown__header, {
+          [styles.empty]: !title,
+        })}
         onClick={toggleList}
       >
-        <h2
-          className={classnames(styles.dropdown__header__title, {
-            [styles.empty]: !title,
-          })}
-        >
+        <h2 className={styles.dropdown__header__title}>
           {title ?? defaultTitle}
         </h2>
       </button>

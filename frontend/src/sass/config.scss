@@ -17,19 +17,19 @@ $font-family-2: 'Roboto Slab', serif;
   }
 }
 @mixin media-2 {
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 750px) {
     @content;
   }
 }
 
 @mixin media-3 {
-  @media screen and (min-width: 992px) {
+  @media screen and (min-width: 1000px) {
     @content;
   }
 }
 
 @mixin media-4 {
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1250px) {
     @content;
   }
 }

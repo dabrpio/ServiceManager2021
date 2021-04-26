@@ -4,13 +4,13 @@ import styles from './FormInput.module.scss';
 const FormInput = (props) => {
   const {
     inputType,
-    pattern,
+    inputPattern,
     min,
     valueKey,
     text,
     stateValue,
-    setValue,
     error,
+    resetThenSet,
   } = props;
 
   return (
@@ -19,17 +19,10 @@ const FormInput = (props) => {
         [styles.error]: error,
       })}
       type={inputType}
-      pattern={pattern}
+      pattern={inputPattern}
       min={min}
-      value={(valueKey ? stateValue[valueKey] : stateValue) ?? ''}
-      onChange={(event) =>
-        valueKey
-          ? setValue({
-              ...stateValue,
-              [valueKey]: event.target.value,
-            })
-          : setValue(event.target.value)
-      }
+      value={stateValue ?? ''}
+      onChange={(event) => resetThenSet(valueKey, event.target.value)}
       placeholder={text}
     />
   );
