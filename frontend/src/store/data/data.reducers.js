@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import ticketsReducers from './tickets.reducers';
+import ticketsReducers from './tickets/tickets.reducers';
 import { FEATURE_TICKETS_NAME } from '../constants';
 
 export default combineReducers({
