@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import EmployeeList from './EmployeeList';
@@ -9,7 +9,11 @@ import Settings from './Settings';
 import TicketList from './TicketList';
 import Ticket from './Ticket';
 
-function App() {
+function App({ init }) {
+  useEffect(() => {
+    init();
+  }, [init]);
+
   return (
     <BrowserRouter>
       <Switch>

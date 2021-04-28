@@ -8,7 +8,7 @@ function FormButton(props) {
         [styles.bg_bright]: props.color_bright,
         [styles.bg_dark]: props.color_dark,
       })}
-      type="submit"
+      type={props.inputType}
       value={props.text}
     ></input>
   );
