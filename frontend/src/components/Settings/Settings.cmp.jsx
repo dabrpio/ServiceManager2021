@@ -78,7 +78,7 @@ function Settings() {
             />
           </fieldset>
           <div className={styles.form__button_container}>
-            <FormButton text="ZAPISZ" color_dark={true} />
+            <FormButton text="ZAPISZ" color_dark={true} inputType="submit" />
           </div>
         </form>
       </div>

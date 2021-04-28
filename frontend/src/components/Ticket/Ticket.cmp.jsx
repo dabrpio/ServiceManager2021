@@ -164,9 +164,17 @@ function Ticket({ addTicket }) {
             />
           </fieldset>
           <div className={styles.button_section}>
-            <FormButton text="ZAPISZ" color_dark={true} />
-            <FormButton text="DOKUMENT" color_bright={true} />
-            <FormButton text="GWARANCJA" color_bright={true} />
+            <FormButton text="ZAPISZ" color_dark={true} inputType="submit" />
+            <FormButton
+              text="DOKUMENT"
+              color_bright={true}
+              inputType="button"
+            />
+            <FormButton
+              text="GWARANCJA"
+              color_bright={true}
+              inputType="button"
+            />
           </div>
         </form>
       </div>
