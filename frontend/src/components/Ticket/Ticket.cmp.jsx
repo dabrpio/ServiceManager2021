@@ -70,7 +70,9 @@ function Ticket({ addTicket }) {
       <div className={styles.ticket}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <fieldset className={styles.form__ticket}>
-            <h2 className={styles.heading}>ZLECENIE {ticketId}</h2>
+            <h2 className={styles.heading}>
+              {ticketId === 'new' ? `NOWE ZLECENIE` : `ZLECENIE ${ticketId}`}
+            </h2>
             <Dropdown
               stateValue={ticketData?.rodzaj}
               defaultTitle="typ urządzenia"
@@ -121,7 +123,7 @@ function Ticket({ addTicket }) {
               inputPattern="[0-9]{1,}"
             />
             <FormInput
-              stateValue={ticketData?.informacje?.trim()}
+              stateValue={ticketData?.informacje}
               resetThenSet={setInputTicketData}
               valueKey="informacje"
               text="dodatkowe informacje"

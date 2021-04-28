@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import classnames from 'classnames';
+import { FaTools, FaCheck } from 'react-icons/fa';
 import NavBar from '../NavBar';
 import styles from './TicketList.module.scss';
 
@@ -56,7 +57,7 @@ function TicketList({ tickets }) {
                   <td
                     className={classnames(styles.data, styles.media_wide__date)}
                   >
-                    {element.dataPrzyjecia}
+                    {new Date(element.dataPrzyjecia).toLocaleDateString('pl')}
                   </td>
                   <td
                     className={classnames(styles.data, styles.media_wide__kind)}
@@ -66,7 +67,13 @@ function TicketList({ tickets }) {
                   <td className={styles.data}>{element.marka}</td>
                   <td className={styles.data}>{element.model}</td>
                   <td className={styles.data}>{element.kosztNaprawy}</td>
-                  <td className={styles.data}>{element.status}</td>
+                  <td className={styles.data}>
+                    {element.status.trim() === 'zrobione' ? (
+                      <FaCheck />
+                    ) : (
+                      <FaTools />
+                    )}
+                  </td>
                 </tr>
               ))}
           </tbody>
