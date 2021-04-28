@@ -5,7 +5,7 @@ import styles from './Dropdown.module.scss';
 const Dropdown = (props) => {
   const [listOpen, setListOpen] = useState(false);
   const [title, setTitle] = useState(null);
-  const { list, defaultTitle, resetThenSet } = props;
+  const { list, defaultTitle, resetThenSet, stateValue } = props;
   const node = useRef();
 
   const toggleList = () => {
@@ -44,12 +44,12 @@ const Dropdown = (props) => {
       <button
         type="button"
         className={classnames(styles.dropdown__header, {
-          [styles.empty]: !title,
+          [styles.empty]: !stateValue,
         })}
         onClick={toggleList}
       >
         <h2 className={styles.dropdown__header__title}>
-          {title ?? defaultTitle}
+          {stateValue ?? defaultTitle}
         </h2>
       </button>
       {listOpen && (

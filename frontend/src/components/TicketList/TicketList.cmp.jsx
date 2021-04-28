@@ -1,16 +1,24 @@
+import { useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import classnames from 'classnames';
 import NavBar from '../NavBar';
-import { exampleTicketList } from '../../temp/ExampleTicketList';
 import styles from './TicketList.module.scss';
 
-function TicketList() {
+function TicketList({ tickets }) {
   let { url } = useRouteMatch();
   const history = useHistory();
 
   const handleClick = (id) => {
-    history.push(`${url}/${id}`);
+    history.push({
+      pathname: `${url}/${id}`,
+      state: {
+        ...history.state,
+        ticket: tickets.find((t) => t.rma === id),
+      },
+    });
   };
+
+  useEffect(() => {}, [tickets]);
 
   return (
     <>
@@ -37,29 +45,30 @@ function TicketList() {
             </tr>
           </thead>
           <tbody className={styles.ticket_table__body}>
-            {exampleTicketList.map((element) => (
-              <tr
-                className={styles.ticket_table__body__row}
-                key={element.RMA}
-                onClick={() => handleClick(element.RMA)}
-              >
-                <td className={styles.data}>{element.RMA}</td>
-                <td
-                  className={classnames(styles.data, styles.media_wide__date)}
+            {tickets.length &&
+              tickets.map((element) => (
+                <tr
+                  className={styles.ticket_table__body__row}
+                  key={element.rma}
+                  onClick={() => handleClick(element.rma)}
                 >
-                  {element.data_przyjecia}
-                </td>
-                <td
-                  className={classnames(styles.data, styles.media_wide__kind)}
-                >
-                  {element.rodzaj}
-                </td>
-                <td className={styles.data}>{element.marka}</td>
-                <td className={styles.data}>{element.model}</td>
-                <td className={styles.data}>{element.koszt_naprawy}</td>
-                <td className={styles.data}>{element.status}</td>
-              </tr>
-            ))}
+                  <td className={styles.data}>{element.rma}</td>
+                  <td
+                    className={classnames(styles.data, styles.media_wide__date)}
+                  >
+                    {element.dataPrzyjecia}
+                  </td>
+                  <td
+                    className={classnames(styles.data, styles.media_wide__kind)}
+                  >
+                    {element.rodzaj}
+                  </td>
+                  <td className={styles.data}>{element.marka}</td>
+                  <td className={styles.data}>{element.model}</td>
+                  <td className={styles.data}>{element.kosztNaprawy}</td>
+                  <td className={styles.data}>{element.status}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

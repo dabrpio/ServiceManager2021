@@ -17,6 +17,7 @@ const FormInput = (props) => {
     <input
       className={classnames(styles.input, {
         [styles.error]: error,
+        [styles.empty]: !stateValue,
       })}
       type={inputType}
       pattern={inputPattern}
