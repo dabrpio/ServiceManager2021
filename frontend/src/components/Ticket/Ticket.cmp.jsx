@@ -12,19 +12,32 @@ import FormButton from '../FormButton';
 import FormInput from '../FormInput';
 import styles from './Ticket.module.scss';
 
-function Ticket(props) {
-  let { ticketId } = useParams();
-  const location = useLocation();
+const initialTicketState = {
+  rodzaj: null,
+  marka: null,
+  model: null,
+  kosztCzesci: null,
+  kosztNaprawy: null,
+  usterka: null,
+  status: null,
+  informacje: null,
+  imie: null,
+  nazwisko: null,
+  nrTel: null,
+};
 
-  const [ticketData, setTicketData] = useState(null);
-  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+function Ticket({ addTicket }) {
+  const { ticketId } = useParams();
+  const location = useLocation();
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [ticketData, setTicketData] = useState(initialTicketState);
 
   useEffect(() => {
-    console.log('useEffect');
-    if (location.state?.ticket && !ticketData) {
+    if (location.state?.ticket) {
       setTicketData(location.state.ticket);
       forceUpdate();
     }
+    return () => setTicketData(initialTicketState);
   }, [location]);
 
   const setTicketDropdown = (key, title) => {
@@ -38,39 +51,52 @@ function Ticket(props) {
     });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (ticketId === 'new') {
+      if (!Object.values(ticketData).every((e) => e === null)) {
+        addTicket(ticketData);
+      } else {
+        console.log('ticket is not fully filled');
+      }
+    } else {
+      console.log('future update');
+    }
+  };
+
   return (
     <>
       <NavBar />
       <div className={styles.ticket}>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <fieldset className={styles.form__ticket}>
             <h2 className={styles.heading}>ZLECENIE {ticketId}</h2>
             <Dropdown
-              stateValue={ticketData?.rodzaj.trim()}
+              stateValue={ticketData?.rodzaj}
               defaultTitle="typ urządzenia"
               list={deviceTypes}
               resetThenSet={setTicketDropdown}
             />
             <Dropdown
-              stateValue={ticketData?.marka.trim()}
+              stateValue={ticketData?.marka}
               defaultTitle="producent"
               list={brandTypes}
               resetThenSet={setTicketDropdown}
             />
             <Dropdown
-              stateValue={ticketData?.model.trim()}
+              stateValue={ticketData?.model}
               defaultTitle="model"
               list={modelTypes}
               resetThenSet={setTicketDropdown}
             />
             <Dropdown
-              stateValue={ticketData?.status.trim()}
+              stateValue={ticketData?.status}
               defaultTitle="status"
               list={statusTypes}
               resetThenSet={setTicketDropdown}
             />
             <FormInput
-              stateValue={ticketData?.usterka.trim()}
+              stateValue={ticketData?.usterka}
               resetThenSet={setInputTicketData}
               valueKey="usterka"
               text="usterka"
@@ -95,7 +121,7 @@ function Ticket(props) {
               inputPattern="[0-9]{1,}"
             />
             <FormInput
-              stateValue={ticketData?.informacje.trim()}
+              stateValue={ticketData?.informacje?.trim()}
               resetThenSet={setInputTicketData}
               valueKey="informacje"
               text="dodatkowe informacje"
@@ -106,7 +132,7 @@ function Ticket(props) {
             <h2 className={styles.heading}>DANE KLIENTA</h2>
 
             <FormInput
-              stateValue={ticketData?.imie.trim()}
+              stateValue={ticketData?.imie?.trim()}
               resetThenSet={setInputTicketData}
               valueKey="imie"
               text="imię"
@@ -114,7 +140,7 @@ function Ticket(props) {
               inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,10}"
             />
             <FormInput
-              stateValue={ticketData?.nazwisko.trim()}
+              stateValue={ticketData?.nazwisko?.trim()}
               resetThenSet={setInputTicketData}
               valueKey="nazwisko"
               text="nazwisko"

@@ -4,7 +4,6 @@ import styles from './Dropdown.module.scss';
 
 const Dropdown = (props) => {
   const [listOpen, setListOpen] = useState(false);
-  const [title, setTitle] = useState(null);
   const { list, defaultTitle, resetThenSet, stateValue } = props;
   const node = useRef();
 
@@ -15,7 +14,6 @@ const Dropdown = (props) => {
   const selectItem = (item) => {
     const { title, key } = item;
 
-    setTitle(title);
     resetThenSet(key, title);
     toggleList();
   };
