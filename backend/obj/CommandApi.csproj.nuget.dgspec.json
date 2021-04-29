@@ -1,28 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "D:\\TestApi\\CommandApi\\CommandApi.csproj": {}
+    "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj": {}
   },
   "projects": {
-    "D:\\TestApi\\CommandApi\\CommandApi.csproj": {
+    "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TestApi\\CommandApi\\CommandApi.csproj",
+        "projectUniqueName": "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj",
         "projectName": "CommandApi",
-        "projectPath": "D:\\TestApi\\CommandApi\\CommandApi.csproj",
-        "packagesPath": "C:\\Users\\zjaro\\.nuget\\packages\\",
-        "outputPath": "D:\\TestApi\\CommandApi\\obj\\",
+        "projectPath": "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj",
+        "packagesPath": "C:\\Users\\lampa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\zjaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\lampa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -84,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200-preview.21077.7\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
