@@ -5905,11 +5905,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\lampa\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\piotr\\.nuget\\packages\\": {}
+>>>>>>> 5466821095ff04abbb2d34aaffd8c99f7398c089
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj",
       "projectName": "CommandApi",
       "projectPath": "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj",
@@ -5919,12 +5924,21 @@
       "configFilePaths": [
         "C:\\Users\\lampa\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+      "projectUniqueName": "C:\\Users\\piotr\\Desktop\\ServiceManager2021\\backend\\CommandApi.csproj",
+      "projectName": "CommandApi",
+      "projectPath": "C:\\Users\\piotr\\Desktop\\ServiceManager2021\\backend\\CommandApi.csproj",
+      "packagesPath": "C:\\Users\\piotr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\piotr\\Desktop\\ServiceManager2021\\backend\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\piotr\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> 5466821095ff04abbb2d34aaffd8c99f7398c089
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

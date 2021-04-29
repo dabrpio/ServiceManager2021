@@ -1,8 +1,13 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
+<<<<<<< HEAD
       "C:\\Users\\lampa\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\lampa\\.nuget\\packages"
+=======
+      "C:\\Users\\piotr\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\piotr\\.nuget\\packages"
+>>>>>>> 5466821095ff04abbb2d34aaffd8c99f7398c089
     ]
   }
 }

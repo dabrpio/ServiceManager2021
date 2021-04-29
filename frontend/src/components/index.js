@@ -1,3 +1,3 @@
-import App from './App.cmp';
+import App from './App.cnt';
 
 export default App;

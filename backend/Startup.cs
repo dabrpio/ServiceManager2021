@@ -18,6 +18,8 @@ namespace CommandApi
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,6 +31,8 @@ namespace CommandApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => {options.AddPolicy(name: MyAllowSpecificOrigins, builder => {builder.WithOrigins("http://localhost:3000", "https://localhost:3001").AllowAnyHeader().AllowAnyMethod();});});
+
             services.AddDbContext<masterContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
 
             services.AddControllers();
@@ -54,6 +58,7 @@ namespace CommandApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 

@@ -36,7 +36,7 @@ function Login() {
           error={passwordError}
         />
         <p className={styles.error_message}>{passwordError}</p>
-        <FormButton text="ZALOGUJ" color_dark={true} type="submit" />
+        <FormButton text="ZALOGUJ" color_dark={true} inputType="submit" />
       </form>
     </div>
   );

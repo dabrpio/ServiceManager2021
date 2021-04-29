@@ -59,7 +59,12 @@
         background-color: lighten($color-3, 50%);
       }
       .data {
-        padding: 7px 0;
+        @include media-1 {
+          height: 36px;
+          padding: 9px 0;
+        }
+        height: 30px;
+        padding: 6px 0;
       }
     }
   }

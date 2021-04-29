@@ -9,7 +9,7 @@
   margin: 3px 0;
   padding: 0.3rem 1rem;
   border: none;
-  border-bottom: 1.5px solid $color-3;
+  border-bottom: 1.5px solid $color-2;
   font-family: $font-family-1;
   font-size: 0.9rem;
   white-space: nowrap;
@@ -31,6 +31,7 @@
   }
 
   &:invalid {
+    color: $color-4;
     border-bottom: 1.5px solid $color-4;
   }
 }
@@ -41,4 +42,9 @@
   &::placeholder {
     color: $color-4;
   }
+}
+
+.empty {
+  color: $color-3;
+  border-bottom: 1.5px solid $color-3;
 }

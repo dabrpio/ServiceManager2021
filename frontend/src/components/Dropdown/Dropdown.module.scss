@@ -5,6 +5,11 @@
   display: inline-block;
   width: 100%;
 
+  .empty {
+    color: $color-3;
+    border-bottom: 1.5px solid $color-3;
+  }
+
   &__header {
     @include media-1 {
       font-size: 1rem;
@@ -23,10 +28,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-
-    .empty {
-      color: $color-3;
-    }
 
     &__title {
       width: 100%;
@@ -54,7 +55,7 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-      min-height: 30px;
+      min-height: 34px;
       border: 1.5px solid $color-2;
       border-radius: 3px;
       margin-top: 1px;
