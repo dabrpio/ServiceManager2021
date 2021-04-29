@@ -3,19 +3,13 @@ import classnames from 'classnames';
 import styles from './Dropdown.module.scss';
 
 const Dropdown = (props) => {
-  const [listOpen, setListOpen] = useState(false);
   const { list, defaultTitle, resetThenSet, stateValue } = props;
+  const [listOpen, setListOpen] = useState(false);
   const node = useRef();
 
-  const toggleList = () => {
-    setListOpen(!listOpen);
-  };
-
   const selectItem = (item) => {
-    const { title, key } = item;
-
-    resetThenSet(key, title);
-    toggleList();
+    resetThenSet(item.key, item.title);
+    setListOpen(false);
   };
 
   const handleClickOutside = (e) => {
@@ -44,7 +38,7 @@ const Dropdown = (props) => {
         className={classnames(styles.dropdown__header, {
           [styles.empty]: !stateValue,
         })}
-        onClick={toggleList}
+        onClick={() => setListOpen(!listOpen)}
       >
         <h2 className={styles.dropdown__header__title}>
           {stateValue ?? defaultTitle}

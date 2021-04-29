@@ -6,7 +6,7 @@ import NavBar from '../NavBar';
 import styles from './TicketList.module.scss';
 
 function TicketList({ tickets }) {
-  let { url } = useRouteMatch();
+  const { url } = useRouteMatch();
   const history = useHistory();
 
   const handleClick = (id) => {

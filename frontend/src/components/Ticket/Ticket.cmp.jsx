@@ -1,5 +1,10 @@
 import { useEffect, useState, useReducer } from 'react';
-import { useLocation, useParams, withRouter } from 'react-router-dom';
+import {
+  useHistory,
+  useLocation,
+  useParams,
+  withRouter,
+} from 'react-router-dom';
 import {
   deviceTypes,
   brandTypes,
@@ -29,6 +34,7 @@ const initialTicketState = {
 function Ticket({ addTicket }) {
   const { ticketId } = useParams();
   const location = useLocation();
+  const history = useHistory();
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [ticketData, setTicketData] = useState(initialTicketState);
 
@@ -56,6 +62,7 @@ function Ticket({ addTicket }) {
     if (ticketId === 'new') {
       if (!Object.values(ticketData).every((e) => e === null)) {
         addTicket(ticketData);
+        history.push('/tickets');
       } else {
         console.log('ticket is not fully filled');
       }
