@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AutoMapper;
 using CommandApi.Data;
@@ -24,6 +25,17 @@ namespace CommandApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ZlecenieReadDto>> GetAllZlecenia(){
             var commandItems = _repository.GetAllZlecenia();
+            foreach (Zlecenie commandItem in commandItems)
+            {
+                commandItem.Usterka=commandItem.Usterka.TrimEnd();
+                commandItem.Status=commandItem.Status.TrimEnd();
+                commandItem.Rodzaj=commandItem.Rodzaj.TrimEnd();
+                commandItem.Nazwisko=commandItem.Nazwisko.TrimEnd();
+                commandItem.Model=commandItem.Model.TrimEnd();
+                commandItem.Marka=commandItem.Marka.TrimEnd();
+                commandItem.Informacje=commandItem.Informacje.TrimEnd();
+                commandItem.Imie=commandItem.Imie.TrimEnd();
+            }
             return Ok(_mapper.Map<IEnumerable<ZlecenieReadDto>>(commandItems));
         }
 
@@ -31,6 +43,15 @@ namespace CommandApi.Controllers
         [HttpGet("{Rma}", Name="GetZlecenieByRma")]
         public ActionResult<ZlecenieReadDto>GetZlecenieByRma(int Rma){
             var commandItem = _repository.GetZlecenieByRma(Rma);
+            commandItem.Usterka=commandItem.Usterka.TrimEnd();
+            commandItem.Status=commandItem.Status.TrimEnd();
+            commandItem.Rodzaj=commandItem.Rodzaj.TrimEnd();
+            commandItem.Nazwisko=commandItem.Nazwisko.TrimEnd();
+            commandItem.Model=commandItem.Model.TrimEnd();
+            commandItem.Marka=commandItem.Marka.TrimEnd();
+            commandItem.Informacje=commandItem.Informacje.TrimEnd();
+            commandItem.Imie=commandItem.Imie.TrimEnd();
+            
             if(commandItem!=null){
                 return Ok(_mapper.Map<ZlecenieReadDto>(commandItem));
             }

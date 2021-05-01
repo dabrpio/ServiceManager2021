@@ -33,7 +33,7 @@ namespace CommandApi
         {
             services.AddCors(options => {options.AddPolicy(name: MyAllowSpecificOrigins, builder => {builder.WithOrigins("http://localhost:3000", "https://localhost:3001").AllowAnyHeader().AllowAnyMethod();});});
 
-            services.AddDbContext<masterContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
+            services.AddDbContext<SM2021Context>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
