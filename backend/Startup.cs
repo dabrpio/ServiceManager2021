@@ -40,8 +40,11 @@ namespace CommandApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CommandApi", Version = "v1" });
             });
-           // services.AddScoped<ICommandApiRepo, SqlCommandApiRepo>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IMasterRepo, SqlMasterRepo>();
+
 
         }
 

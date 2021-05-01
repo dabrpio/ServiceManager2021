@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using AutoMapper;
 using CommandApi.Data;
+using CommandApi.Dtos;
 using CommandApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,25 +13,26 @@ namespace CommandApi.Controllers
     public class MasterController:ControllerBase
     {
         private readonly IMasterRepo _repository;
+        private readonly IMapper _mapper;
 
-        public MasterController(IMasterRepo repository){
+        public MasterController(IMasterRepo repository, IMapper mapper){
             _repository=repository;
+            _mapper=mapper;
         }
-        //private readonly MockCommandApiRepo _repository = new MockCommandApiRepo();
 
         //GET api/zlecenia
         [HttpGet]
-        public ActionResult<IEnumerable<Zlecenie>> GetAllZlecenia(){
+        public ActionResult<IEnumerable<ZlecenieReadDto>> GetAllZlecenia(){
             var commandItems = _repository.GetAllZlecenia();
-            return Ok(commandItems);
+            return Ok(_mapper.Map<IEnumerable<ZlecenieReadDto>>(commandItems));
         }
 
-        //GET api/zlecenia/{id}
-        [HttpGet("{id}", Name="GetZlecenieByRma")]
-        public ActionResult<Zlecenie>GetZlecenieByRma(int Rma){
+        //GET api/zlecenia/{Rma}
+        [HttpGet("{Rma}", Name="GetZlecenieByRma")]
+        public ActionResult<ZlecenieReadDto>GetZlecenieByRma(int Rma){
             var commandItem = _repository.GetZlecenieByRma(Rma);
             if(commandItem!=null){
-                return Ok(commandItem);
+                return Ok(_mapper.Map<ZlecenieReadDto>(commandItem));
             }
             else{
                 return NotFound();
@@ -39,10 +42,14 @@ namespace CommandApi.Controllers
 
         //POST api/zlecenia
         [HttpPost]
-        public ActionResult<Zlecenie>CreateZlecenie(Zlecenie zlecenie){
-            _repository.CreateZlecenie(zlecenie);
+        public ActionResult<ZlecenieReadDto>CreateZlecenie(ZlecenieCreateDto zlecenieCreateDto){
+            //TODO - weryfikacja zlecenieCreateDto
+            var commandModel =_mapper.Map<Zlecenie>(zlecenieCreateDto);
+            _repository.CreateZlecenie(commandModel);
             _repository.SaveChanges();
-            return Ok(zlecenie);
+            var zlecenieReadDto = _mapper.Map<ZlecenieReadDto>(commandModel);
+            return CreatedAtRoute(nameof(GetZlecenieByRma), new {Rma = zlecenieReadDto.Rma},zlecenieReadDto);
+            //return Ok(zlecenieReadDto);
         }
     }
 }
