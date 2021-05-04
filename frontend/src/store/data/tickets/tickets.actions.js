@@ -14,6 +14,7 @@ const setTickets = (value) => ({
 });
 
 export const postTicket = (data) => {
+  // TODO: rma, dataPrzyjecia - generated in backend
   return (dispatch, getState) => {
     const ticketCount = getState().data.tickets.length;
     fetch('https://localhost:5001/api/zlecenia', {
@@ -34,13 +35,5 @@ export const postTicket = (data) => {
       .then((res) => res.json())
       .then(() => dispatch(fetchTickets()))
       .catch((data) => console.log(data));
-    // console.log(data, {
-    //   ...data,
-    //   rma: ticketCount + 1,
-    //   dataPrzyjecia: '1-07-2021',
-    //   kosztNaprawy: parseFloat(data.kosztNaprawy),
-    //   kosztCzesci: parseFloat(data.kosztCzesci),
-    //   nrTel: parseInt(data.nrTel),
-    // });
   };
 };

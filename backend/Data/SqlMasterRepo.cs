@@ -7,9 +7,9 @@ namespace CommandApi.Data
 {
     public class SqlMasterRepo : IMasterRepo
     {
-        private readonly masterContext _context;
+        private readonly SM2021Context _context;
 
-        public SqlMasterRepo(masterContext context)
+        public SqlMasterRepo(SM2021Context context)
         {
             _context = context;
         }

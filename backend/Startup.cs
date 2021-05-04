@@ -33,15 +33,18 @@ namespace CommandApi
         {
             services.AddCors(options => {options.AddPolicy(name: MyAllowSpecificOrigins, builder => {builder.WithOrigins("http://localhost:3000", "https://localhost:3001").AllowAnyHeader().AllowAnyMethod();});});
 
-            services.AddDbContext<masterContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
+            services.AddDbContext<SM2021Context>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CommandApi", Version = "v1" });
             });
-           // services.AddScoped<ICommandApiRepo, SqlCommandApiRepo>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IMasterRepo, SqlMasterRepo>();
+
 
         }
 

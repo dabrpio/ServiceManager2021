@@ -4,14 +4,26 @@ import FormInput from '../FormInput';
 import styles from './Login.module.scss';
 
 function Login() {
-  const [nameValue, setNameValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [loginData, setLoginData] = useState({
+    name: '',
+    password: '',
+  });
+
+  const [loginErrors, setLoginErrors] = useState({
+    nameError: '',
+    passwordError: '',
+  });
+
+  const setLoginInputData = (key, value) => {
+    setLoginData({
+      ...loginData,
+      [key]: value,
+    });
+  };
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
-    console.log(nameValue, passwordValue);
+    console.log(loginData);
   };
 
   return (
@@ -20,22 +32,24 @@ function Login() {
         <h1 className={styles.login__heading}>Service Manager 2021</h1>
 
         <FormInput
-          stateValue={nameValue}
-          setValue={setNameValue}
+          stateValue={loginData.name}
+          resetThenSet={setLoginInputData}
+          valueKey="name"
           text="nazwa"
           inputType="text"
-          error={nameError}
+          error={loginErrors.nameError}
         />
-        <p className={styles.error_message}>{nameError}</p>
+        <p className={styles.error_message}>{loginErrors.nameError}</p>
 
         <FormInput
-          stateValue={passwordValue}
-          setValue={setPasswordValue}
+          stateValue={loginData.password}
+          resetThenSet={setLoginInputData}
+          valueKey="password"
           text="hasło"
           inputType="password"
-          error={passwordError}
+          error={loginErrors.passwordError}
         />
-        <p className={styles.error_message}>{passwordError}</p>
+        <p className={styles.error_message}>{loginErrors.passwordError}</p>
         <FormButton text="ZALOGUJ" color_dark={true} inputType="submit" />
       </form>
     </div>
