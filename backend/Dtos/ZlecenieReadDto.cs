@@ -17,6 +17,7 @@ namespace CommandApi.Dtos
         public string Status { get; set; }
         public decimal? KosztNaprawy { get; set; }
         public decimal? KosztCzesci { get; set; }
+        public DateTime? DataWydania { get; set; }
         public string Informacje { get; set; }
     }
 }

@@ -19,14 +19,6 @@ namespace CommandApi.Data
         }
 
         public virtual DbSet<Zlecenie> Zlecenia { get; set; }
-/*        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=51.116.231.138;Initial Catalog=SM2021;User ID=SERVICE2021;Password='S3RVIs2@21';");
-            }
-        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,23 +26,23 @@ namespace CommandApi.Data
 
             modelBuilder.Entity<Zlecenie>(entity =>
             {
-                entity.Property(e => e.Rma).ValueGeneratedNever();
+                entity.Property(e => e.DataPrzyjecia).HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Imie);
+                entity.Property(e => e.Imie).IsFixedLength(true);
 
-                entity.Property(e => e.Informacje);
+                entity.Property(e => e.Informacje).IsFixedLength(true);
 
-                entity.Property(e => e.Marka);
+                entity.Property(e => e.Marka).IsFixedLength(true);
 
-                entity.Property(e => e.Model);
+                entity.Property(e => e.Model).IsFixedLength(true);
 
-                entity.Property(e => e.Nazwisko);
+                entity.Property(e => e.Nazwisko).IsFixedLength(true);
 
-                entity.Property(e => e.Rodzaj);
+                entity.Property(e => e.Rodzaj).IsFixedLength(true);
 
-                entity.Property(e => e.Status);
+                entity.Property(e => e.Status).IsFixedLength(true);
 
-                entity.Property(e => e.Usterka);
+                entity.Property(e => e.Usterka).IsFixedLength(true);
             });
 
             OnModelCreatingPartial(modelBuilder);

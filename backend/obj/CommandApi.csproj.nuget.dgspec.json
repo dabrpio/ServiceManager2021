@@ -1,28 +1,7 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj",
-        "projectName": "CommandApi",
-        "projectPath": "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\CommandApi.csproj",
-        "packagesPath": "C:\\Users\\lampa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lampa\\source\\repos\\ServiceManager2021\\backend\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\lampa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
-    "C:\\Users\\piotr\\Desktop\\ServiceManager2021\\backend\\CommandApi.csproj": {}
-=======
     "D:\\TestApi\\CommandApi\\CommandApi.csproj": {}
->>>>>>> 4cc1e4eaa56eb765b7959b452ad8bc92b0ddc322
   },
   "projects": {
     "D:\\TestApi\\CommandApi\\CommandApi.csproj": {
@@ -40,15 +19,10 @@
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\piotr\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> 5466821095ff04abbb2d34aaffd8c99f7398c089
-=======
           "C:\\Users\\zjaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
->>>>>>> 4cc1e4eaa56eb765b7959b452ad8bc92b0ddc322
         ],
         "originalTargetFrameworks": [
           "net5.0"
