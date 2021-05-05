@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { selectTickets } from '../../store/data/tickets/tickets.selectors';
+import { selectTicketsState } from '../../store/data/tickets/tickets.selectors';
 
 import TicketList from './TicketList.cmp';
 
 const mapStateToProps = (state, ownProps) => ({
-  tickets: selectTickets(state),
+  tickets: selectTicketsState(state).slice().reverse(),
 });
 
 export default connect(mapStateToProps, null)(TicketList);

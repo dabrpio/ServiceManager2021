@@ -46,36 +46,43 @@ function TicketList({ tickets }) {
             </tr>
           </thead>
           <tbody className={styles.ticket_table__body}>
-            {tickets.length &&
-              tickets.map((element) => (
-                <tr
-                  className={styles.ticket_table__body__row}
-                  key={element.rma}
-                  onClick={() => handleClick(element.rma)}
-                >
-                  <td className={styles.data}>{element.rma}</td>
-                  <td
-                    className={classnames(styles.data, styles.media_wide__date)}
+            {tickets.length
+              ? tickets.map((element) => (
+                  <tr
+                    className={styles.ticket_table__body__row}
+                    key={element.rma}
+                    onClick={() => handleClick(element.rma)}
                   >
-                    {new Date(element.dataPrzyjecia).toLocaleDateString('pl')}
-                  </td>
-                  <td
-                    className={classnames(styles.data, styles.media_wide__kind)}
-                  >
-                    {element.rodzaj}
-                  </td>
-                  <td className={styles.data}>{element.marka}</td>
-                  <td className={styles.data}>{element.model}</td>
-                  <td className={styles.data}>{element.kosztNaprawy}</td>
-                  <td className={styles.data}>
-                    {element.status.trim() === 'zrobione' ? (
-                      <FaCheck />
-                    ) : (
-                      <FaTools />
-                    )}
-                  </td>
-                </tr>
-              ))}
+                    <td className={styles.data}>{element.rma}</td>
+                    <td
+                      className={classnames(
+                        styles.data,
+                        styles.media_wide__date
+                      )}
+                    >
+                      {new Date(element.dataPrzyjecia).toLocaleDateString('pl')}
+                    </td>
+                    <td
+                      className={classnames(
+                        styles.data,
+                        styles.media_wide__kind
+                      )}
+                    >
+                      {element.rodzaj}
+                    </td>
+                    <td className={styles.data}>{element.marka}</td>
+                    <td className={styles.data}>{element.model}</td>
+                    <td className={styles.data}>{element.kosztNaprawy}</td>
+                    <td className={styles.data}>
+                      {element.status === 'zrobione' ? (
+                        <FaCheck />
+                      ) : (
+                        <FaTools />
+                      )}
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
       </div>

@@ -185,3 +185,5 @@ D:\TestApi\CommandApi\bin\Debug\net5.0\AutoMapper.dll
 D:\TestApi\CommandApi\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\zjaro\Desktop\Inżynierka\ServiceManager2021\backend\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\zjaro\Desktop\Inżynierka\ServiceManager2021\backend\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\piotr\Desktop\ServiceManager2021\backend\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\piotr\Desktop\ServiceManager2021\backend\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

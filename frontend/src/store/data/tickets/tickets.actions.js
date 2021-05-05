@@ -1,8 +1,10 @@
 import * as ticketsAT from './tickets.action-types';
 
+const baseUrl = `https://localhost:5001/api/zlecenia`;
+
 export const fetchTickets = () => {
   return (dispatch) => {
-    fetch('https://localhost:5001/api/zlecenia')
+    fetch(baseUrl)
       .then((res) => res.json())
       .then((data) => dispatch(setTickets(data)));
   };
@@ -13,27 +15,33 @@ const setTickets = (value) => ({
   payload: value,
 });
 
-export const postTicket = (data) => {
-  // TODO: rma, dataPrzyjecia - generated in backend
-  return (dispatch, getState) => {
-    const ticketCount = getState().data.tickets.length;
-    fetch('https://localhost:5001/api/zlecenia', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...data,
-        rma: ticketCount + 1,
-        dataPrzyjecia: '2021-01-07',
-        kosztNaprawy: parseFloat(data.kosztNaprawy),
-        kosztCzesci: parseFloat(data.kosztCzesci),
-        nrTel: parseInt(data.nrTel),
-      }),
-    })
-      .then((res) => res.json())
-      .then(() => dispatch(fetchTickets()))
-      .catch((data) => console.log(data));
-  };
+const fetchTicket = (id) => (dispatch) => {
+  fetch(`${baseUrl}/${id}`)
+    .then((res) => res.json())
+    .then((data) => dispatch(setTicket(data)));
+};
+
+const setTicket = (value) => ({
+  type: ticketsAT.SET_TICKET,
+  payload: value,
+});
+
+export const postTicket = (data) => (dispatch, getState) => {
+  const ticketCount = getState().data.tickets.length;
+  fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...data,
+      kosztNaprawy: parseFloat(data.kosztNaprawy),
+      kosztCzesci: parseFloat(data.kosztCzesci),
+      nrTel: parseInt(data.nrTel),
+    }),
+  })
+    .then((res) => res.json())
+    .then(() => dispatch(fetchTicket(ticketCount + 1)))
+    .catch((error) => console.log(error));
 };
