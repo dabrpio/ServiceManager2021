@@ -45,6 +45,21 @@
 }
 
 .empty {
-  color: $color-3;
   border-bottom: 1.5px solid $color-3;
+
+  &::placeholder {
+    color: $color-3;
+  }
+  &::-webkit-input-placeholder {
+    color: $color-3;
+  }
+
+  &::-moz-placeholder {
+    color: $color-3;
+    opacity: 1;
+  }
+
+  &::-ms-placeholder {
+    color: $color-3;
+  }
 }
