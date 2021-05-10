@@ -49,7 +49,7 @@ namespace CommandApi.Data
                     .WithMany(p => p.ZleceniaTests)
                     .HasForeignKey(d => d.IdKlienta)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__zlecenia___id_kl__571DF1D5");
+                    .HasConstraintName("FK__zlecenia___id_kl__5CD6CB2B");
             });
 
             modelBuilder.Entity<Zlecenie>(entity =>

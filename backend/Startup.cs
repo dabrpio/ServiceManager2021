@@ -44,6 +44,9 @@ namespace CommandApi
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IMasterRepo, SqlMasterRepo>();
+            services.AddScoped<IZleceniaTestRepo, SqlZleceniaTestRepo>();
+            services.AddScoped<IKlienciTestRepo,SqlKlienciTestRepo>();
+
 
 
         }
