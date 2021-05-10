@@ -46,10 +46,6 @@ function Ticket({ addTicket }) {
     return () => setTicketData(initialTicketState);
   }, [location]);
 
-  const setTicketDropdown = (key, title) => {
-    setTicketData({ ...ticketData, [key]: title });
-  };
-
   const setInputTicketData = (key, value) => {
     setTicketData({
       ...ticketData,
@@ -60,7 +56,7 @@ function Ticket({ addTicket }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (ticketId === 'new') {
-      if (!Object.values(ticketData).every((e) => e === null)) {
+      if (!Object.values(ticketData).every((e) => e === null || e === '')) {
         addTicket(ticketData);
         history.push('/tickets');
       } else {
@@ -84,25 +80,25 @@ function Ticket({ addTicket }) {
               stateValue={ticketData?.rodzaj}
               defaultTitle="typ urządzenia"
               list={deviceTypes}
-              resetThenSet={setTicketDropdown}
+              setSelected={(selected) =>
+                setTicketData({ ...ticketData, rodzaj: selected })
+              }
             />
             <Dropdown
               stateValue={ticketData?.marka}
               defaultTitle="producent"
               list={brandTypes}
-              resetThenSet={setTicketDropdown}
+              setSelected={(selected) =>
+                setTicketData({ ...ticketData, marka: selected })
+              }
             />
             <Dropdown
               stateValue={ticketData?.model}
               defaultTitle="model"
               list={modelTypes}
-              resetThenSet={setTicketDropdown}
-            />
-            <Dropdown
-              stateValue={ticketData?.status}
-              defaultTitle="status"
-              list={statusTypes}
-              resetThenSet={setTicketDropdown}
+              setSelected={(selected) =>
+                setTicketData({ ...ticketData, model: selected })
+              }
             />
             <FormInput
               stateValue={ticketData?.usterka}
@@ -116,16 +112,14 @@ function Ticket({ addTicket }) {
               resetThenSet={setInputTicketData}
               valueKey="kosztCzesci"
               text="koszt części"
-              inputType="text"
-              inputPattern="[0-9]{1,}"
+              inputType="number"
             />
             <FormInput
               stateValue={ticketData?.kosztNaprawy}
               resetThenSet={setInputTicketData}
               valueKey="kosztNaprawy"
               text="koszt naprawy"
-              inputType="text"
-              inputPattern="[0-9]{1,}"
+              inputType="number"
             />
             <FormInput
               stateValue={ticketData?.informacje}
@@ -139,28 +133,25 @@ function Ticket({ addTicket }) {
             <h2 className={styles.heading}>DANE KLIENTA</h2>
 
             <FormInput
-              stateValue={ticketData?.imie?.trim()}
+              stateValue={ticketData?.imie}
               resetThenSet={setInputTicketData}
               valueKey="imie"
               text="imię"
               inputType="text"
-              inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,20}"
             />
             <FormInput
-              stateValue={ticketData?.nazwisko?.trim()}
+              stateValue={ticketData?.nazwisko}
               resetThenSet={setInputTicketData}
               valueKey="nazwisko"
               text="nazwisko"
               inputType="text"
-              inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,20}"
             />
             <FormInput
               stateValue={ticketData?.nrTel}
               resetThenSet={setInputTicketData}
               valueKey="nrTel"
               text="nr tel."
-              inputType="text"
-              inputPattern="[0-9]{9}"
+              inputType="number"
             />
           </fieldset>
           <div className={styles.button_section}>
