@@ -14,6 +14,8 @@ namespace CommandApi.Dtos
 
         public int? NrTel { get; set; }
 
+        public DateTime? DataPrzyjecia { get; set; }
+
         [StringLength(20)]
         public string Rodzaj { get; set; }
 
@@ -32,6 +34,8 @@ namespace CommandApi.Dtos
         public decimal? KosztNaprawy { get; set; }
 
         public decimal? KosztCzesci { get; set; }
+
+        public DateTime? DataWydania { get; set; }
 
         [StringLength(100)]
         public string Informacje { get; set; }
