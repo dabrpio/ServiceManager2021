@@ -1,43 +1,41 @@
 @import '../../sass/config.scss';
 
-.input {
-  @include media-1 {
-    font-size: 1rem;
-  }
+.input_wrapper {
   width: 100%;
-  height: 30px;
-  margin: 3px 0;
-  padding: 0.3rem 1rem;
-  border: none;
-  border-bottom: 1.5px solid $color-2;
-  font-family: $font-family-1;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  outline: $color-1;
+  position: relative;
+  margin-top: 20px;
+}
+.input_wrapper > label {
+  padding: 0 0.2em;
+  position: absolute;
+  top: -0.5em;
+  left: 1em;
+  background-color: white;
+  color: $color-2;
+}
 
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  &[type='number'] {
-    -moz-appearance: textfield;
-  }
-
+.input {
+  width: 100%;
+  padding: 0.6em 1.5em;
+  border-radius: 0.5em;
+  border: 1.5px solid $color-2;
+  outline: none;
+  transition: 0.3s ease-in-out;
+  font-size: 16px;
   &:focus {
-    border-bottom: 1.5px solid $color-2;
+    transition-duration: 0.4s;
+    border: 1.5px solid $color-7;
   }
 
   &:invalid {
+    transition-duration: 0.4s;
     color: $color-4;
-    border-bottom: 1.5px solid $color-4;
+    border: 1.5px solid $color-4;
   }
 }
 
 .error {
-  border-bottom: 1.5px solid $color-4;
+  border: 1.5px solid $color-4;
 
   &::placeholder {
     color: $color-4;
@@ -45,7 +43,7 @@
 }
 
 .empty {
-  border-bottom: 1.5px solid $color-3;
+  border: 1.5px solid $color-3;
 
   &::placeholder {
     color: $color-3;

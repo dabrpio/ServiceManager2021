@@ -116,8 +116,7 @@ function Ticket({ addTicket }) {
               resetThenSet={setInputTicketData}
               valueKey="kosztCzesci"
               text="koszt części"
-              inputType="number"
-              min="0"
+              inputType="text"
               inputPattern="[0-9]{1,}"
             />
             <FormInput
@@ -125,8 +124,7 @@ function Ticket({ addTicket }) {
               resetThenSet={setInputTicketData}
               valueKey="kosztNaprawy"
               text="koszt naprawy"
-              inputType="number"
-              min="0"
+              inputType="text"
               inputPattern="[0-9]{1,}"
             />
             <FormInput
@@ -146,7 +144,7 @@ function Ticket({ addTicket }) {
               valueKey="imie"
               text="imię"
               inputType="text"
-              inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,10}"
+              inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,20}"
             />
             <FormInput
               stateValue={ticketData?.nazwisko?.trim()}
@@ -154,21 +152,14 @@ function Ticket({ addTicket }) {
               valueKey="nazwisko"
               text="nazwisko"
               inputType="text"
-              inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,10}"
+              inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,20}"
             />
-            {/* <FormInput
-              stateValue={ticketData.email}
-              resetThenSet={setInputTicketData}
-              valueKey="email"
-              text="email"
-              inputType="email"
-            /> */}
             <FormInput
               stateValue={ticketData?.nrTel}
               resetThenSet={setInputTicketData}
               valueKey="nrTel"
               text="nr tel."
-              inputType="number"
+              inputType="text"
               inputPattern="[0-9]{9}"
             />
           </fieldset>
