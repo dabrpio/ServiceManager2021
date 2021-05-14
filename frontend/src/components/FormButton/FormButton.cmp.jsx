@@ -7,6 +7,7 @@ function FormButton(props) {
       color="primary"
       type={props.inputType}
       fullWidth
+      style={props.loginButton ? { marginTop: 40 } : { marginTop: 20 }}
     >
       {props.text}
     </Button>

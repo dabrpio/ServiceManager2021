@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import classnames from 'classnames';
 import { FaTools, FaCheck } from 'react-icons/fa';
-import styles from './TicketList.module.scss';
+import { DataGrid } from '@material-ui/data-grid';
+import { Box } from '@material-ui/core';
+import { useStyles } from './styles';
 
 function TicketList({ tickets }) {
   const { url } = useRouteMatch();
   const history = useHistory();
+  const classes = useStyles();
 
   const handleClick = (id) => {
     history.push({
@@ -18,56 +20,49 @@ function TicketList({ tickets }) {
     });
   };
 
+  const columns = [
+    { field: 'id', headerName: 'RMA', width: 110 },
+    {
+      field: 'dataPrzyjecia',
+      headerName: 'data',
+      width: 110,
+    },
+    { field: 'marka', headerName: 'marka', width: 100 },
+    {
+      field: 'model',
+      headerName: 'model',
+      width: 120,
+    },
+    {
+      field: 'status',
+      headerName: 'status',
+      width: 110,
+    },
+  ];
+
   useEffect(() => {}, [tickets]);
 
   return (
-    <div className={styles.wrapper}>
-      <table className={styles.ticket_table}>
-        <thead className={styles.ticket_table__head}>
-          <tr className={styles.ticket_table__head__row}>
-            <th className={styles.header}>RMA</th>
-            <th className={classnames(styles.header, styles.media_wide__date)}>
-              data
-            </th>
-            <th className={classnames(styles.header, styles.media_wide__kind)}>
-              rodzaj
-            </th>
-            <th className={styles.header}>marka</th>
-            <th className={styles.header}>model</th>
-            <th className={styles.header}>koszt</th>
-            <th className={styles.header}>status</th>
-          </tr>
-        </thead>
-        <tbody className={styles.ticket_table__body}>
-          {tickets.length
-            ? tickets.map((element) => (
-                <tr
-                  className={styles.ticket_table__body__row}
-                  key={element.rma}
-                  onClick={() => handleClick(element.rma)}
-                >
-                  <td className={styles.data}>{element.rma}</td>
-                  <td
-                    className={classnames(styles.data, styles.media_wide__date)}
-                  >
-                    {new Date(element.dataPrzyjecia).toLocaleDateString('pl')}
-                  </td>
-                  <td
-                    className={classnames(styles.data, styles.media_wide__kind)}
-                  >
-                    {element.rodzaj}
-                  </td>
-                  <td className={styles.data}>{element.marka}</td>
-                  <td className={styles.data}>{element.model}</td>
-                  <td className={styles.data}>{element.kosztNaprawy}</td>
-                  <td className={styles.data}>
-                    {element.status === 'zrobione' ? <FaCheck /> : <FaTools />}
-                  </td>
-                </tr>
-              ))
-            : null}
-        </tbody>
-      </table>
+    <div className={classes.root}>
+      <Box className={classes.tickets_wrapper}>
+        <div style={{ height: '80vh', width: '100%' }}>
+          <DataGrid
+            rows={tickets.map(
+              ({ marka, dataPrzyjecia, model, status, rma }) => ({
+                id: rma,
+                dataPrzyjecia: new Date(dataPrzyjecia).toLocaleDateString('pl'),
+                marka,
+                model,
+                status,
+              })
+            )}
+            columns={columns}
+            pageSize={7}
+            checkboxSelection
+            // autoHeight
+          />
+        </div>
+      </Box>
     </div>
   );
 }
