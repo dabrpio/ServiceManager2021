@@ -1,70 +1,77 @@
+import Paper from '@material-ui/core/Paper';
 import { useEffect } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
-import { FaTools, FaCheck } from 'react-icons/fa';
-import { DataGrid } from '@material-ui/data-grid';
-import { Box } from '@material-ui/core';
 import { useStyles } from './styles';
+import { VirtualizedTable } from './Table';
 
-function TicketList({ tickets }) {
-  const { url } = useRouteMatch();
-  const history = useHistory();
+export default function TicketList({ tickets }) {
   const classes = useStyles();
-
-  const handleClick = (id) => {
-    history.push({
-      pathname: `${url}/${id}`,
-      state: {
-        ...history.state,
-        ticket: tickets.find((t) => t.rma === id),
-      },
-    });
-  };
-
-  const columns = [
-    { field: 'id', headerName: 'RMA', width: 110 },
-    {
-      field: 'dataPrzyjecia',
-      headerName: 'data',
-      width: 110,
-    },
-    { field: 'marka', headerName: 'marka', width: 100 },
-    {
-      field: 'model',
-      headerName: 'model',
-      width: 120,
-    },
-    {
-      field: 'status',
-      headerName: 'status',
-      width: 110,
-    },
-  ];
-
-  useEffect(() => {}, [tickets]);
-
+  useEffect(() => {
+    console.log(tickets);
+  }, [tickets]);
   return (
     <div className={classes.root}>
-      <Box className={classes.tickets_wrapper}>
-        <div style={{ height: '80vh', width: '100%' }}>
-          <DataGrid
-            rows={tickets.map(
-              ({ marka, dataPrzyjecia, model, status, rma }) => ({
-                id: rma,
-                dataPrzyjecia: new Date(dataPrzyjecia).toLocaleDateString('pl'),
+      <Paper className={classes.table_wrapper}>
+        <VirtualizedTable
+          rowCount={tickets.length}
+          rowGetter={({ index }) =>
+            tickets.map(
+              ({
                 marka,
+                dataPrzyjecia,
+                rodzaj,
                 model,
                 status,
+                kosztNaprawy,
+                nazwisko,
+                rma,
+              }) => ({
+                rma,
+                dataPrzyjecia: new Date(dataPrzyjecia).toLocaleDateString('pl'),
+                rodzaj,
+                marka,
+                model,
+                kosztNaprawy,
+                nazwisko,
+                status,
               })
-            )}
-            columns={columns}
-            pageSize={7}
-            checkboxSelection
-            // autoHeight
-          />
-        </div>
-      </Box>
+            )[index]
+          }
+          columns={[
+            { dataKey: 'rma', label: 'RMA', width: 110 },
+            {
+              dataKey: 'dataPrzyjecia',
+              label: 'data',
+              width: 110,
+            },
+            {
+              dataKey: 'rodzaj',
+              label: 'typ',
+              width: 110,
+            },
+            { dataKey: 'marka', label: 'marka', width: 120 },
+            {
+              dataKey: 'model',
+              label: 'model',
+              width: 130,
+            },
+            {
+              dataKey: 'kosztNaprawy',
+              label: 'koszt',
+              width: 120,
+            },
+            {
+              dataKey: 'nazwisko',
+              label: 'nazwisko',
+              width: 120,
+            },
+            {
+              dataKey: 'status',
+              label: 'status',
+              width: 110,
+            },
+          ]}
+        />
+      </Paper>
     </div>
   );
 }
-
-export default TicketList;
