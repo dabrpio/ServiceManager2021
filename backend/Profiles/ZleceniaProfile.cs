@@ -8,8 +8,8 @@ namespace CommandApi.Profiles
     {
         public ZleceniaProfile(){
             //Source -> target
-            CreateMap<Zlecenie, ZlecenieReadDto>();
-            CreateMap<ZlecenieCreateDto,Zlecenie>();
+            CreateMap<Zlecenia, ZleceniaReadDto>();
+            CreateMap<ZleceniaCreateDto,Zlecenia>();
         }
     }
 }

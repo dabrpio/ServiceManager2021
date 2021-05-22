@@ -8,37 +8,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CommandApi.Models
 {
-    [Table("klienci_test")]
-    public partial class KlienciTest
+    [Table("klienci")]
+    public partial class Klienci
     {
-        public KlienciTest()
-        {
-            ZleceniaTests = new HashSet<ZleceniaTest>();
-        }
-
         [Key]
         [Column("id_klienta")]
         public short IdKlienta { get; set; }
-        [Required]
         [Column("imie")]
-        [StringLength(20)]
+        [StringLength(255)]
         public string Imie { get; set; }
-        [Required]
         [Column("nazwisko")]
-        [StringLength(30)]
+        [StringLength(255)]
         public string Nazwisko { get; set; }
         [Column("nr_tel")]
         public int? NrTel { get; set; }
         [Column("nazwa")]
-        [StringLength(50)]
+        [StringLength(255)]
         public string Nazwa { get; set; }
         [Column("NIP")]
-        public int? Nip { get; set; }
+        public double? Nip { get; set; }
         [Column("e-mail")]
-        [StringLength(100)]
+        [StringLength(255)]
         public string EMail { get; set; }
-
-        [InverseProperty(nameof(ZleceniaTest.IdKlientaNavigation))]
-        public virtual ICollection<ZleceniaTest> ZleceniaTests { get; set; }
     }
 }

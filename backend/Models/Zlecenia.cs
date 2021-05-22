@@ -9,44 +9,38 @@ using Microsoft.EntityFrameworkCore;
 namespace CommandApi.Models
 {
     [Table("zlecenia")]
-    public partial class Zlecenie
+    public partial class Zlecenia
     {
         [Key]
         [Column("RMA")]
-        public short Rma { get; set; }
-        [Column("imie")]
-        [StringLength(20)]
-        public string Imie { get; set; }
-        [Column("nazwisko")]
-        [StringLength(30)]
-        public string Nazwisko { get; set; }
-        [Column("nr_tel")]
-        public int? NrTel { get; set; }
+        public int Rma { get; set; }
+        [Column("id_klienta")]
+        public short? IdKlienta { get; set; }
         [Column("data_przyjecia", TypeName = "datetime")]
         public DateTime? DataPrzyjecia { get; set; }
         [Column("rodzaj")]
-        [StringLength(20)]
+        [StringLength(255)]
         public string Rodzaj { get; set; }
         [Column("marka")]
-        [StringLength(20)]
+        [StringLength(255)]
         public string Marka { get; set; }
         [Column("model")]
-        [StringLength(20)]
+        [StringLength(255)]
         public string Model { get; set; }
         [Column("usterka")]
-        [StringLength(300)]
+        [StringLength(255)]
         public string Usterka { get; set; }
-        [Column("status")]
-        [StringLength(20)]
-        public string Status { get; set; }
         [Column("koszt_naprawy", TypeName = "money")]
         public decimal? KosztNaprawy { get; set; }
         [Column("koszt_czesci", TypeName = "money")]
         public decimal? KosztCzesci { get; set; }
-        [Column("data_wydania", TypeName = "date")]
+        [Column("data_wydania", TypeName = "datetime")]
         public DateTime? DataWydania { get; set; }
+        [Column("status")]
+        [StringLength(255)]
+        public string Status { get; set; }
         [Column("informacje")]
-        [StringLength(100)]
+        [StringLength(255)]
         public string Informacje { get; set; }
     }
 }

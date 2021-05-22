@@ -5,16 +5,16 @@ using CommandApi.Models;
 
 namespace CommandApi.Data
 {
-    public class SqlMasterRepo : IMasterRepo
+    public class SqlZleceniaRepo : IZleceniaRepo
     {
         private readonly SM2021Context _context;
 
-        public SqlMasterRepo(SM2021Context context)
+        public SqlZleceniaRepo(SM2021Context context)
         {
             _context = context;
         }
 
-        public void CreateZlecenie(Zlecenie zlecenie)
+        public void CreateZlecenia(Zlecenia zlecenie)
         {
             if(zlecenie==null){
                 throw new ArgumentNullException(nameof(zlecenie));
@@ -22,12 +22,12 @@ namespace CommandApi.Data
             _context.Zlecenia.Add(zlecenie);
         }
 
-        public IEnumerable<Zlecenie> GetAllZlecenia()
+        public IEnumerable<Zlecenia> GetAllZlecenia()
         {
             return _context.Zlecenia.ToList();
         }
 
-        public Zlecenie GetZlecenieByRma(int Rma)
+        public Zlecenia GetZleceniaByRma(int Rma)
         {
             return _context.Zlecenia.FirstOrDefault(p=>p.Rma==Rma);
         }

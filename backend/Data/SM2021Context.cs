@@ -18,20 +18,22 @@ namespace CommandApi.Data
         {
         }
 
-        public virtual DbSet<KlienciTest> KlienciTests { get; set; }
-        public virtual DbSet<Uzytkownicy> Uzytkownicies { get; set; }
-        public virtual DbSet<ZleceniaTest> ZleceniaTests { get; set; }
-        public virtual DbSet<Zlecenie> Zlecenia { get; set; }
-        public virtual DbSet<Zmienne> Zmiennes { get; set; }
+        public virtual DbSet<Klienci> Klienci { get; set; }
+        public virtual DbSet<Uzytkownicy> Uzytkownicy { get; set; }
+        public virtual DbSet<Zlecenia> Zlecenia { get; set; }
+        public virtual DbSet<Zmienne> Zmienne { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<KlienciTest>(entity =>
+            modelBuilder.Entity<Klienci>(entity =>
             {
                 entity.HasKey(e => e.IdKlienta)
-                    .HasName("PK_klienci");
+                    .HasName("PK__klienci__EB1748C995413766");
+
+                entity.Property(e => e.IdKlienta).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Uzytkownicy>(entity =>
@@ -41,36 +43,12 @@ namespace CommandApi.Data
                 entity.Property(e => e.Login).IsFixedLength(true);
             });
 
-            modelBuilder.Entity<ZleceniaTest>(entity =>
+            modelBuilder.Entity<Zlecenia>(entity =>
             {
-                entity.Property(e => e.DataPrzyjecia).HasDefaultValueSql("(getdate())");
+                entity.HasKey(e => e.Rma)
+                    .HasName("PK__zlecenia__CAFF61B26669A7D8");
 
-                entity.HasOne(d => d.IdKlientaNavigation)
-                    .WithMany(p => p.ZleceniaTests)
-                    .HasForeignKey(d => d.IdKlienta)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__zlecenia___id_kl__5CD6CB2B");
-            });
-
-            modelBuilder.Entity<Zlecenie>(entity =>
-            {
-                entity.Property(e => e.DataPrzyjecia).HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Imie).IsFixedLength(true);
-
-                entity.Property(e => e.Informacje).IsFixedLength(true);
-
-                entity.Property(e => e.Marka).IsFixedLength(true);
-
-                entity.Property(e => e.Model).IsFixedLength(true);
-
-                entity.Property(e => e.Nazwisko).IsFixedLength(true);
-
-                entity.Property(e => e.Rodzaj).IsFixedLength(true);
-
-                entity.Property(e => e.Status).IsFixedLength(true);
-
-                entity.Property(e => e.Usterka).IsFixedLength(true);
+                entity.Property(e => e.Rma).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Zmienne>(entity =>

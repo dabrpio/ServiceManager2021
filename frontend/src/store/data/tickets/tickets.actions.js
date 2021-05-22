@@ -1,6 +1,6 @@
 import * as ticketsAT from './tickets.action-types';
 
-const baseUrl = `https://localhost:5001/api/zleceniaTest`;
+const baseUrl = `https://localhost:5001/api/zlecenia`;
 
 export const fetchTickets = () => {
   return (dispatch) => {
