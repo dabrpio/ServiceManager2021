@@ -27,6 +27,11 @@ namespace CommandApi.Data
             return _context.Zlecenia.ToList();
         }
 
+        public IEnumerable<Zlecenia> Get25Zlecenia()
+        {
+            return _context.Zlecenia.OrderBy(p=>p.Rma).Take(25).ToList();
+        }
+
         public Zlecenia GetZleceniaByRma(int Rma)
         {
             return _context.Zlecenia.FirstOrDefault(p=>p.Rma==Rma);

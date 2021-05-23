@@ -9,5 +9,6 @@ namespace CommandApi.Data
         IEnumerable<Zlecenia> GetAllZlecenia();
         Zlecenia GetZleceniaByRma(int Rma);
         void CreateZlecenia(Zlecenia zlecenia);
+        IEnumerable<Zlecenia> Get25Zlecenia();
     }
 }

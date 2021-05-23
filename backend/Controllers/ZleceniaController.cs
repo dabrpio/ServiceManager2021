@@ -42,6 +42,26 @@ namespace CommandApi.Controllers
             return Ok(_mapper.Map<List<ZleceniaReadDto>>(commIt));
         }
 
+         //GET api/zlecenia/top25
+
+        [HttpGet("top25")]
+        public ActionResult<IEnumerable<ZleceniaReadDto>> Get25Zlecenia(){
+            var commandItems = _repoZlecenia.Get25Zlecenia();
+            Klienci user;
+            List<ZleceniaReadDto> commIt = new List<ZleceniaReadDto>();
+            foreach(var item in commandItems){
+                ZleceniaReadDto inp=new ZleceniaReadDto();
+                user=_repoKlienci.GetKlienciById(item.IdKlienta);
+                inp=_mapper.Map<ZleceniaReadDto>(item);
+                inp.IdKlienta=user.IdKlienta;
+                inp.Imie=user.Imie;
+                inp.Nazwisko=user.Nazwisko;
+                inp.NrTel=user.NrTel;
+                commIt.Add(inp);
+            }
+            return Ok(_mapper.Map<List<ZleceniaReadDto>>(commIt));
+        }
+
         //GET api/zlecenia/{Rma}
         [HttpGet("{Rma}", Name="GetZleceniaByRma")]
         public ActionResult<ZleceniaReadDto>GetZleceniaByRma(int Rma){
