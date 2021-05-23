@@ -1,30 +1,21 @@
-import classnames from 'classnames';
-import styles from './FormInput.module.scss';
+import TextField from '@material-ui/core/TextField';
 
 const FormInput = (props) => {
-  const {
-    inputType,
-    inputPattern,
-    min,
-    valueKey,
-    text,
-    stateValue,
-    error,
-    resetThenSet,
-  } = props;
+  const { inputType, valueKey, text, stateValue, error, resetThenSet } = props;
+
+  const handleChange = (event) => resetThenSet(valueKey, event.target.value);
 
   return (
-    <input
-      className={classnames(styles.input, {
-        [styles.empty]: !stateValue && !error,
-        [styles.error]: error,
-      })}
+    <TextField
+      error={error?.length > 0}
+      fullWidth
+      label={text}
       type={inputType}
-      pattern={inputPattern}
-      min={min}
       value={stateValue ?? ''}
-      onChange={(event) => resetThenSet(valueKey, event.target.value)}
-      placeholder={text}
+      helperText={error}
+      onChange={handleChange}
+      style={{ marginTop: 16, marginBottom: 8 }}
+      size="small"
     />
   );
 };

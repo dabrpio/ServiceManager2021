@@ -1,93 +1,76 @@
 import { useEffect } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
-import classnames from 'classnames';
-import { FaTools, FaCheck } from 'react-icons/fa';
-import NavBar from '../NavBar';
-import styles from './TicketList.module.scss';
+import EnhancedTable from './Table/EnhancedTable';
 
-function TicketList({ tickets }) {
-  const { url } = useRouteMatch();
-  const history = useHistory();
-
-  const handleClick = (id) => {
-    history.push({
-      pathname: `${url}/${id}`,
-      state: {
-        ...history.state,
-        ticket: tickets.find((t) => t.rma === id),
-      },
-    });
-  };
-
-  useEffect(() => {}, [tickets]);
-
+export default function TicketList({ tickets }) {
+  useEffect(() => {
+    console.log(tickets);
+  }, [tickets]);
   return (
-    <>
-      <NavBar />
-      <div className={styles.wrapper}>
-        <table className={styles.ticket_table}>
-          <thead className={styles.ticket_table__head}>
-            <tr className={styles.ticket_table__head__row}>
-              <th className={styles.header}>RMA</th>
-              <th
-                className={classnames(styles.header, styles.media_wide__date)}
-              >
-                data
-              </th>
-              <th
-                className={classnames(styles.header, styles.media_wide__kind)}
-              >
-                rodzaj
-              </th>
-              <th className={styles.header}>marka</th>
-              <th className={styles.header}>model</th>
-              <th className={styles.header}>koszt</th>
-              <th className={styles.header}>status</th>
-            </tr>
-          </thead>
-          <tbody className={styles.ticket_table__body}>
-            {tickets.length
-              ? tickets.map((element) => (
-                  <tr
-                    className={styles.ticket_table__body__row}
-                    key={element.rma}
-                    onClick={() => handleClick(element.rma)}
-                  >
-                    <td className={styles.data}>{element.rma}</td>
-                    <td
-                      className={classnames(
-                        styles.data,
-                        styles.media_wide__date
-                      )}
-                    >
-                      {new Date(element.dataPrzyjecia).toLocaleDateString('pl')}
-                    </td>
-                    <td
-                      className={classnames(
-                        styles.data,
-                        styles.media_wide__kind
-                      )}
-                    >
-                      {element.rodzaj}
-                    </td>
-                    <td className={styles.data}>{element.marka}</td>
-                    <td className={styles.data}>{element.model}</td>
-                    <td className={styles.data}>{element.kosztNaprawy}</td>
-                    <td className={styles.data}>
-                      {element.status === 'zrobione' ? (
-                        <FaCheck />
-                      ) : (
-                        <FaTools />
-                      )}
-                    </td>
-                  </tr>
-                ))
-              : null}
-          </tbody>
-        </table>
-      </div>
-    </>
+    <EnhancedTable />
+    // <div className={classes.root}>
+    //    <Paper className={classes.table_wrapper}>
+
+    //    <VirtualizedTable
+    //       rowCount={tickets.length}
+    //       rowGetter={({ index }) =>
+    //         tickets.map(
+    //           ({
+    //             marka,
+    //             dataPrzyjecia,
+    //             rodzaj,
+    //             model,
+    //             status,
+    //             kosztNaprawy,
+    //             nazwisko,
+    //             rma,
+    //           }) => ({
+    //             rma,
+    //             dataPrzyjecia: new Date(dataPrzyjecia).toLocaleDateString('pl'),
+    //             rodzaj,
+    //             marka,
+    //             model,
+    //             kosztNaprawy,
+    //             nazwisko,
+    //             status,
+    //           })
+    //         )[index]
+    //       }
+    //       columns={[
+    //         { dataKey: 'rma', label: 'RMA', width: 110 },
+    //         {
+    //           dataKey: 'dataPrzyjecia',
+    //           label: 'data',
+    //           width: 110,
+    //         },
+    //         {
+    //           dataKey: 'rodzaj',
+    //           label: 'typ',
+    //           width: 110,
+    //         },
+    //         { dataKey: 'marka', label: 'marka', width: 120 },
+    //         {
+    //           dataKey: 'model',
+    //           label: 'model',
+    //           width: 130,
+    //         },
+    //         {
+    //           dataKey: 'kosztNaprawy',
+    //           label: 'koszt',
+    //           width: 120,
+    //         },
+    //         {
+    //           dataKey: 'nazwisko',
+    //           label: 'nazwisko',
+    //           width: 120,
+    //         },
+    //         {
+    //           dataKey: 'status',
+    //           label: 'status',
+    //           width: 110,
+    //         },
+    //       ]}
+    //     />
+    //    </Paper>
+    // </div>
   );
 }
-
-export default TicketList;

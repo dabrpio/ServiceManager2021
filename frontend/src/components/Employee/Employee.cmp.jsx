@@ -1,17 +1,17 @@
 import { useParams } from 'react-router-dom';
-import NavBar from '../NavBar';
-import styles from './Employee.module.scss';
+import { Container, Typography } from '@material-ui/core';
+import { useStyles } from './styles';
 
 function Employee() {
-  let { employeeId } = useParams();
+  const classes = useStyles();
+  const { employeeId } = useParams();
 
   return (
-    <>
-      <NavBar />
-      <div className={styles.employee}>
-        <h3>{employeeId}</h3>
-      </div>
-    </>
+    <div className={classes.root}>
+      <Container>
+        <Typography component="h2">{employeeId}</Typography>
+      </Container>
+    </div>
   );
 }
 

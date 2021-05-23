@@ -1,16 +1,17 @@
+import { Container, Typography } from '@material-ui/core';
 import { useState } from 'react';
 import FormButton from '../FormButton';
 import FormInput from '../FormInput';
-import styles from './Login.module.scss';
+import { useStyles } from './styles';
 
 function Login() {
+  const classes = useStyles();
   const [loginData, setLoginData] = useState({
-    name: '',
+    email: '',
     password: '',
   });
-
   const [loginErrors, setLoginErrors] = useState({
-    nameError: '',
+    emailError: '',
     passwordError: '',
   });
 
@@ -27,31 +28,31 @@ function Login() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <form className={styles.login} onSubmit={handleLoginSubmit}>
-        <h1 className={styles.login__heading}>Service Manager 2021</h1>
-
-        <FormInput
-          stateValue={loginData.name}
-          resetThenSet={setLoginInputData}
-          valueKey="name"
-          text="nazwa"
-          inputType="text"
-          error={loginErrors.nameError}
-        />
-        <p className={styles.error_message}>{loginErrors.nameError}</p>
-
-        <FormInput
-          stateValue={loginData.password}
-          resetThenSet={setLoginInputData}
-          valueKey="password"
-          text="hasło"
-          inputType="password"
-          error={loginErrors.passwordError}
-        />
-        <p className={styles.error_message}>{loginErrors.passwordError}</p>
-        <FormButton text="ZALOGUJ" color_dark={true} inputType="submit" />
-      </form>
+    <div className={classes.root}>
+      <Container className={classes.loginWrapper} maxWidth="sm">
+        <form onSubmit={handleLoginSubmit} className={classes.loginForm}>
+          <Typography component="h2" className={classes.heading}>
+            Service Manager 2021
+          </Typography>
+          <FormInput
+            stateValue={loginData.email}
+            resetThenSet={setLoginInputData}
+            valueKey="email"
+            text="email"
+            inputType="text"
+            error={loginErrors.emailError}
+          />
+          <FormInput
+            stateValue={loginData.password}
+            resetThenSet={setLoginInputData}
+            valueKey="password"
+            text="hasło"
+            inputType="password"
+            error={loginErrors.passwordError}
+          />
+          <FormButton text="ZALOGUJ" inputType="submit" loginButton={true} />
+        </form>
+      </Container>
     </div>
   );
 }

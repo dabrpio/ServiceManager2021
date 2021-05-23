@@ -1,14 +1,14 @@
 import { Link, useRouteMatch } from 'react-router-dom';
-import NavBar from '../NavBar';
-import styles from './EmployeeList.module.scss';
+import { Container } from '@material-ui/core';
+import { useStyles } from './styles';
 
 function EmployeeList() {
-  let { url } = useRouteMatch();
+  const classes = useStyles();
+  const { url } = useRouteMatch();
 
   return (
-    <>
-      <NavBar />
-      <div className={styles.employee_list}>
+    <div className={classes.root}>
+      <Container>
         <h2>Employees</h2>
         <ul>
           <li>
@@ -24,8 +24,8 @@ function EmployeeList() {
             <Link to={`${url}/new`}>new</Link>
           </li>
         </ul>
-      </div>
-    </>
+      </Container>
+    </div>
   );
 }
 

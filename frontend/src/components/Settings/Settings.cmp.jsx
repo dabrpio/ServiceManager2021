@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import NavBar from '../NavBar';
 import FormInput from '../FormInput';
 import FormButton from '../FormButton';
-import styles from './Settings.module.scss';
+import { useStyles } from './styles';
+import { Box, Typography } from '@material-ui/core';
 
 function Settings() {
+  const classes = useStyles();
   const [name, setName] = useState({
     oldName: '',
     newName: '',
@@ -31,12 +32,16 @@ function Settings() {
   };
 
   return (
-    <>
-      <NavBar />
-      <div className={styles.settings}>
-        <form className={styles.form}>
-          <fieldset className={styles.form__name}>
-            <h2 className={styles.form__heading}>ZMIANA NAZWY</h2>
+    <div className={classes.root}>
+      <Box className={classes.container}>
+        <Typography component="h3" className={classes.heading}>
+          Ustawienia
+        </Typography>
+        <form className={classes.form}>
+          {/* <fieldset className={classes.form__name}>
+            <Typography variant="h5" className={classes.form__heading}>
+              ZMIANA NAZWY
+            </Typography>
             <FormInput
               inputType="text"
               stateValue={name.oldName}
@@ -52,37 +57,35 @@ function Settings() {
               valueKey="newName"
               text="nowa nazwa"
             />
-          </fieldset>
-          <fieldset className={styles.form__password}>
-            <h2 className={styles.form__heading}>ZMIANA HASŁA</h2>
-            <FormInput
-              inputType="password"
-              stateValue={password.oldPassword}
-              resetThenSet={setInputSettingsData}
-              valueKey="oldPassword"
-              text="aktualne hasło"
-            />
-            <FormInput
-              inputType="password"
-              stateValue={password.newPassword}
-              resetThenSet={setInputSettingsData}
-              valueKey="newPassword"
-              text="nowe hasło"
-            />
-            <FormInput
-              inputType="password"
-              stateValue={password.newPasswordRepeated}
-              resetThenSet={setInputSettingsData}
-              valueKey="newPasswordRepeated"
-              text="powtórz nowe hasło"
-            />
-          </fieldset>
-          <div className={styles.form__button_container}>
-            <FormButton text="ZAPISZ" color_dark={true} inputType="submit" />
-          </div>
+          </fieldset> */}
+          <Typography variant="h5" className={classes.form__heading}>
+            ZMIANA HASŁA
+          </Typography>
+          <FormInput
+            inputType="password"
+            stateValue={password.oldPassword}
+            resetThenSet={setInputSettingsData}
+            valueKey="oldPassword"
+            text="aktualne hasło"
+          />
+          <FormInput
+            inputType="password"
+            stateValue={password.newPassword}
+            resetThenSet={setInputSettingsData}
+            valueKey="newPassword"
+            text="nowe hasło"
+          />
+          <FormInput
+            inputType="password"
+            stateValue={password.newPasswordRepeated}
+            resetThenSet={setInputSettingsData}
+            valueKey="newPasswordRepeated"
+            text="powtórz nowe hasło"
+          />
+          <FormButton text="ZAPISZ" color_dark={true} inputType="submit" />
         </form>
-      </div>
-    </>
+      </Box>
+    </div>
   );
 }
 

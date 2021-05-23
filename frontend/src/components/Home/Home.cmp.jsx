@@ -1,16 +1,14 @@
-import NavBar from '../NavBar';
-
-import styles from './Home.module.scss';
+import { Container, Typography } from '@material-ui/core';
+import { useStyles } from './styles';
 
 function Home() {
+  const classes = useStyles();
   return (
-    <>
-      <NavBar />
-
-      <div className={styles.home}>
-        <h1>home</h1>
-      </div>
-    </>
+    <div className={classes.root}>
+      <Container>
+        <Typography>Home</Typography>
+      </Container>
+    </div>
   );
 }
 

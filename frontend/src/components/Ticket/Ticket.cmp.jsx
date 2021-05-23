@@ -1,4 +1,5 @@
 import { useEffect, useState, useReducer } from 'react';
+import { Box, Typography } from '@material-ui/core';
 import {
   useHistory,
   useLocation,
@@ -11,11 +12,10 @@ import {
   modelTypes,
   statusTypes,
 } from '../../common/dropdownOptions';
-import NavBar from '../NavBar';
 import Dropdown from '../Dropdown';
 import FormButton from '../FormButton';
 import FormInput from '../FormInput';
-import styles from './Ticket.module.scss';
+import { useStyles } from './styles';
 
 const initialTicketState = {
   rodzaj: null,
@@ -32,6 +32,7 @@ const initialTicketState = {
 };
 
 function Ticket({ addTicket }) {
+  const classes = useStyles();
   const { ticketId } = useParams();
   const location = useLocation();
   const history = useHistory();
@@ -46,10 +47,6 @@ function Ticket({ addTicket }) {
     return () => setTicketData(initialTicketState);
   }, [location]);
 
-  const setTicketDropdown = (key, title) => {
-    setTicketData({ ...ticketData, [key]: title });
-  };
-
   const setInputTicketData = (key, value) => {
     setTicketData({
       ...ticketData,
@@ -60,7 +57,7 @@ function Ticket({ addTicket }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (ticketId === 'new') {
-      if (!Object.values(ticketData).every((e) => e === null)) {
+      if (!Object.values(ticketData).every((e) => e === null || e === '')) {
         addTicket(ticketData);
         history.push('/tickets');
       } else {
@@ -72,37 +69,39 @@ function Ticket({ addTicket }) {
   };
 
   return (
-    <>
-      <NavBar />
-      <div className={styles.ticket}>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <fieldset className={styles.form__ticket}>
-            <h2 className={styles.heading}>
-              {ticketId === 'new' ? `NOWE ZLECENIE` : `ZLECENIE ${ticketId}`}
-            </h2>
+    <div className={classes.root}>
+      <Box className={classes.container}>
+        <Typography component="h3" className={classes.heading}>
+          {ticketId === 'new' ? `Nowe zlecenie` : `Zlecenie ${ticketId}`}
+        </Typography>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <div className={classes.form__info}>
+            <Typography variant="h5" className={classes.form__heading}>
+              INFORMACJE
+            </Typography>
             <Dropdown
               stateValue={ticketData?.rodzaj}
               defaultTitle="typ urządzenia"
               list={deviceTypes}
-              resetThenSet={setTicketDropdown}
+              setSelected={(selected) =>
+                setTicketData({ ...ticketData, rodzaj: selected })
+              }
             />
             <Dropdown
               stateValue={ticketData?.marka}
               defaultTitle="producent"
               list={brandTypes}
-              resetThenSet={setTicketDropdown}
+              setSelected={(selected) =>
+                setTicketData({ ...ticketData, marka: selected })
+              }
             />
             <Dropdown
               stateValue={ticketData?.model}
               defaultTitle="model"
               list={modelTypes}
-              resetThenSet={setTicketDropdown}
-            />
-            <Dropdown
-              stateValue={ticketData?.status}
-              defaultTitle="status"
-              list={statusTypes}
-              resetThenSet={setTicketDropdown}
+              setSelected={(selected) =>
+                setTicketData({ ...ticketData, model: selected })
+              }
             />
             <FormInput
               stateValue={ticketData?.usterka}
@@ -117,8 +116,6 @@ function Ticket({ addTicket }) {
               valueKey="kosztCzesci"
               text="koszt części"
               inputType="number"
-              min="0"
-              inputPattern="[0-9]{1,}"
             />
             <FormInput
               stateValue={ticketData?.kosztNaprawy}
@@ -126,8 +123,6 @@ function Ticket({ addTicket }) {
               valueKey="kosztNaprawy"
               text="koszt naprawy"
               inputType="number"
-              min="0"
-              inputPattern="[0-9]{1,}"
             />
             <FormInput
               stateValue={ticketData?.informacje}
@@ -136,44 +131,37 @@ function Ticket({ addTicket }) {
               text="dodatkowe informacje"
               inputType="text"
             />
-          </fieldset>
-          <fieldset className={styles.form__client_data}>
-            <h2 className={styles.heading}>DANE KLIENTA</h2>
+          </div>
+          <div className={classes.form__client}>
+            <Typography variant="h5" className={classes.form__heading}>
+              DANE KLIENTA
+            </Typography>
 
             <FormInput
-              stateValue={ticketData?.imie?.trim()}
+              stateValue={ticketData?.imie}
               resetThenSet={setInputTicketData}
               valueKey="imie"
               text="imię"
               inputType="text"
-              inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,10}"
             />
             <FormInput
-              stateValue={ticketData?.nazwisko?.trim()}
+              stateValue={ticketData?.nazwisko}
               resetThenSet={setInputTicketData}
               valueKey="nazwisko"
               text="nazwisko"
               inputType="text"
-              inputPattern="[A-ZĄĆĘŁÓŃŚŹŻa-ząćęłóńśźż]{1,10}"
             />
-            {/* <FormInput
-              stateValue={ticketData.email}
-              resetThenSet={setInputTicketData}
-              valueKey="email"
-              text="email"
-              inputType="email"
-            /> */}
             <FormInput
               stateValue={ticketData?.nrTel}
               resetThenSet={setInputTicketData}
               valueKey="nrTel"
               text="nr tel."
               inputType="number"
-              inputPattern="[0-9]{9}"
             />
-          </fieldset>
-          <div className={styles.button_section}>
+          </div>
+          <div className={classes.button_section}>
             <FormButton text="ZAPISZ" color_dark={true} inputType="submit" />
+
             <FormButton
               text="DOKUMENT"
               color_bright={true}
@@ -186,8 +174,8 @@ function Ticket({ addTicket }) {
             />
           </div>
         </form>
-      </div>
-    </>
+      </Box>
+    </div>
   );
 }
 

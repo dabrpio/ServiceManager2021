@@ -1,16 +1,16 @@
-import classnames from 'classnames';
-import styles from './FormButton.module.scss';
+import Button from '@material-ui/core/Button';
 
 function FormButton(props) {
   return (
-    <input
-      className={classnames(styles.button, {
-        [styles.bg_bright]: props.color_bright,
-        [styles.bg_dark]: props.color_dark,
-      })}
+    <Button
+      variant="contained"
+      color="primary"
       type={props.inputType}
-      value={props.text}
-    ></input>
+      fullWidth
+      style={props.loginButton ? { marginTop: 40 } : { marginTop: 20 }}
+    >
+      {props.text}
+    </Button>
   );
 }
 
