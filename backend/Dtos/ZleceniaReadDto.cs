@@ -18,9 +18,6 @@ namespace CommandApi.Dtos
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public int? NrTel { get; set; }
-        public string Nazwa { get; set; }
-        public double? Nip { get; set; }
-        public string EMail { get; set; }
         public DateTime? DataWydania { get; set; }
         public DateTime? DataPrzyjecia { get; set; }
 

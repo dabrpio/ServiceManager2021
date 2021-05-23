@@ -32,28 +32,18 @@ namespace CommandApi.Controllers
             foreach(var item in commandItems){
                 ZleceniaReadDto inp=new ZleceniaReadDto();
                 user=_repoKlienci.GetKlienciById(item.IdKlienta);
+                inp=_mapper.Map<ZleceniaReadDto>(item);
                 inp.IdKlienta=user.IdKlienta;
                 inp.Imie=user.Imie;
-                inp.Informacje=item.Informacje;
-                inp.KosztCzesci=item.KosztCzesci;
-                inp.KosztNaprawy=item.KosztNaprawy;
-                inp.Marka=item.Marka;
-                inp.Model=item.Model;
                 inp.Nazwisko=user.Nazwisko;
                 inp.NrTel=user.NrTel;
-                inp.Rma=item.Rma;
-                inp.Rodzaj=item.Rodzaj;
-                inp.Status=item.Status;
-                inp.Usterka=item.Usterka;
-                inp.DataPrzyjecia=item.DataPrzyjecia;
-                inp.DataWydania=item.DataWydania;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<List<ZleceniaReadDto>>(commIt));
         }
 
         //GET api/zlecenia/{Rma}
-        [HttpGet("{Rma}", Name="GetZlecenieByRma")]
+        [HttpGet("{Rma}", Name="GetZleceniaByRma")]
         public ActionResult<ZleceniaReadDto>GetZleceniaByRma(int Rma){
             var commandItem = _repoZlecenia.GetZleceniaByRma(Rma);
             
@@ -63,21 +53,12 @@ namespace CommandApi.Controllers
                     return NoContent();
                 }
                 ZleceniaReadDto inp=new ZleceniaReadDto();
+                inp=_mapper.Map<ZleceniaReadDto>(commandItem);
                 inp.IdKlienta=klient.IdKlienta;
                 inp.Imie=klient.Imie;
-                inp.Informacje=commandItem.Informacje;
-                inp.KosztCzesci=commandItem.KosztCzesci;
-                inp.KosztNaprawy=commandItem.KosztNaprawy;
-                inp.Marka=commandItem.Marka;
-                inp.Model=commandItem.Model;
                 inp.Nazwisko=klient.Nazwisko;
                 inp.NrTel=klient.NrTel;
-                inp.Rma=commandItem.Rma;
-                inp.Rodzaj=commandItem.Rodzaj;
-                inp.Status=commandItem.Status;
-                inp.Usterka=commandItem.Usterka;
-                inp.DataWydania=commandItem.DataWydania;
-                inp.DataPrzyjecia=commandItem.DataPrzyjecia;
+
                 return Ok(_mapper.Map<ZleceniaReadDto>(inp));
             }
             else{
@@ -89,8 +70,16 @@ namespace CommandApi.Controllers
         //POST api/zlecenia
         [HttpPost]
         public ActionResult<ZleceniaReadDto>CreateZlecenie(ZleceniaCreateDto zleceniaCreateDto){
-            var commandModel =_mapper.Map<Zlecenia>(zleceniaCreateDto);
-            Klienci commandKlient= new Klienci();
+            var zleceniaModel =_mapper.Map<Zlecenia>(zleceniaCreateDto);
+            var klienciModel = _mapper.Map<Klienci>(zleceniaCreateDto);
+            if(_repoKlienci.GetKlienciByPhNumer(klienciModel.NrTel,klienciModel.Imie,klienciModel.Nazwisko)==null){
+                _repoKlienci.CreateKlienci(klienciModel);
+                _repoKlienci.SaveChanges();
+            }
+            zleceniaModel.IdKlienta=_repoKlienci.GetKlienciByPhNumer(klienciModel.NrTel,klienciModel.Imie,klienciModel.Nazwisko).IdKlienta;
+            _repoZlecenia.CreateZlecenia(zleceniaModel);
+            _repoZlecenia.SaveChanges();
+            /*Klienci commandKlient= new Klienci();
             commandKlient.Imie=zleceniaCreateDto.Imie;
             commandKlient.Nazwisko=zleceniaCreateDto.Nazwisko;
             commandKlient.NrTel=zleceniaCreateDto.NrTel;
@@ -101,9 +90,15 @@ namespace CommandApi.Controllers
             }
             commandModel.IdKlienta=_repoKlienci.GetKlienciByPhNumer(commandKlient.NrTel,commandKlient.Imie,commandKlient.Nazwisko).IdKlienta;
             _repoZlecenia.CreateZlecenia(commandModel);
-            _repoZlecenia.SaveChanges();
-            var zleceniaTestReadDto = _mapper.Map<ZleceniaReadDto>(commandModel);
-            return CreatedAtRoute(nameof(GetZleceniaByRma), new {Rma = zleceniaTestReadDto.Rma},zleceniaTestReadDto);
+            _repoZlecenia.SaveChanges();*/
+            
+            var ZleceniaReadDto = _mapper.Map<ZleceniaReadDto>(zleceniaModel);
+            ZleceniaReadDto.Imie=klienciModel.Imie;
+            ZleceniaReadDto.Nazwisko=klienciModel.Nazwisko;
+            ZleceniaReadDto.NrTel=klienciModel.NrTel;
+
+            return CreatedAtRoute(nameof(GetZleceniaByRma), new {Rma = ZleceniaReadDto.Rma},ZleceniaReadDto);
+
         }
     }
 }

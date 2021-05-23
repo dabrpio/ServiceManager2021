@@ -11,6 +11,11 @@ namespace CommandApi.Models
     [Table("klienci")]
     public partial class Klienci
     {
+        public Klienci()
+        {
+            Zlecenia = new HashSet<Zlecenia>();
+        }
+
         [Key]
         [Column("id_klienta")]
         public short IdKlienta { get; set; }
@@ -26,9 +31,12 @@ namespace CommandApi.Models
         [StringLength(255)]
         public string Nazwa { get; set; }
         [Column("NIP")]
-        public double? Nip { get; set; }
+        public long? Nip { get; set; }
         [Column("e-mail")]
         [StringLength(255)]
         public string EMail { get; set; }
+
+        [InverseProperty(nameof(Models.Zlecenia.IdKlientaNavigation))]
+        public virtual ICollection<Zlecenia> Zlecenia { get; set; }
     }
 }

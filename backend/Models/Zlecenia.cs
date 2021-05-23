@@ -13,7 +13,7 @@ namespace CommandApi.Models
     {
         [Key]
         [Column("RMA")]
-        public int Rma { get; set; }
+        public short Rma { get; set; }
         [Column("id_klienta")]
         public short? IdKlienta { get; set; }
         [Column("data_przyjecia", TypeName = "datetime")]
@@ -42,5 +42,9 @@ namespace CommandApi.Models
         [Column("informacje")]
         [StringLength(255)]
         public string Informacje { get; set; }
+
+        [ForeignKey(nameof(IdKlienta))]
+        [InverseProperty(nameof(Klienci.Zlecenia))]
+        public virtual Klienci IdKlientaNavigation { get; set; }
     }
 }

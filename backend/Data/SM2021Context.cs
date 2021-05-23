@@ -28,14 +28,6 @@ namespace CommandApi.Data
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<Klienci>(entity =>
-            {
-                entity.HasKey(e => e.IdKlienta)
-                    .HasName("PK__klienci__EB1748C995413766");
-
-                entity.Property(e => e.IdKlienta).ValueGeneratedNever();
-            });
-
             modelBuilder.Entity<Uzytkownicy>(entity =>
             {
                 entity.Property(e => e.Haslo).IsFixedLength(true);
@@ -45,10 +37,10 @@ namespace CommandApi.Data
 
             modelBuilder.Entity<Zlecenia>(entity =>
             {
-                entity.HasKey(e => e.Rma)
-                    .HasName("PK__zlecenia__CAFF61B26669A7D8");
-
-                entity.Property(e => e.Rma).ValueGeneratedNever();
+                entity.HasOne(d => d.IdKlientaNavigation)
+                    .WithMany(p => p.Zlecenia)
+                    .HasForeignKey(d => d.IdKlienta)
+                    .HasConstraintName("FK__zlecenia__id_kli__06CD04F7");
             });
 
             modelBuilder.Entity<Zmienne>(entity =>
