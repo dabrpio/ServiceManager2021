@@ -11,9 +11,9 @@ import Ticket from './Ticket';
 import NavBar from './NavBar';
 
 function App({ init }) {
-  useEffect(() => {
-    init();
-  }, [init]);
+  // useEffect(() => {
+  //   init();
+  // }, [init]);
 
   return (
     <BrowserRouter>
