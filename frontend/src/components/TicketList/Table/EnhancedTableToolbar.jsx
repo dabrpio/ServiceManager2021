@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import clsx from 'clsx';
 import React from 'react';
+import AddTicketDialog from './AddTicketDialog';
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +42,8 @@ export default function EnhancedTableToolbar() {
         Zlecenia
       </Typography>
 
-      <Tooltip title="Filter list">
+      <AddTicketDialog />
+      <Tooltip title="Filtrowanie">
         <IconButton aria-label="filter list">
           <FilterListIcon />
         </IconButton>

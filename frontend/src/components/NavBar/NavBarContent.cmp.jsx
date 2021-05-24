@@ -10,35 +10,11 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  makeStyles,
 } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 40,
-    },
-  },
-  listItem: {
-    [theme.breakpoints.up('sm')]: {
-      alignItems: 'center',
-      height: 80,
-      color: '#fff',
-      justifyContent: 'center',
-      width: '100%',
-    },
-  },
-  text: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-}));
-
-const NavBarContent = ({ handleMenuItemClick }) => {
+const NavBarContent = ({ handleMenuItemClick, classes }) => {
   const location = useLocation();
-  const classes = useStyles();
   return (
     <List>
       <ListItem
@@ -64,18 +40,6 @@ const NavBarContent = ({ handleMenuItemClick }) => {
           <ViewListRoundedIcon className={classes.icon} />
         </ListItemIcon>
         <ListItemText className={classes.text}>Tickets</ListItemText>
-      </ListItem>
-      <ListItem
-        button
-        component={Link}
-        to="/tickets/new"
-        selected={'/tickets/new' === location.pathname}
-        onClick={() => handleMenuItemClick('New ticket')}
-      >
-        <ListItemIcon className={classes.listItem}>
-          <AddBoxRoundedIcon className={classes.icon} />
-        </ListItemIcon>
-        <ListItemText className={classes.text}>New ticket</ListItemText>
       </ListItem>
       <ListItem
         button

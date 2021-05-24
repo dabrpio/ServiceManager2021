@@ -7,10 +7,6 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import {
-  ThemeProvider,
-  unstable_createMuiStrictModeTheme,
-} from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
 import NavBarContent from './NavBarContent.cmp';
@@ -20,7 +16,6 @@ function NavBar() {
   const [title, setTitle] = useState('SM21');
   const [mobileOpen, setMobileOpen] = useState(false);
   const classes = useStyles();
-  const theme = unstable_createMuiStrictModeTheme();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -53,31 +48,32 @@ function NavBar() {
       </Hidden>
 
       <nav className={classes.drawer}>
-        <ThemeProvider theme={theme}>
-          <Hidden smDown implementation="css">
-            <Drawer
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              ModalProps={{
-                keepMounted: true,
-              }}
-            >
-              <Toolbar>
-                <IconButton
-                  onClick={handleDrawerToggle}
-                  className={classes.closeMenuButton}
-                >
-                  <CloseIcon />
-                </IconButton>
-              </Toolbar>
-              <NavBarContent handleMenuItemClick={handleMenuItemClick} />
-            </Drawer>
-          </Hidden>
-        </ThemeProvider>
+        <Hidden smDown implementation="css">
+          <Drawer
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true,
+            }}
+          >
+            <Toolbar>
+              <IconButton
+                onClick={handleDrawerToggle}
+                className={classes.closeMenuButton}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+            <NavBarContent
+              handleMenuItemClick={handleMenuItemClick}
+              classes={classes}
+            />
+          </Drawer>
+        </Hidden>
         <Hidden xsDown implementation="css">
           <Drawer
             className={classes.drawer}
@@ -86,7 +82,10 @@ function NavBar() {
               paper: classes.drawerPaper,
             }}
           >
-            <NavBarContent handleMenuItemClick={handleMenuItemClick} />
+            <NavBarContent
+              handleMenuItemClick={handleMenuItemClick}
+              classes={classes}
+            />
           </Drawer>
         </Hidden>
       </nav>

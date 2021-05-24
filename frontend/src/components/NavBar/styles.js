@@ -33,4 +33,23 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: 'auto',
     marginLeft: 0,
   },
+  icon: {
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 40,
+    },
+  },
+  listItem: {
+    [theme.breakpoints.up('sm')]: {
+      alignItems: 'center',
+      height: 80,
+      color: '#fff',
+      justifyContent: 'center',
+      width: '100%',
+    },
+  },
+  text: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
 }));
