@@ -10,6 +10,8 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import BuildIcon from '@material-ui/icons/Build';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
@@ -58,149 +60,31 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  th: {
+    cursor: 'pointer',
+  },
   td: {
-    [theme.breakpoints.down('sm')]: {
-      padding: '16px 0 16px 8px ',
+    [theme.breakpoints.up('xs')]: {
+      padding: '16px 0 16px 4px',
     },
-    padding: '16px',
+    [theme.breakpoints.up('sm')]: {
+      padding: '16px 8px',
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: '16px',
+    },
+    whiteSpace: 'nowrap',
   },
   tr: {
     margin: '0 16px',
   },
+  buildIcon: {
+    color: theme.palette.grey[500],
+  },
+  checkIcon: {
+    color: theme.palette.success.light,
+  },
 }));
-
-function createData(rma, data, rodzaj, marka, model, koszt, status) {
-  return { rma, data, rodzaj, marka, model, koszt, status };
-}
-
-const rows = [
-  createData(
-    1,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-  createData(
-    2,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    51,
-    'zrobione'
-  ),
-  createData(
-    3,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    52,
-    'zrobione'
-  ),
-  createData(
-    4,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    53,
-    'zrobione'
-  ),
-  createData(
-    5,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'iPhone',
-    '8',
-    58,
-    'zrobione'
-  ),
-  createData(
-    6,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'iPhone',
-    '7',
-    50,
-    'zrobione'
-  ),
-  createData(
-    7,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-  createData(
-    8,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-  createData(
-    9,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-  createData(
-    10,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-  createData(
-    11,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-  createData(
-    12,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-  createData(
-    13,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-  createData(
-    14,
-    new Date().toLocaleDateString('pl'),
-    'telefon',
-    'Hwawei',
-    'Y5',
-    50,
-    'zrobione'
-  ),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -228,13 +112,13 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export default function EnhancedTable() {
+export default function EnhancedTable({ tickets }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   //   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -272,7 +156,7 @@ export default function EnhancedTable() {
   //   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
 
   return (
     <Paper className={classes.root}>
@@ -289,10 +173,10 @@ export default function EnhancedTable() {
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
-            rowCount={rows.length}
+            rowCount={tickets.length}
           />
           <TableBody>
-            {stableSort(rows, getComparator(order, orderBy))
+            {stableSort(tickets, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 //   const isItemSelected = isSelected(row.name);
@@ -309,7 +193,9 @@ export default function EnhancedTable() {
                   >
                     <TableCell className={classes.td}>{row.rma}</TableCell>
                     <Hidden smDown>
-                      <TableCell className={classes.td}>{row.data}</TableCell>
+                      <TableCell className={classes.td}>
+                        {new Date(row.dataPrzyjecia).toLocaleDateString('pl')}
+                      </TableCell>
                     </Hidden>
 
                     <Hidden smDown>
@@ -317,12 +203,28 @@ export default function EnhancedTable() {
                     </Hidden>
                     <TableCell className={classes.td}>{row.marka}</TableCell>
                     <TableCell className={classes.td}>{row.model}</TableCell>
-                    <TableCell className={classes.td}>{row.koszt}</TableCell>
-                    <TableCell className={classes.td}>{row.status}</TableCell>
+                    <TableCell className={classes.td}>
+                      {row.kosztNaprawy}
+                    </TableCell>
+                    <TableCell className={classes.td}>
+                      {row.status === 'zrobione' ? (
+                        <CheckCircleIcon
+                          classes={{
+                            root: classes.checkIcon,
+                          }}
+                        />
+                      ) : (
+                        <BuildIcon
+                          classes={{
+                            root: classes.buildIcon,
+                          }}
+                        />
+                      )}
+                    </TableCell>
                   </TableRow>
                 );
               })}
-            {!rows && (
+            {!tickets && (
               <TableRow style={{ height: '100%' }}>
                 <TableCell colSpan={6} />
               </TableRow>
@@ -331,9 +233,9 @@ export default function EnhancedTable() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[10, 25, 50]}
         component="div"
-        count={rows.length}
+        count={tickets.length}
         rowsPerPage={rowsPerPage}
         page={page}
         size="small"

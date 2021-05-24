@@ -4,7 +4,7 @@ const baseUrl = `https://localhost:5001/api/zlecenia`;
 
 export const fetchTickets = () => {
   return (dispatch) => {
-    fetch(baseUrl)
+    fetch(baseUrl + '/top25')
       .then((res) => res.json())
       .then((data) => dispatch(setTickets(data)));
   };

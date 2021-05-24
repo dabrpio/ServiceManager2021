@@ -4,6 +4,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 const headCells = [
   {
@@ -11,30 +12,30 @@ const headCells = [
     label: 'Rma',
   },
   {
-    id: 'data',
-    label: 'data',
+    id: 'dataPrzyjecia',
+    label: 'Data',
     smUp: true,
   },
   {
     id: 'rodzaj',
-    label: 'rodzaj',
+    label: 'Rodzaj',
     smUp: true,
   },
   {
     id: 'marka',
-    label: 'marka',
+    label: 'Marka',
   },
   {
     id: 'model',
-    label: 'model',
+    label: 'Model',
   },
   {
-    id: 'koszt',
-    label: 'koszt',
+    id: 'kosztNaprawy',
+    label: 'Koszt',
   },
   {
     id: 'status',
-    label: 'status',
+    label: 'Status',
   },
 ];
 
@@ -58,7 +59,7 @@ export default function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <Hidden smDown={headCell.smUp} key={headCell.id}>
             <TableCell
-              className={classes.td}
+              className={clsx(classes.td, classes.th)}
               padding={headCell.disablePadding ? 'none' : 'default'}
               sortDirection={orderBy === headCell.id ? order : false}
               style={{ width: headCell.width }}
