@@ -112,6 +112,15 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
+const useFilter = (tickets, searchInput) => {
+  const regex = new RegExp(`${searchInput}`, 'i');
+  if (searchInput === '') return tickets;
+  else
+    return tickets.filter((ticket) =>
+      Object.values(ticket).some((value) => `${value}`.match(regex))
+    );
+};
+
 export default function EnhancedTable({ tickets }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -119,6 +128,8 @@ export default function EnhancedTable({ tickets }) {
   //   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [searchInput, setSearchInput] = React.useState('');
+  const data = useFilter(tickets, searchInput);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -156,11 +167,14 @@ export default function EnhancedTable({ tickets }) {
   //   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
   return (
     <Paper className={classes.root}>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+      />
       <TableContainer className={classes.container}>
         <Table
           className={classes.table}
@@ -173,10 +187,10 @@ export default function EnhancedTable({ tickets }) {
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
-            rowCount={tickets.length}
+            rowCount={data.length}
           />
           <TableBody>
-            {stableSort(tickets, getComparator(order, orderBy))
+            {stableSort(data, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 //   const isItemSelected = isSelected(row.name);
