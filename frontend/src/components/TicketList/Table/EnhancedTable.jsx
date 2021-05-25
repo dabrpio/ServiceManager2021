@@ -55,8 +55,8 @@ const useFilter = (tickets, searchInput) => {
 
 export default function EnhancedTable({ tickets }) {
   const classes = useStyles();
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('');
+  const [order, setOrder] = useState('desc');
+  const [orderBy, setOrderBy] = useState('rma');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchInput, setSearchInput] = useState('');

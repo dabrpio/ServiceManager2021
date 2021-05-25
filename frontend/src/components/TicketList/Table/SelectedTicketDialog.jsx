@@ -69,6 +69,11 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
       ? false
       : !`${ticket.nrTel}`.match(/^[0-9]{9}$/g);
 
+  const checkEmailError = () =>
+    ['', null].includes(ticket.eMail)
+      ? false
+      : !`${ticket.eMail}`.match(/^.+@.+\..+$/g);
+
   return (
     <Dialog
       maxWidth="md"
@@ -208,17 +213,24 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
           />
           <TextField
             fullWidth
+            label="Email"
+            type="text"
+            value={ticket.eMail ?? ''}
+            onChange={handleTextFieldChange('eMail')}
+            style={{ marginTop: 16, marginBottom: 8 }}
+            size="small"
+            error={checkEmailError()}
+          />
+          <TextField
+            fullWidth
             label="Dodatkowe informacje"
             type="text"
             value={ticket.informacje ?? ''}
             onChange={handleTextFieldChange('informacje')}
             style={{ marginTop: 16, marginBottom: 8 }}
             size="small"
-            multiline
-            rows={4}
-            classes={{
-              root: classes.textarea,
-            }}
+            // multiline
+            // rows={4}
           />
         </div>
       </DialogContent>
