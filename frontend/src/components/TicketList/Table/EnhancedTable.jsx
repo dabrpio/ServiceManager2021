@@ -28,6 +28,16 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
+function descendingDateComparator(a, b, orderBy) {
+  if (new Date(b[orderBy]) < new Date(a[orderBy])) {
+    return -1;
+  }
+  if (new Date(b[orderBy]) > new Date(a[orderBy])) {
+    return 1;
+  }
+  return 0;
+}
+
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -39,9 +49,15 @@ function stableSort(array, comparator) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+  if (orderBy === 'dataPrzyjecia') {
+    return order === 'desc'
+      ? (a, b) => descendingDateComparator(a, b, orderBy)
+      : (a, b) => -descendingDateComparator(a, b, orderBy);
+  } else {
+    return order === 'desc'
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
 }
 
 const useFilter = (tickets, searchInput) => {

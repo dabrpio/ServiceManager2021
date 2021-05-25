@@ -1,18 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const statusTypes = [
-  { title: 'do zrobienia', key: 'status', id: uuidv4() },
-  { title: 'zrobione', key: 'status', id: uuidv4() },
-];
-
 export const deviceTypes = [
-  { title: 'telefon', key: 'rodzaj', id: uuidv4() },
-  { title: 'laptop', key: 'rodzaj', id: uuidv4() },
+  { title: 'Telefon', key: 'rodzaj', id: uuidv4() },
+  { title: 'Laptop', key: 'rodzaj', id: uuidv4() },
   { title: 'PC', key: 'rodzaj', id: uuidv4() },
-  { title: 'konsola', key: 'rodzaj', id: uuidv4() },
-  { title: 'smartwatch', key: 'rodzaj', id: uuidv4() },
-  { title: 'tablet', key: 'rodzaj', id: uuidv4() },
-  { title: 'inne', key: 'rodzaj', id: uuidv4() },
+  { title: 'Konsola', key: 'rodzaj', id: uuidv4() },
+  { title: 'Smartwatch', key: 'rodzaj', id: uuidv4() },
+  { title: 'Tablet', key: 'rodzaj', id: uuidv4() },
+  { title: 'Inne', key: 'rodzaj', id: uuidv4() },
 ];
 
 export const brandTypes = [
