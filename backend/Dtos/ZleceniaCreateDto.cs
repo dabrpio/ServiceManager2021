@@ -35,5 +35,8 @@ namespace CommandApi.Dtos
         public string Nazwisko { get; set; }
 
         public int? NrTel { get; set; }
+
+        [StringLength(255)]
+        public string EMail { get; set; }
     }
 }

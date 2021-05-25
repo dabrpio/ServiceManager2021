@@ -20,6 +20,7 @@ namespace CommandApi.Dtos
         public int? NrTel { get; set; }
         public DateTime? DataWydania { get; set; }
         public DateTime? DataPrzyjecia { get; set; }
+        public string EMail { get; set; }
 
     }
 }
