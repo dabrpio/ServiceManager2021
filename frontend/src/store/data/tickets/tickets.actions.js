@@ -15,19 +15,19 @@ const setTickets = (value) => ({
   payload: value,
 });
 
-const fetchTicket = (id) => (dispatch) => {
-  fetch(`${baseUrl}/${id}`)
-    .then((res) => res.json())
-    .then((data) => dispatch(setTicket(data)));
-};
+// const fetchTicket = (id) => (dispatch) => {
+//   fetch(`${baseUrl}/${id}`)
+//     .then((res) => res.json())
+//     .then((data) => dispatch(setTicket(data)));
+// };
 
-const setTicket = (value) => ({
-  type: ticketsAT.SET_TICKET,
-  payload: value,
-});
+// const setTicket = (value) => ({
+//   type: ticketsAT.SET_TICKET,
+//   payload: value,
+// });
 
 export const postTicket = (data) => (dispatch, getState) => {
-  const ticketCount = getState().data.tickets.length;
+  // const ticketCount = getState().data.tickets.length;
   fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -42,6 +42,6 @@ export const postTicket = (data) => (dispatch, getState) => {
     }),
   })
     .then((res) => res.json())
-    .then(() => dispatch(fetchTicket(ticketCount + 1)))
+    .then(() => dispatch(fetchTickets()))
     .catch((error) => console.log(error));
 };

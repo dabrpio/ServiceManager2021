@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -18,6 +18,7 @@ import {
   modelTypes,
 } from '../../../common/dropdownOptions';
 import { postTicket } from '../../../store/data/tickets/tickets.actions';
+import { useDialogStyles } from './useDialogStyles';
 
 const initialTicket = {
   rodzaj: null,
@@ -33,41 +34,9 @@ const initialTicket = {
   status: 'oczekiwanie',
 };
 
-const useDialogStyles = makeStyles((theme) => ({
-  contentWrapper: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gridTemplateRows: 'auto',
-      columnGap: '5%',
-    },
-  },
-  costs: {
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gridTemplateRows: 'auto',
-      columnGap: '5%',
-    },
-  },
-
-  dialogLeft: {},
-  dialogRight: {
-    [theme.breakpoints.up('sm')]: {
-      marginTop: 0,
-    },
-    marginTop: theme.spacing(3),
-  },
-  heading: {
-    color: theme.palette.primary.main,
-  },
-}));
-
 const AddTicketDialog = ({ addTicket }) => {
   const classes = useDialogStyles();
   const [ticket, setTicket] = useState(initialTicket);
-  //   const { addTicketHandler } = props
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -265,6 +234,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(null, mapDispatchToProps)(AddTicketDialog);
 
-// AddTicketDialog.propTypes = {
-//   addTicketHandler: PropTypes.func.isRequired,
-// };
+AddTicketDialog.propTypes = {
+  addTicket: PropTypes.func.isRequired,
+};

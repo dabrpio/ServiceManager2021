@@ -1,32 +1,13 @@
 import IconButton from '@material-ui/core/IconButton';
-import { lighten, makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import AddTicketDialog from './AddTicketDialog';
-
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    padding: `0 ${theme.spacing(1)}px`,
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: '1 1 100%',
-  },
-}));
+import { useToolbarStyles } from './useToolbarStyles';
 
 export default function EnhancedTableToolbar({ searchInput, setSearchInput }) {
   const classes = useToolbarStyles();
@@ -44,7 +25,7 @@ export default function EnhancedTableToolbar({ searchInput, setSearchInput }) {
       </Typography>
 
       <TextField
-        placeholder="Search"
+        placeholder="Szukaj.."
         type="text"
         value={searchInput}
         onChange={(event) => setSearchInput(event.target.value)}
@@ -60,3 +41,8 @@ export default function EnhancedTableToolbar({ searchInput, setSearchInput }) {
     </Toolbar>
   );
 }
+
+EnhancedTableToolbar.propTypes = {
+  searchInput: PropTypes.string.isRequired,
+  setSearchInput: PropTypes.func.isRequired,
+};
