@@ -27,16 +27,17 @@ namespace CommandApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ZleceniaReadDto>> GetAllZlecenia(){
             var commandItems = _repoZlecenia.GetAllZlecenia();
-            Klienci user;
+            Klienci klient;
             List<ZleceniaReadDto> commIt = new List<ZleceniaReadDto>();
             foreach(var item in commandItems){
                 ZleceniaReadDto inp=new ZleceniaReadDto();
-                user=_repoKlienci.GetKlienciById(item.IdKlienta);
+                klient=_repoKlienci.GetKlienciById(item.IdKlienta);
                 inp=_mapper.Map<ZleceniaReadDto>(item);
-                inp.IdKlienta=user.IdKlienta;
-                inp.Imie=user.Imie;
-                inp.Nazwisko=user.Nazwisko;
-                inp.NrTel=user.NrTel;
+                inp.IdKlienta=klient.IdKlienta;
+                inp.Imie=klient.Imie;
+                inp.Nazwisko=klient.Nazwisko;
+                inp.NrTel=klient.NrTel;
+                inp.EMail=klient.EMail;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<List<ZleceniaReadDto>>(commIt));
@@ -47,16 +48,17 @@ namespace CommandApi.Controllers
         [HttpGet("top25")]
         public ActionResult<IEnumerable<ZleceniaReadDto>> Get25Zlecenia(){
             var commandItems = _repoZlecenia.Get25Zlecenia();
-            Klienci user;
+            Klienci klient;
             List<ZleceniaReadDto> commIt = new List<ZleceniaReadDto>();
             foreach(var item in commandItems){
                 ZleceniaReadDto inp=new ZleceniaReadDto();
-                user=_repoKlienci.GetKlienciById(item.IdKlienta);
+                klient=_repoKlienci.GetKlienciById(item.IdKlienta);
                 inp=_mapper.Map<ZleceniaReadDto>(item);
-                inp.IdKlienta=user.IdKlienta;
-                inp.Imie=user.Imie;
-                inp.Nazwisko=user.Nazwisko;
-                inp.NrTel=user.NrTel;
+                inp.IdKlienta=klient.IdKlienta;
+                inp.Imie=klient.Imie;
+                inp.Nazwisko=klient.Nazwisko;
+                inp.NrTel=klient.NrTel;
+                inp.EMail=klient.EMail;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<List<ZleceniaReadDto>>(commIt));
@@ -78,7 +80,7 @@ namespace CommandApi.Controllers
                 inp.Imie=klient.Imie;
                 inp.Nazwisko=klient.Nazwisko;
                 inp.NrTel=klient.NrTel;
-
+                inp.EMail=klient.EMail;
                 return Ok(_mapper.Map<ZleceniaReadDto>(inp));
             }
             else{
@@ -99,23 +101,12 @@ namespace CommandApi.Controllers
             zleceniaModel.IdKlienta=_repoKlienci.GetKlienciByPhNumer(klienciModel.NrTel,klienciModel.Imie,klienciModel.Nazwisko).IdKlienta;
             _repoZlecenia.CreateZlecenia(zleceniaModel);
             _repoZlecenia.SaveChanges();
-            /*Klienci commandKlient= new Klienci();
-            commandKlient.Imie=zleceniaCreateDto.Imie;
-            commandKlient.Nazwisko=zleceniaCreateDto.Nazwisko;
-            commandKlient.NrTel=zleceniaCreateDto.NrTel;
-            //var commandKlient=_mapper.Map<KlienciTest>(zleceniaTestCreateDto);
-            if(_repoKlienci.GetKlienciByPhNumer(commandKlient.NrTel,commandKlient.Imie,commandKlient.Nazwisko)==null){
-                _repoKlienci.CreateKlienci(commandKlient);
-                _repoKlienci.SaveChanges();
-            }
-            commandModel.IdKlienta=_repoKlienci.GetKlienciByPhNumer(commandKlient.NrTel,commandKlient.Imie,commandKlient.Nazwisko).IdKlienta;
-            _repoZlecenia.CreateZlecenia(commandModel);
-            _repoZlecenia.SaveChanges();*/
-            
+           
             var ZleceniaReadDto = _mapper.Map<ZleceniaReadDto>(zleceniaModel);
             ZleceniaReadDto.Imie=klienciModel.Imie;
             ZleceniaReadDto.Nazwisko=klienciModel.Nazwisko;
             ZleceniaReadDto.NrTel=klienciModel.NrTel;
+            ZleceniaReadDto.EMail=klienciModel.EMail;
 
             return CreatedAtRoute(nameof(GetZleceniaByRma), new {Rma = ZleceniaReadDto.Rma},ZleceniaReadDto);
 
