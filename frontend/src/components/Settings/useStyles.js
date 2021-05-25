@@ -16,51 +16,22 @@ export const useStyles = makeStyles((theme) => ({
       theme.mixins.toolbar.minHeight
     }px -  ${theme.spacing(2)}px)`,
     overflow: 'hidden',
+    padding: theme.spacing(3),
   },
-  container: {
+  form: {
     [theme.breakpoints.up('sm')]: {
       height: `calc(100% - 116px)`,
     },
     height: `calc(100% - 108px)`,
+    maxWidth: '400px',
   },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1,
+  form__heading: {
+    color: theme.palette.primary.main,
   },
-  hidden: {
-    [theme.breakpoints.down('sm')]: {
+  heading: {
+    [theme.breakpoints.down('xs')]: {
       display: 'none',
     },
-  },
-  th: {
-    cursor: 'pointer',
-  },
-  td: {
-    [theme.breakpoints.up('xs')]: {
-      padding: '16px 0 16px 4px',
-    },
-    [theme.breakpoints.up('sm')]: {
-      padding: '16px 8px',
-    },
-    [theme.breakpoints.up('md')]: {
-      padding: '16px',
-    },
-    whiteSpace: 'nowrap',
-  },
-  tr: {
-    cursor: 'pointer',
-  },
-  buildIcon: {
-    color: theme.palette.grey[500],
-  },
-  checkIcon: {
-    color: theme.palette.success.light,
+    marginBottom: '26px',
   },
 }));

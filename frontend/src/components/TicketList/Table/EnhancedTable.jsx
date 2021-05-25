@@ -117,7 +117,6 @@ export default function EnhancedTable({ tickets }) {
         />
         <TableContainer className={classes.container}>
           <Table
-            className={classes.table}
             aria-labelledby="tableTitle"
             aria-label="enhanced table"
             stickyHeader

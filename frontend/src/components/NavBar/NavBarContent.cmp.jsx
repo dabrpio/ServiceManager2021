@@ -1,5 +1,4 @@
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
-import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import RecentActorsRoundedIcon from '@material-ui/icons/RecentActorsRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import ViewListRoundedIcon from '@material-ui/icons/ViewListRounded';
@@ -11,18 +10,17 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const NavBarContent = ({ handleMenuItemClick, classes }) => {
-  const location = useLocation();
+const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
   return (
     <List>
       <ListItem
         button
         component={Link}
         to="/"
-        selected={'/' === location.pathname}
-        onClick={() => handleMenuItemClick('SM21')}
+        selected={'/' === pathname}
+        onClick={handleMenuItemClick}
       >
         <ListItemIcon className={classes.listItem}>
           <HomeRoundedIcon className={classes.icon} />
@@ -33,50 +31,50 @@ const NavBarContent = ({ handleMenuItemClick, classes }) => {
         button
         component={Link}
         to="/tickets"
-        selected={'/tickets' === location.pathname}
-        onClick={() => handleMenuItemClick('Tickets')}
+        selected={'/tickets' === pathname}
+        onClick={handleMenuItemClick}
       >
         <ListItemIcon className={classes.listItem}>
           <ViewListRoundedIcon className={classes.icon} />
         </ListItemIcon>
-        <ListItemText className={classes.text}>Tickets</ListItemText>
+        <ListItemText className={classes.text}>Zlecenia</ListItemText>
       </ListItem>
       <ListItem
         button
         component={Link}
         to="/employees"
-        selected={'/employees' === location.pathname}
-        onClick={() => handleMenuItemClick('Employees')}
+        selected={'/employees' === pathname}
+        onClick={handleMenuItemClick}
       >
         <ListItemIcon className={classes.listItem}>
           <RecentActorsRoundedIcon className={classes.icon} />
         </ListItemIcon>
-        <ListItemText className={classes.text}>Employees</ListItemText>
+        <ListItemText className={classes.text}>Pracownicy</ListItemText>
       </ListItem>
       <ListItem
         button
         component={Link}
         to="/settings"
-        selected={'/settings' === location.pathname}
-        onClick={() => handleMenuItemClick('Settings')}
+        selected={'/settings' === pathname}
+        onClick={handleMenuItemClick}
       >
         <ListItemIcon className={classes.listItem}>
           <SettingsRoundedIcon className={classes.icon} />
         </ListItemIcon>
-        <ListItemText className={classes.text}>Settings</ListItemText>
+        <ListItemText className={classes.text}>Ustawienia</ListItemText>
       </ListItem>
       <Divider />
       <ListItem
         button
         component={Link}
         to="/login"
-        selected={'/login' === location.pathname}
-        onClick={() => handleMenuItemClick('Login')}
+        selected={'/login' === pathname}
+        onClick={handleMenuItemClick}
       >
         <ListItemIcon className={classes.listItem}>
           <ExitToAppIcon className={classes.icon} />
         </ListItemIcon>
-        <ListItemText className={classes.text}>Logout</ListItemText>
+        <ListItemText className={classes.text}>Wyloguj</ListItemText>
       </ListItem>
     </List>
   );
