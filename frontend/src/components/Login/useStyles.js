@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '38px',
     },
     textAlign: 'center',
-    fontSize: '6.5vw',
+    fontSize: '6.4vw',
     fontWeight: 500,
     marginTop: '20vh',
   },

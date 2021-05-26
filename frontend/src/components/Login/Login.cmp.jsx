@@ -1,8 +1,9 @@
-import { Container, Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import { useState } from 'react';
-import FormButton from '../FormButton';
-import FormInput from '../FormInput';
-import { useStyles } from './styles';
+import { useStyles } from './useStyles';
 
 function Login() {
   const classes = useStyles();
@@ -14,13 +15,6 @@ function Login() {
     emailError: '',
     passwordError: '',
   });
-
-  const setLoginInputData = (key, value) => {
-    setLoginData({
-      ...loginData,
-      [key]: value,
-    });
-  };
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
@@ -34,23 +28,39 @@ function Login() {
           <Typography component="h2" className={classes.heading}>
             Service Manager 2021
           </Typography>
-          <FormInput
-            stateValue={loginData.email}
-            resetThenSet={setLoginInputData}
-            valueKey="email"
-            text="email"
-            inputType="text"
-            error={loginErrors.emailError}
+          <TextField
+            error={loginErrors.emailError.length > 0}
+            fullWidth
+            label="Email"
+            type="text"
+            value={loginData.email}
+            helperText={loginErrors.emailError}
+            onChange={(event) =>
+              setLoginData({ ...loginData, email: event.target.value })
+            }
+            size="small"
           />
-          <FormInput
-            stateValue={loginData.password}
-            resetThenSet={setLoginInputData}
-            valueKey="password"
-            text="hasło"
-            inputType="password"
-            error={loginErrors.passwordError}
+          <TextField
+            error={loginErrors.passwordError.length > 0}
+            fullWidth
+            label="Hasło"
+            type="password"
+            value={loginData.password}
+            helperText={loginErrors.passwordError}
+            onChange={(event) =>
+              setLoginData({ ...loginData, password: event.target.value })
+            }
+            size="small"
           />
-          <FormButton text="ZALOGUJ" inputType="submit" loginButton={true} />
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            fullWidth
+            style={{ marginTop: 26 }}
+          >
+            Zaloguj
+          </Button>
         </form>
       </Container>
     </div>

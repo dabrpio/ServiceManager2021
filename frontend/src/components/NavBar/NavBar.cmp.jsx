@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AppBar,
   Drawer,
@@ -11,18 +11,18 @@ import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
 import NavBarContent from './NavBarContent.cmp';
 import { useStyles } from './styles';
+import { useLocation } from 'react-router-dom';
 
 function NavBar() {
-  const [title, setTitle] = useState('SM21');
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
   const classes = useStyles();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleMenuItemClick = (title) => {
-    setTitle(title);
+  const handleMenuItemClick = () => {
     setMobileOpen(false);
   };
 
@@ -41,7 +41,7 @@ function NavBar() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              {title}
+              Service Manager 2021
             </Typography>
           </Toolbar>
         </AppBar>
@@ -71,6 +71,7 @@ function NavBar() {
             <NavBarContent
               handleMenuItemClick={handleMenuItemClick}
               classes={classes}
+              pathname={location.pathname}
             />
           </Drawer>
         </Hidden>
@@ -85,6 +86,7 @@ function NavBar() {
             <NavBarContent
               handleMenuItemClick={handleMenuItemClick}
               classes={classes}
+              pathname={location.pathname}
             />
           </Drawer>
         </Hidden>
