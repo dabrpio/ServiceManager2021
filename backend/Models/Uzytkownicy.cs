@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CommandApi.Models
 {
-    [Keyless]
     [Table("uzytkownicy")]
     public partial class Uzytkownicy
     {
+        [Key]
         [Column("id")]
         public short Id { get; set; }
         [Column("rodzaj_uzytkownika")]

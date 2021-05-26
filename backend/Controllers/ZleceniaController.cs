@@ -66,7 +66,7 @@ namespace CommandApi.Controllers
 
         //GET api/zlecenia/{Rma}
         [HttpGet("{Rma}", Name="GetZleceniaByRma")]
-        public ActionResult<ZleceniaReadDto>GetZleceniaByRma(int Rma){
+        public ActionResult<ZleceniaReadDto> GetZleceniaByRma(int Rma){
             var commandItem = _repoZlecenia.GetZleceniaByRma(Rma);
             
             if(commandItem!=null){
@@ -91,7 +91,7 @@ namespace CommandApi.Controllers
 
         //POST api/zlecenia
         [HttpPost]
-        public ActionResult<ZleceniaReadDto>CreateZlecenie(ZleceniaCreateDto zleceniaCreateDto){
+        public ActionResult<ZleceniaReadDto> CreateZlecenie(ZleceniaCreateDto zleceniaCreateDto){
             var zleceniaModel =_mapper.Map<Zlecenia>(zleceniaCreateDto);
             var klienciModel = _mapper.Map<Klienci>(zleceniaCreateDto);
             if(_repoKlienci.GetKlienciByPhNumer(klienciModel.NrTel,klienciModel.Imie,klienciModel.Nazwisko)==null){
