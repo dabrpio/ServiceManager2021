@@ -27,38 +27,37 @@ namespace CommandApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ZleceniaReadDto>> GetAllZlecenia(){
             var commandItems = _repoZlecenia.GetAllZlecenia();
-            Klienci klient;
             List<ZleceniaReadDto> commIt = new List<ZleceniaReadDto>();
             foreach(var item in commandItems){
                 ZleceniaReadDto inp=new ZleceniaReadDto();
-                klient=_repoKlienci.GetKlienciById(item.IdKlienta);
                 inp=_mapper.Map<ZleceniaReadDto>(item);
-                inp.IdKlienta=klient.IdKlienta;
-                inp.Imie=klient.Imie;
-                inp.Nazwisko=klient.Nazwisko;
-                inp.NrTel=klient.NrTel;
-                inp.EMail=klient.EMail;
+                inp.IdKlienta=item.IdKlientaNavigation.IdKlienta;
+                inp.Imie=item.IdKlientaNavigation.Imie;
+                inp.Nazwisko=item.IdKlientaNavigation.Nazwisko;
+                inp.NrTel=item.IdKlientaNavigation.NrTel;
+                inp.EMail=item.IdKlientaNavigation.EMail;
                 commIt.Add(inp);
             }
-            return Ok(_mapper.Map<List<ZleceniaReadDto>>(commIt));
+            return Ok(_mapper.Map<IEnumerable<ZleceniaReadDto>>(commIt));
         }
+
+
+
 
          //GET api/zlecenia/top25
 
         [HttpGet("top25")]
         public ActionResult<IEnumerable<ZleceniaReadDto>> Get25Zlecenia(){
             var commandItems = _repoZlecenia.Get25Zlecenia();
-            Klienci klient;
             List<ZleceniaReadDto> commIt = new List<ZleceniaReadDto>();
             foreach(var item in commandItems){
                 ZleceniaReadDto inp=new ZleceniaReadDto();
-                klient=_repoKlienci.GetKlienciById(item.IdKlienta);
                 inp=_mapper.Map<ZleceniaReadDto>(item);
-                inp.IdKlienta=klient.IdKlienta;
-                inp.Imie=klient.Imie;
-                inp.Nazwisko=klient.Nazwisko;
-                inp.NrTel=klient.NrTel;
-                inp.EMail=klient.EMail;
+                inp.IdKlienta=item.IdKlientaNavigation.IdKlienta;
+                inp.Imie=item.IdKlientaNavigation.Imie;
+                inp.Nazwisko=item.IdKlientaNavigation.Nazwisko;
+                inp.NrTel=item.IdKlientaNavigation.NrTel;
+                inp.EMail=item.IdKlientaNavigation.EMail;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<List<ZleceniaReadDto>>(commIt));
@@ -68,7 +67,6 @@ namespace CommandApi.Controllers
         [HttpGet("{Rma}", Name="GetZleceniaByRma")]
         public ActionResult<ZleceniaReadDto> GetZleceniaByRma(int Rma){
             var commandItem = _repoZlecenia.GetZleceniaByRma(Rma);
-            
             if(commandItem!=null){
                 var klient=_repoKlienci.GetKlienciById(commandItem.IdKlienta);
                 if(klient==null){
