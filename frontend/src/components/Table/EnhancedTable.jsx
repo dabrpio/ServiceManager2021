@@ -14,7 +14,7 @@ import SelectedTicketDialog from './Tickets/SelectedTicketDialog';
 
 import { stableSort, getComparator } from './sorting';
 import { useTableCustomHook } from './hooks';
-import { useStyles } from './useTableStyles';
+import { useTableStyles } from './styles';
 
 const withEnhancedTable =
   (EnhancedRow) =>
@@ -34,7 +34,7 @@ const withEnhancedTable =
       setSelectedTicketData,
       filteredData,
     } = useTableCustomHook(data);
-    const classes = useStyles();
+    const classes = useTableStyles();
 
     const handleRequestSort = (_, property) => {
       const isAsc = orderBy === property && order === 'asc';

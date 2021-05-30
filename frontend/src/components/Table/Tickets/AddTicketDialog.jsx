@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { postTicket } from '../../../store/data/tickets/tickets.actions';
 import TicketDialogContent from './TicketDialogContent';
-import { useDialogStyles } from '../useDialogStyles';
+import { useDialogStyles } from '../styles';
 
 const initialTicket = {
   rodzaj: null,

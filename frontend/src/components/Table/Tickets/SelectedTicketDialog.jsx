@@ -8,7 +8,7 @@ import Switch from '@material-ui/core/Switch';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import TicketDialogContent from './TicketDialogContent';
-import { useDialogStyles } from '../useDialogStyles';
+import { useDialogStyles } from '../styles';
 
 const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
   const classes = useDialogStyles();

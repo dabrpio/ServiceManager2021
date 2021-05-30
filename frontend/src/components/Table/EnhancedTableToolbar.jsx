@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import PropTypes from 'prop-types';
 import AddTicketDialog from './Tickets/AddTicketDialog';
-import { useToolbarStyles } from './useToolbarStyles';
+import { useToolbarStyles } from './styles';
 
 export default function EnhancedTableToolbar({
   heading,
