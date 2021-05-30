@@ -9,6 +9,8 @@ namespace CommandApi.Data
         IEnumerable<Klienci> GetAllKlienci();
         Klienci GetKlienciById(short? id);
         Klienci GetKlienciByPhNumer(int? Phone, string Imie, string Nazwisko);
+        IEnumerable<Klienci> GetKlienciByName(string imie);
+        IEnumerable<Klienci> GetKlienciBySur(string nazwisko);
         void CreateKlienci(Klienci klient);
     }
 }

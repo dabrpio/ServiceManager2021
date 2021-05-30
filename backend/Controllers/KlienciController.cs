@@ -30,10 +30,9 @@ namespace CommandApi.Controllers
 
 
         //GET api/klienci/{id}
-        [HttpGet("{id}", Name="GetKlienciById")]
+        [HttpGet("{id:int}")]
         public ActionResult<KlienciReadDto> GetKlienciById(short? id){
             var commandItem = _repoKliecni.GetKlienciById(id);
-            
             if(commandItem!=null){
                 return Ok(_mapper.Map<KlienciReadDto>(commandItem));
             }
@@ -42,6 +41,34 @@ namespace CommandApi.Controllers
             }
         }
 
+
+        //GET api/klienci/imie/{name}
+        [HttpGet("imie/{imie:alpha}")]
+        public ActionResult<IEnumerable<KlienciReadDto>> GetKlienciByName(string imie){
+            var commandItems = _repoKliecni.GetKlienciByName(imie);
+
+            if(commandItems!=null){
+                return Ok(_mapper.Map<IEnumerable<KlienciReadDto>>(commandItems));
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        //GET api/klienci/nazwisko/{sur}
+        [HttpGet("nazwisko/{nazwisko:alpha}")]
+        public ActionResult<IEnumerable<KlienciReadDto>> GetKlienciBySur(string nazwisko){
+            var commandItems = _repoKliecni.GetKlienciBySur(nazwisko);
+
+            if(commandItems!=null){
+                return Ok(_mapper.Map<IEnumerable<KlienciReadDto>>(commandItems));
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
         //POST api/kliecni
         [HttpPost]

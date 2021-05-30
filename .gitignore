@@ -26,3 +26,5 @@ backend/bin/Debug/net5.0/ref/CommandApi.dll
 backend/obj/Debug/net5.0/CommandApi.dll
 backend/obj/Debug/net5.0/CommandApi.pdb
 backend/obj/Debug/net5.0/ref/CommandApi.dll
+*.dll
+*.pdb
