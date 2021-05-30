@@ -1,31 +1,34 @@
-import { Link, useRouteMatch } from 'react-router-dom';
-import { Container } from '@material-ui/core';
-import { useStyles } from './styles';
+import EmployeeTableRow from '../Table/Employees/EmployeeTableRow';
+import withEnhancedTable from '../Table/EnhancedTable';
 
-function EmployeeList() {
-  const classes = useStyles();
-  const { url } = useRouteMatch();
+const EmployeeTable = withEnhancedTable(EmployeeTableRow);
 
+const headCells = [
+  {
+    id: 'id',
+    label: 'ID',
+  },
+  {
+    id: 'login',
+    label: 'Nazwa',
+  },
+  {
+    id: 'rodzajUzytkownika',
+    label: 'Rodzaj',
+  },
+  {
+    id: 'nrTel',
+    label: 'Nr telefonu',
+  },
+];
+
+function EmployeeList({ employees }) {
   return (
-    <div className={classes.root}>
-      <Container>
-        <h2>Employees</h2>
-        <ul>
-          <li>
-            <Link to={`${url}/employee-id1`}>Employee 1</Link>
-          </li>
-          <li>
-            <Link to={`${url}/employee-id2`}>Employee 2</Link>
-          </li>
-          <li>
-            <Link to={`${url}/employee-id3`}>Employee 3</Link>
-          </li>
-          <li>
-            <Link to={`${url}/new`}>new</Link>
-          </li>
-        </ul>
-      </Container>
-    </div>
+    <EmployeeTable
+      headCells={headCells}
+      data={employees}
+      heading="Pracownicy"
+    />
   );
 }
 

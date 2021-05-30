@@ -1,4 +1,3 @@
-import React from 'react';
 import { Hidden, TableCell, TableRow } from '@material-ui/core';
 import BuildIcon from '@material-ui/icons/Build';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';

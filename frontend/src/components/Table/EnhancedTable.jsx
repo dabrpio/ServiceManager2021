@@ -93,7 +93,7 @@ const withEnhancedTable =
                   .map((row) => {
                     return (
                       <EnhancedRow
-                        key={row.rma}
+                        key={row.rma ?? row.id}
                         row={row}
                         classes={classes}
                         handleClick={handleClick}

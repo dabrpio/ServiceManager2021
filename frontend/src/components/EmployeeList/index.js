@@ -1,3 +1,3 @@
-import EmployeeList from './EmployeeList.cmp';
+import EmployeeList from './EmployeeList.cnt';
 
 export default EmployeeList;

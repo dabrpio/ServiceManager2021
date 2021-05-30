@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import TicketTableRow from '../Table/Tickets/TicketTableRow';
 import withEnhancedTable from '../Table/EnhancedTable';
 
@@ -38,10 +37,6 @@ const headCells = [
 ];
 
 export default function TicketList({ tickets }) {
-  useEffect(() => {
-    console.log(tickets);
-  }, [tickets]);
-
   return (
     <TicketTable headCells={headCells} data={tickets} heading="Zlecenia" />
   );
