@@ -4,16 +4,19 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import AddTicketDialog from './AddTicketDialog';
+import AddTicketDialog from './Tickets/AddTicketDialog';
 import { useToolbarStyles } from './useToolbarStyles';
 
-export default function EnhancedTableToolbar({ searchInput, setSearchInput }) {
+export default function EnhancedTableToolbar({
+  heading,
+  searchInput,
+  setSearchInput,
+}) {
   const classes = useToolbarStyles();
 
   return (
-    <Toolbar className={clsx(classes.root)}>
+    <Toolbar className={classes.root}>
       <AddTicketDialog />
       <Typography
         className={classes.title}
@@ -21,7 +24,7 @@ export default function EnhancedTableToolbar({ searchInput, setSearchInput }) {
         id="tableTitle"
         component="div"
       >
-        Zlecenia
+        {heading}
       </Typography>
 
       <TextField
@@ -29,7 +32,6 @@ export default function EnhancedTableToolbar({ searchInput, setSearchInput }) {
         type="text"
         value={searchInput}
         onChange={(event) => setSearchInput(event.target.value)}
-        // style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
       />
 
@@ -43,6 +45,7 @@ export default function EnhancedTableToolbar({ searchInput, setSearchInput }) {
 }
 
 EnhancedTableToolbar.propTypes = {
+  heading: PropTypes.string.isRequired,
   searchInput: PropTypes.string.isRequired,
   setSearchInput: PropTypes.func.isRequired,
 };

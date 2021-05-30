@@ -6,41 +6,8 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
-const headCells = [
-  {
-    id: 'rma',
-    label: 'Rma',
-  },
-  {
-    id: 'dataPrzyjecia',
-    label: 'Data',
-    smUp: true,
-  },
-  {
-    id: 'rodzaj',
-    label: 'Rodzaj',
-    smUp: true,
-  },
-  {
-    id: 'marka',
-    label: 'Marka',
-  },
-  {
-    id: 'model',
-    label: 'Model',
-  },
-  {
-    id: 'kosztNaprawy',
-    label: 'Koszt',
-  },
-  {
-    id: 'status',
-    label: 'Status',
-  },
-];
-
 export default function EnhancedTableHead(props) {
-  const { classes, order, orderBy, onRequestSort } = props;
+  const { headCells, classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -52,9 +19,7 @@ export default function EnhancedTableHead(props) {
           <Hidden smDown={headCell.smUp} key={headCell.id}>
             <TableCell
               className={clsx(classes.td, classes.th)}
-              padding={headCell.disablePadding ? 'none' : 'default'}
               sortDirection={orderBy === headCell.id ? order : false}
-              style={{ width: headCell.width }}
               onClick={createSortHandler(headCell.id)}
             >
               <Hidden xsDown>
