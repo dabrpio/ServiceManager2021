@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\piotr\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\piotr\\.nuget\\packages"
-    ]
-  }
-}
