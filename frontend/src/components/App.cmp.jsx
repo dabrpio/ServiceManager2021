@@ -4,7 +4,6 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { plPL } from '@material-ui/core/locale';
 
 import EmployeeList from './EmployeeList';
-import Employee from './Employee';
 import Home from './Home';
 import Login from './Login';
 import Settings from './Settings';
@@ -55,9 +54,7 @@ const DefaultContainer = () => (
       <Route exact path="/employees">
         <EmployeeList />
       </Route>
-      <Route path="/employees/:employeeId">
-        <Employee />
-      </Route>
+      <Redirect to="/" />
     </Switch>
   </>
 );
