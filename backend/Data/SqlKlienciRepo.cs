@@ -48,5 +48,8 @@ namespace CommandApi.Data
            return (_context.SaveChanges()>=0);
         }
 
+        public void UpdateKlienci(Klienci klient){
+            //nothing
+        }
     }
 }

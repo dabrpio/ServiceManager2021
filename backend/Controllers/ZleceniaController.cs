@@ -36,6 +36,8 @@ namespace CommandApi.Controllers
                 inp.Nazwisko=item.IdKlientaNavigation.Nazwisko;
                 inp.NrTel=item.IdKlientaNavigation.NrTel;
                 inp.EMail=item.IdKlientaNavigation.EMail;
+                inp.Nip=item.IdKlientaNavigation.Nip;
+                inp.Nazwa=item.IdKlientaNavigation.Nazwa;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<IEnumerable<ZleceniaReadDto>>(commIt));
@@ -58,6 +60,8 @@ namespace CommandApi.Controllers
                 inp.Nazwisko=item.IdKlientaNavigation.Nazwisko;
                 inp.NrTel=item.IdKlientaNavigation.NrTel;
                 inp.EMail=item.IdKlientaNavigation.EMail;
+                inp.Nip=item.IdKlientaNavigation.Nip;
+                inp.Nazwa=item.IdKlientaNavigation.Nazwa;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<List<ZleceniaReadDto>>(commIt));
@@ -79,6 +83,8 @@ namespace CommandApi.Controllers
                 inp.Nazwisko=klient.Nazwisko;
                 inp.NrTel=klient.NrTel;
                 inp.EMail=klient.EMail;
+                inp.Nip=klient.Nip;
+                inp.Nazwa=klient.Nazwa;
                 return Ok(_mapper.Map<ZleceniaReadDto>(inp));
             }
             else{
@@ -97,6 +103,10 @@ namespace CommandApi.Controllers
                 _repoKlienci.SaveChanges();
             }
             zleceniaModel.IdKlienta=_repoKlienci.GetKlienciByPhNumer(klienciModel.NrTel,klienciModel.Imie,klienciModel.Nazwisko).IdKlienta;
+            if(zleceniaModel.Status=="zrobione")
+            {
+                zleceniaModel.DataWydania=DateTime.Now;
+            }
             _repoZlecenia.CreateZlecenia(zleceniaModel);
             _repoZlecenia.SaveChanges();
            
@@ -105,9 +115,39 @@ namespace CommandApi.Controllers
             ZleceniaReadDto.Nazwisko=klienciModel.Nazwisko;
             ZleceniaReadDto.NrTel=klienciModel.NrTel;
             ZleceniaReadDto.EMail=klienciModel.EMail;
+            ZleceniaReadDto.Nip=klienciModel.Nip;
+            ZleceniaReadDto.Nazwa=klienciModel.Nazwa;
 
             return CreatedAtRoute(nameof(GetZleceniaByRma), new {Rma = ZleceniaReadDto.Rma},ZleceniaReadDto);
 
         }
+
+
+        //PUT api/zlecenia/{rma}
+        [HttpPut("{rma}")]
+        public ActionResult UpdateZlecenia(int rma, ZleceniaCreateDto zleceniaUpdate){
+            var zlecenieModel = _repoZlecenia.GetZleceniaByRma(rma);
+            Klienci klientModel=_repoKlienci.GetKlienciById(zlecenieModel.IdKlienta);
+            if(zlecenieModel!=null){
+                if(zleceniaUpdate.Status=="zrobione")
+                {
+                    if(zlecenieModel.DataWydania==null)
+                    {
+                        zleceniaUpdate.DataWydania=DateTime.Now;
+                    }
+                }
+                _mapper.Map(zleceniaUpdate,zlecenieModel);
+                _mapper.Map(zleceniaUpdate,klientModel);
+                _repoZlecenia.UpdateZlecenia(zlecenieModel);
+                _repoKlienci.UpdateKlienci(klientModel);
+                _repoZlecenia.SaveChanges();
+                _repoKlienci.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }
+        }
+
     }
 }

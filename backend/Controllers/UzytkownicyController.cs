@@ -53,7 +53,27 @@ namespace CommandApi.Controllers
             var uzytkownicyReadDto = _mapper.Map<UzytkownicyReadDto>(uzytkownicyModel);
 
             return CreatedAtRoute(nameof(GetUzytkownicyById), new {id = uzytkownicyReadDto.Id},uzytkownicyReadDto);
-
         }
+
+
+        //PUT api/uzytkownicy/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateUzytkownicy(short? id, UzytkownicyCreateDto uzytkownicyUpdate){
+             var commandItem = _repoUzytkownicy.GetUzytkownicyById(id);
+            
+            if(commandItem!=null){
+                _mapper.Map(uzytkownicyUpdate, commandItem);
+                _repoUzytkownicy.UpdateUzytkownicy(commandItem);
+                _repoUzytkownicy.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }
+        }
+
+
+
+
     }
 }

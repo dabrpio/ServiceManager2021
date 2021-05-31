@@ -43,5 +43,10 @@ namespace CommandApi.Data
         {
            return (_context.SaveChanges()>=0);
         }
+
+        public void UpdateZlecenia(Zlecenia zleceniaUpdate){
+             //nothing
+        }
+
     }
 }

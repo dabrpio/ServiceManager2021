@@ -30,7 +30,7 @@ namespace CommandApi.Controllers
 
 
         //GET api/klienci/{id}
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}",Name="GetKlienciById")]
         public ActionResult<KlienciReadDto> GetKlienciById(short? id){
             var commandItem = _repoKliecni.GetKlienciById(id);
             if(commandItem!=null){
@@ -82,5 +82,23 @@ namespace CommandApi.Controllers
             return CreatedAtRoute(nameof(GetKlienciById), new {id = klienciReadDto.IdKlienta},klienciReadDto);
 
         }
+
+
+        //PUT api/kliecni/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateKliecni(short? id, KlienciCreateDto klienciUpdate){
+             var commandItem = _repoKliecni.GetKlienciById(id);
+            
+            if(commandItem!=null){
+                _mapper.Map(klienciUpdate, commandItem);
+                _repoKliecni.UpdateKlienci(commandItem);
+                _repoKliecni.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }
+        }
+
     }
 }
