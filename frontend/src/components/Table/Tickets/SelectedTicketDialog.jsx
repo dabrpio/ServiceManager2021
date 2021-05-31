@@ -8,10 +8,10 @@ import Switch from '@material-ui/core/Switch';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import TicketDialogContent from './TicketDialogContent';
-import { useDialogStyles } from '../styles';
+import { useTicketDialogStyles } from '../styles';
 
 const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
-  const classes = useDialogStyles();
+  const classes = useTicketDialogStyles();
   const [ticket, setTicket] = useState(ticketData);
   const [switchState, setSwitchState] = useState(
     ticket.status === 'zrobione' ? true : false
@@ -48,7 +48,7 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
 
   return (
     <Dialog
-      maxWidth="md"
+      maxWidth="sm"
       open={Object.keys(ticketData).length > 0}
       onClose={handleClose}
       aria-labelledby="form-dialog-title"

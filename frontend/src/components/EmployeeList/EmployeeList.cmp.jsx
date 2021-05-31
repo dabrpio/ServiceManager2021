@@ -1,5 +1,6 @@
 import EmployeeTableRow from '../Table/Employees/EmployeeTableRow';
 import withEnhancedTable from '../Table/EnhancedTable';
+import PropTypes from 'prop-types';
 
 const EmployeeTable = withEnhancedTable(EmployeeTableRow);
 
@@ -9,13 +10,14 @@ const headCells = [
     label: 'ID',
   },
   {
-    id: 'login',
-    label: 'Nazwa',
-  },
-  {
     id: 'rodzajUzytkownika',
     label: 'Rodzaj',
   },
+  {
+    id: 'login',
+    label: 'Nazwa',
+  },
+
   {
     id: 'nrTel',
     label: 'Nr telefonu',
@@ -33,3 +35,7 @@ function EmployeeList({ employees }) {
 }
 
 export default EmployeeList;
+
+EmployeeList.propTypes = {
+  employees: PropTypes.array.isRequired,
+};

@@ -1,6 +1,7 @@
 import { Hidden, TableCell, TableRow } from '@material-ui/core';
 import BuildIcon from '@material-ui/icons/Build';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import PropTypes from 'prop-types';
 
 function TicketTableRow({ row, classes, handleClick }) {
   return (
@@ -47,3 +48,9 @@ function TicketTableRow({ row, classes, handleClick }) {
 }
 
 export default TicketTableRow;
+
+TicketTableRow.propTypes = {
+  row: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};

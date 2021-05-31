@@ -7,10 +7,12 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core';
+import { useLocation } from 'react-router-dom';
 
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import SelectedTicketDialog from './Tickets/SelectedTicketDialog';
+import SelectedEmployeeDialog from './Employees/SelectedEmployeeDialog';
 
 import { stableSort, getComparator } from './sorting';
 import { useTableCustomHook } from './hooks';
@@ -19,6 +21,7 @@ import { useTableStyles } from './styles';
 const withEnhancedTable =
   (EnhancedRow) =>
   ({ data, headCells, heading }) => {
+    const location = useLocation();
     const {
       order,
       setOrder,
@@ -30,8 +33,8 @@ const withEnhancedTable =
       setRowsPerPage,
       searchInput,
       setSearchInput,
-      selectedTicketData,
-      setSelectedTicketData,
+      selectedRowData,
+      setSelectedRowData,
       filteredData,
     } = useTableCustomHook(data);
     const classes = useTableStyles();
@@ -43,7 +46,7 @@ const withEnhancedTable =
     };
 
     const handleClick = (_, row) => {
-      setSelectedTicketData(row);
+      setSelectedRowData(row);
     };
 
     const handleChangePage = (_, newPage) => {
@@ -55,18 +58,25 @@ const withEnhancedTable =
       setPage(0);
     };
 
-    const handleCloseDialog = () => setSelectedTicketData(null);
+    const handleCloseDialog = () => setSelectedRowData(null);
 
     // const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
       <>
-        {selectedTicketData && (
+        {selectedRowData && location.pathname === '/tickets' && (
           <SelectedTicketDialog
-            ticketData={selectedTicketData}
+            ticketData={selectedRowData}
             closeDialog={handleCloseDialog}
           />
         )}
+        {selectedRowData && location.pathname === '/employees' && (
+          <SelectedEmployeeDialog
+            employeeData={selectedRowData}
+            closeDialog={handleCloseDialog}
+          />
+        )}
+
         <Paper className={classes.root}>
           <EnhancedTableToolbar
             heading={heading}

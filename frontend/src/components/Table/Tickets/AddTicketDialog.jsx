@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { postTicket } from '../../../store/data/tickets/tickets.actions';
 import TicketDialogContent from './TicketDialogContent';
-import { useDialogStyles } from '../styles';
+import { useTicketDialogStyles } from '../styles';
 
 const initialTicket = {
   rodzaj: null,
@@ -28,7 +28,7 @@ const initialTicket = {
 };
 
 const AddTicketDialog = ({ addTicket }) => {
-  const classes = useDialogStyles();
+  const classes = useTicketDialogStyles();
   const [ticket, setTicket] = useState(initialTicket);
   const [open, setOpen] = useState(false);
 
@@ -40,7 +40,9 @@ const AddTicketDialog = ({ addTicket }) => {
   const handleAdd = (event) => {
     event.preventDefault();
     const { informacje, eMail, ...dataToValidate } = ticket;
-    if (Object.values(dataToValidate).some((e) => e === null || e === '')) {
+    if (
+      Object.values(dataToValidate).some((e) => e === null || e?.trim() === '')
+    ) {
       console.log('ticket is not fully filled');
     } else {
       addTicket(ticket);

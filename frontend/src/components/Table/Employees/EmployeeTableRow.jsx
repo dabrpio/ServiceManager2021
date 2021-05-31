@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 function EmployeeTableRow({ row, classes, handleClick }) {
   return (
@@ -21,3 +22,9 @@ function EmployeeTableRow({ row, classes, handleClick }) {
 }
 
 export default EmployeeTableRow;
+
+EmployeeTableRow.propTypes = {
+  row: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};

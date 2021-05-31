@@ -84,7 +84,7 @@ export const useTableStyles = makeStyles((theme) => ({
   },
 }));
 
-export const useDialogStyles = makeStyles((theme) => ({
+export const useTicketDialogStyles = makeStyles((theme) => ({
   contentWrapper: {
     [theme.breakpoints.up('sm')]: {
       display: 'grid',

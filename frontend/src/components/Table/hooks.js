@@ -6,7 +6,7 @@ export const useTableCustomHook = (data) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchInput, setSearchInput] = useState('');
-  const [selectedTicketData, setSelectedTicketData] = useState(null);
+  const [selectedRowData, setSelectedRowData] = useState(null);
   const filteredData = useFilter(data, searchInput);
 
   return {
@@ -20,8 +20,8 @@ export const useTableCustomHook = (data) => {
     setRowsPerPage,
     searchInput,
     setSearchInput,
-    selectedTicketData,
-    setSelectedTicketData,
+    selectedRowData,
+    setSelectedRowData,
     filteredData,
   };
 };

@@ -1,5 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
 
+export const employeeTypes = [
+  { title: 'Admin', titleId: 1, key: 'rodzajPracownika', id: uuidv4() },
+  { title: 'Szef', titleId: 2, key: 'rodzajPracownika', id: uuidv4() },
+  {
+    title: 'Klient biznesowy',
+    titleId: 3,
+    key: 'rodzajPracownika',
+    id: uuidv4(),
+  },
+  { title: 'Pracownik', titleId: 4, key: 'rodzajPracownika', id: uuidv4() },
+];
+
 export const deviceTypes = [
   { title: 'Telefon', key: 'rodzaj', id: uuidv4() },
   { title: 'Laptop', key: 'rodzaj', id: uuidv4() },

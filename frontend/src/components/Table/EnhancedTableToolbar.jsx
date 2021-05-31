@@ -5,6 +5,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+
+import AddEmployeeDialog from './Employees/AddEmployeeDialog';
 import AddTicketDialog from './Tickets/AddTicketDialog';
 import { useToolbarStyles } from './styles';
 
@@ -14,10 +17,12 @@ export default function EnhancedTableToolbar({
   setSearchInput,
 }) {
   const classes = useToolbarStyles();
+  const location = useLocation();
 
   return (
     <Toolbar className={classes.root}>
-      <AddTicketDialog />
+      {location.pathname === '/tickets' && <AddTicketDialog />}
+      {location.pathname === '/employees' && <AddEmployeeDialog />}
       <Typography
         className={classes.title}
         variant="h6"
