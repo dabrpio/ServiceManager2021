@@ -2,7 +2,7 @@ import { lighten, makeStyles } from '@material-ui/core/styles';
 
 export const useToolbarStyles = makeStyles((theme) => ({
   root: {
-    padding: `0 ${theme.spacing(1)}px`,
+    padding: `0 ${theme.spacing(3)}px 0 ${theme.spacing(1)}px`,
   },
   highlight:
     theme.palette.type === 'light'
@@ -69,8 +69,10 @@ export const useTableStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       padding: '16px 8px',
     },
-    padding: '12px 7px',
+    padding: '12px 4px',
     whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   tr: {
     cursor: 'pointer',

@@ -1,21 +1,21 @@
-import * as employeesAT from './employees.action-types';
+import * as clientsAT from './clients.action-types';
 
-const baseUrl = `https://localhost:5001/api/uzytkownicy`;
+const baseUrl = `https://localhost:5001/api/klienci`;
 
-export const fetchEmployees = () => {
+export const fetchClients = () => {
   return (dispatch) => {
     fetch(baseUrl)
       .then((res) => res.json())
-      .then((data) => dispatch(setEmployees(data)));
+      .then((data) => dispatch(setClients(data)));
   };
 };
 
-const setEmployees = (value) => ({
-  type: employeesAT.SET_EMPLOYEES,
+const setClients = (value) => ({
+  type: clientsAT.SET_CLIENTS,
   payload: value,
 });
 
-export const postEmployee = (data) => (dispatch) => {
+export const postClient = (data) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -25,9 +25,10 @@ export const postEmployee = (data) => (dispatch) => {
     body: JSON.stringify({
       ...data,
       nrTel: parseInt(data.nrTel),
+      nip: parseInt(data.nip),
     }),
   })
     .then((res) => res.json())
-    .then(() => dispatch(fetchEmployees()))
+    .then(() => dispatch(fetchClients()))
     .catch((error) => console.log(error));
 };

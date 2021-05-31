@@ -13,7 +13,10 @@ export const getComparator = (order, orderBy) => {
     return order === 'desc'
       ? (a, b) => descendingDateComparator(a, b, orderBy)
       : (a, b) => -descendingDateComparator(a, b, orderBy);
-  } else if (orderBy === 'rma' || orderBy === 'kosztNaprawy') {
+  } else if (
+    orderBy === 'rma' ||
+    (orderBy === 'kosztNaprawy') | (orderBy === 'idKlienta')
+  ) {
     return order === 'desc'
       ? (a, b) => descendingNumberComparator(a, b, orderBy)
       : (a, b) => -descendingNumberComparator(a, b, orderBy);

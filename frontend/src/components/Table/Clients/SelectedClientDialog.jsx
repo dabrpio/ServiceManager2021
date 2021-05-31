@@ -5,10 +5,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-import EmployeeDialogContent from './EmployeeDialogContent';
+import ClientDialogContent from './ClientDialogContent';
 
-const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
-  const [employee, setEmployee] = useState(employeeData);
+const SelectedClientDialog = ({ clientData, closeDialog }) => {
+  const [client, setClient] = useState(clientData);
 
   const handleClose = () => {
     closeDialog();
@@ -16,12 +16,12 @@ const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    if (Object.values(employee).some((e) => e === null || e === '')) {
-      console.log('employee data is not fully filled');
+    if (Object.values(client).some((e) => e === null || e === '')) {
+      console.log('client data is not fully filled');
     } else {
       console.log(
         'check for changes, updated:',
-        JSON.stringify(employeeData) !== JSON.stringify(employee)
+        JSON.stringify(clientData) !== JSON.stringify(client)
       );
 
       // updateTicket(ticket);
@@ -33,14 +33,14 @@ const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
     <div>
       <Dialog
         maxWidth="sm"
-        open={Object.keys(employeeData).length > 0}
+        open={Object.keys(clientData).length > 0}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Dane pracownika {employee.id}
+          Dane klienta {client.idKlienta}
         </DialogTitle>
-        <EmployeeDialogContent employee={employee} setEmployee={setEmployee} />
+        <ClientDialogContent client={client} setClient={setClient} />
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cofnij
@@ -54,9 +54,9 @@ const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
   );
 };
 
-export default SelectedEmployeeDialog;
+export default SelectedClientDialog;
 
-SelectedEmployeeDialog.propTypes = {
-  employeeData: PropTypes.object.isRequired,
+SelectedClientDialog.propTypes = {
+  clientData: PropTypes.object.isRequired,
   closeDialog: PropTypes.func.isRequired,
 };

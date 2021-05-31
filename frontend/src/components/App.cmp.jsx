@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { plPL } from '@material-ui/core/locale';
 
+import ClientList from './ClientList';
 import EmployeeList from './EmployeeList';
 import Home from './Home';
 import Login from './Login';
@@ -53,6 +54,9 @@ const DefaultContainer = () => (
       </Route>
       <Route exact path="/employees">
         <EmployeeList />
+      </Route>
+      <Route exact path="/clients">
+        <ClientList />
       </Route>
       <Redirect to="/" />
     </Switch>
