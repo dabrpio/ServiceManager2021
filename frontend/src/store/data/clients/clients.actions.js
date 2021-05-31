@@ -25,6 +25,7 @@ export const postClient = (data) => (dispatch) => {
     body: JSON.stringify({
       ...data,
       nrTel: parseInt(data.nrTel),
+      nip: parseInt(data.nip),
     }),
   })
     .then((res) => res.json())

@@ -77,7 +77,7 @@ function ClientDialogContent(props) {
           <TextField
             fullWidth
             label="NIP"
-            type="password"
+            type="text"
             value={client.nip ?? ''}
             onChange={handleTextFieldChange('nip')}
             style={{ marginTop: 16, marginBottom: 24 }}

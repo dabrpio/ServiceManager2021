@@ -1,4 +1,3 @@
-import { employeeTypes } from '../../../common/dropdownOptions';
 import * as employeesAT from './employees.action-types';
 
 const baseUrl = `https://localhost:5001/api/uzytkownicy`;
