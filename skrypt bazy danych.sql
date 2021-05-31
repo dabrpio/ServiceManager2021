@@ -1,6 +1,6 @@
 USE [SM2021]
 GO
-/****** Object:  Table [dbo].[klienci]    Script Date: 27.05.2021 18:59:55 ******/
+/****** Object:  Table [dbo].[klienci]    Script Date: 31.05.2021 12:12:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[klienci](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[uzytkownicy]    Script Date: 27.05.2021 18:59:55 ******/
+/****** Object:  Table [dbo].[uzytkownicy]    Script Date: 31.05.2021 12:12:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30,13 +30,15 @@ CREATE TABLE [dbo].[uzytkownicy](
 	[login] [nvarchar](30) NOT NULL,
 	[haslo] [nvarchar](30) NOT NULL,
 	[nr_tel] [int] NULL,
+	[imie] [nvarchar](50) NULL,
+	[nazwisko] [nvarchar](50) NULL,
  CONSTRAINT [PK_uzytkownicy] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[zlecenia]    Script Date: 27.05.2021 18:59:55 ******/
+/****** Object:  Table [dbo].[zlecenia]    Script Date: 31.05.2021 12:12:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -664,8 +666,8 @@ SET IDENTITY_INSERT [dbo].[klienci] OFF
 GO
 SET IDENTITY_INSERT [dbo].[uzytkownicy] ON 
 
-INSERT [dbo].[uzytkownicy] ([id], [rodzaj_uzytkownika], [login], [haslo], [nr_tel]) VALUES (2, 1, N'admin1', N'admin1', 789123654)
-INSERT [dbo].[uzytkownicy] ([id], [rodzaj_uzytkownika], [login], [haslo], [nr_tel]) VALUES (3, 1, N'admin', N'admin', 123456789)
+INSERT [dbo].[uzytkownicy] ([id], [rodzaj_uzytkownika], [login], [haslo], [nr_tel], [imie], [nazwisko]) VALUES (2, 1, N'admin1', N'admin1', 789123654, NULL, NULL)
+INSERT [dbo].[uzytkownicy] ([id], [rodzaj_uzytkownika], [login], [haslo], [nr_tel], [imie], [nazwisko]) VALUES (3, 1, N'admin', N'admin', 123456789, NULL, NULL)
 SET IDENTITY_INSERT [dbo].[uzytkownicy] OFF
 GO
 SET IDENTITY_INSERT [dbo].[zlecenia] ON 
