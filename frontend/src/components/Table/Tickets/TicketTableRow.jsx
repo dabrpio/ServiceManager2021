@@ -27,7 +27,10 @@ function TicketTableRow({ row, classes, handleClick }) {
       </Hidden>
       <TableCell className={classes.td}>{row.marka}</TableCell>
       <TableCell className={classes.td}>{row.model}</TableCell>
-      <TableCell className={classes.td}>{row.kosztNaprawy}</TableCell>
+      <Hidden smDown>
+        <TableCell className={classes.td}>{row.kosztNaprawy}</TableCell>
+      </Hidden>
+
       <TableCell className={classes.td}>
         {row.status === 'zrobione' ? (
           <CheckCircleIcon

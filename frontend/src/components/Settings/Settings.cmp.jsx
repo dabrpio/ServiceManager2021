@@ -41,6 +41,7 @@ function Settings() {
             setPassword({ ...password, oldPassword: event.target.value })
           }
           size="small"
+          margin="normal"
         />
         <TextField
           fullWidth
@@ -51,6 +52,7 @@ function Settings() {
             setPassword({ ...password, newPassword: event.target.value })
           }
           size="small"
+          margin="normal"
         />
         <TextField
           fullWidth
@@ -64,6 +66,7 @@ function Settings() {
             })
           }
           size="small"
+          margin="normal"
         />
         <Button
           variant="contained"

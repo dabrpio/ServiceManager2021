@@ -39,6 +39,7 @@ function Login() {
               setLoginData({ ...loginData, email: event.target.value })
             }
             size="small"
+            margin="normal"
           />
           <TextField
             error={loginErrors.passwordError.length > 0}
@@ -51,6 +52,7 @@ function Login() {
               setLoginData({ ...loginData, password: event.target.value })
             }
             size="small"
+            margin="normal"
           />
           <Button
             variant="contained"

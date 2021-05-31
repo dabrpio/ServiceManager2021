@@ -29,6 +29,7 @@ const headCells = [
   {
     id: 'kosztNaprawy',
     label: 'Koszt',
+    smUp: true,
   },
   {
     id: 'status',
