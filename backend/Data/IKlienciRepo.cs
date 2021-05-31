@@ -12,5 +12,6 @@ namespace CommandApi.Data
         IEnumerable<Klienci> GetKlienciByName(string imie);
         IEnumerable<Klienci> GetKlienciBySur(string nazwisko);
         void CreateKlienci(Klienci klient);
+        void UpdateKlienci(Klienci klientUpdate);
     }
 }

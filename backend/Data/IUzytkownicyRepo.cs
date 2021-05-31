@@ -9,5 +9,6 @@ namespace CommandApi.Data
         IEnumerable<Uzytkownicy> GetAllUzytkownicy();
         Uzytkownicy GetUzytkownicyById(short? id);
         void CreateUzytkownicy(Uzytkownicy uzytkownik);
+        void UpdateUzytkownicy(Uzytkownicy uzytkownikUpdate);
     }
 }

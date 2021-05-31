@@ -9,5 +9,7 @@ namespace CommandApi.Dtos
         public string Login { get; set; }
         public string Haslo { get; set; }
         public int? NrTel { get; set; }
+        public string Imie { get; set; }
+        public string Nazwisko { get; set; }
     }
 }

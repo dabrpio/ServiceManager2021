@@ -26,5 +26,11 @@ namespace CommandApi.Models
         public string Haslo { get; set; }
         [Column("nr_tel")]
         public int? NrTel { get; set; }
+        [Column("imie")]
+        [StringLength(50)]
+        public string Imie { get; set; }
+        [Column("nazwisko")]
+        [StringLength(50)]
+        public string Nazwisko { get; set; }
     }
 }
