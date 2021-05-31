@@ -42,6 +42,10 @@ export const useTableStyles = makeStyles((theme) => ({
     },
     height: `calc(100% - 108px)`,
   },
+  table: {
+    tableLayout: 'fixed',
+    width: '100%',
+  },
   visuallyHidden: {
     border: 0,
     clip: 'rect(0 0 0 0)',
@@ -62,15 +66,10 @@ export const useTableStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
   td: {
-    [theme.breakpoints.up('xs')]: {
-      padding: '16px 0 16px 4px',
-    },
     [theme.breakpoints.up('sm')]: {
       padding: '16px 8px',
     },
-    [theme.breakpoints.up('md')]: {
-      padding: '16px',
-    },
+    padding: '12px 7px',
     whiteSpace: 'nowrap',
   },
   tr: {
@@ -78,9 +77,11 @@ export const useTableStyles = makeStyles((theme) => ({
   },
   buildIcon: {
     color: theme.palette.grey[500],
+    marginLeft: theme.spacing(1),
   },
   checkIcon: {
     color: theme.palette.success.light,
+    marginLeft: theme.spacing(1),
   },
 }));
 

@@ -87,6 +87,7 @@ const withEnhancedTable =
             <Table
               aria-labelledby="tableTitle"
               aria-label="enhanced table"
+              className={classes.table}
               stickyHeader
             >
               <EnhancedTableHead

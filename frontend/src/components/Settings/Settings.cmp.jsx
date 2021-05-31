@@ -25,7 +25,11 @@ function Settings() {
         <Typography component="h3" variant="h4" className={classes.heading}>
           Ustawienia
         </Typography>
-        <Typography variant="h5" variant="h6" className={classes.form__heading}>
+        <Typography
+          component="h5"
+          variant="h6"
+          className={classes.form__heading}
+        >
           Zmiana hasła
         </Typography>
         <TextField
@@ -37,6 +41,7 @@ function Settings() {
             setPassword({ ...password, oldPassword: event.target.value })
           }
           size="small"
+          margin="normal"
         />
         <TextField
           fullWidth
@@ -47,6 +52,7 @@ function Settings() {
             setPassword({ ...password, newPassword: event.target.value })
           }
           size="small"
+          margin="normal"
         />
         <TextField
           fullWidth
@@ -60,6 +66,7 @@ function Settings() {
             })
           }
           size="small"
+          margin="normal"
         />
         <Button
           variant="contained"
