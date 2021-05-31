@@ -9,44 +9,41 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import EmployeeDialogContent from './EmployeeDialogContent';
-import { postEmployee } from '../../../store/data/employees/employees.actions';
+import ClientDialogContent from './ClientDialogContent';
+import { postClient } from '../../../store/data/clients/clients.actions';
 
-const initialEmployee = {
-  rodzajUzytkownika: null,
+const initialClient = {
   imie: null,
   nazwisko: null,
-  login: null,
-  haslo: null,
   nrTel: null,
+  eMail: null,
+  nazwa: null,
+  nip: null,
 };
 
-const AddEmployeeDialog = ({ addEmployee }) => {
-  const [employee, setEmployee] = useState(initialEmployee);
+const AddClientDialog = ({ addClient }) => {
+  const [client, setClient] = useState(initialClient);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
-    setEmployee(initialEmployee);
+    setClient(initialClient);
   };
 
   const handleAdd = (event) => {
     event.preventDefault();
-    if (
-      Object.values(employee).some((e) => e === null || `${e}`.trim() === '')
-    ) {
-      console.log('employee data is not fully filled');
+    const { nazwa, nip, ...data } = client;
+    if (Object.values(data).some((e) => e === null || `${e}`.trim() === '')) {
+      console.log('client data is not fully filled');
     } else {
-      // temporary
-      const { imie, nazwisko, ...data } = employee;
-      addEmployee(data);
+      addClient(client);
       handleClose();
     }
   };
 
   return (
     <div>
-      <Tooltip title="Nowy pracownik">
+      <Tooltip title="Nowy klient">
         <IconButton aria-label="add" onClick={() => setOpen(true)}>
           <AddIcon />
         </IconButton>
@@ -57,11 +54,11 @@ const AddEmployeeDialog = ({ addEmployee }) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Nowy pracownik</DialogTitle>
-        <EmployeeDialogContent
-          employee={employee}
-          setEmployee={setEmployee}
-          newEmployee={true}
+        <DialogTitle id="form-dialog-title">Nowy klient</DialogTitle>
+        <ClientDialogContent
+          client={client}
+          setClient={setClient}
+          newClient={true}
         />
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -77,11 +74,11 @@ const AddEmployeeDialog = ({ addEmployee }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addEmployee: (data) => dispatch(postEmployee(data)),
+  addClient: (data) => dispatch(postClient(data)),
 });
 
-export default connect(null, mapDispatchToProps)(AddEmployeeDialog);
+export default connect(null, mapDispatchToProps)(AddClientDialog);
 
-AddEmployeeDialog.propTypes = {
-  addEmployee: PropTypes.func.isRequired,
+AddClientDialog.propTypes = {
+  addClient: PropTypes.func.isRequired,
 };

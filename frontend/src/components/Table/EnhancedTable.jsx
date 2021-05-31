@@ -17,6 +17,7 @@ import SelectedEmployeeDialog from './Employees/SelectedEmployeeDialog';
 import { stableSort, getComparator } from './sorting';
 import { useTableCustomHook } from './hooks';
 import { useTableStyles } from './styles';
+import SelectedClientDialog from './Clients/SelectedClientDialog';
 
 const withEnhancedTable =
   (EnhancedRow) =>
@@ -76,7 +77,12 @@ const withEnhancedTable =
             closeDialog={handleCloseDialog}
           />
         )}
-
+        {selectedRowData && location.pathname === '/clients' && (
+          <SelectedClientDialog
+            clientData={selectedRowData}
+            closeDialog={handleCloseDialog}
+          />
+        )}
         <Paper className={classes.root}>
           <EnhancedTableToolbar
             heading={heading}
@@ -104,7 +110,7 @@ const withEnhancedTable =
                   .map((row) => {
                     return (
                       <EnhancedRow
-                        key={row.rma ?? row.id}
+                        key={row.rma ?? row.id ?? row.idKlienta}
                         row={row}
                         classes={classes}
                         handleClick={handleClick}

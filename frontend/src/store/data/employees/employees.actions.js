@@ -26,9 +26,6 @@ export const postEmployee = (data) => (dispatch) => {
     body: JSON.stringify({
       ...data,
       nrTel: parseInt(data.nrTel),
-      rodzajUzytkownika: employeeTypes.find(
-        (type) => data.rodzajUzytkownika === type.title
-      ).titleId,
     }),
   })
     .then((res) => res.json())
