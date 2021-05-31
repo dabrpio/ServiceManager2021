@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { employeeTypes } from '../../../common/dropdownOptions';
 
 function EmployeeDialogContent(props) {
-  const { employee, setEmployee } = props;
+  const { employee, setEmployee, newEmployee } = props;
 
   const handleTextFieldChange =
     (name) =>
@@ -60,16 +60,6 @@ function EmployeeDialogContent(props) {
         style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
       />
-
-      <TextField
-        fullWidth
-        label="Login"
-        type="text"
-        value={employee.login ?? ''}
-        onChange={handleTextFieldChange('login')}
-        style={{ marginTop: 16, marginBottom: 8 }}
-        size="small"
-      />
       <TextField
         fullWidth
         label="Nr telefonu"
@@ -80,6 +70,28 @@ function EmployeeDialogContent(props) {
         size="small"
         error={checkPhoneError()}
       />
+
+      <TextField
+        fullWidth
+        label="Login"
+        type="text"
+        value={employee.login ?? ''}
+        onChange={handleTextFieldChange('login')}
+        style={{ marginTop: 16, marginBottom: 8 }}
+        size="small"
+      />
+
+      {newEmployee && (
+        <TextField
+          fullWidth
+          label="Hasło"
+          type="password"
+          value={employee.haslo ?? ''}
+          onChange={handleTextFieldChange('haslo')}
+          style={{ marginTop: 16, marginBottom: 24 }}
+          size="small"
+        />
+      )}
     </DialogContent>
   );
 }
@@ -88,4 +100,5 @@ export default EmployeeDialogContent;
 
 EmployeeDialogContent.propTypes = {
   employee: PropTypes.object.isRequired,
+  newEmployee: PropTypes.bool,
 };

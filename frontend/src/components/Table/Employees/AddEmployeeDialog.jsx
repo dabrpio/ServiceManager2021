@@ -56,7 +56,11 @@ const AddEmployeeDialog = ({ addEmployee }) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Nowy pracownik</DialogTitle>
-        <EmployeeDialogContent employee={employee} setEmployee={setEmployee} />
+        <EmployeeDialogContent
+          employee={employee}
+          setEmployee={setEmployee}
+          newEmployee={true}
+        />
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cofnij
