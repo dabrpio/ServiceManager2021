@@ -29,6 +29,7 @@ namespace CommandApi.Data
 
         public Klienci GetKlienciById(short? id)
         {
+            _context.Zlecenia.ToList();
             return _context.Klienci.FirstOrDefault(p=>p.IdKlienta==id);
         }
         public Klienci GetKlienciByPhNumer(int? phone, string imie, string nazwisko)
@@ -50,6 +51,14 @@ namespace CommandApi.Data
 
         public void UpdateKlienci(Klienci klient){
             //nothing
+        }
+
+        public void DeleteKlienci(Klienci klient)
+        {
+            if(klient==null){
+                throw new ArgumentNullException(nameof(klient));
+            }
+            _context.Klienci.Remove(klient);
         }
     }
 }

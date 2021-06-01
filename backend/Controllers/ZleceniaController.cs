@@ -136,6 +136,13 @@ namespace CommandApi.Controllers
                         zleceniaUpdate.DataWydania=DateTime.Now;
                     }
                 }
+                else
+                {
+                    if(zlecenieModel.DataWydania!=null)
+                    {
+                        zleceniaUpdate.DataWydania=null;
+                    }
+                }
                 _mapper.Map(zleceniaUpdate,zlecenieModel);
                 _mapper.Map(zleceniaUpdate,klientModel);
                 _repoZlecenia.UpdateZlecenia(zlecenieModel);
@@ -149,5 +156,19 @@ namespace CommandApi.Controllers
             }
         }
 
+        //DELETE api/zlecenia/{rma}
+        [HttpDelete("{rma}")]
+        public ActionResult DeleteZlecenia(int rma)
+        {
+            var commandItem=_repoZlecenia.GetZleceniaByRma(rma);
+            if(commandItem!=null){
+                _repoZlecenia.DeleteZlecenia(commandItem);
+                _repoZlecenia.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }
+        }
     }
 }

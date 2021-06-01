@@ -11,6 +11,6 @@ namespace CommandApi.Data
         void CreateZlecenia(Zlecenia zlecenia);
         IEnumerable<Zlecenia> Get25Zlecenia();
         void UpdateZlecenia(Zlecenia zleceniaUpdate);
-
+        void DeleteZlecenia(Zlecenia zlecenie);
     }
 }

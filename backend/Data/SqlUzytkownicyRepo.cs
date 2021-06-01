@@ -22,6 +22,14 @@ namespace CommandApi.Data
             _context.Uzytkownicy.Add(uzytkownik);
         }
 
+        public void DeleteUzytkownicy(Uzytkownicy uzytkownik)
+        {
+           if(uzytkownik==null){
+                throw new ArgumentNullException(nameof(uzytkownik));
+            }
+            _context.Uzytkownicy.Remove(uzytkownik);
+        }
+
         public IEnumerable<Uzytkownicy> GetAllUzytkownicy()
         {
             return _context.Uzytkownicy.ToList();

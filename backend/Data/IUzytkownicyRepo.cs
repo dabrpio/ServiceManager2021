@@ -10,5 +10,6 @@ namespace CommandApi.Data
         Uzytkownicy GetUzytkownicyById(short? id);
         void CreateUzytkownicy(Uzytkownicy uzytkownik);
         void UpdateUzytkownicy(Uzytkownicy uzytkownikUpdate);
+        void DeleteUzytkownicy(Uzytkownicy uzytkownik);
     }
 }

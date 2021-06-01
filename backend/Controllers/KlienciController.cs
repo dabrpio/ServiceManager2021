@@ -100,5 +100,22 @@ namespace CommandApi.Controllers
             }
         }
 
+        //DELETE api/kliecni/{id}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteKlienci(short? id)
+        {
+            var commandItem=_repoKliecni.GetKlienciById(id);
+            if(commandItem!=null){
+                if(commandItem.Zlecenia.Count!=0){
+                    return Problem("Nie usunięto zleceń klienta");
+                }
+                _repoKliecni.DeleteKlienci(commandItem);
+                _repoKliecni.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }
+        }
     }
 }

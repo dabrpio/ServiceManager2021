@@ -48,5 +48,12 @@ namespace CommandApi.Data
              //nothing
         }
 
+        public void DeleteZlecenia(Zlecenia zlecenie)
+        {
+            if(zlecenie==null){
+                throw new ArgumentNullException(nameof(zlecenie));
+            }
+            _context.Zlecenia.Remove(zlecenie);
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace CommandApi.Data
         IEnumerable<Klienci> GetKlienciBySur(string nazwisko);
         void CreateKlienci(Klienci klient);
         void UpdateKlienci(Klienci klientUpdate);
+        void DeleteKlienci(Klienci klient);
     }
 }

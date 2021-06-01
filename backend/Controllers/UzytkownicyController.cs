@@ -73,7 +73,20 @@ namespace CommandApi.Controllers
         }
 
 
-
+        //DELETE api/Uzytkownicy/{id}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteUzytkownicy(short? id)
+        {
+            var commandItem=_repoUzytkownicy.GetUzytkownicyById(id);
+            if(commandItem!=null){
+                _repoUzytkownicy.DeleteUzytkownicy(commandItem);
+                _repoUzytkownicy.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }
+        }
 
     }
 }
