@@ -13,9 +13,14 @@ export const getComparator = (order, orderBy) => {
     return order === 'desc'
       ? (a, b) => descendingDateComparator(a, b, orderBy)
       : (a, b) => -descendingDateComparator(a, b, orderBy);
+  } else if ((orderBy = 'eMail')) {
+    return order === 'desc'
+      ? (a, b) => possibleNullComparatorDesc(a, b, orderBy)
+      : (a, b) => possibleNullComparatorAsc(a, b, orderBy);
   } else if (
     orderBy === 'rma' ||
-    (orderBy === 'kosztNaprawy') | (orderBy === 'idKlienta')
+    orderBy === 'kosztNaprawy' ||
+    orderBy === 'idKlienta'
   ) {
     return order === 'desc'
       ? (a, b) => descendingNumberComparator(a, b, orderBy)
@@ -56,3 +61,13 @@ const descendingDateComparator = (a, b, orderBy) => {
   }
   return 0;
 };
+
+const possibleNullComparatorDesc = (a, b, orderBy) =>
+  (a[orderBy] === null) - (b[orderBy] === null) ||
+  -(a[orderBy]?.toUpperCase() > b[orderBy]?.toUpperCase()) ||
+  +(a[orderBy]?.toUpperCase() < b[orderBy]?.toUpperCase());
+
+const possibleNullComparatorAsc = (a, b, orderBy) =>
+  (a[orderBy] === null) - (b[orderBy] === null) ||
+  -(a[orderBy]?.toUpperCase() < b[orderBy]?.toUpperCase()) ||
+  +(a[orderBy]?.toUpperCase() > b[orderBy]?.toUpperCase());
