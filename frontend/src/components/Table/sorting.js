@@ -13,7 +13,7 @@ export const getComparator = (order, orderBy) => {
     return order === 'desc'
       ? (a, b) => descendingDateComparator(a, b, orderBy)
       : (a, b) => -descendingDateComparator(a, b, orderBy);
-  } else if ((orderBy = 'eMail')) {
+  } else if (orderBy === 'eMail') {
     return order === 'desc'
       ? (a, b) => possibleNullComparatorDesc(a, b, orderBy)
       : (a, b) => possibleNullComparatorAsc(a, b, orderBy);
@@ -64,10 +64,10 @@ const descendingDateComparator = (a, b, orderBy) => {
 
 const possibleNullComparatorDesc = (a, b, orderBy) =>
   (a[orderBy] === null) - (b[orderBy] === null) ||
-  -(a[orderBy]?.toUpperCase() > b[orderBy]?.toUpperCase()) ||
-  +(a[orderBy]?.toUpperCase() < b[orderBy]?.toUpperCase());
+  -(a[orderBy]?.toUpperCase() > +b[orderBy]?.toUpperCase()) ||
+  +(a[orderBy]?.toUpperCase() < -b[orderBy]?.toUpperCase());
 
 const possibleNullComparatorAsc = (a, b, orderBy) =>
   (a[orderBy] === null) - (b[orderBy] === null) ||
-  -(a[orderBy]?.toUpperCase() < b[orderBy]?.toUpperCase()) ||
-  +(a[orderBy]?.toUpperCase() > b[orderBy]?.toUpperCase());
+  +(a[orderBy]?.toUpperCase() > b[orderBy]?.toUpperCase()) ||
+  -(a[orderBy]?.toUpperCase() < b[orderBy]?.toUpperCase());
