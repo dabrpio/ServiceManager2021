@@ -19,6 +19,7 @@ namespace CommandApi
     public class Startup
     {
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        private string Login, Password;
 
         public Startup(IConfiguration configuration)
         {
@@ -32,8 +33,14 @@ namespace CommandApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options => {options.AddPolicy(name: MyAllowSpecificOrigins, builder => {builder.WithOrigins("http://localhost:3000", "https://localhost:3001").AllowAnyHeader().AllowAnyMethod();});});
+            
+            Console.WriteLine("Login: ");
+            Login=Console.ReadLine();
 
-            services.AddDbContext<SM2021Context>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
+            Console.WriteLine("Password: ");
+            Password=Console.ReadLine();
+
+            services.AddDbContext<SM2021Context>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")+"User ID="+Login+";Password="+Password+";"));
 
             services.AddControllers();
            /* services.AddSwaggerGen(c =>
