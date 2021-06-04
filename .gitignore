@@ -28,3 +28,4 @@ backend/obj/Debug/net5.0/CommandApi.pdb
 backend/obj/Debug/net5.0/ref/CommandApi.dll
 *.dll
 *.pdb
+backend/appsettings.json
