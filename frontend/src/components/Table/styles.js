@@ -137,5 +137,6 @@ export const useTicketDialogStyles = makeStyles((theme) => ({
   },
   dialogActions: {
     justifyContent: 'space-between',
+    padding: '16px',
   },
 }));

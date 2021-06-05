@@ -4,11 +4,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useTicketDialogStyles } from '../styles';
 
 import EmployeeDialogContent from './EmployeeDialogContent';
 
 const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
   const [employee, setEmployee] = useState(employeeData);
+  const classes = useTicketDialogStyles();
 
   const handleClose = () => {
     closeDialog();
@@ -29,6 +31,8 @@ const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
     }
   };
 
+  const handleDelete = () => console.log('delete');
+
   return (
     <div>
       <Dialog
@@ -41,12 +45,17 @@ const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
           Pracownik {employee.id}
         </DialogTitle>
         <EmployeeDialogContent employee={employee} setEmployee={setEmployee} />
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cofnij
-          </Button>
-          <Button onClick={handleSave} color="primary">
-            Zapisz
+        <DialogActions classes={{ root: classes.dialogActions }}>
+          <div>
+            <Button onClick={handleSave} color="primary">
+              Zapisz
+            </Button>
+            <Button onClick={handleClose} color="primary">
+              Cofnij
+            </Button>
+          </div>
+          <Button onClick={handleDelete} color="primary">
+            Usuń
           </Button>
         </DialogActions>
       </Dialog>

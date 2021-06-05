@@ -2,32 +2,66 @@ import * as ticketsAT from './tickets.action-types';
 
 const baseUrl = `https://localhost:5001/api/zlecenia`;
 
-export const fetchTickets = () => {
-  return (dispatch) => {
-    fetch(baseUrl + '/top25')
-      .then((res) => res.json())
-      .then((data) => dispatch(setTickets(data)));
-  };
-};
-
-const setTickets = (value) => ({
+const setTicketsState = (value) => ({
   type: ticketsAT.SET_TICKETS,
   payload: value,
 });
 
-// const fetchTicket = (id) => (dispatch) => {
-//   fetch(`${baseUrl}/${id}`)
-//     .then((res) => res.json())
-//     .then((data) => dispatch(setTicket(data)));
-// };
+const updateTicketState = (ticket) => ({
+  type: ticketsAT.UPDATE_TICKET,
+  payload: ticket,
+});
 
-// const setTicket = (value) => ({
-//   type: ticketsAT.SET_TICKET,
-//   payload: value,
-// });
+const deleteTicketState = (id) => ({
+  type: ticketsAT.DELETE_TICKET,
+  payload: id,
+});
 
-export const postTicket = (data) => (dispatch, getState) => {
-  // const ticketCount = getState().data.tickets.length;
+export const fetchTickets = () => {
+  return (dispatch) => {
+    fetch(baseUrl + '/top25')
+      .then((res) => res.json())
+      .then((data) => dispatch(setTicketsState(data)));
+  };
+};
+
+export const putTicket = (ticket) => (dispatch) => {
+  fetch(baseUrl + `/${ticket.rma}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      kosztNaprawy: parseFloat(ticket.kosztNaprawy),
+      kosztCzesci: parseFloat(ticket.kosztCzesci),
+      nrTel: parseInt(ticket.nrTel),
+      ...ticket,
+    }),
+  })
+    .then((it) => {
+      if (!it.ok) {
+        throw `Server error: [${it.status}] [${it.statusText}] [${it.url}]`;
+      }
+      return it;
+    })
+    .then(() => dispatch(updateTicketState(ticket)))
+    .catch((error) => console.log(error));
+};
+
+export const deleteTicket = (id) => (dispatch) => {
+  fetch(baseUrl + '/' + id, { method: 'DELETE' })
+    .then((it) => {
+      if (!it.ok) {
+        throw `Server error: [${it.status}] [${it.statusText}] [${it.url}]`;
+      }
+      return it;
+    })
+    .then(() => dispatch(deleteTicketState(id)))
+    .catch((error) => console.log(error));
+};
+
+export const postTicket = (data) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
     headers: {

@@ -3,16 +3,19 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
+import { useTicketDialogStyles } from '../styles';
 import { useState } from 'react';
 
 import ClientDialogContent from './ClientDialogContent';
 
 const SelectedClientDialog = ({ clientData, closeDialog }) => {
   const [client, setClient] = useState(clientData);
+  const classes = useTicketDialogStyles();
 
   const handleClose = () => {
     closeDialog();
   };
+  const handleDelete = () => console.log('delete');
 
   const handleSave = (event) => {
     event.preventDefault();
@@ -41,12 +44,17 @@ const SelectedClientDialog = ({ clientData, closeDialog }) => {
           Klient {client.idKlienta}
         </DialogTitle>
         <ClientDialogContent client={client} setClient={setClient} />
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cofnij
-          </Button>
-          <Button onClick={handleSave} color="primary">
-            Zapisz
+        <DialogActions classes={{ root: classes.dialogActions }}>
+          <div>
+            <Button onClick={handleSave} color="primary">
+              Zapisz
+            </Button>
+            <Button onClick={handleClose} color="primary">
+              Cofnij
+            </Button>
+          </div>
+          <Button onClick={handleDelete} color="primary">
+            Usuń
           </Button>
         </DialogActions>
       </Dialog>

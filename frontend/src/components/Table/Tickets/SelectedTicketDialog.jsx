@@ -3,15 +3,25 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import TicketDialogContent from './TicketDialogContent';
+import { connect } from 'react-redux';
+import {
+  deleteTicket,
+  putTicket,
+} from '../../../store/data/tickets/tickets.actions';
 import { useTicketDialogStyles } from '../styles';
 import DocsButton from './DocsButton';
+import TicketDialogContent from './TicketDialogContent';
 
-const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
+const SelectedTicketDialog = ({
+  ticketData,
+  closeDialog,
+  deleteTicket,
+  updateTicket,
+}) => {
   const classes = useTicketDialogStyles();
   const [ticket, setTicket] = useState(ticketData);
   const [switchState, setSwitchState] = useState(
@@ -30,7 +40,7 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
     });
   };
 
-  const handleSave = (event) => {
+  const handleUpdate = (event) => {
     event.preventDefault();
     const {
       informacje,
@@ -48,13 +58,18 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
         'check for changes, updated:',
         JSON.stringify(ticketData) !== JSON.stringify(ticket)
       );
-
-      // updateTicket(ticket);
+      if (JSON.stringify(ticketData) !== JSON.stringify(ticket)) {
+        updateTicket(ticket);
+      }
       handleClose();
     }
   };
 
-  const handleDelete = () => console.log('delete');
+  const handleDelete = (event) => {
+    event.preventDefault();
+    handleClose();
+    deleteTicket(ticket.rma);
+  };
 
   return (
     <Dialog
@@ -115,7 +130,7 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
           <Button onClick={handleClose} color="primary">
             Cofnij
           </Button>
-          <Button onClick={handleSave} color="primary">
+          <Button onClick={handleUpdate} color="primary">
             Zapisz
           </Button>
         </div>
@@ -124,9 +139,16 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
   );
 };
 
-export default SelectedTicketDialog;
+const mapDispatchToProps = (dispatch) => ({
+  deleteTicket: (id) => dispatch(deleteTicket(id)),
+  updateTicket: (data) => dispatch(putTicket(data)),
+});
+
+export default connect(null, mapDispatchToProps)(SelectedTicketDialog);
 
 SelectedTicketDialog.propTypes = {
   ticketData: PropTypes.object.isRequired,
   closeDialog: PropTypes.func.isRequired,
+  deleteTicket: PropTypes.func.isRequired,
+  updateTicket: PropTypes.func.isRequired,
 };
