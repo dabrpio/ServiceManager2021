@@ -17,6 +17,11 @@ const deleteTicketState = (id) => ({
   payload: id,
 });
 
+// const addTicketState = (ticket) => ({
+//   type: ticketsAT.ADD_TICKET,
+//   payload: ticket,
+// });
+
 export const fetchTickets = () => {
   return (dispatch) => {
     fetch(baseUrl + '/top25')
@@ -79,3 +84,11 @@ export const postTicket = (data) => (dispatch) => {
     .then(() => dispatch(fetchTickets()))
     .catch((error) => console.log(error));
 };
+
+// const fetchTicket = (id) => {
+//   return (dispatch) => {
+//     fetch(baseUrl + '/' + id)
+//       .then((res) => res.json())
+//       .then((data) => dispatch(addTicketState(data)));
+//   };
+// };
