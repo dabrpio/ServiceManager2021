@@ -38,7 +38,7 @@ const SelectedClientDialog = ({ clientData, closeDialog }) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Dane klienta {client.idKlienta}
+          Klient {client.idKlienta}
         </DialogTitle>
         <ClientDialogContent client={client} setClient={setClient} />
         <DialogActions>

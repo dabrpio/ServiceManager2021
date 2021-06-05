@@ -3,12 +3,12 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import TicketDialogContent from './TicketDialogContent';
 import { useTicketDialogStyles } from '../styles';
+import DialogTitleButtons from './DialogTitleButtons';
 
 const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
   const classes = useTicketDialogStyles();
@@ -31,10 +31,17 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    const { informacje, eMail, dataPrzyjecia, dataWydania, ...dataToValidate } =
-      ticket;
+    const {
+      informacje,
+      eMail,
+      dataPrzyjecia,
+      dataWydania,
+      nip,
+      nazwa,
+      ...dataToValidate
+    } = ticket;
     if (Object.values(dataToValidate).some((e) => e === null || e === '')) {
-      console.log('ticket is not fully filled');
+      console.log('ticket is not fully filled:', ticket);
     } else {
       console.log(
         'check for changes, updated:',
@@ -46,9 +53,11 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
     }
   };
 
+  const handleDelete = () => console.log('delete');
+
   return (
     <Dialog
-      maxWidth="sm"
+      maxWidth="md"
       open={Object.keys(ticketData).length > 0}
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
@@ -61,19 +70,22 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
         <Typography component="h2" variant="h6">
           Zlecenie {ticket.rma}
         </Typography>
-        <FormControlLabel
-          classes={{ root: classes.switchLabel }}
-          control={
-            <Switch
-              color="primary"
-              checked={switchState}
-              onChange={handleChangeSwitchState}
-              name="status"
-            />
-          }
-          label={switchState ? 'Zrobione' : 'W naprawie'}
-          labelPlacement="start"
-        />
+        <Hidden smUp>
+          <Switch
+            color="primary"
+            checked={switchState}
+            onChange={handleChangeSwitchState}
+            name="status"
+          />
+        </Hidden>
+
+        <Hidden xsDown>
+          <DialogTitleButtons
+            classes={classes}
+            ticket={ticket}
+            setTicket={setTicket}
+          />
+        </Hidden>
       </DialogTitle>
       <TicketDialogContent
         classes={classes}
@@ -81,12 +93,9 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
         setTicket={setTicket}
       />
       <DialogActions classes={{ root: classes.dialogActions }}>
-        <div>
-          <Hidden xsDown>
-            <Button color="primary">Dokument przyjęcia</Button>
-            <Button color="primary">Gwarancja</Button>
-          </Hidden>
-        </div>
+        <Button onClick={handleDelete} color="primary">
+          Usuń
+        </Button>
         <div>
           <Button onClick={handleClose} color="primary">
             Cofnij

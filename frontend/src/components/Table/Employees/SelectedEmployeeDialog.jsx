@@ -38,7 +38,7 @@ const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Dane pracownika {employee.id}
+          Pracownik {employee.id}
         </DialogTitle>
         <EmployeeDialogContent employee={employee} setEmployee={setEmployee} />
         <DialogActions>

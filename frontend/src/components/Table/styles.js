@@ -106,11 +106,8 @@ export const useTicketDialogStyles = makeStyles((theme) => ({
     },
   },
   dialogTitle: {
-    [theme.breakpoints.up('sm')]: {
-      flexDirection: 'row',
-    },
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
@@ -127,10 +124,16 @@ export const useTicketDialogStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
   },
   switchLabel: {
-    marginRight: '-11px',
+    marginRight: '11px',
     flexDirection: 'row-reverse',
+    width: '200px',
   },
   dialogActions: {
     justifyContent: 'space-between',
+  },
+  titleButtons: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '350px',
   },
 }));

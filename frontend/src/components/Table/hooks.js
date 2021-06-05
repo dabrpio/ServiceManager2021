@@ -4,7 +4,7 @@ export const useTableCustomHook = (data) => {
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('rma');
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [searchInput, setSearchInput] = useState('');
   const [selectedRowData, setSelectedRowData] = useState(null);
   const filteredData = useFilter(data, searchInput);

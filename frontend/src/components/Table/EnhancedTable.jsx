@@ -126,7 +126,7 @@ const withEnhancedTable =
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 25, 50]}
+            rowsPerPageOptions={[25, 50, 100]}
             component="div"
             count={filteredData.length}
             rowsPerPage={rowsPerPage}

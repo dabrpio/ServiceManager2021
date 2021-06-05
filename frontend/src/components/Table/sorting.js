@@ -64,8 +64,8 @@ const descendingDateComparator = (a, b, orderBy) => {
 
 const possibleNullComparatorDesc = (a, b, orderBy) =>
   (a[orderBy] === null) - (b[orderBy] === null) ||
-  -(a[orderBy]?.toUpperCase() > +b[orderBy]?.toUpperCase()) ||
-  +(a[orderBy]?.toUpperCase() < -b[orderBy]?.toUpperCase());
+  -(a[orderBy]?.toUpperCase() > b[orderBy]?.toUpperCase()) ||
+  +(a[orderBy]?.toUpperCase() < b[orderBy]?.toUpperCase());
 
 const possibleNullComparatorAsc = (a, b, orderBy) =>
   (a[orderBy] === null) - (b[orderBy] === null) ||

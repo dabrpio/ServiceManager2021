@@ -44,7 +44,7 @@ function TicketDialogContent(props) {
           fullWidth
           value={ticket.rodzaj}
           options={deviceTypes.map((i) => i.title)}
-          getOptionSelected={(option, value) => option.title === value.title}
+          getOptionSelected={(option, value) => option === value}
           onChange={(_, newValue) => {
             setTicket({ ...ticket, rodzaj: newValue });
           }}
@@ -57,7 +57,7 @@ function TicketDialogContent(props) {
           fullWidth
           value={ticket.marka}
           options={brandTypes.map((i) => i.title)}
-          getOptionSelected={(option, value) => option.title === value.title}
+          getOptionSelected={(option, value) => option === value}
           onChange={(_, newValue) => {
             setTicket({ ...ticket, marka: newValue });
           }}
@@ -70,7 +70,7 @@ function TicketDialogContent(props) {
           fullWidth
           value={ticket.model}
           options={modelTypes.map((i) => i.title)}
-          getOptionSelected={(option, value) => option.title === value.title}
+          getOptionSelected={(option, value) => option === value}
           onChange={(_, newValue) => {
             setTicket({ ...ticket, model: newValue });
           }}
