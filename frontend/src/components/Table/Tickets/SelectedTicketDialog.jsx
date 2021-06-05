@@ -4,11 +4,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import TicketDialogContent from './TicketDialogContent';
 import { useTicketDialogStyles } from '../styles';
-import DialogTitleButtons from './DialogTitleButtons';
+import DocsButton from './DocsButton';
 
 const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
   const classes = useTicketDialogStyles();
@@ -80,11 +81,25 @@ const SelectedTicketDialog = ({ ticketData, closeDialog }) => {
         </Hidden>
 
         <Hidden xsDown>
-          <DialogTitleButtons
-            classes={classes}
-            ticket={ticket}
-            setTicket={setTicket}
-          />
+          <div className={classes.titleActions}>
+            <DocsButton classes={classes} />
+            <FormControlLabel
+              classes={{
+                root: classes.formControlLabel,
+                label: classes.switchLabel,
+              }}
+              control={
+                <Switch
+                  color="primary"
+                  checked={switchState}
+                  onChange={handleChangeSwitchState}
+                  name="status"
+                />
+              }
+              label={switchState ? 'Zrobione' : 'W naprawie'}
+              labelPlacement="start"
+            />
+          </div>
         </Hidden>
       </DialogTitle>
       <TicketDialogContent
