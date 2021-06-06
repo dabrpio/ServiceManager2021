@@ -34,7 +34,14 @@ namespace CommandApi.Controllers
         public ActionResult<KlienciReadDto> GetKlienciById(short? id){
             var commandItem = _repoKliecni.GetKlienciById(id);
             if(commandItem!=null){
-                return Ok(_mapper.Map<KlienciReadDto>(commandItem));
+                List<int> rmas=new List<int>();
+                foreach(var zlecenie in commandItem.Zlecenia){
+                    rmas.Add(zlecenie.Rma);
+                }
+                KlienciReadDto transfer;
+                transfer=_mapper.Map<KlienciReadDto>(commandItem);
+                transfer.Rmas=rmas;
+                return Ok(_mapper.Map<KlienciReadDto>(transfer));
             }
             else{
                 return NotFound();

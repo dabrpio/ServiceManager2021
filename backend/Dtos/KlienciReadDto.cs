@@ -12,5 +12,6 @@ namespace CommandApi.Dtos
         public string Nazwa { get; set; }
         public long? Nip { get; set; }
         public string EMail { get; set; }
+        public System.Collections.Generic.List<int> Rmas {get;set;}
     }
 }
