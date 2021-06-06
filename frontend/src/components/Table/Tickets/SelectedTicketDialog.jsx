@@ -16,12 +16,8 @@ import { useTicketDialogStyles } from '../styles';
 import DocsButton from './DocsButton';
 import TicketDialogContent from './TicketDialogContent';
 
-const SelectedTicketDialog = ({
-  ticketData,
-  closeDialog,
-  deleteTicket,
-  updateTicket,
-}) => {
+const SelectedTicketDialog = (props) => {
+  const { ticketData, closeDialog, deleteTicket, updateTicket } = props;
   const classes = useTicketDialogStyles();
   const [ticket, setTicket] = useState(ticketData);
   const [switchState, setSwitchState] = useState(
@@ -54,10 +50,6 @@ const SelectedTicketDialog = ({
     if (Object.values(dataToValidate).some((e) => e === null || e === '')) {
       console.log('ticket is not fully filled:', ticket);
     } else {
-      console.log(
-        'check for changes, updated:',
-        JSON.stringify(ticketData) !== JSON.stringify(ticket)
-      );
       if (JSON.stringify(ticketData) !== JSON.stringify(ticket)) {
         updateTicket(ticket);
       }

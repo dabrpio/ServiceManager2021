@@ -4,11 +4,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import {
+  deleteEmployee,
+  putEmployee,
+} from '../../../store/data/employees/employees.actions';
 import { useTicketDialogStyles } from '../styles';
-
 import EmployeeDialogContent from './EmployeeDialogContent';
 
-const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
+const SelectedEmployeeDialog = (props) => {
+  const { employeeData, closeDialog, updateEmployee, deleteEmployee } = props;
   const [employee, setEmployee] = useState(employeeData);
   const classes = useTicketDialogStyles();
 
@@ -21,17 +26,18 @@ const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
     if (Object.values(employee).some((e) => e === null || e === '')) {
       console.log('employee data is not fully filled');
     } else {
-      console.log(
-        'check for changes, updated:',
-        JSON.stringify(employeeData) !== JSON.stringify(employee)
-      );
-
-      // updateTicket(ticket);
+      if (JSON.stringify(employeeData) !== JSON.stringify(employee)) {
+        updateEmployee(employee);
+      }
       handleClose();
     }
   };
 
-  const handleDelete = () => console.log('delete');
+  const handleDelete = (event) => {
+    event.preventDefault();
+    handleClose();
+    deleteEmployee(employee.id);
+  };
 
   return (
     <div>
@@ -63,9 +69,16 @@ const SelectedEmployeeDialog = ({ employeeData, closeDialog }) => {
   );
 };
 
-export default SelectedEmployeeDialog;
+const mapDispatchToProps = (dispatch) => ({
+  updateEmployee: (data) => dispatch(putEmployee(data)),
+  deleteEmployee: (id) => dispatch(deleteEmployee(id)),
+});
+
+export default connect(null, mapDispatchToProps)(SelectedEmployeeDialog);
 
 SelectedEmployeeDialog.propTypes = {
   employeeData: PropTypes.object.isRequired,
   closeDialog: PropTypes.func.isRequired,
+  updateEmployee: PropTypes.func.isRequired,
+  deleteEmployee: PropTypes.func.isRequired,
 };

@@ -8,9 +8,8 @@ import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-
-import EmployeeDialogContent from './EmployeeDialogContent';
 import { postEmployee } from '../../../store/data/employees/employees.actions';
+import EmployeeDialogContent from './EmployeeDialogContent';
 
 const initialEmployee = {
   rodzajUzytkownika: null,
@@ -37,9 +36,7 @@ const AddEmployeeDialog = ({ addEmployee }) => {
     ) {
       console.log('employee data is not fully filled');
     } else {
-      // temporary
-      const { imie, nazwisko, ...data } = employee;
-      addEmployee(data);
+      addEmployee(employee);
       handleClose();
     }
   };

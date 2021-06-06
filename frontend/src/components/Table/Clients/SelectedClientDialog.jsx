@@ -3,33 +3,41 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-import { useTicketDialogStyles } from '../styles';
 import { useState } from 'react';
-
+import { connect } from 'react-redux';
+import {
+  deleteClient,
+  putClient,
+} from '../../../store/data/clients/clients.actions';
+import { useTicketDialogStyles } from '../styles';
 import ClientDialogContent from './ClientDialogContent';
 
-const SelectedClientDialog = ({ clientData, closeDialog }) => {
+const SelectedClientDialog = (props) => {
+  const { clientData, closeDialog, updateClient, deleteClient } = props;
   const [client, setClient] = useState(clientData);
   const classes = useTicketDialogStyles();
 
   const handleClose = () => {
     closeDialog();
   };
-  const handleDelete = () => console.log('delete');
 
   const handleSave = (event) => {
     event.preventDefault();
-    if (Object.values(client).some((e) => e === null || e === '')) {
+    const { nazwa, nip, eMail, ...data } = client;
+    if (Object.values(data).some((e) => e === null || e === '')) {
       console.log('client data is not fully filled');
     } else {
-      console.log(
-        'check for changes, updated:',
-        JSON.stringify(clientData) !== JSON.stringify(client)
-      );
-
-      // updateTicket(ticket);
+      if (JSON.stringify(clientData) !== JSON.stringify(client)) {
+        updateClient(client);
+      }
       handleClose();
     }
+  };
+
+  const handleDelete = (event) => {
+    event.preventDefault();
+    handleClose();
+    deleteClient(client.idKlienta);
   };
 
   return (
@@ -62,7 +70,12 @@ const SelectedClientDialog = ({ clientData, closeDialog }) => {
   );
 };
 
-export default SelectedClientDialog;
+const mapDispatchToProps = (dispatch) => ({
+  updateClient: (data) => dispatch(putClient(data)),
+  deleteClient: (id) => dispatch(deleteClient(id)),
+});
+
+export default connect(null, mapDispatchToProps)(SelectedClientDialog);
 
 SelectedClientDialog.propTypes = {
   clientData: PropTypes.object.isRequired,
