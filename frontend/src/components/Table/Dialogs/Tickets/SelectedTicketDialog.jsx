@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import {
   deleteTicket,
   putTicket,
-} from '../../../store/data/tickets/tickets.actions';
+} from '../../../../store/data/tickets/tickets.actions';
 import { useTicketDialogStyles } from '../styles';
 import DocsButton from './DocsButton';
 import TicketDialogContent from './TicketDialogContent';

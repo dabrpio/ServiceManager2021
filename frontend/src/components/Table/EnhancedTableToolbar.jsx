@@ -4,9 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
-import AddEmployeeDialog from './Employees/AddEmployeeDialog';
-import AddTicketDialog from './Tickets/AddTicketDialog';
-import AddClientDialog from './Clients/AddClientDialog';
+import AddEmployeeDialog from './Dialogs/Employees/AddEmployeeDialog';
+import AddTicketDialog from './Dialogs/Tickets/AddTicketDialog';
+import AddClientDialog from './Dialogs/Clients/AddClientDialog';
 import { useToolbarStyles } from './styles';
 
 export default function EnhancedTableToolbar({

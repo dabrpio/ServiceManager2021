@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import {
   deleteClient,
   putClient,
-} from '../../../store/data/clients/clients.actions';
+} from '../../../../store/data/clients/clients.actions';
 import { useTicketDialogStyles } from '../styles';
 import ClientDialogContent from './ClientDialogContent';
 

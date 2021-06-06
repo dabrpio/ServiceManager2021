@@ -7,7 +7,7 @@ import {
   brandTypes,
   deviceTypes,
   modelTypes,
-} from '../../../common/dropdownOptions';
+} from '../../../../common/dropdownOptions';
 
 function TicketDialogContent(props) {
   const { classes, ticket, setTicket } = props;

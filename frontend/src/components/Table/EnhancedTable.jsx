@@ -9,15 +9,15 @@ import {
 } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 
+import SelectedClientDialog from './Dialogs/Clients/SelectedClientDialog';
+import SelectedEmployeeDialog from './Dialogs/Employees/SelectedEmployeeDialog';
+import SelectedTicketDialog from './Dialogs/Tickets/SelectedTicketDialog';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
-import SelectedTicketDialog from './Tickets/SelectedTicketDialog';
-import SelectedEmployeeDialog from './Employees/SelectedEmployeeDialog';
 
-import { stableSort, getComparator } from './sorting';
 import { useTableCustomHook } from './hooks';
+import { getComparator, stableSort } from './sorting';
 import { useTableStyles } from './styles';
-import SelectedClientDialog from './Clients/SelectedClientDialog';
 
 const withEnhancedTable =
   (EnhancedRow) =>

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import {
   deleteEmployee,
   putEmployee,
-} from '../../../store/data/employees/employees.actions';
+} from '../../../../store/data/employees/employees.actions';
 import { useTicketDialogStyles } from '../styles';
 import EmployeeDialogContent from './EmployeeDialogContent';
 

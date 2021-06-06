@@ -1,4 +1,4 @@
-import ClientTableRow from '../Table/Clients/ClientTableRow';
+import ClientTableRow from '../Table/Rows/ClientTableRow';
 import withEnhancedTable from '../Table/EnhancedTable';
 import PropTypes from 'prop-types';
 

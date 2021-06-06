@@ -2,7 +2,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import PropTypes from 'prop-types';
-import { employeeTypes } from '../../../common/dropdownOptions';
+import { employeeTypes } from '../../../../common/dropdownOptions';
 
 function EmployeeDialogContent(props) {
   const { employee, setEmployee, newEmployee } = props;

@@ -8,57 +8,66 @@ import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { postTicket } from '../../../../store/data/tickets/tickets.actions';
+import TicketDialogContent from './TicketDialogContent';
+import { useTicketDialogStyles } from '../styles';
 
-import ClientDialogContent from './ClientDialogContent';
-import { postClient } from '../../../store/data/clients/clients.actions';
-
-const initialClient = {
+const initialTicket = {
+  rodzaj: null,
+  marka: null,
+  model: null,
+  kosztCzesci: null,
+  kosztNaprawy: null,
+  usterka: null,
+  informacje: null,
   imie: null,
   nazwisko: null,
   nrTel: null,
   eMail: null,
-  nazwa: null,
-  nip: null,
+  status: 'oczekiwanie',
 };
 
-const AddClientDialog = ({ addClient }) => {
-  const [client, setClient] = useState(initialClient);
+const AddTicketDialog = ({ addTicket }) => {
+  const classes = useTicketDialogStyles();
+  const [ticket, setTicket] = useState(initialTicket);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
-    setClient(initialClient);
+    setTicket(initialTicket);
   };
 
   const handleAdd = (event) => {
     event.preventDefault();
-    const { nazwa, nip, ...data } = client;
-    if (Object.values(data).some((e) => e === null || `${e}`.trim() === '')) {
-      console.log('client data is not fully filled');
+    const { informacje, eMail, ...dataToValidate } = ticket;
+    if (
+      Object.values(dataToValidate).some((e) => e === null || e?.trim() === '')
+    ) {
+      console.log('ticket is not fully filled');
     } else {
-      addClient(client);
+      addTicket(ticket);
       handleClose();
     }
   };
 
   return (
     <div>
-      <Tooltip title="Nowy klient">
+      <Tooltip title="Nowe zlecenie">
         <IconButton aria-label="add" onClick={() => setOpen(true)}>
           <AddIcon />
         </IconButton>
       </Tooltip>
       <Dialog
-        maxWidth="sm"
+        maxWidth="md"
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Nowy klient</DialogTitle>
-        <ClientDialogContent
-          client={client}
-          setClient={setClient}
-          newClient={true}
+        <DialogTitle id="form-dialog-title">Nowe zlecenie</DialogTitle>
+        <TicketDialogContent
+          classes={classes}
+          ticket={ticket}
+          setTicket={setTicket}
         />
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -74,11 +83,11 @@ const AddClientDialog = ({ addClient }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addClient: (data) => dispatch(postClient(data)),
+  addTicket: (data) => dispatch(postTicket(data)),
 });
 
-export default connect(null, mapDispatchToProps)(AddClientDialog);
+export default connect(null, mapDispatchToProps)(AddTicketDialog);
 
-AddClientDialog.propTypes = {
-  addClient: PropTypes.func.isRequired,
+AddTicketDialog.propTypes = {
+  addTicket: PropTypes.func.isRequired,
 };

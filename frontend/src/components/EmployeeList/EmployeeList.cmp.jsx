@@ -1,4 +1,4 @@
-import EmployeeTableRow from '../Table/Employees/EmployeeTableRow';
+import EmployeeTableRow from '../Table/Rows/EmployeeTableRow';
 import withEnhancedTable from '../Table/EnhancedTable';
 import PropTypes from 'prop-types';
 

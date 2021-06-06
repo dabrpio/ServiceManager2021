@@ -8,66 +8,57 @@ import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { postTicket } from '../../../store/data/tickets/tickets.actions';
-import TicketDialogContent from './TicketDialogContent';
-import { useTicketDialogStyles } from '../styles';
+import { postEmployee } from '../../../../store/data/employees/employees.actions';
+import EmployeeDialogContent from './EmployeeDialogContent';
 
-const initialTicket = {
-  rodzaj: null,
-  marka: null,
-  model: null,
-  kosztCzesci: null,
-  kosztNaprawy: null,
-  usterka: null,
-  informacje: null,
+const initialEmployee = {
+  rodzajUzytkownika: null,
   imie: null,
   nazwisko: null,
+  login: null,
+  haslo: null,
   nrTel: null,
-  eMail: null,
-  status: 'oczekiwanie',
 };
 
-const AddTicketDialog = ({ addTicket }) => {
-  const classes = useTicketDialogStyles();
-  const [ticket, setTicket] = useState(initialTicket);
+const AddEmployeeDialog = ({ addEmployee }) => {
+  const [employee, setEmployee] = useState(initialEmployee);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
-    setTicket(initialTicket);
+    setEmployee(initialEmployee);
   };
 
   const handleAdd = (event) => {
     event.preventDefault();
-    const { informacje, eMail, ...dataToValidate } = ticket;
     if (
-      Object.values(dataToValidate).some((e) => e === null || e?.trim() === '')
+      Object.values(employee).some((e) => e === null || `${e}`.trim() === '')
     ) {
-      console.log('ticket is not fully filled');
+      console.log('employee data is not fully filled');
     } else {
-      addTicket(ticket);
+      addEmployee(employee);
       handleClose();
     }
   };
 
   return (
     <div>
-      <Tooltip title="Nowe zlecenie">
+      <Tooltip title="Nowy pracownik">
         <IconButton aria-label="add" onClick={() => setOpen(true)}>
           <AddIcon />
         </IconButton>
       </Tooltip>
       <Dialog
-        maxWidth="md"
+        maxWidth="sm"
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Nowe zlecenie</DialogTitle>
-        <TicketDialogContent
-          classes={classes}
-          ticket={ticket}
-          setTicket={setTicket}
+        <DialogTitle id="form-dialog-title">Nowy pracownik</DialogTitle>
+        <EmployeeDialogContent
+          employee={employee}
+          setEmployee={setEmployee}
+          newEmployee={true}
         />
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -83,11 +74,11 @@ const AddTicketDialog = ({ addTicket }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addTicket: (data) => dispatch(postTicket(data)),
+  addEmployee: (data) => dispatch(postEmployee(data)),
 });
 
-export default connect(null, mapDispatchToProps)(AddTicketDialog);
+export default connect(null, mapDispatchToProps)(AddEmployeeDialog);
 
-AddTicketDialog.propTypes = {
-  addTicket: PropTypes.func.isRequired,
+AddEmployeeDialog.propTypes = {
+  addEmployee: PropTypes.func.isRequired,
 };
