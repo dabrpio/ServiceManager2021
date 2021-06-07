@@ -1,4 +1,6 @@
-/****** Object:  Table [dbo].[klienci]    Script Date: 06.06.2021 21:28:54 ******/
+USE [SM2021]
+GO
+/****** Object:  Table [dbo].[klienci]    Script Date: 07.06.2021 10:27:00 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17,7 +19,7 @@ CREATE TABLE [dbo].[klienci](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[urzadzenia]    Script Date: 06.06.2021 21:28:54 ******/
+/****** Object:  Table [dbo].[urzadzenia]    Script Date: 07.06.2021 10:27:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33,7 +35,7 @@ CREATE TABLE [dbo].[urzadzenia](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[uzytkownicy]    Script Date: 06.06.2021 21:28:54 ******/
+/****** Object:  Table [dbo].[uzytkownicy]    Script Date: 07.06.2021 10:27:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -44,15 +46,15 @@ CREATE TABLE [dbo].[uzytkownicy](
 	[login] [nvarchar](30) NOT NULL,
 	[haslo] [nvarchar](30) NOT NULL,
 	[nr_tel] [int] NULL,
-	[imie] [nvarchar](50) NOT NULL,
-	[nazwisko] [nvarchar](50) NOT NULL,
+	[imie] [nvarchar](50) NULL,
+	[nazwisko] [nvarchar](50) NULL,
  CONSTRAINT [PK_uzytkownicy] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[zlecenia]    Script Date: 06.06.2021 21:28:54 ******/
+/****** Object:  Table [dbo].[zlecenia]    Script Date: 07.06.2021 10:27:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -63,8 +65,8 @@ CREATE TABLE [dbo].[zlecenia](
 	[data_przyjecia] [datetime] NOT NULL,
 	[rodzaj] [nvarchar](255) NOT NULL,
 	[marka] [nvarchar](255) NOT NULL,
-	[model] [nvarchar](255)NOT NULL,
-	[usterka] [nvarchar](255)NOT NULL,
+	[model] [nvarchar](255) NOT NULL,
+	[usterka] [nvarchar](255) NOT NULL,
 	[koszt_naprawy] [money] NULL,
 	[koszt_czesci] [money] NULL,
 	[data_wydania] [datetime] NULL,
@@ -75,4 +77,9 @@ CREATE TABLE [dbo].[zlecenia](
 	[RMA] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[zlecenia] ADD  DEFAULT (getdate()) FOR [data_przyjecia]
+GO
+ALTER TABLE [dbo].[zlecenia]  WITH CHECK ADD FOREIGN KEY([id_klienta])
+REFERENCES [dbo].[klienci] ([id_klienta])
 GO
