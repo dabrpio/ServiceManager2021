@@ -15,11 +15,13 @@ namespace CommandApi.Controllers
     {
         private readonly IZleceniaRepo _repoZlecenia;
         private readonly IKlienciRepo _repoKlienci;
+        private readonly IUrzadzeniaRepo _repoUrzadzenia;
         private readonly IMapper _mapper;
 
-        public ZleceniaController(IZleceniaRepo repository, IKlienciRepo repo2, IMapper mapper){
-            _repoZlecenia=repository;
+        public ZleceniaController(IZleceniaRepo repo1, IKlienciRepo repo2, IUrzadzeniaRepo repo3, IMapper mapper){
+            _repoZlecenia=repo1;
             _repoKlienci=repo2;
+            _repoUrzadzenia=repo3;
             _mapper=mapper;
         }
 
@@ -109,6 +111,15 @@ namespace CommandApi.Controllers
             }
             _repoZlecenia.CreateZlecenia(zleceniaModel);
             _repoZlecenia.SaveChanges();
+
+            if(_repoUrzadzenia.GetUrzadzeniaByModel(zleceniaModel.Rodzaj,zleceniaModel.Marka,zleceniaModel.Model).Count==0){
+                Urzadzenia device=new Urzadzenia();
+                device.Brand=zleceniaModel.Marka;
+                device.Type=zleceniaModel.Rodzaj;
+                device.Model=zleceniaModel.Model;
+                _repoUrzadzenia.CreateUrzadzenia(device);
+                _repoUrzadzenia.SaveChanges();
+            }
            
             var ZleceniaReadDto = _mapper.Map<ZleceniaReadDto>(zleceniaModel);
             ZleceniaReadDto.Imie=klienciModel.Imie;
@@ -170,5 +181,6 @@ namespace CommandApi.Controllers
                 return NotFound();
             }
         }
+
     }
 }

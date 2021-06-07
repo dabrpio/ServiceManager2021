@@ -19,14 +19,16 @@ namespace CommandApi.Models
         [Key]
         [Column("id_klienta")]
         public short IdKlienta { get; set; }
+        [Required]
         [Column("imie")]
         [StringLength(255)]
         public string Imie { get; set; }
+        [Required]
         [Column("nazwisko")]
         [StringLength(255)]
         public string Nazwisko { get; set; }
         [Column("nr_tel")]
-        public int? NrTel { get; set; }
+        public int NrTel { get; set; }
         [Column("nazwa")]
         [StringLength(255)]
         public string Nazwa { get; set; }

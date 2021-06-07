@@ -46,7 +46,7 @@ namespace CommandApi
             services.AddScoped<IZleceniaRepo, SqlZleceniaRepo>();
             services.AddScoped<IKlienciRepo, SqlKlienciRepo>();
             services.AddScoped<IUzytkownicyRepo, SqlUzytkownicyRepo>();
-
+            services.AddScoped<IUrzadzeniaRepo, SqlUrzadzeniaRepo>();
 
         }
 

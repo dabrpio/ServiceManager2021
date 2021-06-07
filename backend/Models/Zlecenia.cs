@@ -15,18 +15,22 @@ namespace CommandApi.Models
         [Column("RMA")]
         public short Rma { get; set; }
         [Column("id_klienta")]
-        public short? IdKlienta { get; set; }
+        public short IdKlienta { get; set; }
         [Column("data_przyjecia", TypeName = "datetime")]
-        public DateTime? DataPrzyjecia { get; set; }
+        public DateTime DataPrzyjecia { get; set; }
+        [Required]
         [Column("rodzaj")]
         [StringLength(255)]
         public string Rodzaj { get; set; }
+        [Required]
         [Column("marka")]
         [StringLength(255)]
         public string Marka { get; set; }
+        [Required]
         [Column("model")]
         [StringLength(255)]
         public string Model { get; set; }
+        [Required]
         [Column("usterka")]
         [StringLength(255)]
         public string Usterka { get; set; }

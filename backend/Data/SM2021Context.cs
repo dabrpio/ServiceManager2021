@@ -19,6 +19,7 @@ namespace CommandApi.Data
         }
 
         public virtual DbSet<Klienci> Klienci { get; set; }
+        public virtual DbSet<Urzadzenia> Urzadzenia { get; set; }
         public virtual DbSet<Uzytkownicy> Uzytkownicy { get; set; }
         public virtual DbSet<Zlecenia> Zlecenia { get; set; }
 
@@ -34,7 +35,8 @@ namespace CommandApi.Data
                 entity.HasOne(d => d.IdKlientaNavigation)
                     .WithMany(p => p.Zlecenia)
                     .HasForeignKey(d => d.IdKlienta)
-                    .HasConstraintName("FK__zlecenia__id_kli__06CD04F7");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__zlecenia__id_kli__3D5E1FD2");
             });
 
             OnModelCreatingPartial(modelBuilder);
