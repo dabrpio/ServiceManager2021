@@ -89,7 +89,7 @@ const SelectedTicketDialog = (props) => {
 
         <Hidden xsDown>
           <div className={classes.titleActions}>
-            <DocsButton classes={classes} />
+            <DocsButton classes={classes} ticket={ticket} />
             <FormControlLabel
               classes={{
                 root: classes.formControlLabel,

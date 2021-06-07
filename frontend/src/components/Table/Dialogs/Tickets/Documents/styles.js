@@ -1,0 +1,104 @@
+import { StyleSheet, Font } from '@react-pdf/renderer';
+
+Font.register({
+  family: 'Roboto',
+  fonts: [
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf',
+    },
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf',
+      fontWeight: 'bold',
+    },
+  ],
+});
+
+export const styles = StyleSheet.create({
+  page: {
+    backgroundColor: '#ffffff',
+    padding: '36 56',
+  },
+  section: {
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  companyInfo: {
+    height: 110,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  logo: {
+    width: '140px',
+  },
+  text: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dateRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  clientData: {
+    display: 'flex',
+    flexDirection: 'row',
+    heigth: 100,
+    marginTop: 10,
+  },
+  leftDataFields: {
+    display: 'flex',
+    alignItems: 'stretch',
+    width: '20%',
+    height: '100%',
+  },
+  rightDataValues: {
+    display: 'flex',
+    alignItems: 'stretch',
+    width: '80%',
+    height: '100%',
+  },
+  horizontalLine: {
+    height: '1.5px',
+    width: '100%',
+    backgroundColor: '#000000',
+  },
+  verticalLine: {
+    height: '100%',
+    width: '2px',
+    backgroundColor: '#000000',
+  },
+  invisible: {
+    opacity: 0,
+  },
+  textBox: {
+    padding: 4,
+    border: '1px solid #000000',
+  },
+  listText: {
+    width: '100%',
+    margin: '5 0',
+  },
+  signatures: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  sign: {
+    padding: 4,
+    textAlign: 'center',
+    borderTop: '1.5px solid #000000',
+  },
+  fontSm: { fontSize: '8px', fontFamily: 'Roboto', color: '#000000' },
+  fontMd: { fontSize: '11.5px', fontFamily: 'Roboto', color: '#000000' },
+  fontBigMd: { fontSize: '12.5px', fontFamily: 'Roboto', color: '#000000' },
+  fontLg: { fontSize: '16px', fontFamily: 'Roboto', color: '#000000' },
+  fontXl: { fontSize: '19.5px', fontFamily: 'Roboto', color: '#000000' },
+  textBold: { fontWeight: 'bold' },
+});
