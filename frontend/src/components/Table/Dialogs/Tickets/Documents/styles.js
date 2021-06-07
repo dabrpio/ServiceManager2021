@@ -1,4 +1,17 @@
-import { StyleSheet } from '@react-pdf/renderer';
+import { StyleSheet, Font } from '@react-pdf/renderer';
+
+Font.register({
+  family: 'Roboto',
+  fonts: [
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf',
+    },
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf',
+      fontWeight: 'bold',
+    },
+  ],
+});
 
 export const styles = StyleSheet.create({
   page: {
@@ -37,7 +50,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     heigth: 100,
-    marginTop: 20,
+    marginTop: 10,
   },
   leftDataFields: {
     display: 'flex',
@@ -82,9 +95,10 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     borderTop: '1.5px solid #000000',
   },
-  fontSm: { fontSize: '8.5px' },
-  fontMd: { fontSize: '11.5px' },
-  fontLg: { fontSize: '16px' },
-  fontXl: { fontSize: '19.5px' },
-  textBold: { fontWeight: 800 },
+  fontSm: { fontSize: '8px', fontFamily: 'Roboto', color: '#000000' },
+  fontMd: { fontSize: '11.5px', fontFamily: 'Roboto', color: '#000000' },
+  fontBigMd: { fontSize: '12.5px', fontFamily: 'Roboto', color: '#000000' },
+  fontLg: { fontSize: '16px', fontFamily: 'Roboto', color: '#000000' },
+  fontXl: { fontSize: '19.5px', fontFamily: 'Roboto', color: '#000000' },
+  textBold: { fontWeight: 'bold' },
 });

@@ -1,6 +1,5 @@
 import {
   Image,
-  Font,
   Page,
   Text,
   View,
@@ -10,8 +9,6 @@ import {
 import logo from './logo.png';
 import Dialog from '@material-ui/core/Dialog';
 import { styles } from './styles';
-
-//TODO: change font, apply fontWeigth
 
 const WarrantyDocument = ({ open, handleClose, ticket }) => {
   return (
@@ -221,7 +218,7 @@ const WarrantyDocument = ({ open, handleClose, ticket }) => {
                 {'\n'} podpisami serwisanta oraz klienta.
               </Text>
             </View>
-            <View style={[styles.signatures, { marginTop: 40 }]}>
+            <View style={[styles.signatures, { marginTop: 30 }]}>
               <Text style={[styles.sign, styles.fontSm, { width: '30%' }]}>
                 Podpis klienta
               </Text>

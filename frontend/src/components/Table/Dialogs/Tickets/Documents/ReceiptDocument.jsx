@@ -1,6 +1,5 @@
 import {
   Image,
-  Font,
   Page,
   Text,
   View,
@@ -123,9 +122,9 @@ const ReceiptDocument = ({ open, handleClose, ticket }) => {
                 { marginTop: 25, textDecoration: 'underline' },
               ]}
             >
-              <Text style={[styles.textBold, { fontSize: '12.5px' }]}>
+              <Text style={[styles.textBold, styles.fontBigMd]}>
                 {/* render error */}
-                Przewidywany koszt naprawy: {ticket.kosztNaprawy.toString()} zł
+                Przewidywany koszt naprawy: {ticket.kosztNaprawy} zł
               </Text>
             </View>
 
@@ -171,7 +170,7 @@ const ReceiptDocument = ({ open, handleClose, ticket }) => {
               </Text>
             </View>
 
-            <View style={[styles.signatures, { marginTop: 80 }]}>
+            <View style={[styles.signatures, { marginTop: 85 }]}>
               <Text style={[styles.sign, styles.fontSm, { width: '30%' }]}>
                 Podpis klienta
               </Text>
