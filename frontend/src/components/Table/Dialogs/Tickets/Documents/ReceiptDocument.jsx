@@ -5,104 +5,11 @@ import {
   Text,
   View,
   Document,
-  StyleSheet,
   PDFViewer,
 } from '@react-pdf/renderer';
 import logo from './logo.png';
 import Dialog from '@material-ui/core/Dialog';
-
-//TODO: change font, apply fontWeigth
-
-const styles = StyleSheet.create({
-  page: {
-    backgroundColor: '#ffffff',
-    padding: '36 56',
-  },
-  section: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  companyInfo: {
-    height: 110,
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  logo: {
-    width: '140px',
-  },
-  text: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  dateRow: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  clientData: {
-    display: 'flex',
-    flexDirection: 'row',
-    heigth: 200,
-    marginTop: 15,
-  },
-  leftDataFields: {
-    display: 'flex',
-    alignItems: 'stretch',
-    width: '20%',
-    height: '100%',
-  },
-  rightDataValues: {
-    display: 'flex',
-    alignItems: 'stretch',
-    width: '80%',
-    height: '100%',
-  },
-  horizontalLine: {
-    height: '1.5px',
-    width: '100%',
-    backgroundColor: '#000000',
-  },
-  verticalLine: {
-    height: '100%',
-    width: '2px',
-    backgroundColor: '#000000',
-  },
-  invisible: {
-    opacity: 0,
-  },
-  textBox: {
-    height: 50,
-    padding: 4,
-    border: '1px solid #000000',
-  },
-  listText: {
-    width: '100%',
-    margin: '4 0',
-  },
-  signatures: {
-    marginTop: 40,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  sign: {
-    padding: 4,
-    textAlign: 'center',
-    borderTop: '1.5px solid #000000',
-  },
-  fontSm: { fontSize: '8.5px' },
-  fontMd: { fontSize: '11.5px' },
-  fontLg: { fontSize: '16px' },
-  fontXl: { fontSize: '19.5px' },
-  textBold: { fontWeight: 800 },
-});
+import { styles } from './styles';
 
 const ReceiptDocument = ({ open, handleClose, ticket }) => {
   return (
@@ -128,47 +35,18 @@ const ReceiptDocument = ({ open, handleClose, ticket }) => {
             </View>
             <View style={styles.horizontalLine} />
             <View style={[styles.text, { padding: 2 }]}>
-              <Text style={[styles.fontLg, styles.textBold]}>
+              <Text style={[styles.fontMd, styles.textBold]}>
+                Podwierdzenie przyjęcia urządzenia w serwisie
+              </Text>
+              <Text style={[styles.fontLg, styles.textBold, { padding: 4 }]}>
                 RMA - {ticket.rma}
               </Text>
-            </View>
-            <View style={styles.horizontalLine} />
-            <View style={[styles.text, { padding: 4 }]}>
-              <Text style={[styles.fontXl, styles.textBold]}>
-                Karta gwarancyjna
+              <Text style={[styles.fontMd, styles.textBold]}>
+                {new Date(ticket.dataPrzyjecia).toLocaleDateString('pl')}
               </Text>
             </View>
             <View style={styles.horizontalLine} />
-            <View style={styles.dates}>
-              <View style={styles.dateRow}>
-                <View style={[styles.text, { padding: 3 }]}>
-                  <Text style={[styles.fontMd, styles.textBold]}>
-                    Data przyjęcia urządzenia:
-                  </Text>
-                </View>
-                <View style={styles.verticalLine} />
-                <View style={[styles.text, { padding: 3 }]}>
-                  <Text style={[styles.fontMd, styles.textBold]}>
-                    {new Date(ticket.dataPrzyjecia).toLocaleDateString('pl')}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.horizontalLine} />
-              <View style={styles.dateRow}>
-                <View style={[styles.text, { padding: 3 }]}>
-                  <Text style={[styles.fontMd, styles.textBold]}>
-                    Data wydania urządzenia:
-                  </Text>
-                </View>
-                <View style={styles.verticalLine} />
-                <View style={[styles.text, { padding: 3 }]}>
-                  <Text style={[styles.fontMd, styles.textBold]}>
-                    {new Date(ticket.dataWydania).toLocaleDateString('pl')}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.horizontalLine} />
-            </View>
+
             <View style={styles.clientData}>
               <View style={styles.leftDataFields}>
                 <Text style={[styles.fontSm, styles.textBold, { padding: 3 }]}>
@@ -225,90 +103,75 @@ const ReceiptDocument = ({ open, handleClose, ticket }) => {
                     { padding: 3 },
                   ]}
                 >
-                  Opis usterki:
+                  Opis zgłoszenia:
                 </Text>
               </View>
-              <View style={[styles.rightDataValues, styles.textBox]}>
+              <View
+                style={[
+                  styles.rightDataValues,
+                  styles.textBox,
+                  { height: 115 },
+                ]}
+              >
                 <Text style={[styles.fontMd]}>{ticket.usterka}</Text>
               </View>
             </View>
-            <View style={styles.clientData}>
-              <View style={styles.leftDataFields}>
-                <Text
-                  style={[
-                    styles.fontSm,
-                    styles.textBold,
-                    styles.descriptionText,
-                    { padding: 3 },
-                  ]}
-                >
-                  Dodatkowe uwagi:
-                </Text>
-              </View>
-              <View style={[styles.rightDataValues, styles.textBox]}>
-                <Text style={[styles.fontMd]}>{ticket.informacje}</Text>
-              </View>
-            </View>
+
             <View
               style={[
-                styles.text,
-                { marginTop: 15, textDecoration: 'underline' },
+                styles.listText,
+                { marginTop: 25, textDecoration: 'underline' },
               ]}
             >
-              <Text style={[styles.fontLg, styles.textBold]}>
+              <Text style={[styles.textBold, { fontSize: '12.5px' }]}>
                 {/* render error */}
-                Zapłacona kwota:{'   '.concat(ticket.kosztNaprawy.toString())}
+                Przewidywany koszt naprawy: {ticket.kosztNaprawy.toString()} zł
               </Text>
             </View>
-            <View style={[styles.text, { marginTop: 5 }]}>
-              <Text
-                style={[styles.fontLg, styles.textBold, { fontWeight: 800 }]}
-              >
-                Okres gwarancyjny: 3 miesiące
-              </Text>
-            </View>
+
             <View style={styles.listText}>
-              <Text style={[styles.fontSm, { marginTop: 10 }]}>
-                1.Oświadczam, że zapoznałem/am się ze stanem urządzenia po
-                naprawie i stwierdzam, że usterki zadeklarowane do naprawy
-                {'\n'} zostały usunięte.
+              <Text style={[styles.fontSm, { marginTop: 20 }]}>
+                1. Serwis powiadomi telefonicznie, SMS-owo i/lub mailowo klienta
+                o możliwości odbioru sprzętu.
               </Text>
             </View>
             <View style={styles.listText}>
               <Text style={styles.fontSm}>
-                2. Gwarancja dotyczy jedynie podzespołów oraz napraw wykonanych
-                w ramach zgłoszonej przez klienta usterki.
+                2. Za sprzęt pozostawiony po napraiwe w serwisie dłużej niż 90
+                dni zostanie nalizczona opłata za magazynowanie sprzętu w {'\n'}
+                wysokości 5 zł / dzień.
               </Text>
             </View>
             <View style={styles.listText}>
               <Text style={styles.fontSm}>
-                3. Gwarancja nie uwzględnia uszkodzeń mechanicznych powstałych
-                po wydaniu naprawionego przez serwis urządzenia.
+                3. Przyjmuję do wiadomości, że serwis Napraw Mnie nie ponosi
+                odpowiedzialności za ewentualną utratę danych z naprawionego{' '}
+                {'\n'}
+                urządzenia. Serwis Napraw Mnie nie ponosi również
+                odpowiedzialności za wady ukryte urządzenia.
               </Text>
             </View>
 
             <View style={styles.listText}>
               <Text style={styles.fontSm}>
-                4. Gwarancja nie uwzględnia uszkodzeń powstałych w wyniku
-                obecności wad ukrytych lub wad niezgłoszonych przez klienta do
-                {'\n'} naprawy.
+                4. Podaję dane osobowe dobrowlonie i oświadczam, że są one
+                zgodne z prawdą. Jednocześnie wyrażam zgodę na przetważanie{' '}
+                {'\n'}
+                moich danych osobowych przez Administratora danych osobowych,
+                którym jest Napraw Mnie w Poznaniu, ul. Grunwaldzka 165b/4a.
               </Text>
             </View>
             <View style={styles.listText}>
               <Text style={styles.fontSm}>
-                5. W czsie trwania okresu gwarancyjnego, w przypdaku uznania
-                gwarancji, klient ma prawo do nieodpłatnego usunięcia usterki
-                {'\n'} objętej gwarancją.
+                5. Zapoznałem/am się z treścią klauzuli informacyjnej, w tym z
+                informacją o celu i sposobach przetwarzania danych osobowych{' '}
+                {'\n'}
+                oraz prawie dostępu do treści swoich dancyh i prawie ich
+                poprawiania.
               </Text>
             </View>
-            <View style={styles.listText}>
-              <Text style={styles.fontSm}>
-                6. Gwarancja może zostać uznana jedynie na podstawie okazania
-                niniejszej karty gwarancyjnej z pieczątką serwisu oraz wyraźnymi{' '}
-                {'\n'} podpisami serwisanta oraz klienta.
-              </Text>
-            </View>
-            <View style={styles.signatures}>
+
+            <View style={[styles.signatures, { marginTop: 80 }]}>
               <Text style={[styles.sign, styles.fontSm, { width: '30%' }]}>
                 Podpis klienta
               </Text>

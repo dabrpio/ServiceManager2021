@@ -16,6 +16,7 @@ import WarrantyDocument from './Documents/WarrantyDocument';
 function DocsButton({ classes, ticket }) {
   const [docsOpen, setDocsOpen] = useState(false);
   const [open, setOpen] = useState(false);
+  const [warrantyOpen, setWarrantyOpen] = useState(false);
   const anchorDocsRef = useRef(null);
 
   const handleDocsClose = (event) => {
@@ -31,6 +32,11 @@ function DocsButton({ classes, ticket }) {
       <ReceiptDocument
         open={open}
         handleClose={() => setOpen(false)}
+        ticket={ticket}
+      />
+      <WarrantyDocument
+        open={warrantyOpen}
+        handleClose={() => setWarrantyOpen(false)}
         ticket={ticket}
       />
       <Grid container direction="column" alignItems="center">
@@ -75,8 +81,8 @@ function DocsButton({ classes, ticket }) {
                         </PDFDownloadLink> */}
                         Dokument przyjęcia
                       </MenuItem>
-                      <MenuItem>
-                        <PDFDownloadLink
+                      <MenuItem onClick={() => setWarrantyOpen(!warrantyOpen)}>
+                        {/* <PDFDownloadLink
                           document={<WarrantyDocument />}
                           fileName={`dokument_gwarancji_${ticket.rma}`}
                           className={classes.downloadLink}
@@ -86,7 +92,8 @@ function DocsButton({ classes, ticket }) {
                               ? 'Ładownie dokumentu...'
                               : 'Dokument gwarancji'
                           }
-                        </PDFDownloadLink>
+                        </PDFDownloadLink> */}
+                        Dokument gwarancji
                       </MenuItem>
                     </MenuList>
                   </ClickAwayListener>
