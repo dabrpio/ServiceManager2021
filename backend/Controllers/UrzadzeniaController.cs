@@ -77,5 +77,20 @@ namespace CommandApi.Controllers
             }
         }
 
+        //DELETE api/urzadzenia/{id}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteUrzadzenia(short? id)
+        {
+            var commandItem=_repoUrzadzenia.GetUrzadzeniaById(id);
+            if(commandItem!=null){
+                _repoUrzadzenia.DeleteUrzadzenia(commandItem);
+                _repoUrzadzenia.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }
+        }
+
     }
 }

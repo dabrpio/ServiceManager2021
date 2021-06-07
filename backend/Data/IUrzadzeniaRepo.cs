@@ -12,6 +12,7 @@ namespace CommandApi.Data
         IEnumerable<Urzadzenia> GetUrzadzeniaByBrand(string type,string brand);
         List<Urzadzenia> GetUrzadzeniaByModel(string type,string brand,string model);
         void CreateUrzadzenia(Urzadzenia urzadzenie);
+        void DeleteUrzadzenia(Urzadzenia urzadzenia);
 
     }
 }

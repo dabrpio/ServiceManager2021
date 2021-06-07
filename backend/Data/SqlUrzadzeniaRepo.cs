@@ -22,6 +22,14 @@ namespace CommandApi.Data
             _context.Urzadzenia.Add(urzadzenie);
         }
 
+        public void DeleteUrzadzenia(Urzadzenia urzadzenia)
+        {
+            if(urzadzenia==null){
+                throw new ArgumentNullException(nameof(urzadzenia));
+            }
+            _context.Urzadzenia.Remove(urzadzenia);
+        }
+
         public IEnumerable<Urzadzenia> GetAllUrzadzenia()
         {
             return _context.Urzadzenia.ToList();
