@@ -15,8 +15,6 @@ import WarrantyDocument from './Documents/WarrantyDocument';
 
 function DocsButton({ classes, ticket }) {
   const [docsOpen, setDocsOpen] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [warrantyOpen, setWarrantyOpen] = useState(false);
   const anchorDocsRef = useRef(null);
 
   const handleDocsClose = (event) => {
@@ -29,16 +27,6 @@ function DocsButton({ classes, ticket }) {
 
   return (
     <div className={classes.titleActions}>
-      <ReceiptDocument
-        open={open}
-        handleClose={() => setOpen(false)}
-        ticket={ticket}
-      />
-      <WarrantyDocument
-        open={warrantyOpen}
-        handleClose={() => setWarrantyOpen(false)}
-        ticket={ticket}
-      />
       <Grid container direction="column" alignItems="center">
         <Grid item xs={12}>
           <Button
@@ -67,33 +55,31 @@ function DocsButton({ classes, ticket }) {
                 <Paper>
                   <ClickAwayListener onClickAway={handleDocsClose}>
                     <MenuList>
-                      <MenuItem onClick={() => setOpen(!open)}>
-                        {/* <PDFDownloadLink
-                          document={<ReceiptDocument />}
-                          fileName={`dokument_przyjęcia_${id}`}
+                      <MenuItem>
+                        <PDFDownloadLink
+                          document={<ReceiptDocument ticket={ticket} />}
+                          fileName={`dokument_przyjęcia_${ticket.rma}`}
                           className={classes.downloadLink}
                         >
-                          {({ blob, url, loading, error }) =>
+                          {({ loading }) =>
                             loading
                               ? 'Ładownie dokumentu...'
                               : 'Dokument przyjęcia'
                           }
-                        </PDFDownloadLink> */}
-                        Dokument przyjęcia
+                        </PDFDownloadLink>
                       </MenuItem>
-                      <MenuItem onClick={() => setWarrantyOpen(!warrantyOpen)}>
-                        {/* <PDFDownloadLink
-                          document={<WarrantyDocument />}
+                      <MenuItem>
+                        <PDFDownloadLink
+                          document={<WarrantyDocument ticket={ticket} />}
                           fileName={`dokument_gwarancji_${ticket.rma}`}
                           className={classes.downloadLink}
                         >
-                          {({ blob, url, loading, error }) =>
+                          {({ loading }) =>
                             loading
                               ? 'Ładownie dokumentu...'
                               : 'Dokument gwarancji'
                           }
-                        </PDFDownloadLink> */}
-                        Dokument gwarancji
+                        </PDFDownloadLink>
                       </MenuItem>
                     </MenuList>
                   </ClickAwayListener>

@@ -8,8 +8,8 @@ import App from './App.cmp';
 const mapDispatchToProps = (dispatch, ownProps) => ({
   init: () => {
     dispatch(fetchTickets());
-    // dispatch(fetchEmployees());
-    // dispatch(fetchClients());
+    dispatch(fetchEmployees());
+    dispatch(fetchClients());
   },
 });
 
