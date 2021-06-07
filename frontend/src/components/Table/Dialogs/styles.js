@@ -52,4 +52,12 @@ export const useTicketDialogStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     padding: '16px',
   },
+  downloadLink: {
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  },
+  dialogPdfPaper: { minHeight: '80vh', maxHeight: '80vh' },
 }));

@@ -9,17 +9,14 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { useState, useRef } from 'react';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import ReceiptDocument from './Documents/ReceiptDocument';
+import WarrantyDocument from './Documents/WarrantyDocument';
 
-function DocsButton({ classes }) {
+function DocsButton({ classes, ticket }) {
   const [docsOpen, setDocsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const anchorDocsRef = useRef(null);
-
-  const handleWarrantyDocClick = (event) => {
-    setDocsOpen(false);
-  };
-  const handleReceiptDocClick = (event) => {
-    setDocsOpen(false);
-  };
 
   const handleDocsClose = (event) => {
     if (anchorDocsRef.current && anchorDocsRef.current.contains(event.target)) {
@@ -31,6 +28,11 @@ function DocsButton({ classes }) {
 
   return (
     <div className={classes.titleActions}>
+      <ReceiptDocument
+        open={open}
+        handleClose={() => setOpen(false)}
+        ticket={ticket}
+      />
       <Grid container direction="column" alignItems="center">
         <Grid item xs={12}>
           <Button
@@ -59,15 +61,32 @@ function DocsButton({ classes }) {
                 <Paper>
                   <ClickAwayListener onClickAway={handleDocsClose}>
                     <MenuList>
-                      <MenuItem
-                        onClick={(event) => handleReceiptDocClick(event)}
-                      >
+                      <MenuItem onClick={() => setOpen(!open)}>
+                        {/* <PDFDownloadLink
+                          document={<ReceiptDocument />}
+                          fileName={`dokument_przyjęcia_${id}`}
+                          className={classes.downloadLink}
+                        >
+                          {({ blob, url, loading, error }) =>
+                            loading
+                              ? 'Ładownie dokumentu...'
+                              : 'Dokument przyjęcia'
+                          }
+                        </PDFDownloadLink> */}
                         Dokument przyjęcia
                       </MenuItem>
-                      <MenuItem
-                        onClick={(event) => handleWarrantyDocClick(event)}
-                      >
-                        Dokument gwarancji
+                      <MenuItem>
+                        <PDFDownloadLink
+                          document={<WarrantyDocument />}
+                          fileName={`dokument_gwarancji_${ticket.rma}`}
+                          className={classes.downloadLink}
+                        >
+                          {({ blob, url, loading, error }) =>
+                            loading
+                              ? 'Ładownie dokumentu...'
+                              : 'Dokument gwarancji'
+                          }
+                        </PDFDownloadLink>
                       </MenuItem>
                     </MenuList>
                   </ClickAwayListener>
