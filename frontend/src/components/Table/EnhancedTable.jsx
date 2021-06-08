@@ -10,6 +10,7 @@ import {
 import { useLocation } from 'react-router-dom';
 
 import SelectedClientDialog from './Dialogs/Clients/SelectedClientDialog';
+import SelectedDeviceDialog from './Dialogs/Devices/SelectedDeviceDialog';
 import SelectedEmployeeDialog from './Dialogs/Employees/SelectedEmployeeDialog';
 import SelectedTicketDialog from './Dialogs/Tickets/SelectedTicketDialog';
 import EnhancedTableHead from './EnhancedTableHead';
@@ -80,6 +81,12 @@ const withEnhancedTable =
         {selectedRowData && location.pathname === '/clients' && (
           <SelectedClientDialog
             clientData={selectedRowData}
+            closeDialog={handleCloseDialog}
+          />
+        )}
+        {selectedRowData && location.pathname === '/devices' && (
+          <SelectedDeviceDialog
+            deviceData={selectedRowData}
             closeDialog={handleCloseDialog}
           />
         )}

@@ -8,6 +8,7 @@ import AddEmployeeDialog from './Dialogs/Employees/AddEmployeeDialog';
 import AddTicketDialog from './Dialogs/Tickets/AddTicketDialog';
 import AddClientDialog from './Dialogs/Clients/AddClientDialog';
 import { useToolbarStyles } from './styles';
+import AddDeviceDialog from './Dialogs/Devices/AddDeviceDialog';
 
 export default function EnhancedTableToolbar({
   heading,
@@ -22,6 +23,7 @@ export default function EnhancedTableToolbar({
       {location.pathname === '/tickets' && <AddTicketDialog />}
       {location.pathname === '/employees' && <AddEmployeeDialog />}
       {location.pathname === '/clients' && <AddClientDialog />}
+      {location.pathname === '/devices' && <AddDeviceDialog />}
       <Typography
         className={classes.title}
         variant="h6"
