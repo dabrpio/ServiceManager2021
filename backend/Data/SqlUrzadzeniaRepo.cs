@@ -61,5 +61,10 @@ namespace CommandApi.Data
         {
            return (_context.SaveChanges()>=0);
         }
+
+        public void UpdateUrzadzenia(Urzadzenia urzadzenie)
+        {
+            //nothing
+        }
     }
 }

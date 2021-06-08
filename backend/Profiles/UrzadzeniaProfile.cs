@@ -8,8 +8,11 @@ namespace CommandApi.Profiles
     {
         public UrzadzeniaProfile(){
             //Source -> target
-            CreateMap<Zlecenia,Urzadzenia>();
-            CreateMap<Urzadzenia,Urzadzenia>();
+           /* CreateMap<Zlecenia,Urzadzenia>();
+            CreateMap<Urzadzenia,Urzadzenia>();*/
+            CreateMap<Urzadzenia, UrzadzeniaReadDto>();
+
+            CreateMap<UrzadzeniaCreateDto,Urzadzenia>();
 
         }
     }
