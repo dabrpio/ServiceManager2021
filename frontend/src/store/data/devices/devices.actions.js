@@ -41,11 +41,7 @@ export const postDevice = (device) => (dispatch) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      nrTel: parseInt(device.nrTel),
-      nip: parseInt(device.nip),
-      ...device,
-    }),
+    body: JSON.stringify({ device }),
   })
     .then(handleErrors)
     .then((res) => res.json())
@@ -55,17 +51,13 @@ export const postDevice = (device) => (dispatch) => {
 
 // PUT
 export const putDevice = (device) => (dispatch) => {
-  fetch(baseUrl + `/${device.idKlienta}`, {
+  fetch(baseUrl + `/${device.id}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      nrTel: parseInt(device.nrTel),
-      nip: parseInt(device.nip),
-      ...device,
-    }),
+    body: JSON.stringify(device),
   })
     .then(handleErrors)
     .then(() => dispatch(updateDeviceState(device)))
@@ -87,13 +79,4 @@ const handleErrors = (response) => {
   return response;
 };
 
-const catchErrors = (error) =>
-  error
-    .json()
-    .then((body) =>
-      console.log(
-        `Server error: [${body.status} ${body.statusText ?? ''} ${
-          body.detail ?? ''
-        }]`
-      )
-    );
+const catchErrors = (error) => console.log(error);
