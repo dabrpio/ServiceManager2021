@@ -98,7 +98,7 @@ namespace CommandApi.Controllers
 
         //POST api/urzadzenia
         [HttpPost]
-        public ActionResult<UrzadzeniaReadDto> CreateKlienci(UrzadzeniaReadDto urzadzenie){
+        public ActionResult<UrzadzeniaReadDto> CreateKlienci(UrzadzeniaCreateDto urzadzenie){
             var urzadzeniaModel = _mapper.Map<Urzadzenia>(urzadzenie);
             _repoUrzadzenia.CreateUrzadzenia(urzadzeniaModel);
             _repoUrzadzenia.SaveChanges();

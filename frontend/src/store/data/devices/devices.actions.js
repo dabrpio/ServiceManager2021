@@ -41,7 +41,7 @@ export const postDevice = (device) => (dispatch) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ device }),
+    body: JSON.stringify( device ),
   })
     .then(handleErrors)
     .then((res) => res.json())
