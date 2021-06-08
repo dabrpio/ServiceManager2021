@@ -10,6 +10,7 @@ import Login from './Login';
 import Settings from './Settings';
 import TicketList from './TicketList';
 import NavBar from './NavBar';
+import DeviceList from './DeviceList';
 
 const theme = createMuiTheme({}, plPL);
 
@@ -57,6 +58,9 @@ const DefaultContainer = () => (
       </Route>
       <Route exact path="/clients">
         <ClientList />
+      </Route>
+      <Route exact path="/devices">
+        <DeviceList />
       </Route>
       <Redirect to="/" />
     </Switch>
