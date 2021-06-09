@@ -8,7 +8,6 @@ namespace CommandApi.Data
     public class SqlUrzadzeniaRepo : IUrzadzeniaRepo
     {
         private readonly SM2021Context _context;
-
         public SqlUrzadzeniaRepo(SM2021Context context)
         {
             _context = context;
@@ -83,6 +82,19 @@ namespace CommandApi.Data
             List<string> commandItem=new List<string>();
             commandItem=_context.Urzadzenia.Select(p=>p.Model).Distinct().ToList();
             return commandItem;
+        }
+
+        public List<Urzadzenia2> GetBrandsTest()
+        {
+            List<Urzadzenia2> data=new List<Urzadzenia2>();
+            data = _context.Urzadzenia.Select(p=>new Urzadzenia2{Brand=p.Brand,Type=p.Type}).OrderBy(p=>p.Brand).Distinct().ToList();
+            return data;
+
+        }
+
+        public List<Urzadzenia> GetModelsTest()
+        {
+            return _context.Urzadzenia.OrderBy(p=>p.Model).Distinct().ToList();
         }
     }
 }

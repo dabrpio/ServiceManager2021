@@ -67,6 +67,28 @@ namespace CommandApi.Controllers
                 return NotFound();
             }
         }
+        //GET api/urzadzenia/brandstest
+        [HttpGet("brandstest", Name="GetAllBrandstest")]
+        public ActionResult<List<Urzadzenia2>> GetAllBrandstest(){
+            var commandItem = _repoUrzadzenia.GetBrandsTest();
+            if(commandItem!=null){
+                return Ok(commandItem);
+            }
+            else{
+                return NotFound();
+            }
+        }
+        //GET api/urzadzenia/modelstest
+        [HttpGet("modelstest", Name="GetAllModelstest")]
+        public ActionResult<List<Urzadzenia2>> GetAllModelstest(){
+            var commandItem = _repoUrzadzenia.GetModelsTest();
+            if(commandItem!=null){
+                return Ok(commandItem);
+            }
+            else{
+                return NotFound();
+            }
+        }
         
         //GET api/urzadzenia/models
         [HttpGet("models", Name="GetAllModels")]
