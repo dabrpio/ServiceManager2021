@@ -4,7 +4,7 @@ import { selectEmployeesState } from '../../store/data/employees/employees.selec
 import EmployeeList from './EmployeeList.cmp';
 
 const mapStateToProps = (state, ownProps) => ({
-  employees: selectEmployeesState(state).slice().reverse(),
+  employees: selectEmployeesState(state),
 });
 
 export default connect(mapStateToProps, null)(EmployeeList);
