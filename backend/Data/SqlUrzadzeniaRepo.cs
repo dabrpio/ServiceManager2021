@@ -35,26 +35,30 @@ namespace CommandApi.Data
             return _context.Urzadzenia.OrderByDescending(p=>p.Id).ToList();
         }
 
-        public IEnumerable<Urzadzenia> GetUrzadzeniaByBrand(string type,string brand)
+        public List<string> GetAllTypes()
         {
-            return _context.Urzadzenia.OrderByDescending(p=>p.Id).Where(p=>p.Type==type&&p.Brand.StartsWith(brand)).ToList();
+            List<string> commandItem=new List<string>();
+            commandItem=_context.Urzadzenia.Select(p=>p.Type).Distinct().ToList();
+            return commandItem;
+        }
+        public List<string> GetSpecificBrand(string type)
+        {
+            List<string> commandItem=new List<string>();
+            commandItem=_context.Urzadzenia.Where(p=>p.Type==type).Select(p=>p.Brand).Distinct().ToList();
+            return commandItem;
+        }
+
+        public List<string> GetSpecificModel(string type, string brand)
+        {
+            List<string> commandItem=new List<string>();
+            commandItem=_context.Urzadzenia.Where(p=>p.Type==type&&p.Brand==brand).Select(p=>p.Model).Distinct().ToList();        
+            return commandItem;
         }
 
         public Urzadzenia GetUrzadzeniaById(short? id)
         {
             _context.Zlecenia.ToList();
             return _context.Urzadzenia.FirstOrDefault(p=>p.Id==id);
-        }
-
-        public List<Urzadzenia> GetUrzadzeniaByModel(string type, string brand,string model)
-        {
-            return _context.Urzadzenia.OrderByDescending(p=>p.Id).Where(p=>p.Type==type&&p.Brand==brand&&p.Model.StartsWith(model)).ToList();
-        }
-
-        public IEnumerable<Urzadzenia> GetUrzadzeniaByType(string type)
-        {
-            return _context.Urzadzenia.OrderByDescending(p=>p.Id).Where(p=>p.Type.StartsWith(type)).ToList();
-
         }
 
         public bool SaveChanges()

@@ -42,39 +42,39 @@ namespace CommandApi.Controllers
             }
         }
 
-        //GET api/urzadzenia/q/{type}
-        [HttpGet("q/{type}", Name="GetUrzadzeniaByType")]
-        public ActionResult<UrzadzeniaReadDto> GetUrzadzeniaByType(string type){
-            var commandItem = _repoUrzadzenia.GetUrzadzeniaByType(type);
+        //GET api/urzadzenia/types
+        [HttpGet("types", Name="GetAllTypes")]
+        public ActionResult<List<string>> GetAllTypes(){
+            var commandItem = _repoUrzadzenia.GetAllTypes();
             
             if(commandItem!=null){
-                return Ok(_mapper.Map<IEnumerable<UrzadzeniaReadDto>>(commandItem));
+                return Ok(commandItem);
             }
             else{
                 return NotFound();
             }
         }
 
-        //GET api/urzadzenia/q/{type}/{brand}
-        [HttpGet("q/{type}/{brand}", Name="GetUrzadzeniaByBrand")]
-        public ActionResult<UrzadzeniaReadDto> GetUrzadzeniaByBrand(string type,string brand){
-            var commandItem = _repoUrzadzenia.GetUrzadzeniaByBrand(type,brand);
+        //GET api/urzadzenia/types/{type}
+        [HttpGet("types/{type}", Name="GetSpecificBrand")]
+        public ActionResult<List<string>> GetSpecificBrand(string type){
+            var commandItem = _repoUrzadzenia.GetSpecificBrand(type);
             
             if(commandItem!=null){
-                return Ok(_mapper.Map<IEnumerable<UrzadzeniaReadDto>>(commandItem));
+                return Ok(commandItem);
             }
             else{
                 return NotFound();
             }
         }
 
-        //GET api/urzadzenia/q/{type}/{brand}/{modle}
-        [HttpGet("q/{type}/{brand}/{model}", Name="GetUrzadzeniaByModel")]
-        public ActionResult<UrzadzeniaReadDto> GetUrzadzeniaByModle(string type,string brand,string model){
-            var commandItem = _repoUrzadzenia.GetUrzadzeniaByModel(type,brand,model);
+        //GET api/urzadzenia/types/{type}/{brand}
+        [HttpGet("types/{type}/{brand}", Name="GetSpecificModel")]
+        public ActionResult<List<string>> GetSpecificModel(string type,string brand){
+            var commandItem = _repoUrzadzenia.GetSpecificModel(type,brand);
             
             if(commandItem!=null){
-                return Ok(_mapper.Map<IEnumerable<UrzadzeniaReadDto>>(commandItem));
+                return Ok(commandItem);
             }
             else{
                 return NotFound();

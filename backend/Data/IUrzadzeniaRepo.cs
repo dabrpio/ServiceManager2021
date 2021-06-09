@@ -8,9 +8,9 @@ namespace CommandApi.Data
         bool SaveChanges();
         IEnumerable<Urzadzenia> GetAllUrzadzenia();
         Urzadzenia GetUrzadzeniaById(short? id);
-        IEnumerable<Urzadzenia> GetUrzadzeniaByType(string type);
-        IEnumerable<Urzadzenia> GetUrzadzeniaByBrand(string type,string brand);
-        List<Urzadzenia> GetUrzadzeniaByModel(string type,string brand,string model);
+        List<string> GetAllTypes();
+        List<string> GetSpecificBrand(string type);
+        List<string> GetSpecificModel(string type,string brand);
         void CreateUrzadzenia(Urzadzenia urzadzenie);
         void DeleteUrzadzenia(Urzadzenia urzadzenie);
         void UpdateUrzadzenia(Urzadzenia urzadzenie);
