@@ -29,7 +29,7 @@ export const fetchTickets = () => {
       .then(handleErrors)
       .then((res) => res.json())
       .then((data) => dispatch(setTicketsState(data)))
-      .catch(catchErrors);
+      .catch((error) => console.log(error));
   };
 };
 

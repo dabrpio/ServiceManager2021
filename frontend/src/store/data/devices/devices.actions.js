@@ -29,7 +29,7 @@ export const fetchDevices = () => {
       .then(handleErrors)
       .then((res) => res.json())
       .then((data) => dispatch(setDevicesState(data)))
-      .catch(catchErrors);
+      .catch((error) => console.log(error));
   };
 };
 
@@ -41,7 +41,7 @@ export const postDevice = (device) => (dispatch) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify( device ),
+    body: JSON.stringify(device),
   })
     .then(handleErrors)
     .then((res) => res.json())
@@ -79,4 +79,13 @@ const handleErrors = (response) => {
   return response;
 };
 
-const catchErrors = (error) => console.log(error);
+const catchErrors = (error) =>
+  error
+    .json()
+    .then((body) =>
+      console.log(
+        `Server error: [${body.status} ${body.statusText ?? ''} ${
+          body.detail ?? ''
+        }]`
+      )
+    );
