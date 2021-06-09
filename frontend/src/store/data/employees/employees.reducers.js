@@ -8,7 +8,7 @@ export default function employeesReducer(state = initialState, action) {
       return action.payload;
     }
     case employeesAT.ADD_EMPLOYEE: {
-      return [...state, action.payload];
+      return [action.payload, ...state];
     }
     case employeesAT.UPDATE_EMPLOYEE: {
       return state.map((employee) =>

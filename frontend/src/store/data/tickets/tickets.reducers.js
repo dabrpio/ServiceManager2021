@@ -8,7 +8,7 @@ export default function ticketsReducer(state = initialState, action) {
       return action.payload;
     }
     case ticketsAT.ADD_TICKET: {
-      return [...state, action.payload];
+      return [action.payload, ...state];
     }
     case ticketsAT.UPDATE_TICKET: {
       return state.map((ticket) =>

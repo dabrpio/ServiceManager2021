@@ -29,7 +29,7 @@ export const fetchClients = () => {
       .then(handleErrors)
       .then((res) => res.json())
       .then((data) => dispatch(setClientsState(data)))
-      .catch(catchErrors);
+      .catch((error) => console.log(error));
   };
 };
 

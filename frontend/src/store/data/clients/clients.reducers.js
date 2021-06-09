@@ -8,7 +8,7 @@ export default function clientsReducer(state = initialState, action) {
       return action.payload;
     }
     case clientsAT.ADD_CLIENT: {
-      return [...state, action.payload];
+      return [action.payload, ...state];
     }
     case clientsAT.UPDATE_CLIENT: {
       return state.map((client) =>

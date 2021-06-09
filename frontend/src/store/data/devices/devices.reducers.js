@@ -8,7 +8,7 @@ export default function devicesReducer(state = initialState, action) {
       return action.payload;
     }
     case devicesAT.ADD_DEVICE: {
-      return [...state, action.payload];
+      return [action.payload, ...state];
     }
     case devicesAT.UPDATE_DEVICE: {
       return state.map((device) =>

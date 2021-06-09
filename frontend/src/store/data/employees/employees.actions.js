@@ -29,7 +29,7 @@ export const fetchEmployees = () => {
       .then(handleErrors)
       .then((res) => res.json())
       .then((data) => dispatch(setEmployeesState(data)))
-      .catch(catchErrors);
+      .catch((error) => console.log(error));
   };
 };
 
