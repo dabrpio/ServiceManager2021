@@ -54,6 +54,32 @@ namespace CommandApi.Controllers
                 return NotFound();
             }
         }
+        
+        //GET api/urzadzenia/brands
+        [HttpGet("brands", Name="GetAllBrands")]
+        public ActionResult<List<string>> GetAllBrands(){
+            var commandItem = _repoUrzadzenia.GetAllBrands();
+            
+            if(commandItem!=null){
+                return Ok(commandItem);
+            }
+            else{
+                return NotFound();
+            }
+        }
+        
+        //GET api/urzadzenia/models
+        [HttpGet("models", Name="GetAllModels")]
+        public ActionResult<List<string>> GetAllModels(){
+            var commandItem = _repoUrzadzenia.GetAllModels();
+            
+            if(commandItem!=null){
+                return Ok(commandItem);
+            }
+            else{
+                return NotFound();
+            }
+        }
 
         //GET api/urzadzenia/types/{type}
         [HttpGet("types/{type}", Name="GetSpecificBrand")]

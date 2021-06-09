@@ -70,5 +70,19 @@ namespace CommandApi.Data
         {
             //nothing
         }
+
+        public List<string> GetAllBrands()
+        {
+            List<string> commandItem=new List<string>();
+            commandItem=_context.Urzadzenia.Select(p=>p.Brand).Distinct().ToList();
+            return commandItem;
+        }
+
+        public List<string> GetAllModels()
+        {
+            List<string> commandItem=new List<string>();
+            commandItem=_context.Urzadzenia.Select(p=>p.Model).Distinct().ToList();
+            return commandItem;
+        }
     }
 }
