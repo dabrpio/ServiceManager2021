@@ -25,7 +25,7 @@ namespace CommandApi.Data
         public IEnumerable<Zlecenia> GetAllZlecenia()
         {
             _context.Klienci.ToList();
-            return _context.Zlecenia.ToList();
+            return _context.Zlecenia.OrderByDescending(p=>p.Rma).ToList();
         }
 
         public IEnumerable<Zlecenia> Get25Zlecenia()

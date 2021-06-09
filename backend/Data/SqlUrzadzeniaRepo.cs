@@ -32,12 +32,12 @@ namespace CommandApi.Data
 
         public IEnumerable<Urzadzenia> GetAllUrzadzenia()
         {
-            return _context.Urzadzenia.ToList();
+            return _context.Urzadzenia.OrderByDescending(p=>p.Id).ToList();
         }
 
         public IEnumerable<Urzadzenia> GetUrzadzeniaByBrand(string type,string brand)
         {
-            return _context.Urzadzenia.Where(p=>p.Type==type&&p.Brand.StartsWith(brand)).ToList();
+            return _context.Urzadzenia.OrderByDescending(p=>p.Id).Where(p=>p.Type==type&&p.Brand.StartsWith(brand)).ToList();
         }
 
         public Urzadzenia GetUrzadzeniaById(short? id)
@@ -48,12 +48,12 @@ namespace CommandApi.Data
 
         public List<Urzadzenia> GetUrzadzeniaByModel(string type, string brand,string model)
         {
-            return _context.Urzadzenia.Where(p=>p.Type==type&&p.Brand==brand&&p.Model.StartsWith(model)).ToList();
+            return _context.Urzadzenia.OrderByDescending(p=>p.Id).Where(p=>p.Type==type&&p.Brand==brand&&p.Model.StartsWith(model)).ToList();
         }
 
         public IEnumerable<Urzadzenia> GetUrzadzeniaByType(string type)
         {
-            return _context.Urzadzenia.Where(p=>p.Type.StartsWith(type)).ToList();
+            return _context.Urzadzenia.OrderByDescending(p=>p.Id).Where(p=>p.Type.StartsWith(type)).ToList();
 
         }
 

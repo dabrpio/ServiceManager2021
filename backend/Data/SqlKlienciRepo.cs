@@ -24,7 +24,7 @@ namespace CommandApi.Data
 
         public IEnumerable<Klienci> GetAllKlienci()
         {
-            return _context.Klienci.ToList();
+            return _context.Klienci.OrderByDescending(p=>p.IdKlienta).ToList();
         }
 
         public Klienci GetKlienciById(short? id)
@@ -38,10 +38,10 @@ namespace CommandApi.Data
         }
 
         public IEnumerable<Klienci> GetKlienciByName(string imie){
-            return _context.Klienci.Where(p=>p.Imie.StartsWith(imie)).ToList();
+            return _context.Klienci.OrderByDescending(p=>p.IdKlienta).Where(p=>p.Imie.StartsWith(imie)).ToList();
         }
         public IEnumerable<Klienci> GetKlienciBySur(string nazwisko){
-            return _context.Klienci.Where(p=>p.Nazwisko.StartsWith(nazwisko)).ToList();
+            return _context.Klienci.OrderByDescending(p=>p.IdKlienta).Where(p=>p.Nazwisko.StartsWith(nazwisko)).ToList();
         }
 
         public bool SaveChanges()

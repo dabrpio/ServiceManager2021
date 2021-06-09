@@ -32,7 +32,7 @@ namespace CommandApi.Data
 
         public IEnumerable<Uzytkownicy> GetAllUzytkownicy()
         {
-            return _context.Uzytkownicy.ToList();
+            return _context.Uzytkownicy.OrderByDescending(p=>p.Id).ToList();
         }
 
         public Uzytkownicy GetUzytkownicyById(short? id)
