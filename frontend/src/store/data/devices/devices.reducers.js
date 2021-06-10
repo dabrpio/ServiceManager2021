@@ -1,22 +1,50 @@
 import * as devicesAT from './devices.action-types';
 
-const initialState = [];
+const initialState = {
+  types: [],
+  brands: [],
+  models: [],
+};
 
 export default function devicesReducer(state = initialState, action) {
   switch (action.type) {
-    case devicesAT.SET_DEVICES: {
-      return action.payload;
+    case devicesAT.SET_DEVICE_MODELS: {
+      return {
+        ...state,
+        models: action.payload,
+      };
+    }
+    case devicesAT.SET_DEVICE_BRANDS: {
+      return {
+        ...state,
+        brands: action.payload,
+      };
+    }
+    case devicesAT.SET_DEVICE_TYPES: {
+      return {
+        ...state,
+        types: action.payload,
+      };
     }
     case devicesAT.ADD_DEVICE: {
-      return [action.payload, ...state];
+      return {
+        ...state,
+        models: [action.payload, ...state.models],
+      };
     }
     case devicesAT.UPDATE_DEVICE: {
-      return state.map((device) =>
-        device.id === action.payload.id ? action.payload : device
-      );
+      return {
+        ...state,
+        models: state.models.map((device) =>
+          device.id === action.payload.id ? action.payload : device
+        ),
+      };
     }
     case devicesAT.DELETE_DEVICE: {
-      return state.filter((device) => device.id !== action.payload);
+      return {
+        ...state,
+        models: state.models.filter((device) => device.id !== action.payload),
+      };
     }
     default:
       return state;

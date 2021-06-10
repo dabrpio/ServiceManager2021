@@ -2,8 +2,16 @@ import * as devicesAT from './devices.action-types';
 
 const baseUrl = `https://localhost:5001/api/urzadzenia`;
 
-const setDevicesState = (data) => ({
-  type: devicesAT.SET_DEVICES,
+const setDeviceModelsState = (data) => ({
+  type: devicesAT.SET_DEVICE_MODELS,
+  payload: data,
+});
+const setDeviceBrandsState = (data) => ({
+  type: devicesAT.SET_DEVICE_BRANDS,
+  payload: data,
+});
+const setDeviceTypesState = (data) => ({
+  type: devicesAT.SET_DEVICE_TYPES,
   payload: data,
 });
 
@@ -22,13 +30,39 @@ const deleteDeviceState = (id) => ({
   payload: id,
 });
 
-// GET
-export const fetchDevices = () => {
+export const fetchDevices = () => (dispatch) => {
+  dispatch(fetchDeviceTypes());
+  dispatch(fetchDeviceBrands());
+  dispatch(fetchDeviceModels());
+};
+
+// GET models
+const fetchDeviceModels = () => {
   return (dispatch) => {
     fetch(baseUrl)
       .then(handleErrors)
       .then((res) => res.json())
-      .then((data) => dispatch(setDevicesState(data)))
+      .then((data) => dispatch(setDeviceModelsState(data)))
+      .catch((error) => console.log(error));
+  };
+};
+// GET brands
+const fetchDeviceBrands = () => {
+  return (dispatch) => {
+    fetch(baseUrl + '/brandstest')
+      .then(handleErrors)
+      .then((res) => res.json())
+      .then((data) => dispatch(setDeviceBrandsState(data)))
+      .catch((error) => console.log(error));
+  };
+};
+// GET types
+const fetchDeviceTypes = () => {
+  return (dispatch) => {
+    fetch(baseUrl + '/types')
+      .then(handleErrors)
+      .then((res) => res.json())
+      .then((data) => dispatch(setDeviceTypesState(data)))
       .catch((error) => console.log(error));
   };
 };
