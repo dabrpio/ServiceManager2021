@@ -20,12 +20,6 @@ export default function devicesReducer(state = initialState, action) {
         brands: action.payload,
       };
     }
-    case devicesAT.SET_DEVICE_TYPES: {
-      return {
-        ...state,
-        types: action.payload,
-      };
-    }
     case devicesAT.ADD_DEVICE: {
       return {
         ...state,

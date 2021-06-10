@@ -10,10 +10,6 @@ const setDeviceBrandsState = (data) => ({
   type: devicesAT.SET_DEVICE_BRANDS,
   payload: data,
 });
-const setDeviceTypesState = (data) => ({
-  type: devicesAT.SET_DEVICE_TYPES,
-  payload: data,
-});
 
 const addDeviceState = (device) => ({
   type: devicesAT.ADD_DEVICE,
@@ -31,7 +27,6 @@ const deleteDeviceState = (id) => ({
 });
 
 export const fetchDevices = () => (dispatch) => {
-  dispatch(fetchDeviceTypes());
   dispatch(fetchDeviceBrands());
   dispatch(fetchDeviceModels());
 };
@@ -56,16 +51,6 @@ const fetchDeviceBrands = () => {
       .catch((error) => console.log(error));
   };
 };
-// GET types
-const fetchDeviceTypes = () => {
-  return (dispatch) => {
-    fetch(baseUrl + '/types')
-      .then(handleErrors)
-      .then((res) => res.json())
-      .then((data) => dispatch(setDeviceTypesState(data)))
-      .catch((error) => console.log(error));
-  };
-};
 
 // POST
 export const postDevice = (device) => (dispatch) => {
@@ -75,7 +60,7 @@ export const postDevice = (device) => (dispatch) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(device),
+    body: JSON.stringify(),
   })
     .then(handleErrors)
     .then((res) => res.json())

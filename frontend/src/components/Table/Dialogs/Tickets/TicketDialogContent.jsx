@@ -3,14 +3,84 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { connect } from 'react-redux';
 import {
-  brandTypes,
-  deviceTypes,
-  modelTypes,
-} from '../../../../common/dropdownOptions';
+  selectDeviceBrandsState,
+  selectDeviceModelsState,
+} from '../../../../store/data/devices/devices.selectors';
 
 function TicketDialogContent(props) {
-  const { classes, ticket, setTicket } = props;
+  const { classes, ticket, setTicket, deviceModels, deviceBrands } = props;
+  const [model, setModel] = useState(
+    deviceModels.find((m) => m.model === ticket.model) ?? null
+  );
+  const [brand, setBrand] = useState(
+    deviceBrands.find((b) => b.brand === ticket.marka) ?? null
+  );
+  const [type, setType] = useState(
+    deviceBrands.find((t) => t.type === ticket.rodzaj) ?? null
+  );
+
+  const handleDeviceTypeChange = (_, newValue) => {
+    setType(newValue);
+    setTicket({ ...ticket, rodzaj: newValue?.type ?? null });
+  };
+  const handleDeviceBrandChange = (_, newValue) => {
+    setBrand(newValue);
+    setTicket({ ...ticket, marka: newValue?.brand ?? null });
+  };
+  const handleDeviceModelChange = (_, newValue) => {
+    setModel(newValue);
+    setTicket({ ...ticket, model: newValue?.model ?? null });
+  };
+
+  const useDeviceTypeFilter = (types) => {
+    let filteredOptions = [];
+    if (model !== null && brand !== null) {
+      filteredOptions = types.filter(
+        (t) => t.type === model.type && t.type === brand.type
+      );
+    } else if (model !== null) {
+      filteredOptions = types.filter((b) => b.type === model.type);
+    } else if (brand !== null) {
+      filteredOptions = types.filter((t) => t.brand === brand.brand);
+    } else filteredOptions = types;
+
+    return filteredOptions.filter(
+      (device, index, self) =>
+        self.findIndex((d) => d.type === device.type) === index
+    );
+  };
+
+  const useDeviceBrandFilter = (brands) => {
+    let filteredOptions = [];
+    if (model !== null && type !== null) {
+      filteredOptions = brands.filter(
+        (b) => b.brand === model.brand && b.type === type.type
+      );
+    } else if (model !== null) {
+      filteredOptions = brands.filter((b) => b.brand === model.brand);
+    } else if (type !== null) {
+      filteredOptions = brands.filter((b) => b.type === type.type);
+    } else filteredOptions = brands;
+
+    return filteredOptions.filter(
+      (device, index, self) =>
+        self.findIndex((d) => d.brand === device.brand) === index
+    );
+  };
+  const useDeviceModelFilter = (models) => {
+    if (brand !== null && type !== null) {
+      return models.filter(
+        (m) => m.brand === brand.brand && m.type === type.type
+      );
+    } else if (brand !== null) {
+      return models.filter((m) => m.brand === brand.brand);
+    } else if (type !== null) {
+      return models.filter((m) => m.type === type.type);
+    } else return models;
+  };
 
   const handleTextFieldChange =
     (name) =>
@@ -42,12 +112,12 @@ function TicketDialogContent(props) {
         <Autocomplete
           size="small"
           fullWidth
-          value={ticket.rodzaj}
-          options={deviceTypes.map((i) => i.title)}
+          value={type}
+          options={deviceBrands}
+          getOptionLabel={(option) => (option.type ? option.type : option)}
           getOptionSelected={(option, value) => option === value}
-          onChange={(_, newValue) => {
-            setTicket({ ...ticket, rodzaj: newValue });
-          }}
+          filterOptions={useDeviceTypeFilter}
+          onChange={handleDeviceTypeChange}
           renderInput={(params) => (
             <TextField {...params} label="Typ urządzenia" margin="normal" />
           )}
@@ -55,12 +125,12 @@ function TicketDialogContent(props) {
         <Autocomplete
           size="small"
           fullWidth
-          value={ticket.marka}
-          options={brandTypes.map((i) => i.title)}
+          value={brand}
+          options={deviceBrands}
+          getOptionLabel={(option) => (option.brand ? option.brand : option)}
+          filterOptions={useDeviceBrandFilter}
           getOptionSelected={(option, value) => option === value}
-          onChange={(_, newValue) => {
-            setTicket({ ...ticket, marka: newValue });
-          }}
+          onChange={handleDeviceBrandChange}
           renderInput={(params) => (
             <TextField {...params} label="Marka" margin="normal" />
           )}
@@ -68,12 +138,12 @@ function TicketDialogContent(props) {
         <Autocomplete
           size="small"
           fullWidth
-          value={ticket.model}
-          options={modelTypes.map((i) => i.title)}
+          value={model}
+          options={deviceModels}
+          getOptionLabel={(option) => (option.model ? option.model : option)}
+          filterOptions={useDeviceModelFilter}
           getOptionSelected={(option, value) => option === value}
-          onChange={(_, newValue) => {
-            setTicket({ ...ticket, model: newValue });
-          }}
+          onChange={handleDeviceModelChange}
           renderInput={(params) => (
             <TextField {...params} label="Model" margin="normal" />
           )}
@@ -168,7 +238,12 @@ function TicketDialogContent(props) {
   );
 }
 
-export default TicketDialogContent;
+const mapStateToProps = (state, ownProps) => ({
+  deviceModels: selectDeviceModelsState(state),
+  deviceBrands: selectDeviceBrandsState(state),
+});
+
+export default connect(mapStateToProps, null)(TicketDialogContent);
 
 TicketDialogContent.propTypes = {
   classes: PropTypes.object.isRequired,
