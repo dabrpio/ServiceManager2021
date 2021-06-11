@@ -36,36 +36,32 @@ function TicketDialogContent(props) {
   };
 
   const useDeviceTypeFilter = (types) => {
-    let filteredOptions = [];
     if (model !== null && brand !== null) {
-      filteredOptions = types.filter(
-        (t) => t.type === model.type && t.type === brand.type
-      );
+      types = types.filter((t) => t.type === model.type);
     } else if (model !== null) {
-      filteredOptions = types.filter((b) => b.type === model.type);
+      types = types.filter((b) => b.type === model.type);
     } else if (brand !== null) {
-      filteredOptions = types.filter((t) => t.brand === brand.brand);
-    } else filteredOptions = types;
+      types = types.filter((t) => t.brand === brand.brand);
+    }
 
-    return filteredOptions.filter(
+    return types.filter(
       (device, index, self) =>
         self.findIndex((d) => d.type === device.type) === index
     );
   };
 
   const useDeviceBrandFilter = (brands) => {
-    let filteredOptions = [];
     if (model !== null && type !== null) {
-      filteredOptions = brands.filter(
+      brands = brands.filter(
         (b) => b.brand === model.brand && b.type === type.type
       );
     } else if (model !== null) {
-      filteredOptions = brands.filter((b) => b.brand === model.brand);
+      brands = brands.filter((b) => b.brand === model.brand);
     } else if (type !== null) {
-      filteredOptions = brands.filter((b) => b.type === type.type);
-    } else filteredOptions = brands;
+      brands = brands.filter((b) => b.type === type.type);
+    }
 
-    return filteredOptions.filter(
+    return brands.filter(
       (device, index, self) =>
         self.findIndex((d) => d.brand === device.brand) === index
     );
@@ -113,10 +109,9 @@ function TicketDialogContent(props) {
           size="small"
           fullWidth
           value={type}
-          options={deviceBrands}
+          options={useDeviceTypeFilter(deviceBrands)}
           getOptionLabel={(option) => (option.type ? option.type : option)}
           getOptionSelected={(option, value) => option === value}
-          filterOptions={useDeviceTypeFilter}
           onChange={handleDeviceTypeChange}
           renderInput={(params) => (
             <TextField {...params} label="Typ urządzenia" margin="normal" />
@@ -126,9 +121,8 @@ function TicketDialogContent(props) {
           size="small"
           fullWidth
           value={brand}
-          options={deviceBrands}
+          options={useDeviceBrandFilter(deviceBrands)}
           getOptionLabel={(option) => (option.brand ? option.brand : option)}
-          filterOptions={useDeviceBrandFilter}
           getOptionSelected={(option, value) => option === value}
           onChange={handleDeviceBrandChange}
           renderInput={(params) => (
@@ -139,9 +133,12 @@ function TicketDialogContent(props) {
           size="small"
           fullWidth
           value={model}
-          options={deviceModels}
+          options={useDeviceModelFilter(deviceModels).sort(
+            (a, b) =>
+              -b.brand.localeCompare(a.brand) || -b.model.localeCompare(a.model)
+          )}
+          groupBy={(option) => (brand ? null : option.brand)}
           getOptionLabel={(option) => (option.model ? option.model : option)}
-          filterOptions={useDeviceModelFilter}
           getOptionSelected={(option, value) => option === value}
           onChange={handleDeviceModelChange}
           renderInput={(params) => (

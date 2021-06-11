@@ -25,7 +25,7 @@ const deleteTicketState = (id) => ({
 // GET
 export const fetchTickets = () => {
   return (dispatch) => {
-    fetch(baseUrl + '/top25')
+    fetch(baseUrl)
       .then(handleErrors)
       .then((res) => res.json())
       .then((data) => dispatch(setTicketsState(data)))

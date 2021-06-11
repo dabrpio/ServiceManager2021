@@ -18,6 +18,7 @@ export const getComparator = (order, orderBy) => {
       ? (a, b) => possibleNullComparatorDesc(a, b, orderBy)
       : (a, b) => possibleNullComparatorAsc(a, b, orderBy);
   } else if (
+    orderBy === 'id' ||
     orderBy === 'rma' ||
     orderBy === 'kosztNaprawy' ||
     orderBy === 'idKlienta'

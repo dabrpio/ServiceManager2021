@@ -49,7 +49,7 @@ const AddDeviceDialog = ({ addDevice }) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Nowy pracownik</DialogTitle>
+        <DialogTitle id="form-dialog-title">Nowe urządzenie</DialogTitle>
         <DeviceDialogContent
           device={device}
           setDevice={setDevice}
