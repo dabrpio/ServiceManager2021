@@ -3,24 +3,26 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { connect } from 'react-redux';
 import {
   selectDeviceBrandsState,
   selectDeviceModelsState,
 } from '../../../../store/data/devices/devices.selectors';
+import { useDeviceData } from './useDeviceData';
 
 function TicketDialogContent(props) {
   const { classes, ticket, setTicket, deviceModels, deviceBrands } = props;
-  const [model, setModel] = useState(
-    deviceModels.find((m) => m.model === ticket.model) ?? null
-  );
-  const [brand, setBrand] = useState(
-    deviceBrands.find((b) => b.brand === ticket.marka) ?? null
-  );
-  const [type, setType] = useState(
-    deviceBrands.find((t) => t.type === ticket.rodzaj) ?? null
-  );
+  const {
+    model,
+    setModel,
+    brand,
+    setBrand,
+    type,
+    setType,
+    deviceTypeFilter,
+    deviceBrandFilter,
+    deviceModelFilter,
+  } = useDeviceData(deviceBrands, deviceModels, ticket);
 
   const handleDeviceTypeChange = (_, newValue) => {
     setType(newValue);
@@ -33,49 +35,6 @@ function TicketDialogContent(props) {
   const handleDeviceModelChange = (_, newValue) => {
     setModel(newValue);
     setTicket({ ...ticket, model: newValue?.model ?? null });
-  };
-
-  const useDeviceTypeFilter = (types) => {
-    if (model !== null && brand !== null) {
-      types = types.filter((t) => t.type === model.type);
-    } else if (model !== null) {
-      types = types.filter((b) => b.type === model.type);
-    } else if (brand !== null) {
-      types = types.filter((t) => t.brand === brand.brand);
-    }
-
-    return types.filter(
-      (device, index, self) =>
-        self.findIndex((d) => d.type === device.type) === index
-    );
-  };
-
-  const useDeviceBrandFilter = (brands) => {
-    if (model !== null && type !== null) {
-      brands = brands.filter(
-        (b) => b.brand === model.brand && b.type === type.type
-      );
-    } else if (model !== null) {
-      brands = brands.filter((b) => b.brand === model.brand);
-    } else if (type !== null) {
-      brands = brands.filter((b) => b.type === type.type);
-    }
-
-    return brands.filter(
-      (device, index, self) =>
-        self.findIndex((d) => d.brand === device.brand) === index
-    );
-  };
-  const useDeviceModelFilter = (models) => {
-    if (brand !== null && type !== null) {
-      return models.filter(
-        (m) => m.brand === brand.brand && m.type === type.type
-      );
-    } else if (brand !== null) {
-      return models.filter((m) => m.brand === brand.brand);
-    } else if (type !== null) {
-      return models.filter((m) => m.type === type.type);
-    } else return models;
   };
 
   const handleTextFieldChange =
@@ -109,7 +68,7 @@ function TicketDialogContent(props) {
           size="small"
           fullWidth
           value={type}
-          options={useDeviceTypeFilter(deviceBrands)}
+          options={deviceTypeFilter(deviceBrands)}
           getOptionLabel={(option) => (option.type ? option.type : option)}
           getOptionSelected={(option, value) => option === value}
           onChange={handleDeviceTypeChange}
@@ -121,7 +80,7 @@ function TicketDialogContent(props) {
           size="small"
           fullWidth
           value={brand}
-          options={useDeviceBrandFilter(deviceBrands)}
+          options={deviceBrandFilter(deviceBrands)}
           getOptionLabel={(option) => (option.brand ? option.brand : option)}
           getOptionSelected={(option, value) => option === value}
           onChange={handleDeviceBrandChange}
@@ -133,7 +92,7 @@ function TicketDialogContent(props) {
           size="small"
           fullWidth
           value={model}
-          options={useDeviceModelFilter(deviceModels).sort(
+          options={deviceModelFilter(deviceModels).sort(
             (a, b) =>
               -b.brand.localeCompare(a.brand) || -b.model.localeCompare(a.model)
           )}
