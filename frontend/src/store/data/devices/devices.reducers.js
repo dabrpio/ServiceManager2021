@@ -1,7 +1,6 @@
 import * as devicesAT from './devices.action-types';
 
 const initialState = {
-  types: [],
   brands: [],
   models: [],
 };

@@ -35,13 +35,22 @@ export const useStyles = makeStyles((theme) => ({
   },
   icon: {
     [theme.breakpoints.up('sm')]: {
-      fontSize: 40,
+      fontSize: '50%',
+      width: '50%',
+      height: '50%',
     },
+  },
+  list: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%',
   },
   listItem: {
     [theme.breakpoints.up('sm')]: {
       alignItems: 'center',
-      height: 80,
+      height: '10vh',
+      maxHeight: '120px',
       color: '#fff',
       justifyContent: 'center',
       width: '100%',
