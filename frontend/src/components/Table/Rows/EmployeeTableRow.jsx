@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from '@material-ui/core';
+import { TableCell, TableRow, Hidden } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { employeeTypes } from '../../../common/dropdownOptions';
 
@@ -14,12 +14,14 @@ function EmployeeTableRow({ row, classes, handleClick }) {
       tabIndex={-1}
       key={row.rma}
     >
-      <TableCell className={classes.td}>{row.id}</TableCell>
       <TableCell className={classes.td}>
         {employeeTypes.find((e) => e.titleId === row.rodzajUzytkownika).title}
       </TableCell>
-      <TableCell className={classes.td}>{row.login}</TableCell>
-      <TableCell className={classes.td}>{row.nrTel}</TableCell>
+      <TableCell className={classes.td}>{row.imie}</TableCell>
+      <TableCell className={classes.td}>{row.nazwisko}</TableCell>
+      <Hidden smDown>
+        <TableCell className={classes.td}>{row.nrTel}</TableCell>
+      </Hidden>
     </TableRow>
   );
 }

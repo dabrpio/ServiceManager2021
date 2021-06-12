@@ -6,21 +6,21 @@ const EmployeeTable = withEnhancedTable(EmployeeTableRow);
 
 const headCells = [
   {
-    id: 'id',
-    label: 'ID',
-  },
-  {
     id: 'rodzajUzytkownika',
     label: 'Rodzaj',
   },
   {
-    id: 'login',
-    label: 'Nazwa',
+    id: 'imie',
+    label: 'Imie',
   },
-
+  {
+    id: 'nazwisko',
+    label: 'Nazwisko',
+  },
   {
     id: 'nrTel',
     label: 'Nr telefonu',
+    smUp: true,
   },
 ];
 
