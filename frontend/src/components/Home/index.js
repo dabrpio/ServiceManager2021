@@ -1,3 +1,3 @@
-import Home from './Home.cmp';
+import Home from './Home.cnt';
 
 export default Home;

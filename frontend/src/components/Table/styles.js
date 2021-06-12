@@ -17,6 +17,12 @@ export const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
+  homeTableText: {
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '20px',
+    },
+    fontSize: '14px',
+  },
 }));
 
 export const useTableStyles = makeStyles((theme) => ({
@@ -34,6 +40,10 @@ export const useTableStyles = makeStyles((theme) => ({
     height: `calc(100vh - ${
       theme.mixins.toolbar.minHeight
     }px -  ${theme.spacing(2)}px)`,
+    overflow: 'hidden',
+  },
+  homeRoot: {
+    height: '100%',
     overflow: 'hidden',
   },
   container: {

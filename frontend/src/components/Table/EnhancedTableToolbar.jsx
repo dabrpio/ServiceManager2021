@@ -3,6 +3,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import clsx from 'clsx';
 
 import AddEmployeeDialog from './Dialogs/Employees/AddEmployeeDialog';
 import AddTicketDialog from './Dialogs/Tickets/AddTicketDialog';
@@ -14,18 +15,20 @@ export default function EnhancedTableToolbar({
   heading,
   searchInput,
   setSearchInput,
+  homeTable,
 }) {
   const classes = useToolbarStyles();
   const location = useLocation();
 
   return (
     <Toolbar className={classes.root}>
+      {location.pathname === '/' && <AddTicketDialog />}
       {location.pathname === '/tickets' && <AddTicketDialog />}
       {location.pathname === '/employees' && <AddEmployeeDialog />}
       {location.pathname === '/clients' && <AddClientDialog />}
       {location.pathname === '/devices' && <AddDeviceDialog />}
       <Typography
-        className={classes.title}
+        className={clsx(classes.title, { [classes.homeTableText]: homeTable })}
         variant="h6"
         id="tableTitle"
         component="div"

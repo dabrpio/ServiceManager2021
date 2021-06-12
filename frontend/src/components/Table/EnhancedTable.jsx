@@ -8,6 +8,7 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
+import clsx from 'clsx';
 
 import SelectedClientDialog from './Dialogs/Clients/SelectedClientDialog';
 import SelectedDeviceDialog from './Dialogs/Devices/SelectedDeviceDialog';
@@ -22,7 +23,7 @@ import { useTableStyles } from './styles';
 
 const withEnhancedTable =
   (EnhancedRow) =>
-  ({ data, headCells, heading }) => {
+  ({ data, headCells, heading, homeTable }) => {
     const location = useLocation();
     const {
       order,
@@ -66,12 +67,13 @@ const withEnhancedTable =
 
     return (
       <>
-        {selectedRowData && location.pathname === '/tickets' && (
-          <SelectedTicketDialog
-            ticketData={selectedRowData}
-            closeDialog={handleCloseDialog}
-          />
-        )}
+        {selectedRowData &&
+          (location.pathname === '/tickets' || location.pathname === '/') && (
+            <SelectedTicketDialog
+              ticketData={selectedRowData}
+              closeDialog={handleCloseDialog}
+            />
+          )}
         {selectedRowData && location.pathname === '/employees' && (
           <SelectedEmployeeDialog
             employeeData={selectedRowData}
@@ -90,11 +92,17 @@ const withEnhancedTable =
             closeDialog={handleCloseDialog}
           />
         )}
-        <Paper className={classes.root}>
+        <Paper
+          className={clsx({
+            [classes.root]: !homeTable,
+            [classes.homeRoot]: homeTable,
+          })}
+        >
           <EnhancedTableToolbar
             heading={heading}
             searchInput={searchInput}
             setSearchInput={setSearchInput}
+            homeTable={homeTable}
           />
           <TableContainer className={classes.container}>
             <Table

@@ -44,7 +44,7 @@ const fetchDeviceModels = () => {
 // GET brands
 const fetchDeviceBrands = () => {
   return (dispatch) => {
-    fetch(baseUrl + '/brandstest')
+    fetch(baseUrl + '/brands')
       .then(handleErrors)
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceBrandsState(data)))

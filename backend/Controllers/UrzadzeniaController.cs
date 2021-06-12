@@ -55,8 +55,8 @@ namespace CommandApi.Controllers
             }
         }
         
-        //GET api/urzadzenia/brands
-        [HttpGet("brands", Name="GetAllBrands")]
+        //GET api/urzadzenia/brandstests
+        [HttpGet("brandstest", Name="GetAllBrands")]
         public ActionResult<List<string>> GetAllBrands(){
             var commandItem = _repoUrzadzenia.GetAllBrands();
             
@@ -67,8 +67,8 @@ namespace CommandApi.Controllers
                 return NotFound();
             }
         }
-        //GET api/urzadzenia/brandstest
-        [HttpGet("brandstest", Name="GetAllBrandstest")]
+        //GET api/urzadzenia/brands
+        [HttpGet("brands", Name="GetAllBrandstest")]
         public ActionResult<List<Urzadzenia2>> GetAllBrandstest(){
             var commandItem = _repoUrzadzenia.GetBrandsTest();
             if(commandItem!=null){
