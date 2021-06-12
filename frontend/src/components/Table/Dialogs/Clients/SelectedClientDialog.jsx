@@ -3,7 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   deleteClient,
@@ -13,9 +13,12 @@ import { useTicketDialogStyles } from '../styles';
 import ClientDialogContent from './ClientDialogContent';
 
 const SelectedClientDialog = (props) => {
-  const { clientData, closeDialog, updateClient, deleteClient } = props;
+  const { clientData, closeDialog, updateClient, deleteClient, deleteError } =
+    props;
   const [client, setClient] = useState(clientData);
   const classes = useTicketDialogStyles();
+
+  useEffect(() => {}, [deleteError]);
 
   const handleClose = () => {
     closeDialog();
@@ -41,7 +44,7 @@ const SelectedClientDialog = (props) => {
   };
 
   return (
-    <div>
+    <>
       <Dialog
         maxWidth="sm"
         open={Object.keys(clientData).length > 0}
@@ -66,7 +69,7 @@ const SelectedClientDialog = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 

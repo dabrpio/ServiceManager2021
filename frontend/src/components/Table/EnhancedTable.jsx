@@ -16,6 +16,7 @@ import SelectedEmployeeDialog from './Dialogs/Employees/SelectedEmployeeDialog';
 import SelectedTicketDialog from './Dialogs/Tickets/SelectedTicketDialog';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
+import DeleteErrorSnackbar from './SnackBar';
 
 import { useTableCustomHook } from './hooks';
 import { getComparator, stableSort } from './sorting';
@@ -67,6 +68,8 @@ const withEnhancedTable =
 
     return (
       <>
+        {location.pathname === '/clients' && <DeleteErrorSnackbar />}
+
         {selectedRowData &&
           (location.pathname === '/tickets' || location.pathname === '/') && (
             <SelectedTicketDialog

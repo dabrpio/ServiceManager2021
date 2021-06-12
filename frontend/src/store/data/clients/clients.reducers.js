@@ -1,22 +1,53 @@
 import * as clientsAT from './clients.action-types';
 
-const initialState = [];
+const initialState = {
+  clients: [],
+  error: false,
+};
 
 export default function clientsReducer(state = initialState, action) {
   switch (action.type) {
     case clientsAT.SET_CLIENTS: {
-      return action.payload;
+      return {
+        ...state,
+        clients: action.payload,
+      };
     }
     case clientsAT.ADD_CLIENT: {
-      return [action.payload, ...state];
+      return {
+        ...state,
+        clients: [action.payload, ...state.clients],
+      };
     }
     case clientsAT.UPDATE_CLIENT: {
-      return state.map((client) =>
-        client.idKlienta === action.payload.idKlienta ? action.payload : client
-      );
+      return {
+        ...state,
+        clients: state.clients.map((client) =>
+          client.idKlienta === action.payload.idKlienta
+            ? action.payload
+            : client
+        ),
+      };
     }
     case clientsAT.DELETE_CLIENT: {
-      return state.filter((client) => client.idKlienta !== action.payload);
+      return {
+        ...state,
+        clients: state.clients.filter(
+          (client) => client.idKlienta !== action.payload
+        ),
+      };
+    }
+    case clientsAT.SET_DELETE_CLIENT_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
+    case clientsAT.UNSET_DELETE_CLIENT_ERROR: {
+      return {
+        ...state,
+        error: false,
+      };
     }
     default:
       return state;

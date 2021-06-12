@@ -21,6 +21,14 @@ const deleteClientState = (id) => ({
   type: clientsAT.DELETE_CLIENT,
   payload: id,
 });
+const setDeleteClientError = (error) => ({
+  type: clientsAT.SET_DELETE_CLIENT_ERROR,
+  payload: error,
+});
+
+export const unsetDeleteClientError = () => ({
+  type: clientsAT.UNSET_DELETE_CLIENT_ERROR,
+});
 
 // GET
 export const fetchClients = () => {
@@ -73,12 +81,23 @@ export const putClient = (client) => (dispatch) => {
 };
 
 // DELETE
-export const deleteClient = (id) => (dispatch) => {
+export const deleteClient = (id) => (dispatch) =>
   fetch(baseUrl + '/' + id, { method: 'DELETE' })
     .then(handleErrors)
-    .then(() => dispatch(deleteClientState(id)))
-    .catch(catchErrors);
-};
+    .then((data) => {
+      dispatch(deleteClientState(id));
+    })
+    .catch((error) =>
+      error
+        .json()
+        .then((response) =>
+          response.detail === 'Nie usunięto zleceń klienta'
+            ? dispatch(
+                setDeleteClientError(error.url.slice(error.url.length - 3))
+              )
+            : null
+        )
+    );
 
 const handleErrors = (response) => {
   if (!response.ok) {
@@ -87,13 +106,11 @@ const handleErrors = (response) => {
   return response;
 };
 
-const catchErrors = (error) =>
-  error
-    .json()
-    .then((body) =>
-      console.log(
-        `Server error: [${body.status} ${body.statusText ?? ''} ${
-          body.detail ?? ''
-        }]`
-      )
+const catchErrors = async (error) =>
+  error.json().then((body) => {
+    console.log(
+      `Server error: [${body.status} ${body.statusText ?? ''} ${
+        body.detail ?? ''
+      }]`
     );
+  });

@@ -1,5 +1,8 @@
 import { FEATURE_CLIENTS_NAME } from '../../constants';
 import { selectDataState } from '../data.selectors';
 
-export const selectClientsState = (state) =>
-  selectDataState(state)[FEATURE_CLIENTS_NAME];
+const selectClients = (state) => selectDataState(state)[FEATURE_CLIENTS_NAME];
+
+export const selectClientsState = (state) => selectClients(state)['clients'];
+
+export const selectDeleteError = (state) => selectClients(state)['error'];
