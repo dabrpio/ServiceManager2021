@@ -11,7 +11,7 @@ function Login() {
     email: '',
     password: '',
   });
-  const [loginErrors, setLoginErrors] = useState({
+  const [loginErrors] = useState({
     emailError: '',
     passwordError: '',
   });

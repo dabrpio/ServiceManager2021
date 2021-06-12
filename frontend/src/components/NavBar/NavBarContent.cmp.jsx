@@ -1,11 +1,8 @@
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import RecentActorsRoundedIcon from '@material-ui/icons/RecentActorsRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
-import ViewListRoundedIcon from '@material-ui/icons/ViewListRounded';
 import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import DevicesOtherRoundedIcon from '@material-ui/icons/DevicesOtherRounded';
-import PeopleAltRoundedIcon from '@material-ui/icons/PeopleAltRounded';
-import PeopleRoundedIcon from '@material-ui/icons/PeopleRounded';
 import WorkOutlineRoundedIcon from '@material-ui/icons/WorkOutlineRounded';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {

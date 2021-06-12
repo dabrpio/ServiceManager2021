@@ -34,6 +34,20 @@ function TicketDialogContent(props) {
   };
   const handleDeviceModelChange = (_, newValue) => {
     setModel(newValue);
+    setBrand((oldBrand) =>
+      newValue
+        ? deviceBrands.find(
+            (i) => i.brand === newValue.brand && i.type === newValue.type
+          )
+        : oldBrand
+    );
+    setType((oldType) =>
+      newValue
+        ? deviceBrands.find(
+            (i) => i.brand === newValue.brand && i.type === newValue.type
+          )
+        : oldType
+    );
     setTicket({ ...ticket, model: newValue?.model ?? null });
   };
 
@@ -70,7 +84,7 @@ function TicketDialogContent(props) {
           value={type}
           options={deviceTypeFilter(deviceBrands)}
           getOptionLabel={(option) => (option.type ? option.type : option)}
-          getOptionSelected={(option, value) => option === value}
+          getOptionSelected={(option, value) => option.type === value.type}
           onChange={handleDeviceTypeChange}
           renderInput={(params) => (
             <TextField {...params} label="Typ urządzenia" margin="normal" />
@@ -82,7 +96,7 @@ function TicketDialogContent(props) {
           value={brand}
           options={deviceBrandFilter(deviceBrands)}
           getOptionLabel={(option) => (option.brand ? option.brand : option)}
-          getOptionSelected={(option, value) => option === value}
+          getOptionSelected={(option, value) => option.brand === value.brand}
           onChange={handleDeviceBrandChange}
           renderInput={(params) => (
             <TextField {...params} label="Marka" margin="normal" />
