@@ -68,19 +68,21 @@ function DocsButton({ classes, ticket }) {
                           }
                         </PDFDownloadLink>
                       </MenuItem>
-                      <MenuItem>
-                        <PDFDownloadLink
-                          document={<WarrantyDocument ticket={ticket} />}
-                          fileName={`dokument_gwarancji_${ticket.rma}`}
-                          className={classes.downloadLink}
-                        >
-                          {({ loading }) =>
-                            loading
-                              ? 'Ładownie dokumentu...'
-                              : 'Dokument gwarancji'
-                          }
-                        </PDFDownloadLink>
-                      </MenuItem>
+                      {ticket.dataWydania && (
+                        <MenuItem>
+                          <PDFDownloadLink
+                            document={<WarrantyDocument ticket={ticket} />}
+                            fileName={`dokument_gwarancji_${ticket.rma}`}
+                            className={classes.downloadLink}
+                          >
+                            {({ loading }) =>
+                              loading
+                                ? 'Ładownie dokumentu...'
+                                : 'Dokument gwarancji'
+                            }
+                          </PDFDownloadLink>
+                        </MenuItem>
+                      )}
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
