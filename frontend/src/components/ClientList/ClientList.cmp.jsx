@@ -1,6 +1,7 @@
-import ClientTableRow from '../Table/Rows/ClientTableRow';
-import withEnhancedTable from '../Table/EnhancedTable';
 import PropTypes from 'prop-types';
+import React from 'react';
+import withEnhancedTable from '../Table/EnhancedTable';
+import ClientTableRow from '../Table/Rows/ClientTableRow';
 
 const ClientTable = withEnhancedTable(ClientTableRow);
 

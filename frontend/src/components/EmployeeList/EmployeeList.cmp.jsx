@@ -1,6 +1,7 @@
-import EmployeeTableRow from '../Table/Rows/EmployeeTableRow';
-import withEnhancedTable from '../Table/EnhancedTable';
 import PropTypes from 'prop-types';
+import React from 'react';
+import withEnhancedTable from '../Table/EnhancedTable';
+import EmployeeTableRow from '../Table/Rows/EmployeeTableRow';
 
 const EmployeeTable = withEnhancedTable(EmployeeTableRow);
 

@@ -1,24 +1,21 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TablePagination,
-  TableRow,
-} from '@material-ui/core';
-import { useLocation } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
 import clsx from 'clsx';
-
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import SelectedClientDialog from './Dialogs/Clients/SelectedClientDialog';
 import SelectedDeviceDialog from './Dialogs/Devices/SelectedDeviceDialog';
 import SelectedEmployeeDialog from './Dialogs/Employees/SelectedEmployeeDialog';
 import SelectedTicketDialog from './Dialogs/Tickets/SelectedTicketDialog';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
-import DeleteErrorSnackbar from './SnackBar';
-
 import { useTableCustomHook } from './hooks';
+import DeleteErrorSnackbar from './SnackBar';
 import { getComparator, stableSort } from './sorting';
 import { useTableStyles } from './styles';
 

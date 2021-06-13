@@ -1,4 +1,5 @@
-import { Image, Page, Text, View, Document } from '@react-pdf/renderer';
+import { Document, Image, Page, Text, View } from '@react-pdf/renderer';
+import React from 'react';
 import logo from './logo.png';
 import { styles } from './styles';
 

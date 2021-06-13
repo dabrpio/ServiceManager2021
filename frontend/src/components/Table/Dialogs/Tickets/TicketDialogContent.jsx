@@ -3,6 +3,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import {
   selectDeviceBrandsState,

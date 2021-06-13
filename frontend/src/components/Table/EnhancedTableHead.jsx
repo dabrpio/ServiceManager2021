@@ -1,10 +1,12 @@
-import { Hidden, Typography } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function EnhancedTableHead(props) {
   const { headCells, classes, order, orderBy, onRequestSort } = props;

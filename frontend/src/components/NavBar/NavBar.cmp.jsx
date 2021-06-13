@@ -1,17 +1,15 @@
-import { useState } from 'react';
-import {
-  AppBar,
-  Drawer,
-  Hidden,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import NavBarContent from './NavBarContent.cmp';
 import { useStyles } from './styles';
-import { useLocation } from 'react-router-dom';
 
 function NavBar() {
   const location = useLocation();

@@ -1,6 +1,7 @@
-import DeviceTableRow from '../Table/Rows/DeviceTableRow';
-import withEnhancedTable from '../Table/EnhancedTable';
 import PropTypes from 'prop-types';
+import React from 'react';
+import withEnhancedTable from '../Table/EnhancedTable';
+import DeviceTableRow from '../Table/Rows/DeviceTableRow';
 
 const DeviceTable = withEnhancedTable(DeviceTableRow);
 

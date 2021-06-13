@@ -1,6 +1,7 @@
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function deviceDialogContent(props) {
   const { device, setDevice } = props;

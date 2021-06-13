@@ -1,7 +1,8 @@
 import { Typography } from '@material-ui/core';
-import { useStyles } from './styles';
-import HomeTableRow from '../Table/Rows/HomeTableRow';
+import React from 'react';
 import withEnhancedTable from '../Table/EnhancedTable';
+import HomeTableRow from '../Table/Rows/HomeTableRow';
+import { useStyles } from './styles';
 
 const HomeTable = withEnhancedTable(HomeTableRow);
 
@@ -40,7 +41,9 @@ function Home({ tickets }) {
   return (
     <div className={classes.root}>
       <div className={classes.text}>
-        <Typography>Jan Kowalski, Admin</Typography>
+        <Typography component="h5" variant="h5">
+          Jan Kowalski, Admin
+        </Typography>
       </div>
 
       <HomeTable

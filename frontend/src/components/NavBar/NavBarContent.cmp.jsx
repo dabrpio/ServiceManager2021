@@ -1,17 +1,16 @@
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import DevicesOtherRoundedIcon from '@material-ui/icons/DevicesOtherRounded';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import RecentActorsRoundedIcon from '@material-ui/icons/RecentActorsRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
-import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
-import DevicesOtherRoundedIcon from '@material-ui/icons/DevicesOtherRounded';
 import WorkOutlineRoundedIcon from '@material-ui/icons/WorkOutlineRounded';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@material-ui/core';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {

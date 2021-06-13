@@ -1,15 +1,15 @@
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
-
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import AddClientDialog from './Dialogs/Clients/AddClientDialog';
+import AddDeviceDialog from './Dialogs/Devices/AddDeviceDialog';
 import AddEmployeeDialog from './Dialogs/Employees/AddEmployeeDialog';
 import AddTicketDialog from './Dialogs/Tickets/AddTicketDialog';
-import AddClientDialog from './Dialogs/Clients/AddClientDialog';
 import { useToolbarStyles } from './styles';
-import AddDeviceDialog from './Dialogs/Devices/AddDeviceDialog';
 
 export default function EnhancedTableToolbar({
   heading,

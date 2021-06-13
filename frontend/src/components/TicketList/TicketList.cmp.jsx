@@ -1,5 +1,6 @@
-import TicketTableRow from '../Table/Rows/TicketTableRow';
+import React from 'react';
 import withEnhancedTable from '../Table/EnhancedTable';
+import TicketTableRow from '../Table/Rows/TicketTableRow';
 
 const TicketTable = withEnhancedTable(TicketTableRow);
 
