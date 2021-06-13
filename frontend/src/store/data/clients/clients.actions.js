@@ -1,6 +1,6 @@
 import * as clientsAT from './clients.action-types';
 
-const baseUrl = `https://localhost:5001/api/klienci`;
+const baseUrl = `http://46.41.149.61:5003/api/klienci`;
 
 const setClientsState = (data) => ({
   type: clientsAT.SET_CLIENTS,

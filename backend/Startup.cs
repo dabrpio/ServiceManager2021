@@ -30,8 +30,8 @@ namespace CommandApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options => {options.AddPolicy(name: MyAllowSpecificOrigins, builder => {builder.WithOrigins("http://localhost:3000", "https://localhost:3001").AllowAnyHeader().AllowAnyMethod();});});
-
+//            services.AddCors(options => {options.AddPolicy(name: MyAllowSpecificOrigins, builder => {builder.WithOrigins("http://localhost:3000", "https://localhost:3001").AllowAnyHeader().AllowAnyMethod();});});
+            services.AddCors(options => {options.AddPolicy(name: MyAllowSpecificOrigins, builder => {builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();});});
             services.AddDbContext<SM2021Context>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
 
             services.AddControllers();

@@ -1,6 +1,6 @@
 import * as devicesAT from './devices.action-types';
 
-const baseUrl = `https://localhost:5001/api/urzadzenia`;
+const baseUrl = `http://46.41.149.61:5003/api/urzadzenia`;
 
 const setDeviceModelsState = (data) => ({
   type: devicesAT.SET_DEVICE_MODELS,
