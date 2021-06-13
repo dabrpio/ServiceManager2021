@@ -1,6 +1,6 @@
 import * as ticketsAT from './tickets.action-types';
 
-const baseUrl = `https://localhost:5001/api/zlecenia`;
+const baseUrl = `http://46.41.149.61:5003/api/zlecenia`;
 
 const setTicketsState = (data) => ({
   type: ticketsAT.SET_TICKETS,
