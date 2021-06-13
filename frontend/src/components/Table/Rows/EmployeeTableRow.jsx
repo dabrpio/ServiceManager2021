@@ -1,5 +1,6 @@
-import { TableCell, TableRow, Hidden } from '@material-ui/core';
+import { Hidden, TableCell, TableRow } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { employeeTypes } from '../../../common/dropdownOptions';
 
 function EmployeeTableRow({ row, classes, handleClick }) {

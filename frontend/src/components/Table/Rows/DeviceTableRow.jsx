@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function DeviceTableRow({ row, classes, handleClick }) {
   return (

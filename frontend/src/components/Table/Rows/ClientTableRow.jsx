@@ -1,5 +1,6 @@
 import { Hidden, TableCell, TableRow } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function ClientTableRow({ row, classes, handleClick }) {
   return (
