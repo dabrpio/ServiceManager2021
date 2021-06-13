@@ -56,11 +56,7 @@ namespace CommandApi.Controllers
         }
         
         //GET api/urzadzenia/brands
-<<<<<<< HEAD
-        [HttpGet("brands", Name="GetAllBrands")]
-=======
         [HttpGet("brands", Name="GetAllBrandstest")]
->>>>>>> c8cf30384b5da9fc46ec94db8ff40ef05ef21ba3
         public ActionResult<List<string>> GetAllBrands(){
             var commandItem = _repoUrzadzenia.GetAllBrands();
             
@@ -72,11 +68,7 @@ namespace CommandApi.Controllers
             }
         }
         //GET api/urzadzenia/brandstest
-<<<<<<< HEAD
-        [HttpGet("brandstest", Name="GetAllBrandstest")]
-=======
         [HttpGet("brandstest", Name="GetAllBrands")]
->>>>>>> c8cf30384b5da9fc46ec94db8ff40ef05ef21ba3
         public ActionResult<List<Urzadzenia2>> GetAllBrandstest(){
             var commandItem = _repoUrzadzenia.GetBrandsTest();
             if(commandItem!=null){
