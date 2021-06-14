@@ -43,6 +43,7 @@ const SelectedDeviceDialog = (props) => {
     <div>
       <Dialog
         maxWidth="sm"
+        fullWidth
         open={Object.keys(deviceData).length > 0}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"

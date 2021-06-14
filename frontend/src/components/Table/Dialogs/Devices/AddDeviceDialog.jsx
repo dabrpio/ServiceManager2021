@@ -45,6 +45,7 @@ const AddDeviceDialog = ({ addDevice }) => {
       </Tooltip>
       <Dialog
         maxWidth="sm"
+        fullWidth
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
