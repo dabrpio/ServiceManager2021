@@ -1,10 +1,10 @@
 # Service Manager 2021
-> A webapp using  C#,ASP.NET Core 5, React and node.js to make work easier for computer service.  
+> Web App created with React & ASP.NET Core to make work easier for computer service.  
 > ### Live demo [_here_](http://46.41.149.61:5000/). 
 
 ## Table of Contents
 * [General Info](#general-information)
-* [Technologies Used](#technologies-used)
+* [Technologies](#technologies)
 * [Features](#features)
 * [Setup](#setup)
 * [Project Status](#project-status)
@@ -12,16 +12,30 @@
 
 
 ## General Information
-- We make this webapp for computer service in Poznan. They using Google Forms nad Google Sheets to work with clients.
-The problem of the target group is working on multiple tools for   contributes to a waste of the organization's resources.
-Our team are working to make a solve for this problem.
+- We make this Web App for computer service in Poznan. The tools they have been using like Google Forms and Google Sheets were not enough to maintain order in collected data. Our app is all-in-one platform solving this problem by providing all the data managment tools and other necessary functionalities.
 
 
-## Technologies Used
-- C# 
-- ASP.Net Core - version 5
-- React - version 17
-- Node.js - version
+## Technologies
+1. Frontend
+- "@material-ui/core": "^4.11.4",
+- "@material-ui/icons": "^4.11.2",
+- "@material-ui/lab": "^4.0.0-alpha.58",
+- "@react-pdf/renderer": "^2.0.15",
+- "@testing-library/jest-dom": "^5.12.0",
+- "@testing-library/react": "^11.2.7",
+- "@testing-library/user-event": "^12.8.3",
+- "react": "^17.0.2",
+- "react-dom": "^17.0.2",
+- "react-redux": "^7.2.4",
+- "react-router-dom": "^5.2.0",
+- "react-scripts": "^4.0.3",
+- "redux": "^4.1.0",
+- "redux-thunk": "^2.3.0",
+2. Backend
+- "Microsoft.EntityFrameworkCore": "5.0.5",
+- "Microsoft.EntityFrameworkCore.Design": "5.0.5",
+- "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
+- "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.1",
 
 
 ## Features
@@ -30,23 +44,22 @@ List the features here:
 - module of devices,
 - module of tickets,
 - module of users,
-- module of business client,
-- module of sorting,
-- module of managment,
+- fitering & sorting data,
+- adding, updating & deleting data
 
 
 
 ## Setup
 
 #### Backend  
-#####   To start backend you need to do :  
+#####   To start backend you need to:  
 
  `cd /backend`  
  `dotnet build`  
  `dotnet run`  
 
 #### Frontend 
-#####   To start frontend you need to do :
+#####   To start frontend you need to:
 
  `cd /frontend`  
  `npm install`  
