@@ -102,7 +102,6 @@ const withEnhancedTable =
             heading={heading}
             searchInput={searchInput}
             setSearchInput={setSearchInput}
-            homeTable={homeTable}
           />
           <TableContainer className={classes.container}>
             <Table

@@ -28,4 +28,10 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     padding: theme.spacing(1),
   },
+  name: {
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '1.5rem',
+    },
+    fontSize: '1.25rem',
+  },
 }));

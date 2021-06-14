@@ -17,12 +17,6 @@ export const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
-  homeTableText: {
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '20px',
-    },
-    fontSize: '14px',
-  },
 }));
 
 export const useTableStyles = makeStyles((theme) => ({

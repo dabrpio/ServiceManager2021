@@ -1,7 +1,6 @@
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
@@ -15,7 +14,6 @@ export default function EnhancedTableToolbar({
   heading,
   searchInput,
   setSearchInput,
-  homeTable,
 }) {
   const classes = useToolbarStyles();
   const location = useLocation();
@@ -28,10 +26,10 @@ export default function EnhancedTableToolbar({
       {location.pathname === '/clients' && <AddClientDialog />}
       {location.pathname === '/devices' && <AddDeviceDialog />}
       <Typography
-        className={clsx(classes.title, { [classes.homeTableText]: homeTable })}
+        className={classes.title}
         variant="h6"
         id="tableTitle"
-        component="div"
+        component="h4"
       >
         {heading}
       </Typography>

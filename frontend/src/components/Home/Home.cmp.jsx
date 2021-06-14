@@ -41,7 +41,7 @@ function Home({ tickets }) {
   return (
     <div className={classes.root}>
       <div className={classes.text}>
-        <Typography component="h5" variant="h5">
+        <Typography component="h4" classes={{ root: classes.name }}>
           Jan Kowalski, Admin
         </Typography>
       </div>
