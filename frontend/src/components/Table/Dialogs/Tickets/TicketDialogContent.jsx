@@ -1,7 +1,9 @@
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import Autocomplete, {
+  createFilterOptions,
+} from '@material-ui/lab/Autocomplete';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -10,6 +12,8 @@ import {
   selectDeviceModelsState,
 } from '../../../../store/data/devices/devices.selectors';
 import { useDeviceData } from './useDeviceData';
+
+const filter = createFilterOptions();
 
 function TicketDialogContent(props) {
   const { classes, ticket, setTicket, deviceModels, deviceBrands } = props;
@@ -26,30 +30,68 @@ function TicketDialogContent(props) {
   } = useDeviceData(deviceBrands, deviceModels, ticket);
 
   const handleDeviceTypeChange = (_, newValue) => {
-    setType(newValue);
-    setTicket({ ...ticket, rodzaj: newValue?.type ?? null });
+    if (typeof newValue === 'string') {
+      setType({
+        type: newValue,
+      });
+      setTicket({ ...ticket, rodzaj: newValue ?? null });
+    } else if (newValue && newValue.inputValue) {
+      setType({
+        type: newValue.inputValue,
+      });
+      setTicket({ ...ticket, rodzaj: newValue.inputValue ?? null });
+    } else {
+      setType(newValue);
+      setTicket({ ...ticket, rodzaj: newValue?.type ?? null });
+    }
   };
+
   const handleDeviceBrandChange = (_, newValue) => {
-    setBrand(newValue);
-    setTicket({ ...ticket, marka: newValue?.brand ?? null });
+    if (typeof newValue === 'string') {
+      setBrand({
+        brand: newValue,
+      });
+      setTicket({ ...ticket, marka: newValue ?? null });
+    } else if (newValue && newValue.inputValue) {
+      setBrand({
+        brand: newValue.inputValue,
+      });
+      setTicket({ ...ticket, marka: newValue.inputValue ?? null });
+    } else {
+      setBrand(newValue);
+      setTicket({ ...ticket, marka: newValue?.brand ?? null });
+    }
   };
+
   const handleDeviceModelChange = (_, newValue) => {
-    setModel(newValue);
-    setBrand((oldBrand) =>
-      newValue
+    if (typeof newValue === 'string') {
+      setModel({
+        model: newValue,
+      });
+      setTicket({ ...ticket, model: newValue ?? null });
+    } else if (newValue && newValue.inputValue) {
+      setModel({
+        model: newValue.inputValue,
+      });
+      setTicket({ ...ticket, model: newValue.inputValue ?? null });
+    } else {
+      const type_brand = newValue
         ? deviceBrands.find(
             (i) => i.brand === newValue.brand && i.type === newValue.type
           )
-        : oldBrand
-    );
-    setType((oldType) =>
-      newValue
-        ? deviceBrands.find(
-            (i) => i.brand === newValue.brand && i.type === newValue.type
-          )
-        : oldType
-    );
-    setTicket({ ...ticket, model: newValue?.model ?? null });
+        : null;
+
+      setModel(newValue);
+      setBrand((oldBrand) => type_brand ?? oldBrand);
+      setType((oldType) => type_brand ?? oldType);
+
+      setTicket({
+        ...ticket,
+        model: newValue?.model ?? null,
+        marka: type_brand ? type_brand?.brand : ticket.marka,
+        rodzaj: type_brand ? type_brand?.type : ticket.rodzaj,
+      });
+    }
   };
 
   const handleTextFieldChange =
@@ -82,11 +124,33 @@ function TicketDialogContent(props) {
         <Autocomplete
           size="small"
           fullWidth
+          freeSolo
+          selectOnFocus
+          clearOnBlur
+          handleHomeEndKeys
           value={type}
           options={deviceTypeFilter(deviceBrands)}
-          getOptionLabel={(option) => (option.type ? option.type : option)}
+          getOptionLabel={(option) => {
+            if (typeof option === 'string') {
+              return option;
+            }
+            if (option.inputValue) {
+              return option.type;
+            }
+            return option.type;
+          }}
           getOptionSelected={(option, value) => option.type === value.type}
           onChange={handleDeviceTypeChange}
+          filterOptions={(options, params) => {
+            const filtered = filter(options, params);
+            if (params.inputValue !== '') {
+              filtered.push({
+                inputValue: params.inputValue,
+                type: `Dodaj "${params.inputValue}"`,
+              });
+            }
+            return filtered;
+          }}
           renderInput={(params) => (
             <TextField {...params} label="Typ urządzenia" margin="normal" />
           )}
@@ -94,9 +158,31 @@ function TicketDialogContent(props) {
         <Autocomplete
           size="small"
           fullWidth
+          freeSolo
+          selectOnFocus
+          clearOnBlur
+          handleHomeEndKeys
           value={brand}
           options={deviceBrandFilter(deviceBrands)}
-          getOptionLabel={(option) => (option.brand ? option.brand : option)}
+          getOptionLabel={(option) => {
+            if (typeof option === 'string') {
+              return option;
+            }
+            if (option.inputValue) {
+              return option.brand;
+            }
+            return option.brand;
+          }}
+          filterOptions={(options, params) => {
+            const filtered = filter(options, params);
+            if (params.inputValue !== '') {
+              filtered.push({
+                inputValue: params.inputValue,
+                brand: `Dodaj "${params.inputValue}"`,
+              });
+            }
+            return filtered;
+          }}
           getOptionSelected={(option, value) => option.brand === value.brand}
           onChange={handleDeviceBrandChange}
           renderInput={(params) => (
@@ -106,13 +192,35 @@ function TicketDialogContent(props) {
         <Autocomplete
           size="small"
           fullWidth
+          freeSolo
+          selectOnFocus
+          clearOnBlur
+          handleHomeEndKeys
           value={model}
           options={deviceModelFilter(deviceModels).sort(
             (a, b) =>
               -b.brand.localeCompare(a.brand) || -b.model.localeCompare(a.model)
           )}
           groupBy={(option) => (brand ? null : option.brand)}
-          getOptionLabel={(option) => (option.model ? option.model : option)}
+          getOptionLabel={(option) => {
+            if (typeof option === 'string') {
+              return option;
+            }
+            if (option.inputValue) {
+              return option.model;
+            }
+            return option.model;
+          }}
+          filterOptions={(options, params) => {
+            const filtered = filter(options, params);
+            if (params.inputValue !== '') {
+              filtered.push({
+                inputValue: params.inputValue,
+                model: `Dodaj "${params.inputValue}"`,
+              });
+            }
+            return filtered;
+          }}
           getOptionSelected={(option, value) => option === value}
           onChange={handleDeviceModelChange}
           renderInput={(params) => (
