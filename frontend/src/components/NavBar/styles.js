@@ -33,13 +33,7 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: 'auto',
     marginLeft: 0,
   },
-  icon: {
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '50%',
-      width: '50%',
-      height: '50%',
-    },
-  },
+
   list: {
     display: 'flex',
     flexDirection: 'column',
@@ -49,16 +43,43 @@ export const useStyles = makeStyles((theme) => ({
   listItem: {
     [theme.breakpoints.up('sm')]: {
       alignItems: 'center',
-      height: '10vh',
+      height: '6vh',
       maxHeight: '120px',
       color: '#fff',
       justifyContent: 'center',
       width: '100%',
     },
   },
+  icon: {
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '90%',
+      width: '90%',
+      height: '90%',
+    },
+  },
   text: {
     [theme.breakpoints.up('sm')]: {
-      display: 'none',
+      '& .MuiTypography-body1': {
+        fontSize: '2vh',
+        color: '#ffffff',
+      },
+    },
+    [theme.breakpoints.up('lg')]: {
+      '& .MuiTypography-body1': {
+        fontSize: '1.5vh',
+      },
+    },
+    [theme.breakpoints.up('xl')]: {
+      '& .MuiTypography-body1': {
+        fontSize: '1rem',
+      },
+    },
+  },
+
+  listItemWrapper: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      flexDirection: 'column',
     },
   },
 }));

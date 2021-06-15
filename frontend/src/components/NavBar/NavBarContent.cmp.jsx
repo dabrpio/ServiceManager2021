@@ -23,6 +23,7 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           to="/"
           selected={'/' === pathname}
           onClick={handleMenuItemClick}
+          classes={{ root: classes.listItemWrapper }}
         >
           <ListItemIcon className={classes.listItem}>
             <HomeRoundedIcon className={classes.icon} />
@@ -35,6 +36,7 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           to="/tickets"
           selected={'/tickets' === pathname}
           onClick={handleMenuItemClick}
+          classes={{ root: classes.listItemWrapper }}
         >
           <ListItemIcon className={classes.listItem}>
             <ListAltRoundedIcon className={classes.icon} />
@@ -47,6 +49,7 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           to="/clients"
           selected={'/clients' === pathname}
           onClick={handleMenuItemClick}
+          classes={{ root: classes.listItemWrapper }}
         >
           <ListItemIcon className={classes.listItem}>
             <RecentActorsRoundedIcon className={classes.icon} />
@@ -59,6 +62,7 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           to="/devices"
           selected={'/devices' === pathname}
           onClick={handleMenuItemClick}
+          classes={{ root: classes.listItemWrapper }}
         >
           <ListItemIcon className={classes.listItem}>
             <DevicesOtherRoundedIcon className={classes.icon} />
@@ -72,6 +76,7 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           to="/employees"
           selected={'/employees' === pathname}
           onClick={handleMenuItemClick}
+          classes={{ root: classes.listItemWrapper }}
         >
           <ListItemIcon className={classes.listItem}>
             <WorkOutlineRoundedIcon className={classes.icon} />
@@ -84,6 +89,7 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           to="/settings"
           selected={'/settings' === pathname}
           onClick={handleMenuItemClick}
+          classes={{ root: classes.listItemWrapper }}
         >
           <ListItemIcon className={classes.listItem}>
             <SettingsRoundedIcon className={classes.icon} />
@@ -99,6 +105,7 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           to="/login"
           selected={'/login' === pathname}
           onClick={handleMenuItemClick}
+          classes={{ root: classes.listItemWrapper }}
         >
           <ListItemIcon className={classes.listItem}>
             <ExitToAppIcon className={classes.icon} />

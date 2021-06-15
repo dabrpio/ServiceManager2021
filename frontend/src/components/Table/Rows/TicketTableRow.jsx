@@ -19,7 +19,7 @@ function TicketTableRow({ row, classes, handleClick }) {
       <TableCell className={classes.td}>{row.rma}</TableCell>
       <Hidden smDown>
         <TableCell className={classes.td}>
-          {new Date(row.dataPrzyjecia).toLocaleDateString('pl')}
+          {new Date(row.dataPrzyjecia).toLocaleDateString('uk-UA')}
         </TableCell>
       </Hidden>
 
