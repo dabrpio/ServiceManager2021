@@ -21,8 +21,11 @@ export default function devicesReducer(state = initialState, action) {
     }
     case devicesAT.ADD_DEVICE: {
       return {
-        ...state,
         models: [action.payload, ...state.models],
+        brands: [
+          { type: action.payload.type, brand: action.payload.brand },
+          ...state.brands,
+        ],
       };
     }
     case devicesAT.UPDATE_DEVICE: {
