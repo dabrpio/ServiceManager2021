@@ -60,18 +60,13 @@ export const useStyles = makeStyles((theme) => ({
   text: {
     [theme.breakpoints.up('sm')]: {
       '& .MuiTypography-body1': {
-        fontSize: '2vh',
+        fontSize: 'max(2vh, 12px)',
         color: '#ffffff',
       },
     },
     [theme.breakpoints.up('lg')]: {
       '& .MuiTypography-body1': {
-        fontSize: '1.5vh',
-      },
-    },
-    [theme.breakpoints.up('xl')]: {
-      '& .MuiTypography-body1': {
-        fontSize: '1rem',
+        fontSize: `0.875rem`,
       },
     },
   },
