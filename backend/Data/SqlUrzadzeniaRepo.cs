@@ -96,5 +96,10 @@ namespace CommandApi.Data
         {
             return _context.Urzadzenia.OrderBy(p=>p.Model).Distinct().ToList();
         }
+
+        public List<Urzadzenia> GetUrzadzeniaByModel(string type, string brand, string model)
+        {
+            return _context.Urzadzenia.OrderBy(p=>p.Model).Where(p=>p.Brand==brand&&p.Type==type&&p.Model==model).ToList();
+        }
     }
 }

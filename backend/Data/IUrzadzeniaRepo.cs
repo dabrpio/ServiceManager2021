@@ -19,6 +19,7 @@ namespace CommandApi.Data
         List<string> GetAllModels();
         List<Urzadzenia2> GetBrandsTest();
         List<Urzadzenia> GetModelsTest();
+        List<Urzadzenia> GetUrzadzeniaByModel(string type, string brand, string model);
 
         void CreateUrzadzenia(Urzadzenia urzadzenie);
         void DeleteUrzadzenia(Urzadzenia urzadzenie);

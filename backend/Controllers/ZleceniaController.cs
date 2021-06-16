@@ -112,14 +112,14 @@ namespace CommandApi.Controllers
             _repoZlecenia.CreateZlecenia(zleceniaModel);
             _repoZlecenia.SaveChanges();
 
-           /* if(_repoUrzadzenia.GetUrzadzeniaByModel(zleceniaModel.Rodzaj,zleceniaModel.Marka,zleceniaModel.Model).Count==0){
+            if(_repoUrzadzenia.GetUrzadzeniaByModel(zleceniaModel.Rodzaj,zleceniaModel.Marka,zleceniaModel.Model).Count==0){
                 Urzadzenia device=new Urzadzenia();
                 device.Brand=zleceniaModel.Marka;
                 device.Type=zleceniaModel.Rodzaj;
                 device.Model=zleceniaModel.Model;
                 _repoUrzadzenia.CreateUrzadzenia(device);
                 _repoUrzadzenia.SaveChanges();
-            }*/
+            }
            
             var ZleceniaReadDto = _mapper.Map<ZleceniaReadDto>(zleceniaModel);
             ZleceniaReadDto.Imie=klienciModel.Imie;
