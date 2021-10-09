@@ -6,7 +6,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import SelectedClientDialog from './Dialogs/Clients/SelectedClientDialog';
 import SelectedDeviceDialog from './Dialogs/Devices/SelectedDeviceDialog';
@@ -14,7 +14,7 @@ import SelectedEmployeeDialog from './Dialogs/Employees/SelectedEmployeeDialog';
 import SelectedTicketDialog from './Dialogs/Tickets/SelectedTicketDialog';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
-import { useTableCustomHook } from './hooks';
+import { useFilter } from './filtering';
 import DeleteErrorSnackbar from './SnackBar';
 import { getComparator, stableSort } from './sorting';
 import { useTableStyles } from './styles';
@@ -23,21 +23,13 @@ const withEnhancedTable =
   (EnhancedRow) =>
   ({ data, headCells, heading, homeTable }) => {
     const location = useLocation();
-    const {
-      order,
-      setOrder,
-      orderBy,
-      setOrderBy,
-      page,
-      setPage,
-      rowsPerPage,
-      setRowsPerPage,
-      searchInput,
-      setSearchInput,
-      selectedRowData,
-      setSelectedRowData,
-      filteredData,
-    } = useTableCustomHook(data);
+    const [order, setOrder] = useState('desc');
+    const [orderBy, setOrderBy] = useState('undefined');
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(25);
+    const [searchInput, setSearchInput] = useState('');
+    const [selectedRowData, setSelectedRowData] = useState(null);
+    const filteredData = useFilter(data, searchInput);
     const classes = useTableStyles();
 
     const handleRequestSort = (_, property) => {

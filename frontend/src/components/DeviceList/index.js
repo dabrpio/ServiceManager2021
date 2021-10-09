@@ -1,3 +1,3 @@
-import DeviceList from './DeviceList.cnt';
+import DeviceList from './DeviceList';
 
 export default DeviceList;

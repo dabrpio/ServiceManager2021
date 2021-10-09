@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { selectClientsState } from '../../store/data/clients/clients.selectors';
 import withEnhancedTable from '../Table/EnhancedTable';
 import ClientTableRow from '../Table/Rows/ClientTableRow';
 
@@ -34,7 +36,11 @@ function ClientList({ clients }) {
   return <ClientTable headCells={headCells} data={clients} heading="Klienci" />;
 }
 
-export default ClientList;
+const mapStateToProps = (state, ownProps) => ({
+  clients: selectClientsState(state),
+});
+
+export default connect(mapStateToProps, null)(ClientList);
 
 ClientList.propTypes = {
   clients: PropTypes.array.isRequired,

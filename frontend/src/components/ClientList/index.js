@@ -1,3 +1,3 @@
-import ClientList from './ClientList.cnt';
+import ClientList from './ClientList';
 
 export default ClientList;

@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { selectTicketsState } from '../../store/data/tickets/tickets.selectors';
 import withEnhancedTable from '../Table/EnhancedTable';
 import TicketTableRow from '../Table/Rows/TicketTableRow';
 
@@ -38,8 +41,18 @@ const headCells = [
   },
 ];
 
-export default function TicketList({ tickets }) {
+function TicketList({ tickets }) {
   return (
     <TicketTable headCells={headCells} data={tickets} heading="Zlecenia" />
   );
 }
+
+const mapStateToProps = (state, ownProps) => ({
+  tickets: selectTicketsState(state),
+});
+
+export default connect(mapStateToProps, null)(TicketList);
+
+TicketList.propTypes = {
+  tickets: PropTypes.array.isRequired,
+};

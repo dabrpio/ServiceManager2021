@@ -3,6 +3,8 @@ import React from 'react';
 import withEnhancedTable from '../Table/EnhancedTable';
 import HomeTableRow from '../Table/Rows/HomeTableRow';
 import { useStyles } from './styles';
+import { connect } from 'react-redux';
+import { selectDoneTicketsState } from '../../store/data/tickets/tickets.selectors';
 
 const HomeTable = withEnhancedTable(HomeTableRow);
 
@@ -56,4 +58,8 @@ function Home({ tickets }) {
   );
 }
 
-export default Home;
+const mapStateToProps = (state, ownProps) => ({
+  tickets: selectDoneTicketsState(state),
+});
+
+export default connect(mapStateToProps, null)(Home);

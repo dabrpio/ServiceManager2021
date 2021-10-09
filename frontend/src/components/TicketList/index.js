@@ -1,3 +1,3 @@
-import TicketList from './TicketList.cnt';
+import TicketList from './TicketList';
 
 export default TicketList;

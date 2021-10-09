@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import React, { useState } from 'react';
-import { useStyles } from './useStyles';
+import { useStyles } from './styles';
 
 function Login() {
   const classes = useStyles();

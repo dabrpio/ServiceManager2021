@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import NavBarContent from './NavBarContent.cmp';
+import NavBarContent from './NavBarContent';
 import { useStyles } from './styles';
 
 function NavBar() {

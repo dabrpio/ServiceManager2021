@@ -1,3 +1,3 @@
-import NavBar from './NavBar.cmp';
+import NavBar from './NavBar';
 
 export default NavBar;

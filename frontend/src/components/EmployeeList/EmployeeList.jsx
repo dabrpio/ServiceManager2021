@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { selectEmployeesState } from '../../store/data/employees/employees.selectors';
 import withEnhancedTable from '../Table/EnhancedTable';
 import EmployeeTableRow from '../Table/Rows/EmployeeTableRow';
 
@@ -35,7 +37,11 @@ function EmployeeList({ employees }) {
   );
 }
 
-export default EmployeeList;
+const mapStateToProps = (state, ownProps) => ({
+  employees: selectEmployeesState(state),
+});
+
+export default connect(mapStateToProps, null)(EmployeeList);
 
 EmployeeList.propTypes = {
   employees: PropTypes.array.isRequired,

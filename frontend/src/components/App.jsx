@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { plPL } from '@material-ui/core/locale';
-
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { fetchClients } from '../store/data/clients/clients.actions';
+import { fetchDevices } from '../store/data/devices/devices.actions';
+import { fetchEmployees } from '../store/data/employees/employees.actions';
+import { fetchTickets } from '../store/data/tickets/tickets.actions';
 import ClientList from './ClientList';
+import DeviceList from './DeviceList';
 import EmployeeList from './EmployeeList';
 import Home from './Home';
 import Login from './Login';
+import NavBar from './NavBar';
 import Settings from './Settings';
 import TicketList from './TicketList';
-import NavBar from './NavBar';
-import DeviceList from './DeviceList';
 
 const theme = createMuiTheme({}, plPL);
 
@@ -67,4 +71,13 @@ const DefaultContainer = () => (
   </>
 );
 
-export default App;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  init: () => {
+    dispatch(fetchTickets());
+    dispatch(fetchEmployees());
+    dispatch(fetchClients());
+    dispatch(fetchDevices());
+  },
+});
+
+export default connect(null, mapDispatchToProps)(App);

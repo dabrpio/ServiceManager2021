@@ -1,3 +1,3 @@
-import Settings from './Settings.cmp';
+import Settings from './Settings';
 
 export default Settings;
