@@ -7,23 +7,23 @@ namespace CommandApi.Data
         public string Type{get;set;}
         public string Brand{get;set;}
     }
-    public interface IUrzadzeniaRepo
+    public interface IDevicesRepo
     {
         bool SaveChanges();
-        IEnumerable<Urzadzenia> GetAllUrzadzenia();
-        Urzadzenia GetUrzadzeniaById(short? id);
+        IEnumerable<Device> GetAllUrzadzenia();
+        Device GetUrzadzeniaById(short? id);
         List<string> GetAllTypes();
         List<string> GetSpecificBrand(string type);
         List<string> GetSpecificModel(string type,string brand);
         List<string> GetAllBrands();
         List<string> GetAllModels();
         List<Urzadzenia2> GetBrandsTest();
-        List<Urzadzenia> GetModelsTest();
-        List<Urzadzenia> GetUrzadzeniaByModel(string type, string brand, string model);
+        List<Device> GetModelsTest();
+        List<Device> GetUrzadzeniaByModel(string type, string brand, string model);
 
-        void CreateUrzadzenia(Urzadzenia urzadzenie);
-        void DeleteUrzadzenia(Urzadzenia urzadzenie);
-        void UpdateUrzadzenia(Urzadzenia urzadzenie);
+        void CreateUrzadzenia(Device urzadzenie);
+        void DeleteUrzadzenia(Device urzadzenie);
+        void UpdateUrzadzenia(Device urzadzenie);
 
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CommandApi.Dtos
 {
-    public partial class UrzadzeniaCreateDto
+    public partial class DevicesCreateDto
     {
         [Required]
         [StringLength(50)]

@@ -18,25 +18,52 @@ namespace CommandApi.Data
         {
         }
 
-        public virtual DbSet<Klienci> Klienci { get; set; }
-        public virtual DbSet<Urzadzenia> Urzadzenia { get; set; }
-        public virtual DbSet<Uzytkownicy> Uzytkownicy { get; set; }
-        public virtual DbSet<Zlecenia> Zlecenia { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Device> Devices { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
+      /*  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=46.41.149.61;Initial Catalog=SM2021;User ID=SA;Password=Serwis24!;");
+            }
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<Zlecenia>(entity =>
+            modelBuilder.Entity<Client>(entity =>
             {
-                entity.Property(e => e.DataPrzyjecia).HasDefaultValueSql("(getdate())");
+                entity.HasKey(e => e.IdClient)
+                    .HasName("PK_klienci");
+            });
 
-                entity.HasOne(d => d.IdKlientaNavigation)
-                    .WithMany(p => p.Zlecenia)
-                    .HasForeignKey(d => d.IdKlienta)
+            modelBuilder.Entity<Ticket>(entity =>
+            {
+                entity.Property(e => e.Date).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.IdClientNavigation)
+                    .WithMany(p => p.Tickets)
+                    .HasForeignKey(d => d.IdClient)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__zlecenia__id_kli__3D5E1FD2");
+                    .HasConstraintName("FK_tickets_clients");
+
+                entity.HasOne(d => d.IdCompanyNavigation)
+                    .WithMany(p => p.Tickets)
+                    .HasPrincipalKey(p => p.IdCompany)
+                    .HasForeignKey(d => d.IdCompany)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_TempSales_SalesReason");
+
+                entity.HasOne(d => d.IdDevicesNavigation)
+                    .WithMany(p => p.Tickets)
+                    .HasForeignKey(d => d.IdDevices)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tickets_devices");
             });
 
             OnModelCreatingPartial(modelBuilder);
