@@ -11,9 +11,10 @@ namespace CommandApi.Data
         public SqlDevicesRepo(SM2021Context context)
         {
             _context = context;
+            _context.Tickets.ToList();
         }
 
-        public void CreateUrzadzenia(Device urzadzenie)
+        public void CreateDevice(Device urzadzenie)
         {
             if(urzadzenie==null){
                 throw new ArgumentNullException(nameof(urzadzenie));
@@ -54,9 +55,8 @@ namespace CommandApi.Data
             return commandItem;
         }
 
-        public Device GetUrzadzeniaById(short? id)
+        public Device GetDeviceById(short? id)
         {
-            _context.Tickets.ToList();
             return _context.Devices.FirstOrDefault(p=>p.IdDevices==id);
         }
 
@@ -97,9 +97,9 @@ namespace CommandApi.Data
             return _context.Devices.OrderBy(p=>p.Model).Distinct().ToList();
         }
 
-        public List<Device> GetUrzadzeniaByModel(string type, string brand, string model)
+        public Device GetDeviceByModel(string type, string brand, string model)
         {
-            return _context.Devices.OrderBy(p=>p.Model).Where(p=>p.Brand==brand&&p.Type==type&&p.Model==model).ToList();
+            return _context.Devices.FirstOrDefault(p=>p.Brand==brand&&p.Type==type&&p.Model==model);
         }
     }
 }

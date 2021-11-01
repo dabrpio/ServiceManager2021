@@ -12,9 +12,11 @@ namespace CommandApi.Data
         public SqlTicketsRepo(SM2021Context context)
         {
             _context = context;
+            _context.Clients.ToList();
+            _context.Devices.ToList();
         }
 
-        public void CreateZlecenia(Ticket zlecenie)
+        public void CreateTicket(Ticket zlecenie)
         {
             if(zlecenie==null){
                 throw new ArgumentNullException(nameof(zlecenie));
@@ -22,19 +24,17 @@ namespace CommandApi.Data
             _context.Tickets.Add(zlecenie);
         }
 
-        public IEnumerable<Ticket> GetAllZlecenia()
+        public IEnumerable<Ticket> GetAllTickets()
         {
-            _context.Clients.ToList();
             return _context.Tickets.OrderByDescending(p=>p.Rma).ToList();
         }
 
         public IEnumerable<Ticket> Get25Zlecenia()
         {
-            _context.Clients.ToList();
             return _context.Tickets.OrderByDescending(p=>p.Rma).Take(25).ToList();
         }
 
-        public Ticket GetZleceniaByRma(int Rma)
+        public Ticket GetTicketsByRma(int Rma)
         {
             return _context.Tickets.FirstOrDefault(p=>p.Rma==Rma);
         }
@@ -44,11 +44,11 @@ namespace CommandApi.Data
            return (_context.SaveChanges()>=0);
         }
 
-        public void UpdateZlecenia(Ticket zleceniaUpdate){
+        public void UpdateTicket(Ticket zleceniaUpdate){
              //nothing
         }
 
-        public void DeleteZlecenia(Ticket zlecenie)
+        public void DeleteTicket(Ticket zlecenie)
         {
             if(zlecenie==null){
                 throw new ArgumentNullException(nameof(zlecenie));

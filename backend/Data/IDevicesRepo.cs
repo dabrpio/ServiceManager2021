@@ -11,7 +11,7 @@ namespace CommandApi.Data
     {
         bool SaveChanges();
         IEnumerable<Device> GetAllUrzadzenia();
-        Device GetUrzadzeniaById(short? id);
+        Device GetDeviceById(short? id);
         List<string> GetAllTypes();
         List<string> GetSpecificBrand(string type);
         List<string> GetSpecificModel(string type,string brand);
@@ -19,9 +19,9 @@ namespace CommandApi.Data
         List<string> GetAllModels();
         List<Urzadzenia2> GetBrandsTest();
         List<Device> GetModelsTest();
-        List<Device> GetUrzadzeniaByModel(string type, string brand, string model);
+        Device GetDeviceByModel(string type, string brand, string model);
 
-        void CreateUrzadzenia(Device urzadzenie);
+        void CreateDevice(Device urzadzenie);
         void DeleteUrzadzenia(Device urzadzenie);
         void UpdateUrzadzenia(Device urzadzenie);
 

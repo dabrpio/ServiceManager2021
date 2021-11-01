@@ -27,19 +27,22 @@ namespace CommandApi.Controllers
 
         //GET api/tickets
         [HttpGet]
-        public ActionResult<IEnumerable<TicketsReadDto>> GetAllZlecenia(){
-            var commandItems = _repoTickets.GetAllZlecenia();
+        public ActionResult<IEnumerable<TicketsReadDto>> GetAllTickets(){
+            var commandItems = _repoTickets.GetAllTickets();
             List<TicketsReadDto> commIt = new List<TicketsReadDto>();
             foreach(var item in commandItems){
                 TicketsReadDto inp=new TicketsReadDto();
                 inp=_mapper.Map<TicketsReadDto>(item);
-                /*inp.IdClient=item.IdKlientaNavigation.IdClient;
-                inp.Imie=item.IdKlientaNavigation.Imie;
-                inp.Nazwisko=item.IdKlientaNavigation.Nazwisko;
-                inp.NrTel=item.IdKlientaNavigation.NrTel;
-                inp.EMail=item.IdKlientaNavigation.EMail;
-                inp.Nip=item.IdKlientaNavigation.Nip;
-                inp.Nazwa=item.IdKlientaNavigation.Nazwa;*/
+                inp.Name=item.IdClientNavigation.Name;
+                inp.Surname=item.IdClientNavigation.Surname;
+                inp.PhoneNumber=item.IdClientNavigation.PhoneNumber;
+                inp.EMail=item.IdClientNavigation.EMail;
+                inp.Nip=item.IdClientNavigation.Nip;
+                inp.CompanyName=item.IdClientNavigation.CompanyName;
+                inp.IdDevices=item.IdDevicesNavigation.IdDevices;
+                inp.Type=item.IdDevicesNavigation.Type;
+                inp.Brand=item.IdDevicesNavigation.Brand;
+                inp.Model=item.IdDevicesNavigation.Model;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<IEnumerable<TicketsReadDto>>(commIt));
@@ -50,43 +53,41 @@ namespace CommandApi.Controllers
 
          //GET api/tickets/top25
 
-        [HttpGet("top25")]
+        /*[HttpGet("top25")]
         public ActionResult<IEnumerable<TicketsReadDto>> Get25Zlecenia(){
             var commandItems = _repoTickets.Get25Zlecenia();
             List<TicketsReadDto> commIt = new List<TicketsReadDto>();
             foreach(var item in commandItems){
                 TicketsReadDto inp=new TicketsReadDto();
                 inp=_mapper.Map<TicketsReadDto>(item);
-                /*inp.IdClient=item.IdKlientaNavigation.IdClient;
-                inp.Imie=item.IdKlientaNavigation.Imie;
-                inp.Nazwisko=item.IdKlientaNavigation.Nazwisko;
-                inp.NrTel=item.IdKlientaNavigation.NrTel;
-                inp.EMail=item.IdKlientaNavigation.EMail;
-                inp.Nip=item.IdKlientaNavigation.Nip;
-                inp.Nazwa=item.IdKlientaNavigation.Nazwa;*/
+                inp.IdClient=item.IdClientNavigation.IdClient;
+                inp.Imie=item.IdClientNavigation.Imie;
+                inp.Nazwisko=item.IdClientNavigation.Nazwisko;
+                inp.NrTel=item.IdClientNavigation.NrTel;
+                inp.EMail=item.IdClientNavigation.EMail;
+                inp.Nip=item.IdClientNavigation.Nip;
+                inp.Nazwa=item.IdClientNavigation.Nazwa;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<List<TicketsReadDto>>(commIt));
-        }
+        }*/
 
         //GET api/tickets/{Rma}
-        [HttpGet("{Rma}", Name="GetZleceniaByRma")]
-        public ActionResult<TicketsReadDto> GetZleceniaByRma(int Rma){
-            var commandItem = _repoTickets.GetZleceniaByRma(Rma);
+        [HttpGet("{Rma}", Name="GetTicketsByRma")]
+        public ActionResult<TicketsReadDto> GetTicketsByRma(int Rma){
+            var commandItem = _repoTickets.GetTicketsByRma(Rma);
             if(commandItem!=null){
-                var klient=_repoClients.GetKlienciById(commandItem.IdClient);
-                if(klient==null){
-                    return NoContent();
-                }
                 TicketsReadDto inp=new TicketsReadDto();
                 inp=_mapper.Map<TicketsReadDto>(commandItem);
-               /* inp.IdClient=klient.IdClient;
-                inp.Imie=klient.Imie;
-                inp.Nazwisko=klient.Nazwisko;
-                inp.NrTel=klient.NrTel;
-                inp.EMail=klient.EMail;
-                inp.Nip=klient.Nip;
-                inp.Nazwa=klient.Nazwa;*/
+                inp.Name=commandItem.IdClientNavigation.Name;
+                inp.Surname=commandItem.IdClientNavigation.Surname;
+                inp.PhoneNumber=commandItem.IdClientNavigation.PhoneNumber;
+                inp.EMail=commandItem.IdClientNavigation.EMail;
+                inp.Nip=commandItem.IdClientNavigation.Nip;
+                inp.CompanyName=commandItem.IdClientNavigation.CompanyName;
+                inp.Type=commandItem.IdDevicesNavigation.Type;
+                inp.Brand=commandItem.IdDevicesNavigation.Brand;
+                inp.Model=commandItem.IdDevicesNavigation.Model;
                 return Ok(_mapper.Map<TicketsReadDto>(inp));
             }
             else{
@@ -98,90 +99,88 @@ namespace CommandApi.Controllers
         //POST api/tickets
         [HttpPost]
         public ActionResult<TicketsReadDto> CreateZlecenie(TicketsCreateDto ticketsCreateDto){
-            var ticketsModel =_mapper.Map<Ticket>(ticketsCreateDto);
-            /*var klienciModel = _mapper.Map<Client>(ticketsCreateDto);
-            if(_repoClients.GetKlienciByPhNumer(klienciModel.NrTel,klienciModel.Imie,klienciModel.Nazwisko)==null){
-                _repoClients.CreateKlienci(klienciModel);
+            var ticketModel =_mapper.Map<Ticket>(ticketsCreateDto);
+            var clientModel =_mapper.Map<Client>(ticketsCreateDto);
+            var deviceModel =_mapper.Map<Device>(ticketsCreateDto);
+
+ 
+            if(_repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname)==null){
+                _repoClients.CreateClient(clientModel);
                 _repoClients.SaveChanges();
             }
-            ticketsModel.IdClient=_repoClients.GetKlienciByPhNumer(klienciModel.NrTel,klienciModel.Imie,klienciModel.Nazwisko).IdClient;
-            if(ticketsModel.Status=="zrobione")
-            {
-                ticketsModel.DataWydania=DateTime.Now;
+
+            if(_repoDevices.GetDeviceByModel(deviceModel.Type,deviceModel.Brand,deviceModel.Model)==null){
+                _repoDevices.CreateDevice(deviceModel);
+                _repoDevices.SaveChanges();
             }
-            _repoTickets.CreateZlecenia(ticketsModel);
+
+            ticketModel.IdClient=_repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname).IdClient;
+            ticketModel.IdDevices=_repoDevices.GetDeviceByModel(deviceModel.Type,deviceModel.Brand,deviceModel.Model).IdDevices;
+
+            if(ticketModel.Status=="zrobione")
+            {
+                ticketModel.IssueDate=DateTime.Now;
+            }
+            _repoTickets.CreateTicket(ticketModel);
             _repoTickets.SaveChanges();
 
-            if(_repoDevices.GetUrzadzeniaByModel(ticketsModel.Rodzaj,ticketsModel.Marka,ticketsModel.Model).Count==0){
-                Urzadzenia device=new Urzadzenia();
-                device.Brand=ticketsModel.Marka;
-                device.Type=ticketsModel.Rodzaj;
-                device.Model=ticketsModel.Model;
-                _repoDevices.CreateUrzadzenia(device);
-                _repoDevices.SaveChanges();
-            }*/
-           
-            var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketsModel);
-           /* TicketsReadDto.Imie=klienciModel.Imie;
-            TicketsReadDto.Nazwisko=klienciModel.Nazwisko;
-            TicketsReadDto.NrTel=klienciModel.NrTel;
-            TicketsReadDto.EMail=klienciModel.EMail;
-            TicketsReadDto.Nip=klienciModel.Nip;
-            TicketsReadDto.Nazwa=klienciModel.Nazwa;*/
+            var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
 
-            return CreatedAtRoute(nameof(GetZleceniaByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
+            return CreatedAtRoute(nameof(GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
 
         }
 
 
-       /* //PUT api/tickets/{rma}
+        //PUT api/tickets/{rma}
         [HttpPut("{rma}")]
-        public ActionResult UpdateZlecenia(int rma, TicketsCreateDto ticketsUpdate){
-            var zlecenieModel = _repoTickets.GetZleceniaByRma(rma);
-            Client klientModel=_repoClients.GetKlienciById(zlecenieModel.IdClient);
-            if(zlecenieModel!=null){
+        public ActionResult UpdateTicket(int rma, TicketsCreateDto ticketsUpdate){
+            var ticketModel = _repoTickets.GetTicketsByRma(rma);
+            var clientModel = _repoClients.GetClientById(ticketModel.IdClient);
+            var deviceModel = _repoDevices.GetDeviceById(ticketModel.IdDevices);
+            if(ticketModel!=null){
                 if(ticketsUpdate.Status=="zrobione")
                 {
-                    if(zlecenieModel.DataWydania==null)
+                    if(ticketModel.IssueDate==null)
                     {
-                        ticketsUpdate.DataWydania=DateTime.Now;
+                        ticketsUpdate.IssueDate=DateTime.Now;
                     }
                 }
                 else
                 {
-                    if(zlecenieModel.DataWydania!=null)
+                    if(ticketModel.IssueDate!=null)
                     {
-                        ticketsUpdate.DataWydania=null;
+                        ticketsUpdate.IssueDate=null;
                     }
                 }
-                if(_repoDevices.GetUrzadzeniaByModel(ticketsUpdate.Rodzaj,ticketsUpdate.Marka,ticketsUpdate.Model).Count==0){
-                    Urzadzenia device=new Urzadzenia();
-                    device.Brand=ticketsUpdate.Marka;
-                    device.Type=ticketsUpdate.Rodzaj;
-                    device.Model=ticketsUpdate.Model;
-                    _repoDevices.CreateUrzadzenia(device);
+                if(_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model)==null){
+                    var inp = _mapper.Map<Device>(ticketsUpdate);
+                    _repoDevices.CreateDevice(inp);
                     _repoDevices.SaveChanges();
                 }
-                _mapper.Map(ticketsUpdate,zlecenieModel);
-                _mapper.Map(ticketsUpdate,klientModel);
-                _repoTickets.UpdateZlecenia(zlecenieModel);
-                _repoClients.UpdateKlienci(klientModel);
+                ticketModel.IdDevices=_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model).IdDevices;
+                _mapper.Map(ticketsUpdate,ticketModel);
+                _mapper.Map(ticketsUpdate,clientModel);
+                _repoTickets.UpdateTicket(ticketModel);
+                _repoClients.UpdateClient(clientModel);
                 _repoTickets.SaveChanges();
                 _repoClients.SaveChanges();
-                return NoContent();
+                
+                var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
+
+                return CreatedAtRoute(nameof(GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
             }
             else{
                 return NotFound();
             }
-        }*/
+        }
 
         //DELETE api/tickets/{rma}
         [HttpDelete("{rma}")]
-        public ActionResult DeleteZlecenia(int rma)
+        public ActionResult DeleteTicket(int rma)
         {
-            var commandItem=_repoTickets.GetZleceniaByRma(rma);
+            var commandItem=_repoTickets.GetTicketsByRma(rma);
             if(commandItem!=null){
-                _repoTickets.DeleteZlecenia(commandItem);
+                _repoTickets.DeleteTicket(commandItem);
                 _repoTickets.SaveChanges();
                 return NoContent();
             }

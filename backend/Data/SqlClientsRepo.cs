@@ -12,9 +12,10 @@ namespace CommandApi.Data
         public SqlClientsRepo(SM2021Context context)
         {
             _context = context;
+            _context.Tickets.ToList();
         }
 
-        public void CreateKlienci(Client klient)
+        public void CreateClient(Client klient)
         {
             if(klient==null){
                 throw new ArgumentNullException(nameof(klient));
@@ -27,12 +28,12 @@ namespace CommandApi.Data
             return _context.Clients.OrderByDescending(p=>p.IdClient).ToList();
         }
 
-        public Client GetKlienciById(short? id)
+        public Client GetClientById(short? id)
         {
-            _context.Tickets.ToList();
+
             return _context.Clients.FirstOrDefault(p=>p.IdClient==id);
         }
-        public Client GetKlienciByPhNumer(int? phone, string imie, string nazwisko)
+        public Client GetClientByPhNumer(int? phone, string imie, string nazwisko)
         {
             return _context.Clients.FirstOrDefault(p=>p.PhoneNumber==phone&&p.Name==imie&&p.Surname==nazwisko);
         }
@@ -49,7 +50,7 @@ namespace CommandApi.Data
            return (_context.SaveChanges()>=0);
         }
 
-        public void UpdateKlienci(Client klient){
+        public void UpdateClient(Client klient){
             //nothing
         }
 

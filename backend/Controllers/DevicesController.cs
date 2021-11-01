@@ -31,9 +31,9 @@ namespace CommandApi.Controllers
 
 
         //GET api/devices/{id}
-        [HttpGet("{id:int}", Name="GetUrzadzeniaById")]
-        public ActionResult<DevicesReadDto> GetUrzadzeniaById(short? id){
-            var commandItem = _repoDevices.GetUrzadzeniaById(id);
+        [HttpGet("{id:int}", Name="GetDeviceById")]
+        public ActionResult<DevicesReadDto> GetDeviceById(short? id){
+            var commandItem = _repoDevices.GetDeviceById(id);
             if(commandItem!=null){
                 return Ok(_mapper.Map<DevicesReadDto>(commandItem));
             }
@@ -133,7 +133,7 @@ namespace CommandApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteUrzadzenia(short? id)
         {
-            var commandItem=_repoDevices.GetUrzadzeniaById(id);
+            var commandItem=_repoDevices.GetDeviceById(id);
             if(commandItem!=null){
                 _repoDevices.DeleteUrzadzenia(commandItem);
                 _repoDevices.SaveChanges();
@@ -146,12 +146,12 @@ namespace CommandApi.Controllers
 
         //POST api/devices
         [HttpPost]
-        public ActionResult<DevicesReadDto> CreateKlienci(DevicesCreateDto urzadzenie){
+        public ActionResult<DevicesReadDto> CreateClient(DevicesCreateDto urzadzenie){
             var urzadzeniaModel = _mapper.Map<Device>(urzadzenie);
-            _repoDevices.CreateUrzadzenia(urzadzeniaModel);
+            _repoDevices.CreateDevice(urzadzeniaModel);
             _repoDevices.SaveChanges();
             var DevicesReadDto= _mapper.Map<DevicesReadDto>(urzadzeniaModel);
-            return CreatedAtRoute(nameof(GetUrzadzeniaById), new {id = DevicesReadDto.IdDevices},DevicesReadDto);
+            return CreatedAtRoute(nameof(GetDeviceById), new {id = DevicesReadDto.IdDevices},DevicesReadDto);
 
         }
 
@@ -159,7 +159,7 @@ namespace CommandApi.Controllers
         //PUT api/devices/{id}
         [HttpPut("{id}")]
         public ActionResult UpdateKliecni(short? id, DevicesCreateDto urzadzenie){
-             var commandItem = _repoDevices.GetUrzadzeniaById(id);
+             var commandItem = _repoDevices.GetDeviceById(id);
             
             if(commandItem!=null){
                 _mapper.Map(urzadzenie,commandItem);

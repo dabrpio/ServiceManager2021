@@ -8,8 +8,7 @@ namespace CommandApi.Profiles
     {
         public DevicesProfile(){
             //Source -> target
-           /* CreateMap<Zlecenia,Device>();
-            CreateMap<Device,Device>();*/
+
             CreateMap<Device, DevicesReadDto>();
 
             CreateMap<DevicesCreateDto,Device>();

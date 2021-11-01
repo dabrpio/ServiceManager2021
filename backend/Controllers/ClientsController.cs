@@ -30,9 +30,9 @@ namespace CommandApi.Controllers
 
 
         //GET api/clients/{id}
-        [HttpGet("{id:int}", Name="GetKlienciById")]
-        public ActionResult<ClientsReadDto> GetKlienciById(short? id){
-            var commandItem = _repoClients.GetKlienciById(id);
+        [HttpGet("{id:int}", Name="GetClientById")]
+        public ActionResult<ClientsReadDto> GetClientById(short? id){
+            var commandItem = _repoClients.GetClientById(id);
             if(commandItem!=null){
                 List<int> rmas=new List<int>();
                 foreach(var ticket in commandItem.Tickets){
@@ -79,14 +79,14 @@ namespace CommandApi.Controllers
 
         //POST api/kliecni
         [HttpPost]
-        public ActionResult<ClientsReadDto> CreateKlienci(ClientsCreateDto klienciCreateDto){
+        public ActionResult<ClientsReadDto> CreateClient(ClientsCreateDto klienciCreateDto){
             var klienciModel =_mapper.Map<Client>(klienciCreateDto);
-            _repoClients.CreateKlienci(klienciModel);
+            _repoClients.CreateClient(klienciModel);
             _repoClients.SaveChanges();
 
             var klienciReadDto = _mapper.Map<ClientsReadDto>(klienciModel);
 
-            return CreatedAtRoute(nameof(GetKlienciById), new {id = klienciReadDto.IdClient},klienciReadDto);
+            return CreatedAtRoute(nameof(GetClientById), new {id = klienciReadDto.IdClient},klienciReadDto);
 
         }
 
@@ -94,11 +94,11 @@ namespace CommandApi.Controllers
         //PUT api/kliecni/{id}
         [HttpPut("{id}")]
         public ActionResult UpdateKliecni(short? id, ClientsCreateDto klienciUpdate){
-             var commandItem = _repoClients.GetKlienciById(id);
+             var commandItem = _repoClients.GetClientById(id);
             
             if(commandItem!=null){
                 _mapper.Map(klienciUpdate, commandItem);
-                _repoClients.UpdateKlienci(commandItem);
+                _repoClients.UpdateClient(commandItem);
                 _repoClients.SaveChanges();
                 return NoContent();
             }
@@ -111,7 +111,7 @@ namespace CommandApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteKlienci(short? id)
         {
-            var commandItem=_repoClients.GetKlienciById(id);
+            var commandItem=_repoClients.GetClientById(id);
             if(commandItem!=null){
                 if(commandItem.Tickets.Count!=0){
                     return Problem("Nie usunięto zleceń klienta");
