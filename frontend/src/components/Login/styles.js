@@ -27,6 +27,15 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     marginTop: '20vh',
   },
+  description: {
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '18px',
+    },
+    textAlign: 'center',
+    fontSize: '12px',
+    fontWeight: 500,
+    color: theme.palette.grey[600],
+  },
   loginButton: {
     marginTop: '40px',
   },

@@ -11,11 +11,11 @@ import ClientList from './ClientList';
 import DeviceList from './DeviceList';
 import EmployeeList from './EmployeeList';
 import Home from './Home';
-import Login from './Login';
+import Login from './Login/Login';
 import NavBar from './NavBar';
 import Settings from './Settings';
 import Status from './Status';
-import StatusLogin from './LoginStatus';
+import StatusLogin from './Login/StatusLogin';
 import TicketList from './TicketList';
 
 const theme = createMuiTheme({}, plPL);
