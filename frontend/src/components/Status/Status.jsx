@@ -6,6 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import React from 'react';
 import { useStyles } from './styles';
 import { useParams } from 'react-router-dom';
+import { Hidden } from '@material-ui/core';
 
 function getSteps() {
   return [
@@ -30,17 +31,34 @@ const Status = () => {
         <Typography component="h4" className={classes.description}>
           Status zlecenia: {rma}
         </Typography>
-        <Stepper
-          activeStep={activeStep}
-          alternativeLabel
-          className={classes.stepper}
-        >
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+        <Hidden xsDown>
+          <Stepper
+            activeStep={activeStep}
+            alternativeLabel
+            className={classes.stepper}
+          >
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Hidden>
+        <Hidden smUp>
+          <Stepper
+            style={{ width: '100%' }}
+            orientation="vertical"
+            activeStep={activeStep}
+            // alternativeLabel
+            className={classes.stepper}
+          >
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Hidden>
       </Container>
     </div>
   );
