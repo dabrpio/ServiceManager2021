@@ -7,14 +7,16 @@ import { fetchClients } from '../store/data/clients/clients.actions';
 import { fetchDevices } from '../store/data/devices/devices.actions';
 import { fetchEmployees } from '../store/data/employees/employees.actions';
 import { fetchTickets } from '../store/data/tickets/tickets.actions';
-import ClientList from './ClientList';
-import DeviceList from './DeviceList';
-import EmployeeList from './EmployeeList';
-import Home from './Home';
-import Login from './Login';
+import ClientList from './Lists/ClientList';
+import DeviceList from './Lists/DeviceList';
+import EmployeeList from './Lists/EmployeeList';
+import Home from './Lists/Home';
+import TicketList from './Lists/TicketList';
+import Login from './Login/Login';
+import StatusLogin from './Login/StatusLogin';
 import NavBar from './NavBar';
 import Settings from './Settings';
-import TicketList from './TicketList';
+import Status from './Status';
 
 const theme = createMuiTheme({}, plPL);
 
@@ -28,6 +30,8 @@ function App({ init }) {
       <BrowserRouter>
         <Switch>
           <Route exact path="/login" component={LoginContainer} />
+          <Route exact path="/status" component={StatusLogin} />
+          <Route path="/status/:rma" component={Status} />
           <Route component={DefaultContainer} />
         </Switch>
       </BrowserRouter>
@@ -48,24 +52,12 @@ const DefaultContainer = () => (
   <>
     <NavBar />
     <Switch>
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <Route path="/settings">
-        <Settings />
-      </Route>
-      <Route exact path="/tickets">
-        <TicketList />
-      </Route>
-      <Route exact path="/employees">
-        <EmployeeList />
-      </Route>
-      <Route exact path="/clients">
-        <ClientList />
-      </Route>
-      <Route exact path="/devices">
-        <DeviceList />
-      </Route>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/settings" component={Settings} />
+      <Route exact path="/tickets" component={TicketList} />
+      <Route exact path="/employees" component={EmployeeList} />
+      <Route exact path="/clients" component={ClientList} />
+      <Route exact path="/devices" component={DeviceList} />
       <Redirect to="/" />
     </Switch>
   </>

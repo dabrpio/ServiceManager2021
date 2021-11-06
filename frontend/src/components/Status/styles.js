@@ -36,7 +36,7 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     color: theme.palette.grey[600],
   },
-  loginButton: {
-    marginTop: '40px',
+  stepper: {
+    marginTop: '16px',
   },
 }));
