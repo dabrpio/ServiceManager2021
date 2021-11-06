@@ -7,16 +7,16 @@ import { fetchClients } from '../store/data/clients/clients.actions';
 import { fetchDevices } from '../store/data/devices/devices.actions';
 import { fetchEmployees } from '../store/data/employees/employees.actions';
 import { fetchTickets } from '../store/data/tickets/tickets.actions';
-import ClientList from './ClientList';
-import DeviceList from './DeviceList';
-import EmployeeList from './EmployeeList';
-import Home from './Home';
+import ClientList from './Lists/ClientList';
+import DeviceList from './Lists/DeviceList';
+import EmployeeList from './Lists/EmployeeList';
+import Home from './Lists/Home';
+import TicketList from './Lists/TicketList';
 import Login from './Login/Login';
+import StatusLogin from './Login/StatusLogin';
 import NavBar from './NavBar';
 import Settings from './Settings';
 import Status from './Status';
-import StatusLogin from './Login/StatusLogin';
-import TicketList from './TicketList';
 
 const theme = createMuiTheme({}, plPL);
 
