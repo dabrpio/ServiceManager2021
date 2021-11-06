@@ -15,6 +15,7 @@ import Login from './Login';
 import NavBar from './NavBar';
 import Settings from './Settings';
 import Status from './Status';
+import StatusLogin from './LoginStatus';
 import TicketList from './TicketList';
 
 const theme = createMuiTheme({}, plPL);
@@ -29,7 +30,8 @@ function App({ init }) {
       <BrowserRouter>
         <Switch>
           <Route exact path="/login" component={LoginContainer} />
-          <Route exact path="/status" component={Status} />
+          <Route exact path="/status" component={StatusLogin} />
+          <Route path="/status/:rma" component={Status} />
           <Route component={DefaultContainer} />
         </Switch>
       </BrowserRouter>

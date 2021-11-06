@@ -1,10 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Status(props) {
-  return <div>Status</div>;
-}
-
-Status.propTypes = {};
+const Status = () => {
+  return <>status</>;
+};
 
 export default Status;
