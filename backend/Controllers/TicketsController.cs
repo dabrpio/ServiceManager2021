@@ -49,6 +49,13 @@ namespace CommandApi.Controllers
         }
 
 
+        //Get api/tickets/status/{rma}
+        [HttpGet("status/{Rma}", Name="GetTicketsStatus")]
+        public ActionResult<String> GetTicketsStatus(int Rma){
+            return _repoTickets.GetTicketsByRma(Rma).Status;
+        }
+
+
 
 
          //GET api/tickets/top25
@@ -117,7 +124,7 @@ namespace CommandApi.Controllers
             ticketModel.IdClient=_repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname).IdClient;
             ticketModel.IdDevices=_repoDevices.GetDeviceByModel(deviceModel.Type,deviceModel.Brand,deviceModel.Model).IdDevices;
 
-            if(ticketModel.Status=="zrobione")
+            if(ticketModel.Status=="done")
             {
                 ticketModel.IssueDate=DateTime.Now;
             }
@@ -138,7 +145,7 @@ namespace CommandApi.Controllers
             var clientModel = _repoClients.GetClientById(ticketModel.IdClient);
             var deviceModel = _repoDevices.GetDeviceById(ticketModel.IdDevices);
             if(ticketModel!=null){
-                if(ticketsUpdate.Status=="zrobione")
+                if(ticketsUpdate.Status=="done")
                 {
                     if(ticketModel.IssueDate==null)
                     {
