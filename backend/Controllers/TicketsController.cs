@@ -49,14 +49,6 @@ namespace CommandApi.Controllers
         }
 
 
-        //Get api/tickets/status/{rma}
-        [HttpGet("status/{Rma}", Name="GetTicketsStatus")]
-        public ActionResult<String> GetTicketsStatus(int Rma){
-            return _repoTickets.GetTicketsByRma(Rma).Status;
-        }
-
-
-
 
          //GET api/tickets/top25
 
@@ -81,7 +73,7 @@ namespace CommandApi.Controllers
 
         //GET api/tickets/{Rma}
         [HttpGet("{Rma}", Name="GetTicketsByRma")]
-        public ActionResult<TicketsReadDto> GetTicketsByRma(int Rma){
+        public ActionResult<TicketsReadDto> GetTicketsByRma(short Rma){
             var commandItem = _repoTickets.GetTicketsByRma(Rma);
             if(commandItem!=null){
                 TicketsReadDto inp=new TicketsReadDto();
@@ -140,7 +132,7 @@ namespace CommandApi.Controllers
 
         //PUT api/tickets/{rma}
         [HttpPut("{rma}")]
-        public ActionResult UpdateTicket(int rma, TicketsCreateDto ticketsUpdate){
+        public ActionResult UpdateTicket(short rma, TicketsCreateDto ticketsUpdate){
             var ticketModel = _repoTickets.GetTicketsByRma(rma);
             var clientModel = _repoClients.GetClientById(ticketModel.IdClient);
             var deviceModel = _repoDevices.GetDeviceById(ticketModel.IdDevices);
@@ -181,9 +173,10 @@ namespace CommandApi.Controllers
             }
         }
 
+
         //DELETE api/tickets/{rma}
         [HttpDelete("{rma}")]
-        public ActionResult DeleteTicket(int rma)
+        public ActionResult DeleteTicket(short rma)
         {
             var commandItem=_repoTickets.GetTicketsByRma(rma);
             if(commandItem!=null){

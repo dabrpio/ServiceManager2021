@@ -29,12 +29,12 @@ namespace CommandApi.Data
             return _context.Tickets.OrderByDescending(p=>p.Rma).ToList();
         }
 
-        public IEnumerable<Ticket> Get25Zlecenia()
+        public IEnumerable<Ticket> Get25Tickets()
         {
             return _context.Tickets.OrderByDescending(p=>p.Rma).Take(25).ToList();
         }
 
-        public Ticket GetTicketsByRma(int Rma)
+        public Ticket GetTicketsByRma(short Rma)
         {
             return _context.Tickets.FirstOrDefault(p=>p.Rma==Rma);
         }

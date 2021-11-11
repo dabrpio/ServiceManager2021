@@ -7,10 +7,10 @@ namespace CommandApi.Data
     {
         bool SaveChanges();
         IEnumerable<Ticket> GetAllTickets();
-        Ticket GetTicketsByRma(int Rma);
-        void CreateTicket(Ticket zlecenia);
-        IEnumerable<Ticket> Get25Zlecenia();
-        void UpdateTicket(Ticket zleceniaUpdate);
-        void DeleteTicket(Ticket zlecenie);
+        Ticket GetTicketsByRma(short Rma);
+        void CreateTicket(Ticket ticket);
+        IEnumerable<Ticket> Get25Tickets();
+        void UpdateTicket(Ticket ticketUpdate);
+        void DeleteTicket(Ticket ticket);
     }
 }
