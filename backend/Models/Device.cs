@@ -8,12 +8,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CommandApi.Models
 {
-    [Table("urzadzenia")]
-    public partial class Urzadzenia
+    [Table("devices")]
+    public partial class Device
     {
+        public Device()
+        {
+            Tickets = new HashSet<Ticket>();
+        }
+
         [Key]
-        [Column("id")]
-        public short Id { get; set; }
+        [Column("id_devices")]
+        public short IdDevices { get; set; }
         [Required]
         [Column("type")]
         [StringLength(50)]
@@ -26,5 +31,8 @@ namespace CommandApi.Models
         [Column("model")]
         [StringLength(50)]
         public string Model { get; set; }
+
+        [InverseProperty(nameof(Ticket.IdDevicesNavigation))]
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

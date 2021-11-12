@@ -38,10 +38,10 @@ namespace CommandApi
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IZleceniaRepo, SqlZleceniaRepo>();
-            services.AddScoped<IKlienciRepo, SqlKlienciRepo>();
-            services.AddScoped<IUzytkownicyRepo, SqlUzytkownicyRepo>();
-            services.AddScoped<IUrzadzeniaRepo, SqlUrzadzeniaRepo>();
+            services.AddScoped<ITicketsRepo, SqlTicketsRepo>();
+            services.AddScoped<IClientsRepo, SqlClientsRepo>();
+            services.AddScoped<IUsersRepo, SqlUsersRepo>();
+            services.AddScoped<IDevicesRepo, SqlDevicesRepo>();
 
         }
 

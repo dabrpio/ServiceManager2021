@@ -5,59 +5,59 @@ using CommandApi.Models;
 
 namespace CommandApi.Data
 {
-    public class SqlUrzadzeniaRepo : IUrzadzeniaRepo
+    public class SqlDevicesRepo : IDevicesRepo
     {
         private readonly SM2021Context _context;
-        public SqlUrzadzeniaRepo(SM2021Context context)
+        public SqlDevicesRepo(SM2021Context context)
         {
             _context = context;
+            _context.Tickets.ToList();
         }
 
-        public void CreateUrzadzenia(Urzadzenia urzadzenie)
+        public void CreateDevice(Device urzadzenie)
         {
             if(urzadzenie==null){
                 throw new ArgumentNullException(nameof(urzadzenie));
             }
-            _context.Urzadzenia.Add(urzadzenie);
+            _context.Devices.Add(urzadzenie);
         }
 
-        public void DeleteUrzadzenia(Urzadzenia urzadzenia)
+        public void DeleteUrzadzenia(Device urzadzenia)
         {
             if(urzadzenia==null){
                 throw new ArgumentNullException(nameof(urzadzenia));
             }
-            _context.Urzadzenia.Remove(urzadzenia);
+            _context.Devices.Remove(urzadzenia);
         }
 
-        public IEnumerable<Urzadzenia> GetAllUrzadzenia()
+        public IEnumerable<Device> GetAllUrzadzenia()
         {
-            return _context.Urzadzenia.OrderByDescending(p=>p.Id).ToList();
+            return _context.Devices.OrderByDescending(p=>p.IdDevices).ToList();
         }
 
         public List<string> GetAllTypes()
         {
             List<string> commandItem=new List<string>();
-            commandItem=_context.Urzadzenia.Select(p=>p.Type).Distinct().ToList();
+            commandItem=_context.Devices.Select(p=>p.Type).Distinct().ToList();
             return commandItem;
         }
         public List<string> GetSpecificBrand(string type)
         {
             List<string> commandItem=new List<string>();
-            commandItem=_context.Urzadzenia.Where(p=>p.Type==type).Select(p=>p.Brand).Distinct().ToList();
+            commandItem=_context.Devices.Where(p=>p.Type==type).Select(p=>p.Brand).Distinct().ToList();
             return commandItem;
         }
 
         public List<string> GetSpecificModel(string type, string brand)
         {
             List<string> commandItem=new List<string>();
-            commandItem=_context.Urzadzenia.Where(p=>p.Type==type&&p.Brand==brand).Select(p=>p.Model).Distinct().ToList();        
+            commandItem=_context.Devices.Where(p=>p.Type==type&&p.Brand==brand).Select(p=>p.Model).Distinct().ToList();        
             return commandItem;
         }
 
-        public Urzadzenia GetUrzadzeniaById(short? id)
+        public Device GetDeviceById(short? id)
         {
-            _context.Zlecenia.ToList();
-            return _context.Urzadzenia.FirstOrDefault(p=>p.Id==id);
+            return _context.Devices.FirstOrDefault(p=>p.IdDevices==id);
         }
 
         public bool SaveChanges()
@@ -65,7 +65,7 @@ namespace CommandApi.Data
            return (_context.SaveChanges()>=0);
         }
 
-        public void UpdateUrzadzenia(Urzadzenia urzadzenie)
+        public void UpdateUrzadzenia(Device urzadzenie)
         {
             //nothing
         }
@@ -73,33 +73,33 @@ namespace CommandApi.Data
         public List<string> GetAllBrands()
         {
             List<string> commandItem=new List<string>();
-            commandItem=_context.Urzadzenia.Select(p=>p.Brand).Distinct().ToList();
+            commandItem=_context.Devices.Select(p=>p.Brand).Distinct().ToList();
             return commandItem;
         }
 
         public List<string> GetAllModels()
         {
             List<string> commandItem=new List<string>();
-            commandItem=_context.Urzadzenia.Select(p=>p.Model).Distinct().ToList();
+            commandItem=_context.Devices.Select(p=>p.Model).Distinct().ToList();
             return commandItem;
         }
 
         public List<Urzadzenia2> GetBrandsTest()
         {
             List<Urzadzenia2> data=new List<Urzadzenia2>();
-            data = _context.Urzadzenia.Select(p=>new Urzadzenia2{Brand=p.Brand,Type=p.Type}).OrderBy(p=>p.Brand).Distinct().ToList();
+            data = _context.Devices.Select(p=>new Urzadzenia2{Brand=p.Brand,Type=p.Type}).OrderBy(p=>p.Brand).Distinct().ToList();
             return data;
 
         }
 
-        public List<Urzadzenia> GetModelsTest()
+        public List<Device> GetModelsTest()
         {
-            return _context.Urzadzenia.OrderBy(p=>p.Model).Distinct().ToList();
+            return _context.Devices.OrderBy(p=>p.Model).Distinct().ToList();
         }
 
-        public List<Urzadzenia> GetUrzadzeniaByModel(string type, string brand, string model)
+        public Device GetDeviceByModel(string type, string brand, string model)
         {
-            return _context.Urzadzenia.OrderBy(p=>p.Model).Where(p=>p.Brand==brand&&p.Type==type&&p.Model==model).ToList();
+            return _context.Devices.FirstOrDefault(p=>p.Brand==brand&&p.Type==type&&p.Model==model);
         }
     }
 }

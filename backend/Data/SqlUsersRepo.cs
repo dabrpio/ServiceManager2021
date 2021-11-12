@@ -5,39 +5,39 @@ using CommandApi.Models;
 
 namespace CommandApi.Data
 {
-    public class SqlUzytkownicyRepo : IUzytkownicyRepo
+    public class SqlUsersRepo : IUsersRepo
     {
         private readonly SM2021Context _context;
 
-        public SqlUzytkownicyRepo(SM2021Context context)
+        public SqlUsersRepo(SM2021Context context)
         {
             _context = context;
         }
 
-        public void CreateUzytkownicy(Uzytkownicy uzytkownik)
+        public void CreateUzytkownicy(User uzytkownik)
         {
             if(uzytkownik==null){
                 throw new ArgumentNullException(nameof(uzytkownik));
             }
-            _context.Uzytkownicy.Add(uzytkownik);
+            _context.Users.Add(uzytkownik);
         }
 
-        public void DeleteUzytkownicy(Uzytkownicy uzytkownik)
+        public void DeleteUzytkownicy(User uzytkownik)
         {
            if(uzytkownik==null){
                 throw new ArgumentNullException(nameof(uzytkownik));
             }
-            _context.Uzytkownicy.Remove(uzytkownik);
+            _context.Users.Remove(uzytkownik);
         }
 
-        public IEnumerable<Uzytkownicy> GetAllUzytkownicy()
+        public IEnumerable<User> GetAllUzytkownicy()
         {
-            return _context.Uzytkownicy.OrderByDescending(p=>p.Id).ToList();
+            return _context.Users.OrderByDescending(p=>p.Id).ToList();
         }
 
-        public Uzytkownicy GetUzytkownicyById(short? id)
+        public User GetUzytkownicyById(short? id)
         {
-            return _context.Uzytkownicy.FirstOrDefault(p=>p.Id==id);
+            return _context.Users.FirstOrDefault(p=>p.Id==id);
         }
 
         public bool SaveChanges()
@@ -45,7 +45,7 @@ namespace CommandApi.Data
            return (_context.SaveChanges()>=0);
         }
 
-        public void UpdateUzytkownicy(Uzytkownicy uzytkownicyUpdate)
+        public void UpdateUzytkownicy(User uzytkownicyUpdate)
         {
             //nothing
         }
