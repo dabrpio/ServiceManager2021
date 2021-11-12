@@ -59,7 +59,7 @@ namespace CommandApi.Controllers
             else
             {
                 string dest;
-                dest = Console.WriteLine();
+                dest = Console.ReadLine();
                 Services.Mailing.SentMail(dest);
                 return NotFound();
             }
