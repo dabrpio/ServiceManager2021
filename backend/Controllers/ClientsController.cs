@@ -100,7 +100,10 @@ namespace CommandApi.Controllers
                 _mapper.Map(klienciUpdate, commandItem);
                 _repoClients.UpdateClient(commandItem);
                 _repoClients.SaveChanges();
-                return NoContent();
+                
+                var klienciReadDto = _mapper.Map<ClientsReadDto>(commandItem);
+
+            return CreatedAtRoute(nameof(GetClientById), new {id = klienciReadDto.IdClient},klienciReadDto);
             }
             else{
                 return NotFound();

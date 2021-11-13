@@ -31,7 +31,7 @@ namespace CommandApi.Controllers
 
 
         //GET api/devices/{id}
-        [HttpGet("{id:int}", Name="GetDeviceById")]
+        [HttpGet("{id}", Name="GetDeviceById")]
         public ActionResult<DevicesReadDto> GetDeviceById(short? id){
             var commandItem = _repoDevices.GetDeviceById(id);
             if(commandItem!=null){

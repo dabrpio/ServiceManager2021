@@ -48,29 +48,6 @@ namespace CommandApi.Controllers
             return Ok(_mapper.Map<IEnumerable<TicketsReadDto>>(commIt));
         }
 
-
-
-         //GET api/tickets/top25
-
-        /*[HttpGet("top25")]
-        public ActionResult<IEnumerable<TicketsReadDto>> Get25Zlecenia(){
-            var commandItems = _repoTickets.Get25Zlecenia();
-            List<TicketsReadDto> commIt = new List<TicketsReadDto>();
-            foreach(var item in commandItems){
-                TicketsReadDto inp=new TicketsReadDto();
-                inp=_mapper.Map<TicketsReadDto>(item);
-                inp.IdClient=item.IdClientNavigation.IdClient;
-                inp.Imie=item.IdClientNavigation.Imie;
-                inp.Nazwisko=item.IdClientNavigation.Nazwisko;
-                inp.NrTel=item.IdClientNavigation.NrTel;
-                inp.EMail=item.IdClientNavigation.EMail;
-                inp.Nip=item.IdClientNavigation.Nip;
-                inp.Nazwa=item.IdClientNavigation.Nazwa;
-                commIt.Add(inp);
-            }
-            return Ok(_mapper.Map<List<TicketsReadDto>>(commIt));
-        }*/
-
         //GET api/tickets/{Rma}
         [HttpGet("{Rma}", Name="GetTicketsByRma")]
         public ActionResult<TicketsReadDto> GetTicketsByRma(short Rma){
@@ -124,6 +101,9 @@ namespace CommandApi.Controllers
             _repoTickets.SaveChanges();
 
             var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
+            _mapper.Map(ticketModel.IdClientNavigation,TicketsReadDto);
+            _mapper.Map(ticketModel.IdDevicesNavigation,TicketsReadDto);
+
 
             return CreatedAtRoute(nameof(GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
 
@@ -155,8 +135,8 @@ namespace CommandApi.Controllers
                     var inp = _mapper.Map<Device>(ticketsUpdate);
                     _repoDevices.CreateDevice(inp);
                     _repoDevices.SaveChanges();
+                    ticketModel.IdDevices=_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model).IdDevices;
                 }
-                ticketModel.IdDevices=_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model).IdDevices;
                 _mapper.Map(ticketsUpdate,ticketModel);
                 _mapper.Map(ticketsUpdate,clientModel);
                 _repoTickets.UpdateTicket(ticketModel);
@@ -165,6 +145,8 @@ namespace CommandApi.Controllers
                 _repoClients.SaveChanges();
                 
                 var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
+                _mapper.Map(ticketModel.IdClientNavigation,TicketsReadDto);
+                _mapper.Map(ticketModel.IdDevicesNavigation,TicketsReadDto);
 
                 return CreatedAtRoute(nameof(GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
             }

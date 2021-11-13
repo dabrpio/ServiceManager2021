@@ -27,6 +27,9 @@ namespace CommandApi.Controllers
         [HttpGet("{Rma}+{PhoneNumber}", Name="GetTicketsStatus")]
         public ActionResult<String> GetTicketsStatus(short Rma, int PhoneNumber){
             var commandItem=_repoTickets.GetTicketsByRma(Rma);
+            if(commandItem==null){
+                return NotFound();
+            }
             if(commandItem.IdClientNavigation.PhoneNumber==PhoneNumber){
                 StatusReadDto inp = new StatusReadDto();
                 inp.Status=commandItem.Status;
@@ -47,19 +50,16 @@ namespace CommandApi.Controllers
         [HttpPut("{rma}+{PhoneNumber}",Name="UpdateTicketStatus")]
         public ActionResult UpdateTicketStatus(short rma, int PhoneNumber, StatusCreateDto status){
             var ticketModel = _repoTickets.GetTicketsByRma(rma);
+            if(ticketModel==null){
+                return NotFound();
+            }
             if(ticketModel.IdClientNavigation.PhoneNumber==PhoneNumber){
-                var ticketUpdate = ticketModel;
-                ticketUpdate.Status=status.Status;
-                _mapper.Map(ticketUpdate,ticketModel);
-                _repoTickets.UpdateTicket(ticketModel);
-                _repoTickets.SaveChanges();
-                var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
-                return CreatedAtRoute(nameof(TicketsController.GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
+                return Ok();
             }
             else
             {
                 string dest;
-                dest = Console.ReadLine();
+                dest = "piowrz@st.amu.edu.pl";
                 Services.Mailing.SentMail(dest);
                 return NotFound();
             }
