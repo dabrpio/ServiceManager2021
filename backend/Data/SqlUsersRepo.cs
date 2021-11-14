@@ -14,7 +14,7 @@ namespace CommandApi.Data
             _context = context;
         }
 
-        public void CreateUzytkownicy(User uzytkownik)
+        public void CreateUser(User uzytkownik)
         {
             if(uzytkownik==null){
                 throw new ArgumentNullException(nameof(uzytkownik));
@@ -22,7 +22,7 @@ namespace CommandApi.Data
             _context.Users.Add(uzytkownik);
         }
 
-        public void DeleteUzytkownicy(User uzytkownik)
+        public void DeleteUser(User uzytkownik)
         {
            if(uzytkownik==null){
                 throw new ArgumentNullException(nameof(uzytkownik));
@@ -30,14 +30,19 @@ namespace CommandApi.Data
             _context.Users.Remove(uzytkownik);
         }
 
-        public IEnumerable<User> GetAllUzytkownicy()
+        public IEnumerable<User> GetAllUsers()
         {
             return _context.Users.OrderByDescending(p=>p.Id).ToList();
         }
 
-        public User GetUzytkownicyById(short? id)
+        public User GetUserById(short? id)
         {
             return _context.Users.FirstOrDefault(p=>p.Id==id);
+        }
+
+        public User GetUserByLoginPasswordId(string login, string password, short? id)
+        {
+            return _context.Users.FirstOrDefault(p=>p.IdCompany==id && p.Login==login && p.Password = password);
         }
 
         public bool SaveChanges()
@@ -45,7 +50,7 @@ namespace CommandApi.Data
            return (_context.SaveChanges()>=0);
         }
 
-        public void UpdateUzytkownicy(User uzytkownicyUpdate)
+        public void UpdateUser(User uzytkownicyUpdate)
         {
             //nothing
         }

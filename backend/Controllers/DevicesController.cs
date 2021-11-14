@@ -146,23 +146,29 @@ namespace CommandApi.Controllers
 
         //POST api/devices
         [HttpPost]
-        public ActionResult<DevicesReadDto> CreateClient(DevicesCreateDto urzadzenie){
-            var urzadzeniaModel = _mapper.Map<Device>(urzadzenie);
-            _repoDevices.CreateDevice(urzadzeniaModel);
-            _repoDevices.SaveChanges();
-            var DevicesReadDto= _mapper.Map<DevicesReadDto>(urzadzeniaModel);
-            return CreatedAtRoute(nameof(GetDeviceById), new {id = DevicesReadDto.IdDevices},DevicesReadDto);
+        public ActionResult<DevicesReadDto> CreateClient(DevicesCreateDto device){
+            var urzadzeniaModel = _mapper.Map<Device>(device);
+                if(_repoDevices.GetDeviceByModel(device.Type,device.Brand,device.Model)==null){
+                _repoDevices.CreateDevice(urzadzeniaModel);
+                _repoDevices.SaveChanges();
+                var DevicesReadDto= _mapper.Map<DevicesReadDto>(urzadzeniaModel);
+                return CreatedAtRoute(nameof(GetDeviceById), new {id = DevicesReadDto.IdDevices},DevicesReadDto);
+            }
+            else{
 
+                var DevicesReadDto= _repoDevices.GetDeviceByModel(device.Type,device.Brand,device.Model);
+                return RedirectToRoute(nameof(GetDeviceById), new {id = DevicesReadDto.IdDevices});
+            }
         }
 
 
         //PUT api/devices/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateKliecni(short? id, DevicesCreateDto urzadzenie){
+        public ActionResult UpdateKliecni(short? id, DevicesCreateDto device){
              var commandItem = _repoDevices.GetDeviceById(id);
             
             if(commandItem!=null){
-                _mapper.Map(urzadzenie,commandItem);
+                _mapper.Map(device,commandItem);
                 _repoDevices.UpdateUrzadzenia(commandItem);
                 _repoDevices.SaveChanges();
                 return NoContent();

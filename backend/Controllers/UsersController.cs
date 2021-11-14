@@ -23,16 +23,16 @@ namespace CommandApi.Controllers
 
         //GET api/users
         [HttpGet]
-        public ActionResult<IEnumerable<UsersReadDto>> GetAllUzytkownicy(){
-            var commandItems = _repoUsers.GetAllUzytkownicy();
+        public ActionResult<IEnumerable<UsersReadDto>> GetAllUsers(){
+            var commandItems = _repoUsers.GetAllUsers();
             return Ok(_mapper.Map<IEnumerable<UsersReadDto>>(commandItems));
         }
 
 
         //GET api/users/{id}
-        [HttpGet("{id}", Name="GetUzytkownicyById")]
-        public ActionResult<UsersReadDto> GetUzytkownicyById(short? id){
-            var commandItem = _repoUsers.GetUzytkownicyById(id);
+        [HttpGet("{id}", Name="GetUserById")]
+        public ActionResult<UsersReadDto> GetUserById(short? id){
+            var commandItem = _repoUsers.GetUserById(id);
             
             if(commandItem!=null){
                 return Ok(_mapper.Map<UsersReadDto>(commandItem));
@@ -45,25 +45,32 @@ namespace CommandApi.Controllers
 
         //POST api/users
         [HttpPost]
-        public ActionResult<UsersReadDto> CreateUzytkownicy(UsersCreateDto uzytkownicyCreateDto){
-            var uzytkownicyModel =_mapper.Map<User>(uzytkownicyCreateDto);
-            _repoUsers.CreateUzytkownicy(uzytkownicyModel);
-            _repoUsers.SaveChanges();
+        public ActionResult<UsersReadDto> CreateUser(UsersCreateDto userCreateDto){
+            var userModel =_mapper.Map<User>(userCreateDto);
 
-            var uzytkownicyReadDto = _mapper.Map<UsersReadDto>(uzytkownicyModel);
+            if(_repoUsers.GetUserByLoginPasswordId(userCreateDto.Login, userCreateDto.Password, userCreateDto.IdCompany)==null){
+                _repoUsers.CreateUser(userModel);
+                _repoUsers.SaveChanges();
 
-            return CreatedAtRoute(nameof(GetUzytkownicyById), new {id = uzytkownicyReadDto.Id},uzytkownicyReadDto);
+                var uzytkownicyReadDto = _mapper.Map<UsersReadDto>(userModel);
+
+                return CreatedAtRoute(nameof(GetUserById), new {id = uzytkownicyReadDto.Id},uzytkownicyReadDto);    
+            }
+            else{
+                var UserReadDto= _repoUsers.GetUserByLoginPasswordId(userCreateDto.Login, userCreateDto.Password, userCreateDto.IdCompany);
+                return RedirectToRoute(nameof(GetUserById), new {id = UserReadDto.Id});
+            }
         }
 
 
         //PUT api/users/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateUzytkownicy(short? id, UsersCreateDto uzytkownicyUpdate){
-             var commandItem = _repoUsers.GetUzytkownicyById(id);
+        public ActionResult UpdateUser(short? id, UsersCreateDto userUpdate){
+             var commandItem = _repoUsers.GetUserById(id);
             
             if(commandItem!=null){
-                _mapper.Map(uzytkownicyUpdate, commandItem);
-                _repoUsers.UpdateUzytkownicy(commandItem);
+                _mapper.Map(userUpdate, commandItem);
+                _repoUsers.UpdateUser(commandItem);
                 _repoUsers.SaveChanges();
                 return NoContent();
             }
@@ -75,11 +82,11 @@ namespace CommandApi.Controllers
 
         //DELETE api/User/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteUzytkownicy(short? id)
+        public ActionResult DeleteUser(short? id)
         {
-            var commandItem=_repoUsers.GetUzytkownicyById(id);
+            var commandItem=_repoUsers.GetUserById(id);
             if(commandItem!=null){
-                _repoUsers.DeleteUzytkownicy(commandItem);
+                _repoUsers.DeleteUser(commandItem);
                 _repoUsers.SaveChanges();
                 return NoContent();
             }

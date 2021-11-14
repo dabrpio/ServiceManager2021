@@ -79,31 +79,37 @@ namespace CommandApi.Controllers
 
         //POST api/kliecni
         [HttpPost]
-        public ActionResult<ClientsReadDto> CreateClient(ClientsCreateDto klienciCreateDto){
-            var klienciModel =_mapper.Map<Client>(klienciCreateDto);
-            _repoClients.CreateClient(klienciModel);
-            _repoClients.SaveChanges();
+        public ActionResult<ClientsReadDto> CreateClient(ClientsCreateDto clientCreateDto){
+            var clientModel =_mapper.Map<Client>(clientCreateDto);
+            if(_repoClients.GetClientByPhNumer(clientCreateDto.PhoneNumber,clientCreateDto.Name,clientCreateDto.Surname)==null){
+                _repoClients.CreateClient(clientModel);
+                _repoClients.SaveChanges();
 
-            var klienciReadDto = _mapper.Map<ClientsReadDto>(klienciModel);
+                var clientReadDto = _mapper.Map<ClientsReadDto>(clientModel);
 
-            return CreatedAtRoute(nameof(GetClientById), new {id = klienciReadDto.IdClient},klienciReadDto);
+                return CreatedAtRoute(nameof(GetClientById), new {id = clientReadDto.IdClient},clientReadDto);
+            }
+            else{
 
+                var clientReadDto= _repoClients.GetClientByPhNumer(clientCreateDto.PhoneNumber,clientCreateDto.Name,clientCreateDto.Surname);
+                return RedirectToRoute(nameof(GetClientById), new {id = clientReadDto.IdClient});
+            }
         }
 
 
         //PUT api/kliecni/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateKliecni(short? id, ClientsCreateDto klienciUpdate){
+        public ActionResult UpdateKliecni(short? id, ClientsCreateDto clientUpdate){
              var commandItem = _repoClients.GetClientById(id);
             
             if(commandItem!=null){
-                _mapper.Map(klienciUpdate, commandItem);
+                _mapper.Map(clientUpdate, commandItem);
                 _repoClients.UpdateClient(commandItem);
                 _repoClients.SaveChanges();
                 
-                var klienciReadDto = _mapper.Map<ClientsReadDto>(commandItem);
+                var clientReadDto = _mapper.Map<ClientsReadDto>(commandItem);
 
-            return CreatedAtRoute(nameof(GetClientById), new {id = klienciReadDto.IdClient},klienciReadDto);
+            return CreatedAtRoute(nameof(GetClientById), new {id = clientReadDto.IdClient},clientReadDto);
             }
             else{
                 return NotFound();

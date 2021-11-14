@@ -6,10 +6,10 @@ namespace CommandApi.Data
     public interface IUsersRepo
     {
         bool SaveChanges();
-        IEnumerable<User> GetAllUzytkownicy();
-        User GetUzytkownicyById(short? id);
-        void CreateUzytkownicy(User uzytkownik);
-        void UpdateUzytkownicy(User uzytkownikUpdate);
-        void DeleteUzytkownicy(User uzytkownik);
+        IEnumerable<User> GetAllUsers();
+        User GetUserById(short? id);
+        void CreateUser(User uzytkownik);
+        void UpdateUser(User uzytkownikUpdate);
+        void DeleteUser(User uzytkownik);
     }
 }
