@@ -1,6 +1,7 @@
 import * as employeesAT from './employees.action-types';
+import { URL } from '../../constants';
 
-const baseUrl = `http://46.41.149.61:5003/api/uzytkownicy`;
+const baseUrl = `${URL}/api/users`;
 
 const setEmployeesState = (data) => ({
   type: employeesAT.SET_EMPLOYEES,

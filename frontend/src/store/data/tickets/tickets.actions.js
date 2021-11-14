@@ -1,6 +1,7 @@
 import * as ticketsAT from './tickets.action-types';
+import { URL } from '../../constants';
 
-const baseUrl = `http://46.41.149.61:5003/api/zlecenia`;
+const baseUrl = `${URL}/api/tickets`;
 
 const setTicketsState = (data) => ({
   type: ticketsAT.SET_TICKETS,
@@ -24,11 +25,18 @@ const deleteTicketState = (id) => ({
 
 // GET
 export const fetchTickets = () => {
+  console.log(baseUrl);
   return (dispatch) => {
     fetch(baseUrl)
       .then(handleErrors)
-      .then((res) => res.json())
-      .then((data) => dispatch(setTicketsState(data)))
+      .then((res) => {
+        console.log(res);
+        res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        dispatch(setTicketsState(data));
+      })
       .catch((error) => console.log(error));
   };
 };
@@ -90,12 +98,11 @@ const handleErrors = (response) => {
 };
 
 const catchErrors = (error) =>
-  error
-    .json()
-    .then((body) =>
-      console.log(
-        `Server error: [${body.status} ${body.statusText ?? ''} ${
-          body.detail ?? ''
-        }]`
-      )
+  error.json().then((body) => {
+    console.log(body);
+    console.log(
+      `Server error: [${body.status} ${body.statusText ?? ''} ${
+        body.detail ?? ''
+      }]`
     );
+  });
