@@ -8,8 +8,9 @@ namespace CommandApi.Data
         bool SaveChanges();
         IEnumerable<User> GetAllUsers();
         User GetUserById(short? id);
-        void CreateUser(User uzytkownik);
-        void UpdateUser(User uzytkownikUpdate);
-        void DeleteUser(User uzytkownik);
+        void CreateUser(User user);
+        void UpdateUser(User userUpdate);
+        void DeleteUser(User user);
+        User GetUserByLoginPasswordId(string login, string password, short? id);
     }
 }

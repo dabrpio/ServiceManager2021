@@ -42,7 +42,7 @@ namespace CommandApi.Data
 
         public User GetUserByLoginPasswordId(string login, string password, short? id)
         {
-            return _context.Users.FirstOrDefault(p=>p.IdCompany==id && p.Login==login && p.Password = password);
+            return _context.Users.FirstOrDefault(p=>p.IdCompany==id && p.Login==login && p.Password == password);
         }
 
         public bool SaveChanges()
