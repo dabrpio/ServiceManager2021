@@ -33,7 +33,7 @@ function TicketTableRow({ row, classes, handleClick }) {
       </Hidden>
 
       <TableCell className={classes.td}>
-        {row.status === 'zrobione' ? (
+        {row.status === 'done' ? (
           <CheckCircleIcon
             classes={{
               root: classes.checkIcon,

@@ -17,17 +17,17 @@ function HomeTableRow({ row, classes, handleClick }) {
       <TableCell className={classes.td}>{row.rma}</TableCell>
       <Hidden smDown>
         <TableCell className={classes.td}>
-          {new Date(row.dataPrzyjecia).toLocaleDateString('uk-UA')}
+          {new Date(row.date).toLocaleDateString('uk-UA')}
         </TableCell>
       </Hidden>
 
       <Hidden smDown>
-        <TableCell className={classes.td}>{row.rodzaj}</TableCell>
+        <TableCell className={classes.td}>{row.type}</TableCell>
       </Hidden>
-      <TableCell className={classes.td}>{row.marka}</TableCell>
+      <TableCell className={classes.td}>{row.brand}</TableCell>
       <TableCell className={classes.td}>{row.model}</TableCell>
       <Hidden smDown>
-        <TableCell className={classes.td}>{row.informacje}</TableCell>
+        <TableCell className={classes.td}>{row.information}</TableCell>
       </Hidden>
     </TableRow>
   );

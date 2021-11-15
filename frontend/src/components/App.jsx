@@ -16,7 +16,6 @@ import Login from './Login/Login';
 import StatusLogin from './Login/StatusLogin';
 import NavBar from './NavBar';
 import Settings from './Settings';
-import Status from './Status';
 
 const theme = createMuiTheme({}, plPL);
 
@@ -31,7 +30,6 @@ function App({ init }) {
         <Switch>
           <Route exact path="/login" component={LoginContainer} />
           <Route exact path="/status" component={StatusLogin} />
-          <Route path="/status/:rma" component={Status} />
           <Route component={DefaultContainer} />
         </Switch>
       </BrowserRouter>

@@ -1,7 +1,7 @@
 import * as ticketsAT from './tickets.action-types';
-import { URL } from '../../constants';
+import { URL } from '../../../constants';
 
-const baseUrl = `${URL}/api/tickets`;
+const baseUrl = `${URL}/tickets`;
 
 const setTicketsState = (data) => ({
   type: ticketsAT.SET_TICKETS,

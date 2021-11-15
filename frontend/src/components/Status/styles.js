@@ -1,31 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    backgroundColor: '#fff',
-  },
-  loginWrapper: {
-    [theme.breakpoints.up('sm')]: {
-      padding: '40px 100px',
-    },
-    backgroundColor: '#fff',
-    padding: '40px 17vw',
-    justifySelf: 'center',
-    alignSelf: 'center',
-    height: '100vh',
-  },
-  loginForm: {
-    maxWidth: '400px',
-  },
   heading: {
     [theme.breakpoints.up('sm')]: {
       fontSize: '38px',
+      marginTop: '15vh',
     },
     textAlign: 'center',
     fontSize: '6.4vw',
     fontWeight: 500,
-    marginTop: '20vh',
+    marginTop: '7vh',
   },
   description: {
     [theme.breakpoints.up('sm')]: {
@@ -34,9 +18,31 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontSize: '12px',
     fontWeight: 500,
+  },
+  greyColor: {
     color: theme.palette.grey[600],
+  },
+  darkColor: {
+    color: theme.palette.grey[900],
   },
   stepper: {
     marginTop: '16px',
+  },
+  buttons: {
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  btn: {
+    [theme.breakpoints.up('sm')]: {
+      margin: '0 20px',
+    },
+
+    margin: '6px',
   },
 }));

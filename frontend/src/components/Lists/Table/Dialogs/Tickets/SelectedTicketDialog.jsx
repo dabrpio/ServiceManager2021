@@ -21,7 +21,7 @@ const SelectedTicketDialog = (props) => {
   const classes = useTicketDialogStyles();
   const [ticket, setTicket] = useState(ticketData);
   const [switchState, setSwitchState] = useState(
-    ticket.status === 'zrobione' ? true : false
+    ticket.status === 'done' ? true : false
   );
 
   const handleClose = () => {
@@ -32,14 +32,14 @@ const SelectedTicketDialog = (props) => {
     setSwitchState(event.target.checked);
     setTicket({
       ...ticket,
-      status: event.target.checked ? 'zrobione' : 'oczekiwanie',
+      status: event.target.checked ? 'done' : 'created',
     });
   };
 
   const handleUpdate = (event) => {
     event.preventDefault();
     const {
-      info,
+      information,
       eMail,
       date,
       issueDate,

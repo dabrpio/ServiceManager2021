@@ -1,7 +1,7 @@
 import * as clientsAT from './clients.action-types';
-import { URL } from '../../constants';
+import { URL } from '../../../constants';
 
-const baseUrl = `${URL}/api/clients`;
+const baseUrl = `${URL}/clients`;
 
 const setClientsState = (data) => ({
   type: clientsAT.SET_CLIENTS,

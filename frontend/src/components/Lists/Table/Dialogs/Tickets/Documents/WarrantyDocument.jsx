@@ -136,7 +136,7 @@ const WarrantyDocument = ({ ticket }) => {
           <View
             style={[styles.rightDataValues, styles.textBox, { height: 45 }]}
           >
-            <Text style={[styles.fontMd]}>{ticket.info}</Text>
+            <Text style={[styles.fontMd]}>{ticket.information}</Text>
           </View>
         </View>
         <View

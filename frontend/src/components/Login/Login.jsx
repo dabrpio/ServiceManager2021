@@ -23,7 +23,7 @@ function Login() {
 
   return (
     <div className={classes.root}>
-      <Container className={classes.loginWrapper} maxWidth="sm">
+      <Container className={classes.wrapper} maxWidth="sm">
         <form onSubmit={handleLoginSubmit} className={classes.loginForm}>
           <Typography component="h2" className={classes.heading}>
             Service Manager 2021

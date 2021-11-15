@@ -19,12 +19,12 @@ const initialTicket = {
   partsCost: null,
   repairCost: null,
   glitch: null,
-  info: null,
+  information: null,
   name: null,
   surname: null,
   phoneNumber: null,
   eMail: null,
-  status: 'oczekiwanie',
+  status: null,
 };
 
 const AddTicketDialog = ({ addTicket }) => {
@@ -39,12 +39,18 @@ const AddTicketDialog = ({ addTicket }) => {
 
   const handleAdd = (event) => {
     event.preventDefault();
-    const { info, eMail, ...dataToValidate } = ticket;
+    const { information, eMail, repairCost, status, ...dataToValidate } =
+      ticket;
     if (
       Object.values(dataToValidate).some((e) => e === null || e?.trim() === '')
     ) {
       console.log('ticket is not fully filled');
     } else {
+      if (ticket.repairCost === null) {
+        ticket.status = 'created';
+      } else {
+        ticket.status = 'accepted';
+      }
       addTicket(ticket);
       handleClose();
     }

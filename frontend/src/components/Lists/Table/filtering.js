@@ -18,7 +18,7 @@ const filterTickets = (data, regex) => {
       date,
       issueDate,
       idClient,
-      info,
+      information,
       partsCost,
       repairCost,
       ...dataToFilter

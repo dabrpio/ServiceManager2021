@@ -5,15 +5,16 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     backgroundColor: '#fff',
   },
-  loginWrapper: {
+  wrapper: {
     [theme.breakpoints.up('sm')]: {
       padding: '40px 100px',
     },
     backgroundColor: '#fff',
     padding: '40px 17vw',
-    justifySelf: 'center',
-    alignSelf: 'center',
-    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    minHeight: '100vh',
   },
   loginForm: {
     maxWidth: '400px',
@@ -21,11 +22,12 @@ export const useStyles = makeStyles((theme) => ({
   heading: {
     [theme.breakpoints.up('sm')]: {
       fontSize: '38px',
+      marginTop: '15vh',
     },
     textAlign: 'center',
     fontSize: '6.4vw',
     fontWeight: 500,
-    marginTop: '20vh',
+    marginTop: '7vh',
   },
   description: {
     [theme.breakpoints.up('sm')]: {

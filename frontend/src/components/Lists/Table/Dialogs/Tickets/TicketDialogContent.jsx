@@ -305,8 +305,8 @@ function TicketDialogContent(props) {
           fullWidth
           label="Dodatkowe informacje"
           type="text"
-          value={ticket.info ?? ''}
-          onChange={handleTextFieldChange('info')}
+          value={ticket.information ?? ''}
+          onChange={handleTextFieldChange('information')}
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
           // multiline

@@ -1,7 +1,7 @@
 import * as employeesAT from './employees.action-types';
-import { URL } from '../../constants';
+import { URL } from '../../../constants';
 
-const baseUrl = `${URL}/api/users`;
+const baseUrl = `${URL}/users`;
 
 const setEmployeesState = (data) => ({
   type: employeesAT.SET_EMPLOYEES,
