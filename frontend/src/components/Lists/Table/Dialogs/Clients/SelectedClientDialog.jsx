@@ -26,8 +26,9 @@ const SelectedClientDialog = (props) => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    const { nazwa, nip, eMail, ...data } = client;
+    const { companyName, nip, eMail, ...data } = client;
     if (Object.values(data).some((e) => e === null || e === '')) {
+      console.log(data);
       console.log('client data is not fully filled');
     } else {
       if (JSON.stringify(clientData) !== JSON.stringify(client)) {
@@ -40,7 +41,7 @@ const SelectedClientDialog = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();
     handleClose();
-    deleteClient(client.idKlienta);
+    deleteClient(client.idClient);
   };
 
   return (
@@ -52,7 +53,7 @@ const SelectedClientDialog = (props) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Klient {client.idKlienta}
+          Klient {client.idClient}
         </DialogTitle>
         <ClientDialogContent client={client} setClient={setClient} />
         <DialogActions classes={{ root: classes.dialogActions }}>

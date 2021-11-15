@@ -34,15 +34,15 @@ function TicketDialogContent(props) {
       setType({
         type: newValue,
       });
-      setTicket({ ...ticket, rodzaj: newValue ?? null });
+      setTicket({ ...ticket, type: newValue ?? null });
     } else if (newValue && newValue.inputValue) {
       setType({
         type: newValue.inputValue,
       });
-      setTicket({ ...ticket, rodzaj: newValue.inputValue ?? null });
+      setTicket({ ...ticket, type: newValue.inputValue ?? null });
     } else {
       setType(newValue);
-      setTicket({ ...ticket, rodzaj: newValue?.type ?? null });
+      setTicket({ ...ticket, type: newValue?.type ?? null });
     }
   };
 
@@ -51,15 +51,15 @@ function TicketDialogContent(props) {
       setBrand({
         brand: newValue,
       });
-      setTicket({ ...ticket, marka: newValue ?? null });
+      setTicket({ ...ticket, brand: newValue ?? null });
     } else if (newValue && newValue.inputValue) {
       setBrand({
         brand: newValue.inputValue,
       });
-      setTicket({ ...ticket, marka: newValue.inputValue ?? null });
+      setTicket({ ...ticket, brand: newValue.inputValue ?? null });
     } else {
       setBrand(newValue);
-      setTicket({ ...ticket, marka: newValue?.brand ?? null });
+      setTicket({ ...ticket, brand: newValue?.brand ?? null });
     }
   };
 
@@ -88,8 +88,8 @@ function TicketDialogContent(props) {
       setTicket({
         ...ticket,
         model: newValue?.model ?? null,
-        marka: type_brand ? type_brand?.brand : ticket.marka,
-        rodzaj: type_brand ? type_brand?.type : ticket.rodzaj,
+        brand: type_brand ? type_brand?.brand : ticket.brand,
+        type: type_brand ? type_brand?.type : ticket.type,
       });
     }
   };
@@ -106,9 +106,9 @@ function TicketDialogContent(props) {
       : !`${ticket[name]}`.match(/^[0-9]+\.{0,1}[0-9]*$/g);
 
   const checkPhoneError = () =>
-    ['', null].includes(ticket.nrTel)
+    ['', null].includes(ticket.phoneNumber)
       ? false
-      : !`${ticket.nrTel}`.match(/^[0-9]{9}$/g);
+      : !`${ticket.phoneNumber}`.match(/^[0-9]{9}$/g);
 
   const checkEmailError = () =>
     ['', null].includes(ticket.eMail)
@@ -231,8 +231,8 @@ function TicketDialogContent(props) {
           fullWidth
           label="Usterka"
           type="text"
-          value={ticket.usterka ?? ''}
-          onChange={handleTextFieldChange('usterka')}
+          value={ticket.glitch ?? ''}
+          onChange={handleTextFieldChange('glitch')}
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
         />
@@ -241,21 +241,21 @@ function TicketDialogContent(props) {
             fullWidth
             label="Koszt części"
             type="text"
-            value={ticket.kosztCzesci ?? ''}
-            onChange={handleTextFieldChange('kosztCzesci')}
+            value={ticket.partsCost ?? ''}
+            onChange={handleTextFieldChange('partsCost')}
             style={{ marginTop: 16, marginBottom: 8 }}
             size="small"
-            error={checkNumberErrors('kosztCzesci')}
+            error={checkNumberErrors('partsCost')}
           />
           <TextField
             fullWidth
             label="Koszt naprawy"
             type="text"
-            value={ticket.kosztNaprawy ?? ''}
-            onChange={handleTextFieldChange('kosztNaprawy')}
+            value={ticket.repairCost ?? ''}
+            onChange={handleTextFieldChange('repairCost')}
             style={{ marginTop: 16, marginBottom: 8 }}
             size="small"
-            error={checkNumberErrors('kosztNaprawy')}
+            error={checkNumberErrors('repairCost')}
           />
         </div>
       </div>
@@ -267,8 +267,8 @@ function TicketDialogContent(props) {
           fullWidth
           label="Imie"
           type="text"
-          value={ticket.imie ?? ''}
-          onChange={handleTextFieldChange('imie')}
+          value={ticket.name ?? ''}
+          onChange={handleTextFieldChange('name')}
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
         />
@@ -276,8 +276,8 @@ function TicketDialogContent(props) {
           fullWidth
           label="Nazwisko"
           type="text"
-          value={ticket.nazwisko ?? ''}
-          onChange={handleTextFieldChange('nazwisko')}
+          value={ticket.surname ?? ''}
+          onChange={handleTextFieldChange('surname')}
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
         />
@@ -285,8 +285,8 @@ function TicketDialogContent(props) {
           fullWidth
           label="Nr telefonu"
           type="text"
-          value={ticket.nrTel ?? ''}
-          onChange={handleTextFieldChange('nrTel')}
+          value={ticket.phoneNumber ?? ''}
+          onChange={handleTextFieldChange('phoneNumber')}
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
           error={checkPhoneError()}
@@ -305,8 +305,8 @@ function TicketDialogContent(props) {
           fullWidth
           label="Dodatkowe informacje"
           type="text"
-          value={ticket.informacje ?? ''}
-          onChange={handleTextFieldChange('informacje')}
+          value={ticket.info ?? ''}
+          onChange={handleTextFieldChange('info')}
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
           // multiline

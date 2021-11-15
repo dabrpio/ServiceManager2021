@@ -15,9 +15,9 @@ function EmployeeDialogContent(props) {
     };
 
   const checkPhoneError = () =>
-    ['', null].includes(employee.nrTel)
+    ['', null].includes(employee.phoneNumber)
       ? false
-      : !`${employee.nrTel}`.match(/^[0-9]{9}$/g);
+      : !`${employee.phoneNumber}`.match(/^[0-9]{9}$/g);
 
   return (
     <DialogContent dividers>
@@ -25,18 +25,16 @@ function EmployeeDialogContent(props) {
         size="small"
         fullWidth
         value={
-          employeeTypes.find(
-            (type) => type.titleId === employee.rodzajUzytkownika
-          )?.title ?? null
+          employeeTypes.find((type) => type.titleId === employee.type)?.title ??
+          null
         }
         options={employeeTypes.map((type) => type.title)}
         getOptionSelected={(option, value) => option === value}
         onChange={(_, newValue) => {
           setEmployee({
             ...employee,
-            rodzajUzytkownika: employeeTypes.find(
-              (type) => type.title === newValue
-            )?.titleId,
+            type: employeeTypes.find((type) => type.title === newValue)
+              ?.titleId,
           });
         }}
         renderInput={(params) => (
@@ -47,8 +45,8 @@ function EmployeeDialogContent(props) {
         fullWidth
         label="Imie"
         type="text"
-        value={employee.imie ?? ''}
-        onChange={handleTextFieldChange('imie')}
+        value={employee.name ?? ''}
+        onChange={handleTextFieldChange('name')}
         style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
       />
@@ -56,8 +54,8 @@ function EmployeeDialogContent(props) {
         fullWidth
         label="Nazwisko"
         type="text"
-        value={employee.nazwisko ?? ''}
-        onChange={handleTextFieldChange('nazwisko')}
+        value={employee.surname ?? ''}
+        onChange={handleTextFieldChange('surname')}
         style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
       />
@@ -65,8 +63,8 @@ function EmployeeDialogContent(props) {
         fullWidth
         label="Nr telefonu"
         type="text"
-        value={employee.nrTel ?? ''}
-        onChange={handleTextFieldChange('nrTel')}
+        value={employee.phoneNumber ?? ''}
+        onChange={handleTextFieldChange('phoneNumber')}
         style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
         error={checkPhoneError()}
@@ -87,8 +85,8 @@ function EmployeeDialogContent(props) {
           fullWidth
           label="Hasło"
           type="password"
-          value={employee.haslo ?? ''}
-          onChange={handleTextFieldChange('haslo')}
+          value={employee.password ?? ''}
+          onChange={handleTextFieldChange('password')}
           style={{ marginTop: 16, marginBottom: 24 }}
           size="small"
         />

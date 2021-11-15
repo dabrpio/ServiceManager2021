@@ -37,7 +37,11 @@ export const fetchClients = () => {
     fetch(baseUrl)
       .then(handleErrors)
       .then((res) => res.json())
-      .then((data) => dispatch(setClientsState(data)))
+      .then((data) => {
+        dispatch(
+          setClientsState(data.map(({ rmas, ...keepAttrs }) => keepAttrs))
+        );
+      })
       .catch((error) => console.log(error));
   };
 };
@@ -51,7 +55,7 @@ export const postClient = (client) => (dispatch) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      nrTel: parseInt(client.nrTel),
+      phoneNumber: parseInt(client.phoneNumber),
       nip: parseInt(client.nip),
       ...client,
     }),
@@ -64,20 +68,25 @@ export const postClient = (client) => (dispatch) => {
 
 // PUT
 export const putClient = (client) => (dispatch) => {
-  fetch(baseUrl + `/${client.idKlienta}`, {
+  console.log(client);
+  fetch(baseUrl + `/${client.idClient}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      nrTel: parseInt(client.nrTel),
+      phoneNumber: parseInt(client.phoneNumber),
       nip: parseInt(client.nip),
       ...client,
     }),
   })
     .then(handleErrors)
-    .then(() => dispatch(updateClientState(client)))
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      dispatch(updateClientState(client));
+    })
     .catch(catchErrors);
 };
 

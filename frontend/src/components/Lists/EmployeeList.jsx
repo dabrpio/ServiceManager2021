@@ -9,19 +9,19 @@ const EmployeeTable = withEnhancedTable(EmployeeTableRow);
 
 const headCells = [
   {
-    id: 'rodzajUzytkownika',
+    id: 'type',
     label: 'Rodzaj',
   },
   {
-    id: 'imie',
+    id: 'name',
     label: 'Imie',
   },
   {
-    id: 'nazwisko',
+    id: 'surname',
     label: 'Nazwisko',
   },
   {
-    id: 'nrTel',
+    id: 'phoneNumber',
     label: 'Nr telefonu',
     smUp: true,
   },

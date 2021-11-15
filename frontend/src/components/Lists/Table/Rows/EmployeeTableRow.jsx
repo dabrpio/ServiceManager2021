@@ -16,12 +16,13 @@ function EmployeeTableRow({ row, classes, handleClick }) {
       key={row.rma}
     >
       <TableCell className={classes.td}>
-        {employeeTypes.find((e) => e.titleId === row.rodzajUzytkownika).title}
+        {employeeTypes.find((e) => e.titleId === row.type)?.title ??
+          'Undefined'}
       </TableCell>
-      <TableCell className={classes.td}>{row.imie}</TableCell>
-      <TableCell className={classes.td}>{row.nazwisko}</TableCell>
+      <TableCell className={classes.td}>{row.name}</TableCell>
+      <TableCell className={classes.td}>{row.surname}</TableCell>
       <Hidden smDown>
-        <TableCell className={classes.td}>{row.nrTel}</TableCell>
+        <TableCell className={classes.td}>{row.phoneNumber}</TableCell>
       </Hidden>
     </TableRow>
   );

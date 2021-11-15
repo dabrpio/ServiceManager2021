@@ -39,12 +39,13 @@ const SelectedTicketDialog = (props) => {
   const handleUpdate = (event) => {
     event.preventDefault();
     const {
-      informacje,
+      info,
       eMail,
-      dataPrzyjecia,
-      dataWydania,
+      date,
+      issueDate,
       nip,
-      nazwa,
+      companyName,
+      idCompany,
       ...dataToValidate
     } = ticket;
     if (Object.values(dataToValidate).some((e) => e === null || e === '')) {

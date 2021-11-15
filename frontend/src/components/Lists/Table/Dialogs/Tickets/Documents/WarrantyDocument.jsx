@@ -41,7 +41,7 @@ const WarrantyDocument = ({ ticket }) => {
             <View style={styles.verticalLine} />
             <View style={[styles.text, { padding: 3 }]}>
               <Text style={[styles.fontMd, styles.textBold]}>
-                {new Date(ticket.dataPrzyjecia).toLocaleDateString('pl')}
+                {new Date(ticket.date).toLocaleDateString('pl')}
               </Text>
             </View>
           </View>
@@ -55,7 +55,7 @@ const WarrantyDocument = ({ ticket }) => {
             <View style={styles.verticalLine} />
             <View style={[styles.text, { padding: 3 }]}>
               <Text style={[styles.fontMd, styles.textBold]}>
-                {new Date(ticket.dataWydania).toLocaleDateString('pl')}
+                {new Date(ticket.issueDate).toLocaleDateString('pl')}
               </Text>
             </View>
           </View>
@@ -76,9 +76,11 @@ const WarrantyDocument = ({ ticket }) => {
               .
             </Text>
             <Text style={[styles.fontSm, { padding: 3 }]}>
-              {ticket.imie} {ticket.nazwisko}
+              {ticket.name} {ticket.surname}
             </Text>
-            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.nrTel}</Text>
+            <Text style={[styles.fontSm, { padding: 3 }]}>
+              {ticket.phoneNumber}
+            </Text>
           </View>
         </View>
         <View style={styles.clientData}>
@@ -94,8 +96,8 @@ const WarrantyDocument = ({ ticket }) => {
             <Text style={[styles.fontSm, styles.invisible, { padding: 3 }]}>
               .
             </Text>
-            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.rodzaj}</Text>
-            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.marka}</Text>
+            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.type}</Text>
+            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.brand}</Text>
             <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.model}</Text>
           </View>
         </View>
@@ -115,7 +117,7 @@ const WarrantyDocument = ({ ticket }) => {
           <View
             style={[styles.rightDataValues, styles.textBox, { height: 45 }]}
           >
-            <Text style={[styles.fontMd]}>{ticket.usterka}</Text>
+            <Text style={[styles.fontMd]}>{ticket.glitch}</Text>
           </View>
         </View>
         <View style={[styles.clientData, { marginTop: 10 }]}>
@@ -134,14 +136,14 @@ const WarrantyDocument = ({ ticket }) => {
           <View
             style={[styles.rightDataValues, styles.textBox, { height: 45 }]}
           >
-            <Text style={[styles.fontMd]}>{ticket.informacje}</Text>
+            <Text style={[styles.fontMd]}>{ticket.info}</Text>
           </View>
         </View>
         <View
           style={[styles.text, { marginTop: 15, textDecoration: 'underline' }]}
         >
           <Text style={[styles.fontLg, styles.textBold]}>
-            Zapłacona kwota: {ticket.kosztNaprawy} zł
+            Zapłacona kwota: {ticket.repairCost} zł
           </Text>
         </View>
         <View style={[styles.text, { marginTop: 5 }]}>

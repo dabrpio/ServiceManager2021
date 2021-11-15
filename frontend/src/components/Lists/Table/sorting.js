@@ -9,7 +9,7 @@ export const stableSort = (array, comparator) => {
 };
 
 export const getComparator = (order, orderBy) => {
-  if (orderBy === 'dataPrzyjecia') {
+  if (orderBy === 'date') {
     return order === 'desc'
       ? (a, b) => descendingDateComparator(a, b, orderBy)
       : (a, b) => -descendingDateComparator(a, b, orderBy);
@@ -20,8 +20,9 @@ export const getComparator = (order, orderBy) => {
   } else if (
     orderBy === 'id' ||
     orderBy === 'rma' ||
-    orderBy === 'kosztNaprawy' ||
-    orderBy === 'idKlienta'
+    orderBy === 'repairCost' ||
+    orderBy === 'idClient' ||
+    orderBy === 'idDevices'
   ) {
     return order === 'desc'
       ? (a, b) => descendingNumberComparator(a, b, orderBy)

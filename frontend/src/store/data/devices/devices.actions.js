@@ -71,7 +71,7 @@ export const postDevice = (device) => (dispatch) => {
 
 // PUT
 export const putDevice = (device) => (dispatch) => {
-  fetch(baseUrl + `/${device.id}`, {
+  fetch(baseUrl + `/${device.idDevices}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',

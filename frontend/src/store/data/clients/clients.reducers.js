@@ -23,9 +23,7 @@ export default function clientsReducer(state = initialState, action) {
       return {
         ...state,
         clients: state.clients.map((client) =>
-          client.idKlienta === action.payload.idKlienta
-            ? action.payload
-            : client
+          client.idClient === action.payload.idClient ? action.payload : client
         ),
       };
     }
@@ -33,7 +31,7 @@ export default function clientsReducer(state = initialState, action) {
       return {
         ...state,
         clients: state.clients.filter(
-          (client) => client.idKlienta !== action.payload
+          (client) => client.idClient !== action.payload
         ),
       };
     }

@@ -15,12 +15,12 @@ const escapeRegExp = (text) => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 const filterTickets = (data, regex) => {
   return data.filter((ticket) => {
     const {
-      dataPrzyjecia,
-      dataWydania,
-      idKlienta,
-      informacje,
-      kosztCzesci,
-      kosztNaprawy,
+      date,
+      issueDate,
+      idClient,
+      info,
+      partsCost,
+      repairCost,
       ...dataToFilter
     } = ticket;
     return Object.values(dataToFilter).some((value) => `${value}`.match(regex));

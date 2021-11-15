@@ -68,7 +68,7 @@ function DocsButton({ classes, ticket }) {
                           }
                         </PDFDownloadLink>
                       </MenuItem>
-                      {ticket.dataWydania && (
+                      {ticket.issueDate && (
                         <MenuItem>
                           <PDFDownloadLink
                             document={<WarrantyDocument ticket={ticket} />}

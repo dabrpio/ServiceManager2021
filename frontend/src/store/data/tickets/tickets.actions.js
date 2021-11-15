@@ -25,18 +25,11 @@ const deleteTicketState = (id) => ({
 
 // GET
 export const fetchTickets = () => {
-  console.log(baseUrl);
   return (dispatch) => {
     fetch(baseUrl)
       .then(handleErrors)
-      .then((res) => {
-        console.log(res);
-        res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        dispatch(setTicketsState(data));
-      })
+      .then((res) => res.json())
+      .then((data) => dispatch(setTicketsState(data)))
       .catch((error) => console.log(error));
   };
 };
@@ -50,9 +43,9 @@ export const postTicket = (data) => (dispatch) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      kosztNaprawy: parseFloat(data.kosztNaprawy),
-      kosztCzesci: parseFloat(data.kosztCzesci),
-      nrTel: parseInt(data.nrTel),
+      repairCost: parseFloat(data.repairCost),
+      partsCost: parseFloat(data.partsCost),
+      phoneNumber: parseInt(data.phoneNumber),
       ...data,
     }),
   })
@@ -71,9 +64,9 @@ export const putTicket = (ticket) => (dispatch) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      kosztNaprawy: parseFloat(ticket.kosztNaprawy),
-      kosztCzesci: parseFloat(ticket.kosztCzesci),
-      nrTel: parseInt(ticket.nrTel),
+      repairCost: parseFloat(ticket.repairCost),
+      partsCost: parseFloat(ticket.partsCost),
+      phoneNumber: parseInt(ticket.phoneNumber),
       ...ticket,
     }),
   })

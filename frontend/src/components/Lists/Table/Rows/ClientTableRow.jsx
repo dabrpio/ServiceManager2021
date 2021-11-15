@@ -12,14 +12,14 @@ function ClientTableRow({ row, classes, handleClick }) {
       hover
       onClick={(event) => handleClick(event, row)}
       tabIndex={-1}
-      key={row.idKlienta}
+      key={row.idClient}
     >
       <Hidden smDown>
-        <TableCell className={classes.td}>{row.idKlienta}</TableCell>
+        <TableCell className={classes.td}>{row.idClient}</TableCell>
       </Hidden>
-      <TableCell className={classes.td}>{row.imie}</TableCell>
-      <TableCell className={classes.td}>{row.nazwisko}</TableCell>
-      <TableCell className={classes.td}>{row.nrTel}</TableCell>
+      <TableCell className={classes.td}>{row.name}</TableCell>
+      <TableCell className={classes.td}>{row.surname}</TableCell>
+      <TableCell className={classes.td}>{row.phoneNumber}</TableCell>
       <Hidden smDown>
         <TableCell className={classes.td}>{row.eMail}</TableCell>
       </Hidden>

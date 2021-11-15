@@ -62,7 +62,7 @@ export const putEmployee = (employee) => (dispatch) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      nrTel: parseInt(employee.nrTel),
+      phoneNumber: parseInt(employee.phoneNumber),
       ...employee,
     }),
   })

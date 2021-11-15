@@ -13,16 +13,16 @@ import { useTicketDialogStyles } from '../styles';
 import TicketDialogContent from './TicketDialogContent';
 
 const initialTicket = {
-  rodzaj: null,
-  marka: null,
+  type: null,
+  brand: null,
   model: null,
-  kosztCzesci: null,
-  kosztNaprawy: null,
-  usterka: null,
-  informacje: null,
-  imie: null,
-  nazwisko: null,
-  nrTel: null,
+  partsCost: null,
+  repairCost: null,
+  glitch: null,
+  info: null,
+  name: null,
+  surname: null,
+  phoneNumber: null,
   eMail: null,
   status: 'oczekiwanie',
 };
@@ -39,7 +39,7 @@ const AddTicketDialog = ({ addTicket }) => {
 
   const handleAdd = (event) => {
     event.preventDefault();
-    const { informacje, eMail, ...dataToValidate } = ticket;
+    const { info, eMail, ...dataToValidate } = ticket;
     if (
       Object.values(dataToValidate).some((e) => e === null || e?.trim() === '')
     ) {

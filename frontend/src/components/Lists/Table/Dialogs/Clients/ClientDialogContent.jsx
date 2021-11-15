@@ -13,9 +13,9 @@ function ClientDialogContent(props) {
     };
 
   const checkPhoneError = () =>
-    ['', null].includes(client.nrTel)
+    ['', null].includes(client.phoneNumber)
       ? false
-      : !`${client.nrTel}`.match(/^[0-9]{9}$/g);
+      : !`${client.phoneNumber}`.match(/^[0-9]{9}$/g);
 
   const checkEmailError = () =>
     ['', null].includes(client.eMail)
@@ -28,8 +28,8 @@ function ClientDialogContent(props) {
         fullWidth
         label="Imie"
         type="text"
-        value={client.imie ?? ''}
-        onChange={handleTextFieldChange('imie')}
+        value={client.name ?? ''}
+        onChange={handleTextFieldChange('name')}
         style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
       />
@@ -37,8 +37,8 @@ function ClientDialogContent(props) {
         fullWidth
         label="Nazwisko"
         type="text"
-        value={client.nazwisko ?? ''}
-        onChange={handleTextFieldChange('nazwisko')}
+        value={client.surname ?? ''}
+        onChange={handleTextFieldChange('surname')}
         style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
       />
@@ -46,8 +46,8 @@ function ClientDialogContent(props) {
         fullWidth
         label="Nr telefonu"
         type="text"
-        value={client.nrTel ?? ''}
-        onChange={handleTextFieldChange('nrTel')}
+        value={client.phoneNumber ?? ''}
+        onChange={handleTextFieldChange('phoneNumber')}
         style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
         error={checkPhoneError()}
@@ -63,14 +63,14 @@ function ClientDialogContent(props) {
         error={checkEmailError()}
       />
 
-      {(newClient || client.nazwa) && (
+      {(newClient || client.companyName || client.nip) && (
         <>
           <TextField
             fullWidth
             label="Nazwa"
             type="text"
-            value={client.nazwa ?? ''}
-            onChange={handleTextFieldChange('nazwa')}
+            value={client.companyName ?? ''}
+            onChange={handleTextFieldChange('companyName')}
             style={{ marginTop: 16, marginBottom: 8 }}
             size="small"
           />

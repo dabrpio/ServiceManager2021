@@ -27,7 +27,7 @@ const ReceiptDocument = ({ ticket }) => {
             RMA - {ticket.rma}
           </Text>
           <Text style={[styles.fontMd, styles.textBold]}>
-            {new Date(ticket.dataPrzyjecia).toLocaleDateString('pl')}
+            {new Date(ticket.date).toLocaleDateString('pl')}
           </Text>
         </View>
         <View style={styles.horizontalLine} />
@@ -47,9 +47,11 @@ const ReceiptDocument = ({ ticket }) => {
               .
             </Text>
             <Text style={[styles.fontSm, { padding: 3 }]}>
-              {ticket.imie} {ticket.nazwisko}
+              {ticket.name} {ticket.surname}
             </Text>
-            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.nrTel}</Text>
+            <Text style={[styles.fontSm, { padding: 3 }]}>
+              {ticket.phoneNumber}
+            </Text>
           </View>
         </View>
         <View style={styles.clientData}>
@@ -65,8 +67,8 @@ const ReceiptDocument = ({ ticket }) => {
             <Text style={[styles.fontSm, styles.invisible, { padding: 3 }]}>
               .
             </Text>
-            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.rodzaj}</Text>
-            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.marka}</Text>
+            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.type}</Text>
+            <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.brand}</Text>
             <Text style={[styles.fontSm, { padding: 3 }]}>{ticket.model}</Text>
           </View>
         </View>
@@ -86,7 +88,7 @@ const ReceiptDocument = ({ ticket }) => {
           <View
             style={[styles.rightDataValues, styles.textBox, { height: 115 }]}
           >
-            <Text style={[styles.fontMd]}>{ticket.usterka}</Text>
+            <Text style={[styles.fontMd]}>{ticket.glitch}</Text>
           </View>
         </View>
 
@@ -97,7 +99,7 @@ const ReceiptDocument = ({ ticket }) => {
           ]}
         >
           <Text style={[styles.textBold, styles.fontBigMd]}>
-            Przewidywany koszt naprawy: {ticket.kosztNaprawy} zł
+            Przewidywany koszt naprawy: {ticket.repairCost} zł
           </Text>
         </View>
 

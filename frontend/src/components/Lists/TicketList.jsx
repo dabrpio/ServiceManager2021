@@ -13,17 +13,17 @@ const headCells = [
     label: 'Rma',
   },
   {
-    id: 'dataPrzyjecia',
+    id: 'issueDate',
     label: 'Data',
     smUp: true,
   },
   {
-    id: 'rodzaj',
+    id: 'type',
     label: 'Rodzaj',
     smUp: true,
   },
   {
-    id: 'marka',
+    id: 'brand',
     label: 'Marka',
   },
   {
@@ -31,7 +31,7 @@ const headCells = [
     label: 'Model',
   },
   {
-    id: 'kosztNaprawy',
+    id: 'repairCost',
     label: 'Koszt',
     smUp: true,
   },

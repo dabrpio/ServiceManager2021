@@ -9,20 +9,20 @@ const ClientTable = withEnhancedTable(ClientTableRow);
 
 const headCells = [
   {
-    id: 'idKlienta',
+    id: 'idClient',
     label: 'ID',
     smUp: true,
   },
   {
-    id: 'imie',
+    id: 'name',
     label: 'Imie',
   },
   {
-    id: 'nazwisko',
+    id: 'surname',
     label: 'Nazwisko',
   },
   {
-    id: 'nrTel',
+    id: 'phoneNumber',
     label: 'Nr telefonu',
   },
   {

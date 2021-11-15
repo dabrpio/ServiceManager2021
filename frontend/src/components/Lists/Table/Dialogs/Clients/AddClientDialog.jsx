@@ -12,11 +12,11 @@ import { postClient } from '../../../../../store/data/clients/clients.actions';
 import ClientDialogContent from './ClientDialogContent';
 
 const initialClient = {
-  imie: null,
-  nazwisko: null,
-  nrTel: null,
+  name: null,
+  surname: null,
+  phoneNumber: null,
   eMail: null,
-  nazwa: null,
+  companyName: null,
   nip: null,
 };
 
@@ -31,7 +31,7 @@ const AddClientDialog = ({ addClient }) => {
 
   const handleAdd = (event) => {
     event.preventDefault();
-    const { nazwa, nip, ...data } = client;
+    const { companyName, nip, ...data } = client;
     if (Object.values(data).some((e) => e === null || `${e}`.trim() === '')) {
       console.log('client data is not fully filled');
     } else {

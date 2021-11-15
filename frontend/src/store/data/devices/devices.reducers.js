@@ -32,14 +32,16 @@ export default function devicesReducer(state = initialState, action) {
       return {
         ...state,
         models: state.models.map((device) =>
-          device.id === action.payload.id ? action.payload : device
+          device.idDevices === action.payload.id ? action.payload : device
         ),
       };
     }
     case devicesAT.DELETE_DEVICE: {
       return {
         ...state,
-        models: state.models.filter((device) => device.id !== action.payload),
+        models: state.models.filter(
+          (device) => device.idDevices !== action.payload
+        ),
       };
     }
     default:
