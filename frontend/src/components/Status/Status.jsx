@@ -9,10 +9,12 @@ import StepLabel from '@material-ui/core/StepLabel';
 import ErrorIcon from '@material-ui/icons/Error';
 import React, { useEffect, useMemo } from 'react';
 import { useStyles } from './styles';
+import { URL } from '../../constants';
 
-const Status = ({ data }) => {
+const Status = ({ status, credentials }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [data, setData] = React.useState(status);
   const states = useMemo(
     () => ['created', 'cost_approval', 'accepted', 'rejected', 'done'],
     []
@@ -25,10 +27,34 @@ const Status = ({ data }) => {
   ];
 
   const handleAccept = () => {
-    console.log('accept');
+    console.log('accept', { ...data, status: 'accepted' });
+    updateState({ ...data, status: 'accepted' });
   };
   const handleReject = () => {
-    console.log('reject');
+    console.log('reject', { ...data, status: 'rejected' });
+    updateState({ ...data, status: 'rejected' });
+    // setActiveStep(3);
+  };
+
+  const updateState = (data) => {
+    fetch(`${URL}/status/${credentials.rma}+${credentials.phoneNumber}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) throw response;
+        return response;
+      })
+      .then((response) => response.json())
+      .then((newState) => {
+        console.log(newState);
+        setData(newState);
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
@@ -43,8 +69,9 @@ const Status = ({ data }) => {
         setActiveStep(2);
         break;
       case states[3]:
+        setActiveStep(4);
       case states[4]:
-        setActiveStep(3);
+        setActiveStep(4);
         break;
       default:
         setActiveStep(0);
@@ -61,33 +88,46 @@ const Status = ({ data }) => {
       </Typography>
       <Hidden xsDown>
         <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
+          {steps.map((label) => {
+            if (data.status === states[3] && label === steps[2])
+              return (
+                <Step key={label}>
+                  <StepLabel error>Anulowano naprawę</StepLabel>
+                </Step>
+              );
+            else
+              return (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              );
+          })}
         </Stepper>
-        <Box className={classes.cost}>
-          <Typography>{`Koszt: ${data.repairCost}zł`}</Typography>
-        </Box>
-        <Box className={classes.buttons}>
-          <Button
-            variant="outlined"
-            color="primary"
-            className={classes.btn}
-            onClick={handleReject}
-          >
-            Rezygnuję
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.btn}
-            onClick={handleAccept}
-          >
-            Akceptuję
-          </Button>
-        </Box>
+        {data.status === states[1] && (
+          <>
+            <Box className={classes.cost}>
+              <Typography>{`Koszt: ${data.repairCost}zł`}</Typography>
+            </Box>
+            <Box className={classes.buttons}>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.btn}
+                onClick={handleReject}
+              >
+                Rezygnuję
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.btn}
+                onClick={handleAccept}
+              >
+                Akceptuję
+              </Button>
+            </Box>
+          </>
+        )}
       </Hidden>
       <Hidden smUp>
         <Stepper
@@ -126,9 +166,7 @@ const Status = ({ data }) => {
             if (data.status === states[3] && label === steps[2])
               return (
                 <Step key={label}>
-                  <StepLabel icon={<ErrorIcon color="error" />}>
-                    Anulowano naprawę
-                  </StepLabel>
+                  <StepLabel error>Anulowano naprawę</StepLabel>
                 </Step>
               );
             else

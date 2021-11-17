@@ -39,7 +39,7 @@ function StatusLogin() {
     <div className={classes.root}>
       <Container className={classes.wrapper} maxWidth="xl">
         {status ? (
-          <Status data={status} />
+          <Status status={status} credentials={credentials} />
         ) : (
           <form onSubmit={handleSubmit} className={classes.loginForm}>
             <Typography component="h2" className={classes.heading}>
