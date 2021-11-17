@@ -54,13 +54,22 @@ namespace CommandApi.Controllers
                 return NotFound();
             }
             if(ticketModel.IdClientNavigation.PhoneNumber==PhoneNumber){
-                return Ok();
+                StatusReadDto inp = new StatusReadDto();
+                var ticketsUpdate = ticketModel;
+                ticketsUpdate.Status=status.Status;
+                inp.Status=ticketModel.Status;
+                inp.Glitch=ticketModel.Glitch;
+                inp.Brand=ticketModel.IdDevicesNavigation.Brand;
+                inp.Model=ticketModel.IdDevicesNavigation.Model;
+                inp.RepairCost=ticketModel.RepairCost;
+                inp.Rma=rma;
+                _mapper.Map(ticketsUpdate,ticketModel);
+                _repoTickets.UpdateTicket(ticketModel);
+                _repoTickets.SaveChanges();
+                return Ok(inp);
             }
             else
             {
-                string dest;
-                dest = "piowrz@st.amu.edu.pl";
-                Services.Mailing.SentMail(dest);
                 return NotFound();
             }
         }
