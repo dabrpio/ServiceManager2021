@@ -16,17 +16,11 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '18px',
     },
     textAlign: 'center',
-    fontSize: '12px',
+    fontSize: '16px',
     fontWeight: 500,
-  },
-  greyColor: {
-    color: theme.palette.grey[600],
-  },
-  darkColor: {
     color: theme.palette.grey[900],
-  },
-  stepper: {
-    marginTop: '16px',
+    width: '100%',
+    padding: '1rem',
   },
   buttons: {
     [theme.breakpoints.up('sm')]: {
@@ -36,13 +30,15 @@ export const useStyles = makeStyles((theme) => ({
     },
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
   },
   btn: {
     [theme.breakpoints.up('sm')]: {
       margin: '0 20px',
     },
-
-    margin: '6px',
+    width: '120px',
+    margin: '5px',
+  },
+  cost: {
+    margin: 16,
   },
 }));
