@@ -7,7 +7,7 @@ namespace CommandApi.Data
     {
         bool SaveChanges();
         IEnumerable<Employee> GetAllEmployee();
-        Employee GetEmployeeById(int? id);
+        Employee GetEmployeeById(int id);
         void CreateEmployee(Employee Employee);
         void UpdateEmployee(Employee EmployeeUpdate);
         void DeleteEmployee(Employee Employee);

@@ -31,7 +31,7 @@ namespace CommandApi.Controllers
 
         //GET api/clients/{id}
         [HttpGet("{id:int}", Name="GetClientById")]
-        public ActionResult<ClientsReadDto> GetClientById(int? id){
+        public ActionResult<ClientsReadDto> GetClientById(int id){
             var commandItem = _repoClients.GetClientById(id);
             if(commandItem!=null){
                 List<int> rmas=new List<int>();
@@ -99,7 +99,7 @@ namespace CommandApi.Controllers
 
         //PUT api/kliecni/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateKliecni(int? id, ClientsCreateDto clientUpdate){
+        public ActionResult UpdateKliecni(int id, ClientsCreateDto clientUpdate){
              var commandItem = _repoClients.GetClientById(id);
             
             if(commandItem!=null){
@@ -118,7 +118,7 @@ namespace CommandApi.Controllers
 
         //DELETE api/kliecni/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteKlienci(int? id)
+        public ActionResult DeleteKlienci(int id)
         {
             var commandItem=_repoClients.GetClientById(id);
             if(commandItem!=null){

@@ -11,7 +11,7 @@ namespace CommandApi.Data
     {
         bool SaveChanges();
         IEnumerable<Device> GetAllUrzadzenia();
-        Device GetDeviceById(int? id);
+        Device GetDeviceById(int id);
         List<string> GetAllTypes();
         List<string> GetSpecificBrand(string type);
         List<string> GetSpecificModel(string type,string brand);

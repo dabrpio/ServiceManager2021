@@ -35,7 +35,7 @@ namespace CommandApi.Data
             return _context.Employees.OrderByDescending(p=>p.IdEmployee).ToList();
         }
 
-        public Employee GetEmployeeById(int? id)
+        public Employee GetEmployeeById(int id)
         {
             return _context.Employees.FirstOrDefault(p=>p.IdEmployee==id);
         }

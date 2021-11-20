@@ -7,7 +7,7 @@ namespace CommandApi.Data
     {
         bool SaveChanges();
         IEnumerable<Client> GetAllKlienci();
-        Client GetClientById(int? id);
+        Client GetClientById(int id);
         Client GetClientByPhNumer(string Phone, string Imie, string Nazwisko);
         IEnumerable<Client> GetKlienciByName(string imie);
         IEnumerable<Client> GetKlienciBySur(string nazwisko);

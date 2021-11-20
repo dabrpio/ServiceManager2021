@@ -28,9 +28,8 @@ namespace CommandApi.Data
             return _context.Clients.OrderByDescending(p=>p.IdClient).ToList();
         }
 
-        public Client GetClientById(int? id)
+        public Client GetClientById(int id)
         {
-
             return _context.Clients.FirstOrDefault(p=>p.IdClient==id);
         }
         public Client GetClientByPhNumer(string phone, string imie, string nazwisko)

@@ -4,7 +4,7 @@ namespace CommandApi.Dtos
 {
     public partial class EmployeeReadDto
     {
-        public int Id { get; set; }
+        public int IdEmployee { get; set; }
         public int? IdCompany { get; set; }
         public int Type { get; set; }
         public string Login { get; set; }

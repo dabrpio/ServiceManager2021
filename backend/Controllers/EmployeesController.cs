@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CommandApi.Controllers
 {
 
-    [Route("api/Employee")]
+    [Route("api/Employees")]
     [ApiController]
     public class EmployeeController:ControllerBase
     {
@@ -21,7 +21,7 @@ namespace CommandApi.Controllers
             _mapper=mapper;
         }
 
-        //GET api/Employee
+        //GET api/Employees
         [HttpGet]
         public ActionResult<IEnumerable<EmployeeReadDto>> GetAllEmployee(){
             var commandItems = _repoEmployee.GetAllEmployee();
@@ -29,9 +29,9 @@ namespace CommandApi.Controllers
         }
 
 
-        //GET api/Employee/{id}
+        //GET api/Employees/{id}
         [HttpGet("{id}", Name="GetEmployeeById")]
-        public ActionResult<EmployeeReadDto> GetEmployeeById(int? id){
+        public ActionResult<EmployeeReadDto> GetEmployeeById(int id){
             var commandItem = _repoEmployee.GetEmployeeById(id);
             
             if(commandItem!=null){
@@ -43,7 +43,7 @@ namespace CommandApi.Controllers
         }
 
 
-        //POST api/Employee
+        //POST api/Employees
         [HttpPost]
         public ActionResult<EmployeeReadDto> CreateEmployee(EmployeeCreateDto EmployeeCreateDto){
             var EmployeeModel =_mapper.Map<Employee>(EmployeeCreateDto);
@@ -54,7 +54,7 @@ namespace CommandApi.Controllers
 
                 var uzytkownicyReadDto = _mapper.Map<EmployeeReadDto>(EmployeeModel);
 
-                return CreatedAtRoute(nameof(GetEmployeeById), new {id = uzytkownicyReadDto.Id},uzytkownicyReadDto);    
+                return CreatedAtRoute(nameof(GetEmployeeById), new {id = uzytkownicyReadDto.IdEmployee},uzytkownicyReadDto);    
             }
             else{
                 var EmployeeReadDto= _repoEmployee.GetEmployeeByLoginPasswordId(EmployeeCreateDto.Login, EmployeeCreateDto.Password, EmployeeCreateDto.IdCompany);
@@ -63,9 +63,9 @@ namespace CommandApi.Controllers
         }
 
 
-        //PUT api/Employee/{id}
+        //PUT api/Employees/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateEmployee(int? id, EmployeeCreateDto EmployeeUpdate){
+        public ActionResult UpdateEmployee(int id, EmployeeCreateDto EmployeeUpdate){
              var commandItem = _repoEmployee.GetEmployeeById(id);
             
             if(commandItem!=null){
@@ -80,9 +80,9 @@ namespace CommandApi.Controllers
         }
 
 
-        //DELETE api/Employee/{id}
+        //DELETE api/Employees/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteEmployee(int? id)
+        public ActionResult DeleteEmployee(int id)
         {
             var commandItem=_repoEmployee.GetEmployeeById(id);
             if(commandItem!=null){

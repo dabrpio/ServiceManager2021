@@ -55,7 +55,7 @@ namespace CommandApi.Data
             return commandItem;
         }
 
-        public Device GetDeviceById(int? id)
+        public Device GetDeviceById(int id)
         {
             return _context.Devices.FirstOrDefault(p=>p.IdDevice==id);
         }
