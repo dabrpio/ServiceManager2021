@@ -7,8 +7,8 @@ namespace CommandApi.Data
     {
         bool SaveChanges();
         IEnumerable<Client> GetAllKlienci();
-        Client GetClientById(short? id);
-        Client GetClientByPhNumer(int? Phone, string Imie, string Nazwisko);
+        Client GetClientById(int? id);
+        Client GetClientByPhNumer(string Phone, string Imie, string Nazwisko);
         IEnumerable<Client> GetKlienciByName(string imie);
         IEnumerable<Client> GetKlienciBySur(string nazwisko);
         void CreateClient(Client klient);

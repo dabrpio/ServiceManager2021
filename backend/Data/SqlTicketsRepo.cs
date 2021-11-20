@@ -34,7 +34,7 @@ namespace CommandApi.Data
             return _context.Tickets.OrderByDescending(p=>p.Rma).Take(25).ToList();
         }
 
-        public Ticket GetTicketsByRma(short Rma)
+        public Ticket GetTicketsByRma(int Rma)
         {
             return _context.Tickets.FirstOrDefault(p=>p.Rma==Rma);
         }

@@ -8,23 +8,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CommandApi.Models
 {
-    [Table("users")]
+    [Table("employees")]
     [Index(nameof(IdCompany), Name = "IX_users", IsUnique = true)]
-    public partial class User
+    public partial class Employee
     {
-        public User()
+        public Employee()
         {
             Tickets = new HashSet<Ticket>();
         }
 
         [Key]
-        [Column("id")]
-        public short Id { get; set; }
+        [Column("idEmployee")]
+        public int IdEmployee { get; set; }
         [Required]
-        [Column("id_company")]
-        public short? IdCompany { get; set; }
+        [Column("idCompany")]
+        public int? IdCompany { get; set; }
         [Column("type")]
-        public short Type { get; set; }
+        public int Type { get; set; }
         [Required]
         [Column("login")]
         [StringLength(30)]
@@ -33,11 +33,15 @@ namespace CommandApi.Models
         [Column("password")]
         [StringLength(30)]
         public string Password { get; set; }
-        [Column("phone_number")]
-        public int? PhoneNumber { get; set; }
+        [Required]
+        [Column("phoneNumber")]
+        [StringLength(20)]
+        public string PhoneNumber { get; set; }
+        [Required]
         [Column("name")]
         [StringLength(50)]
         public string Name { get; set; }
+        [Required]
         [Column("surname")]
         [StringLength(50)]
         public string Surname { get; set; }

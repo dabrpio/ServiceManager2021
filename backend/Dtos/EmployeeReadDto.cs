@@ -2,14 +2,14 @@ using System;
 
 namespace CommandApi.Dtos
 {
-    public partial class UsersReadDto
+    public partial class EmployeeReadDto
     {
-        public short Id { get; set; }
-        public short? IdCompany { get; set; }
-        public short Type { get; set; }
+        public int Id { get; set; }
+        public int? IdCompany { get; set; }
+        public int Type { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public int? PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
 

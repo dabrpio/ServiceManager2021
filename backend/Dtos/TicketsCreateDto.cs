@@ -6,18 +6,18 @@ namespace CommandApi.Dtos
 {
     public partial class TicketsCreateDto
     {
-        public DateTime Date { get; set; }
+        public DateTime BeginDate { get; set; }
         [Required]
         [StringLength(255)]
         public string Glitch { get; set; }
         public decimal? RepairCost { get; set; }
         public decimal? PartsCost { get; set; }
-        public DateTime? IssueDate { get; set; }
+        public DateTime? EndDate { get; set; }
         [StringLength(255)]
         public string Status { get; set; }
         [StringLength(255)]
         public string Information { get; set; }
-        public short? IdCompany { get; set; }
+        public int? IdCompany { get; set; }
 
 
         //client
@@ -27,12 +27,12 @@ namespace CommandApi.Dtos
         [Required]
         [StringLength(255)]
         public string Surname { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         [StringLength(255)]
         public string CompanyName { get; set; }
-        public long? Nip { get; set; }
+        public string Nip { get; set; }
         [StringLength(255)]
-        public string EMail { get; set; }
+        public string Email { get; set; }
 
         
         //device

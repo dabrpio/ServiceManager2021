@@ -5,7 +5,7 @@ namespace CommandApi.Dtos
 {
     public partial class StatusCreateDto
     {
-        public short Rma { get; set; }
+        public int Rma { get; set; }
         public string Status { get; set; }
     }
 }

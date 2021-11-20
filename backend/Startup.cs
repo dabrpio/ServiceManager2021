@@ -40,7 +40,7 @@ namespace CommandApi
 
             services.AddScoped<ITicketsRepo, SqlTicketsRepo>();
             services.AddScoped<IClientsRepo, SqlClientsRepo>();
-            services.AddScoped<IUsersRepo, SqlUsersRepo>();
+            services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
             services.AddScoped<IDevicesRepo, SqlDevicesRepo>();
 
         }
