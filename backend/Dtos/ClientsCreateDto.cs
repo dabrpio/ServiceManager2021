@@ -11,11 +11,9 @@ namespace CommandApi.Dtos
         [Required]
         [StringLength(255)]
         public string Surname { get; set; }
-        [StringLength(20)]
+        [StringLength(50)]
         public string PhoneNumber { get; set; }
-        [StringLength(255)]
-        public string CompanyName { get; set; }
-        public string Nip { get; set; }
+
         [StringLength(255)]
         public string Email { get; set; }
     }

@@ -27,16 +27,9 @@ namespace CommandApi.Models
         [Column("surname")]
         [StringLength(255)]
         public string Surname { get; set; }
-        [Required]
         [Column("phoneNumber")]
-        [StringLength(20)]
+        [StringLength(50)]
         public string PhoneNumber { get; set; }
-        [Column("companyName")]
-        [StringLength(255)]
-        public string CompanyName { get; set; }
-        [Column("NIP")]
-        [StringLength(20)]
-        public string Nip { get; set; }
         [Column("email")]
         [StringLength(255)]
         public string Email { get; set; }

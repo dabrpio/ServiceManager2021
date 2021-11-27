@@ -37,8 +37,6 @@ namespace CommandApi.Controllers
                 inp.Surname=item.IdClientNavigation.Surname;
                 inp.PhoneNumber=item.IdClientNavigation.PhoneNumber;
                 inp.Email=item.IdClientNavigation.Email;
-                inp.Nip=item.IdClientNavigation.Nip;
-                inp.CompanyName=item.IdClientNavigation.CompanyName;
                 inp.IdDevice=item.IdDeviceNavigation.IdDevice;
                 inp.Type=item.IdDeviceNavigation.Type;
                 inp.Brand=item.IdDeviceNavigation.Brand;
@@ -59,8 +57,6 @@ namespace CommandApi.Controllers
                 inp.Surname=commandItem.IdClientNavigation.Surname;
                 inp.PhoneNumber=commandItem.IdClientNavigation.PhoneNumber;
                 inp.Email=commandItem.IdClientNavigation.Email;
-                inp.Nip=commandItem.IdClientNavigation.Nip;
-                inp.CompanyName=commandItem.IdClientNavigation.CompanyName;
                 inp.Type=commandItem.IdDeviceNavigation.Type;
                 inp.Brand=commandItem.IdDeviceNavigation.Brand;
                 inp.Model=commandItem.IdDeviceNavigation.Model;

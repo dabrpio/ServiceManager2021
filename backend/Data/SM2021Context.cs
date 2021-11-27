@@ -23,21 +23,10 @@ namespace CommandApi.Data
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
-            modelBuilder.Entity<Client>(entity =>
-            {
-                entity.HasKey(e => e.IdClient)
-                    .HasName("PK_klienci");
-            });
-
-            modelBuilder.Entity<Employee>(entity =>
-            {
-                entity.HasKey(e => e.IdEmployee)
-                    .HasName("PK_users");
-            });
 
             modelBuilder.Entity<Ticket>(entity =>
             {
@@ -48,13 +37,6 @@ namespace CommandApi.Data
                     .HasForeignKey(d => d.IdClient)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tickets_clients");
-
-                entity.HasOne(d => d.IdCompanyNavigation)
-                    .WithMany(p => p.Tickets)
-                    .HasPrincipalKey(p => p.IdCompany)
-                    .HasForeignKey(d => d.IdCompany)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_TempSales_SalesReason");
 
                 entity.HasOne(d => d.IdDeviceNavigation)
                     .WithMany(p => p.Tickets)

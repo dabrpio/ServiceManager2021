@@ -40,7 +40,7 @@ namespace CommandApi.Data
             return _context.Employees.FirstOrDefault(p=>p.IdEmployee==id);
         }
 
-        public Employee GetEmployeeByLoginPasswordId(string login, string password, int? id)
+        public Employee GetEmployeeByLoginPasswordId(string login, string password, int id)
         {
             return _context.Employees.FirstOrDefault(p=>p.IdCompany==id && p.Login==login && p.Password == password);
         }

@@ -21,15 +21,15 @@ namespace CommandApi.Models
         public int IdDevice { get; set; }
         [Required]
         [Column("type")]
-        [StringLength(50)]
+        [StringLength(255)]
         public string Type { get; set; }
         [Required]
         [Column("brand")]
-        [StringLength(50)]
+        [StringLength(255)]
         public string Brand { get; set; }
         [Required]
         [Column("model")]
-        [StringLength(50)]
+        [StringLength(255)]
         public string Model { get; set; }
 
         [InverseProperty(nameof(Ticket.IdDeviceNavigation))]

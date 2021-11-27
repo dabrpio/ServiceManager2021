@@ -42,7 +42,7 @@ namespace CommandApi
             services.AddScoped<IClientsRepo, SqlClientsRepo>();
             services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
             services.AddScoped<IDevicesRepo, SqlDevicesRepo>();
-
+            services.AddScoped<IStatisticsRepo, SqlStatisticsRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

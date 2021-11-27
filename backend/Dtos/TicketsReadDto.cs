@@ -13,7 +13,7 @@ namespace CommandApi.Dtos
         public DateTime? EndDate { get; set; }
         public string Status { get; set; }
         public string Information { get; set; }
-        public int? IdCompany { get; set; }
+        public int IdCompany { get; set; }
 
 
         //client
