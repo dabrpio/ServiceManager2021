@@ -12,10 +12,10 @@ namespace CommandApi.Controllers
     [ApiController]
     public class StatisticsController:ControllerBase
     {
-        public decimal VAT=(decimal)(0.74);
+
         private readonly IStatisticsRepo _repoStats;
         private readonly IMapper _mapper;
-
+        public static decimal VAT=(decimal)(0.74);
         public StatisticsController(IStatisticsRepo repository, IMapper mapper){
             _repoStats=repository;
             _mapper=mapper;
@@ -56,6 +56,50 @@ namespace CommandApi.Controllers
                 sum=sum+(item.X-item.Y)*VAT;
             }
             return Ok(sum);
+        }
+
+
+        //GET api/statistics
+        [HttpGet("count/week")]
+        public ActionResult<int> GetCountWeek(){
+            int commandItems = _repoStats.CountTicketsWeek();
+            return Ok(commandItems);
+        }
+
+        //GET api/statistics
+        [HttpGet("count/month")]
+        public ActionResult<int> GetCountMonth(){
+            int commandItems = _repoStats.CountTicketsMonth();
+            return Ok(commandItems);
+        }
+                
+        //GET api/statistics
+        [HttpGet("count/year")]
+        public ActionResult<int> GetCountYear(){
+            int commandItems = _repoStats.CountTicketsYear();
+            return Ok(commandItems);
+        }
+
+
+        //GET api/statistics
+        [HttpGet("best/week/{multi}")]
+        public ActionResult<Ticket> GetBestTicketWeek(int multi){
+            var commandItems = _repoStats.GetBestTicketWeek(multi);
+            return Ok(commandItems);
+        }
+                
+        //GET api/statistics
+        [HttpGet("best/month/{multi}")]
+        public ActionResult<Ticket> GetBestTicketMonth(int multi){
+            var commandItems = _repoStats.GetBestTicketMonth(multi);
+            return Ok(commandItems);
+        }
+
+        //GET api/statistics
+        [HttpGet("best/year/{multi}")]
+        public ActionResult<Ticket> GetBestTicketYear(int multi){
+            var commandItems = _repoStats.GetBestTicketYear(multi);
+            return Ok(commandItems);
         }
     }
 }
