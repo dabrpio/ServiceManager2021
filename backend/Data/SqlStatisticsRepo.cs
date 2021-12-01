@@ -14,47 +14,24 @@ namespace CommandApi.Data
         {
             _context = context;
         }
-        public IEnumerable<Money1> GetAllMoneyWeek()
+        public IEnumerable<Stat1> GetAllMoney(int multi)
         {
-            IEnumerable<Money1> commandItem = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-7)).Select(p=>new Money1{X=p.RepairCost,Y=p.PartsCost}).ToList();
+            IEnumerable<Stat1> commandItem = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-1*multi)).Select(p=>new Stat1{Year=p.BeginDate.Year, Month=p.BeginDate.Month, Day=p.BeginDate.Day, Profit=((p.RepairCost-p.PartsCost)*Controllers.StatisticsController.VAT)}).GroupBy(x => new { x.Year, x.Month, x.Day }, (key, group) => new Stat1{Year = key.Year, Month = key.Month, Day= key.Day, Profit = group.Sum(k => k.Profit)}).ToList();            
             return commandItem;
         }
 
-        public IEnumerable<Money1> GetAllMoneyMonth()
-        {
-            IEnumerable<Money1> commandItem = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddMonths(-1)).Select(p=>new Money1{X=p.RepairCost,Y=p.PartsCost}).ToList();
-            return commandItem;
-        }
-        
-        public IEnumerable<Money1> GetAllMoneyYear()
-        {
-            IEnumerable<Money1> commandItem = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddYears(-1)).Select(p=>new Money1{X=p.RepairCost,Y=p.PartsCost}).ToList();
+
+        public IEnumerable<Stat1> CountTickets(int multi){
+            //var commandItem =  _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-7)).Count();
+            IEnumerable<Stat1> commandItem =_context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-1*multi)).Select(p=>new Stat1{Year=p.BeginDate.Year, Month=p.BeginDate.Month, Day=p.BeginDate.Day, Profit=(decimal)1}).GroupBy(x => new { x.Year, x.Month, x.Day }, (key, group) => new Stat1{Year = key.Year, Month = key.Month, Day= key.Day, Profit = group.Sum(k => k.Profit)}).ToList();            
+
             return commandItem;
         }
 
-        public int CountTicketsWeek(){
-            return _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-7)).ToList().Count();
+        public Ticket GetBestTicket(int multi){
+            var commandTicket = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-multi)).Max(x=>(x.RepairCost-x.PartsCost)*CommandApi.Controllers.StatisticsController.VAT);
+            return _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-multi) && (p.RepairCost-p.PartsCost)*CommandApi.Controllers.StatisticsController.VAT == commandTicket).FirstOrDefault();
         }
-
-        public int CountTicketsMonth(){
-            return _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddMonths(-1)).ToList().Count();
-        }
-
-        public int CountTicketsYear(){
-            return _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddYears(-1)).ToList().Count();
-        }
-        public Ticket GetBestTicketWeek(int multi){
-            var commandTicket = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-7*multi)&& p.BeginDate<DateTime.Now.AddDays(-7*(multi-1))).Max(x=>(x.RepairCost-x.PartsCost)*CommandApi.Controllers.StatisticsController.VAT);
-            return _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-7*multi)&& p.BeginDate<DateTime.Now.AddDays(-7*(multi-1)) && (p.RepairCost-p.PartsCost)*CommandApi.Controllers.StatisticsController.VAT == commandTicket).FirstOrDefault();
-        }
-        public Ticket GetBestTicketMonth(int multi){
-            var commandTicket = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddMonths(-1*multi) && p.BeginDate<DateTime.Now.AddMonths(-1*(multi-1))).Max(x=>(x.RepairCost-x.PartsCost)*CommandApi.Controllers.StatisticsController.VAT);
-            return _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddMonths(-1*multi) && p.BeginDate<DateTime.Now.AddMonths(-1*(multi-1)) && (p.RepairCost-p.PartsCost)*CommandApi.Controllers.StatisticsController.VAT == commandTicket).FirstOrDefault();
-        }
-        public Ticket GetBestTicketYear(int multi){
-            var commandTicket = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddYears(-1*multi)&& p.BeginDate<DateTime.Now.AddYears(-1*(multi-1))).Max(x=>(x.RepairCost-x.PartsCost)*CommandApi.Controllers.StatisticsController.VAT);
-            return _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddYears(-1*multi)&& p.BeginDate<DateTime.Now.AddYears(-1*(multi-1)) && (p.RepairCost-p.PartsCost)*CommandApi.Controllers.StatisticsController.VAT == commandTicket).FirstOrDefault();
-        }
-
+      
     }
 }

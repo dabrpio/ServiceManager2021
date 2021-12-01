@@ -1,34 +1,48 @@
 using System.Collections.Generic;
 using CommandApi.Models;
 using CommandApi.Dtos;
-
+using System;
 
 namespace CommandApi.Data
 {
     
-    public struct Money1
+    public struct Stat1
     {
-        public Money1(decimal? x, decimal? y)
+        public Stat1(int year, int month, int day, decimal? profit)
         {
-            X = x;
-            Y = y;
+            Year = year;
+            Month = month;
+            Day=day;
+            Profit=profit;
         }
-        public decimal? X { get; set; }
-        public decimal? Y { get; set; }
+
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Day { get; set; }
+        public decimal? Profit { get; set; }
     }
+    public struct Stat2
+    {
+
+        public Stat2(DateTime beginDate, decimal? profit)
+        {
+            BeginDate=beginDate;
+            Profit=profit;
+        }
+        public DateTime BeginDate { get; set; }
+        public decimal? Profit { get; set; }
+    }
+
+
+
     
     public interface IStatisticsRepo
     {
-        IEnumerable<Money1> GetAllMoneyWeek();
-        IEnumerable<Money1> GetAllMoneyMonth();
-        IEnumerable<Money1> GetAllMoneyYear();
+        IEnumerable<Stat1> GetAllMoney(int multi);
 
-        int CountTicketsWeek();
-        int CountTicketsMonth();
-        int CountTicketsYear();
+        IEnumerable<Stat1> CountTickets(int multi);
 
-        Ticket GetBestTicketWeek(int multi);
-        Ticket GetBestTicketMonth(int multi);
-        Ticket GetBestTicketYear(int multi);
+        Ticket GetBestTicket(int multi);
+
     }
 }

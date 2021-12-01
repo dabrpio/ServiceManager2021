@@ -14,92 +14,93 @@ namespace CommandApi.Controllers
     {
 
         private readonly IStatisticsRepo _repoStats;
+
+        private readonly ITicketsRepo _repoTickets;
         private readonly IMapper _mapper;
-        public static decimal VAT=(decimal)(0.74);
-        public StatisticsController(IStatisticsRepo repository, IMapper mapper){
+        public static decimal VAT=(decimal)(0.77);
+        public StatisticsController(IStatisticsRepo repository, ITicketsRepo repo2, IMapper mapper){
             _repoStats=repository;
+            _repoTickets=repo2;
             _mapper=mapper;
         }
         
         //GET api/statistics
-        [HttpGet("profit/week")]
-        public ActionResult<decimal?> GetAllMoneyWeek(){
-            var commandItems = _repoStats.GetAllMoneyWeek();
-            decimal? sum= (decimal)0;
+        [HttpGet("profit/{multi}")]
+        public ActionResult<IEnumerable<Stat2>> GetAllMoney(int multi){
+            var commandItems = _repoStats.GetAllMoney(multi);
+            List<Stat2> ret= new List<Stat2>();
+            List<Stat2> allDates=new List<Stat2>();
             foreach (var item in commandItems)
             {
-                sum=sum+(item.X-item.Y)*VAT;
+                Stat2 inp = new Stat2();
+                inp.BeginDate=new DateTime(item.Year,item.Month,item.Day);
+                inp.Profit=item.Profit;
+                ret.Add(inp);
             }
-            return Ok(sum);
+            DateTime nowsDate= new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day);
+            int j=ret.Count-1;
+            for (int i = 0; i < multi; i++)
+            {
+                if(j>=0){
+                    if(ret[j].BeginDate==nowsDate.AddDays(-i)){
+                        allDates.Add(ret[j]);
+                        j=j-1;
+                    }
+                    else{
+                        allDates.Add(new Stat2{BeginDate = nowsDate.AddDays(-i), Profit=(decimal)0});
+                    }
+                }
+                else{
+                    allDates.Add(new Stat2{BeginDate = nowsDate.AddDays(-i), Profit=(decimal)0});
+                }
+            }
+            return Ok(allDates);
         }
         
 
         //GET api/statistics
-        [HttpGet("profit/month")]
-        public ActionResult<decimal?> GetAllMoneyMonth(){
-            var commandItems = _repoStats.GetAllMoneyMonth();
-            decimal? sum= (decimal)0;
+        [HttpGet("count/{multi}")]
+        public ActionResult<IEnumerable<Stat2>> GetCount(int multi){
+            var commandItems = _repoStats.CountTickets(multi);
+            List<Stat2> ret= new List<Stat2>();
+            List<Stat2> allDates=new List<Stat2>();
             foreach (var item in commandItems)
             {
-                sum=sum+(item.X-item.Y)*VAT;
+                Stat2 inp = new Stat2();
+                inp.BeginDate=new DateTime(item.Year,item.Month,item.Day);
+                inp.Profit=item.Profit;
+                ret.Add(inp);
             }
-            return Ok(sum);
-        }
-               
-        //GET api/statistics
-        [HttpGet("profit/year")]
-        public ActionResult<decimal?> GetAllMoneyYear(){
-            var commandItems = _repoStats.GetAllMoneyYear();
-            decimal? sum= (decimal)0;
-            foreach (var item in commandItems)
+            DateTime nowsDate= new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day);
+            int j=ret.Count-1;
+            for (int i = 0; i < multi; i++)
             {
-                sum=sum+(item.X-item.Y)*VAT;
+                if(j>=0){
+                    if(ret[j].BeginDate==nowsDate.AddDays(-i)){
+                        allDates.Add(ret[j]);
+                        j=j-1;
+                    }
+                    else{
+                        allDates.Add(new Stat2{BeginDate = nowsDate.AddDays(-i), Profit=(decimal)0});
+                    }
+                }
+                else{
+                    allDates.Add(new Stat2{BeginDate = nowsDate.AddDays(-i), Profit=(decimal)0});
+                }
             }
-            return Ok(sum);
+            return Ok(allDates);
         }
 
 
         //GET api/statistics
-        [HttpGet("count/week")]
-        public ActionResult<int> GetCountWeek(){
-            int commandItems = _repoStats.CountTicketsWeek();
-            return Ok(commandItems);
-        }
-
-        //GET api/statistics
-        [HttpGet("count/month")]
-        public ActionResult<int> GetCountMonth(){
-            int commandItems = _repoStats.CountTicketsMonth();
-            return Ok(commandItems);
-        }
-                
-        //GET api/statistics
-        [HttpGet("count/year")]
-        public ActionResult<int> GetCountYear(){
-            int commandItems = _repoStats.CountTicketsYear();
-            return Ok(commandItems);
-        }
-
-
-        //GET api/statistics
-        [HttpGet("best/week/{multi}")]
-        public ActionResult<Ticket> GetBestTicketWeek(int multi){
-            var commandItems = _repoStats.GetBestTicketWeek(multi);
-            return Ok(commandItems);
-        }
-                
-        //GET api/statistics
-        [HttpGet("best/month/{multi}")]
-        public ActionResult<Ticket> GetBestTicketMonth(int multi){
-            var commandItems = _repoStats.GetBestTicketMonth(multi);
-            return Ok(commandItems);
-        }
-
-        //GET api/statistics
-        [HttpGet("best/year/{multi}")]
-        public ActionResult<Ticket> GetBestTicketYear(int multi){
-            var commandItems = _repoStats.GetBestTicketYear(multi);
-            return Ok(commandItems);
+        [HttpGet("best/{multi}")]
+        public ActionResult<TicketsReadDto> GetBestTicket(int multi){
+            var commandItem = _repoStats.GetBestTicket(multi);
+            var retu=_repoTickets.GetTicketsByRma(commandItem.Rma);
+            TicketsReadDto inp= _mapper.Map<TicketsReadDto>(retu);
+            _mapper.Map(retu.IdClientNavigation,inp);
+            _mapper.Map(retu.IdDeviceNavigation,inp);
+            return Ok(inp);
         }
     }
 }
