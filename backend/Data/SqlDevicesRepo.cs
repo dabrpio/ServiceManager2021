@@ -32,7 +32,7 @@ namespace CommandApi.Data
 
         public IEnumerable<Device> GetAllUrzadzenia()
         {
-            return _context.Devices.OrderByDescending(p=>p.IdDevices).ToList();
+            return _context.Devices.OrderByDescending(p=>p.IdDevice).ToList();
         }
 
         public List<string> GetAllTypes()
@@ -55,9 +55,9 @@ namespace CommandApi.Data
             return commandItem;
         }
 
-        public Device GetDeviceById(short? id)
+        public Device GetDeviceById(int id)
         {
-            return _context.Devices.FirstOrDefault(p=>p.IdDevices==id);
+            return _context.Devices.FirstOrDefault(p=>p.IdDevice==id);
         }
 
         public bool SaveChanges()

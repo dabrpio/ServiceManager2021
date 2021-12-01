@@ -20,24 +20,17 @@ namespace CommandApi.Data
 
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Device> Devices { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<Client>(entity =>
-            {
-                entity.HasKey(e => e.IdClient)
-                    .HasName("PK_klienci");
-            });
-
             modelBuilder.Entity<Ticket>(entity =>
             {
-                entity.Property(e => e.Date).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.BeginDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.IdClientNavigation)
                     .WithMany(p => p.Tickets)
@@ -45,16 +38,9 @@ namespace CommandApi.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tickets_clients");
 
-                entity.HasOne(d => d.IdCompanyNavigation)
+                entity.HasOne(d => d.IdDeviceNavigation)
                     .WithMany(p => p.Tickets)
-                    .HasPrincipalKey(p => p.IdCompany)
-                    .HasForeignKey(d => d.IdCompany)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_TempSales_SalesReason");
-
-                entity.HasOne(d => d.IdDevicesNavigation)
-                    .WithMany(p => p.Tickets)
-                    .HasForeignKey(d => d.IdDevices)
+                    .HasForeignKey(d => d.IdDevice)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tickets_devices");
             });

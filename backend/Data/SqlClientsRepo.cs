@@ -28,12 +28,11 @@ namespace CommandApi.Data
             return _context.Clients.OrderByDescending(p=>p.IdClient).ToList();
         }
 
-        public Client GetClientById(short? id)
+        public Client GetClientById(int id)
         {
-
             return _context.Clients.FirstOrDefault(p=>p.IdClient==id);
         }
-        public Client GetClientByPhNumer(int? phone, string imie, string nazwisko)
+        public Client GetClientByPhNumer(string phone, string imie, string nazwisko)
         {
             return _context.Clients.FirstOrDefault(p=>p.PhoneNumber==phone&&p.Name==imie&&p.Surname==nazwisko);
         }

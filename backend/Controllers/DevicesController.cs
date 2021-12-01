@@ -32,7 +32,7 @@ namespace CommandApi.Controllers
 
         //GET api/devices/{id}
         [HttpGet("{id}", Name="GetDeviceById")]
-        public ActionResult<DevicesReadDto> GetDeviceById(short? id){
+        public ActionResult<DevicesReadDto> GetDeviceById(int id){
             var commandItem = _repoDevices.GetDeviceById(id);
             if(commandItem!=null){
                 return Ok(_mapper.Map<DevicesReadDto>(commandItem));
@@ -131,7 +131,7 @@ namespace CommandApi.Controllers
 
         //DELETE api/devices/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteUrzadzenia(short? id)
+        public ActionResult DeleteUrzadzenia(int id)
         {
             var commandItem=_repoDevices.GetDeviceById(id);
             if(commandItem!=null){
@@ -147,31 +147,31 @@ namespace CommandApi.Controllers
         //POST api/devices
         [HttpPost]
         public ActionResult<DevicesReadDto> CreateClient(DevicesCreateDto device){
-            var urzadzeniaModel = _mapper.Map<Device>(device);
+            var deviceModel = _mapper.Map<Device>(device);
                 if(_repoDevices.GetDeviceByModel(device.Type,device.Brand,device.Model)==null){
-                _repoDevices.CreateDevice(urzadzeniaModel);
+                _repoDevices.CreateDevice(deviceModel);
                 _repoDevices.SaveChanges();
-                var DevicesReadDto= _mapper.Map<DevicesReadDto>(urzadzeniaModel);
-                return CreatedAtRoute(nameof(GetDeviceById), new {id = DevicesReadDto.IdDevices},DevicesReadDto);
+                var DevicesReadDto= _mapper.Map<DevicesReadDto>(deviceModel);
+                return CreatedAtRoute(nameof(GetDeviceById), new {id = DevicesReadDto.IdDevice},DevicesReadDto);
             }
             else{
 
                 var DevicesReadDto= _repoDevices.GetDeviceByModel(device.Type,device.Brand,device.Model);
-                return RedirectToRoute(nameof(GetDeviceById), new {id = DevicesReadDto.IdDevices});
+                return RedirectToRoute(nameof(GetDeviceById), new {id = DevicesReadDto.IdDevice});
             }
         }
 
 
         //PUT api/devices/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateKliecni(short? id, DevicesCreateDto device){
+        public ActionResult UpdateKliecni(int id, DevicesCreateDto device){
              var commandItem = _repoDevices.GetDeviceById(id);
             
             if(commandItem!=null){
                 _mapper.Map(device,commandItem);
                 _repoDevices.UpdateUrzadzenia(commandItem);
                 _repoDevices.SaveChanges();
-                return NoContent();
+                return CreatedAtRoute(nameof(GetDeviceById), new {id = commandItem.IdDevice},commandItem);
             }
             else{
                 return NotFound();

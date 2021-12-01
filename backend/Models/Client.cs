@@ -17,8 +17,8 @@ namespace CommandApi.Models
         }
 
         [Key]
-        [Column("id_client")]
-        public short IdClient { get; set; }
+        [Column("idClient")]
+        public int IdClient { get; set; }
         [Required]
         [Column("name")]
         [StringLength(255)]
@@ -27,16 +27,12 @@ namespace CommandApi.Models
         [Column("surname")]
         [StringLength(255)]
         public string Surname { get; set; }
-        [Column("phone_number")]
-        public int PhoneNumber { get; set; }
-        [Column("company_name")]
+        [Column("phoneNumber")]
+        [StringLength(50)]
+        public string PhoneNumber { get; set; }
+        [Column("email")]
         [StringLength(255)]
-        public string CompanyName { get; set; }
-        [Column("NIP")]
-        public long? Nip { get; set; }
-        [Column("e-mail")]
-        [StringLength(255)]
-        public string EMail { get; set; }
+        public string Email { get; set; }
 
         [InverseProperty(nameof(Ticket.IdClientNavigation))]
         public virtual ICollection<Ticket> Tickets { get; set; }

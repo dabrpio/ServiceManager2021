@@ -7,7 +7,7 @@ namespace CommandApi.Data
     {
         bool SaveChanges();
         IEnumerable<Ticket> GetAllTickets();
-        Ticket GetTicketsByRma(short Rma);
+        Ticket GetTicketsByRma(int Rma);
         void CreateTicket(Ticket ticket);
         IEnumerable<Ticket> Get25Tickets();
         void UpdateTicket(Ticket ticketUpdate);

@@ -36,13 +36,11 @@ namespace CommandApi.Controllers
                 inp.Name=item.IdClientNavigation.Name;
                 inp.Surname=item.IdClientNavigation.Surname;
                 inp.PhoneNumber=item.IdClientNavigation.PhoneNumber;
-                inp.EMail=item.IdClientNavigation.EMail;
-                inp.Nip=item.IdClientNavigation.Nip;
-                inp.CompanyName=item.IdClientNavigation.CompanyName;
-                inp.IdDevices=item.IdDevicesNavigation.IdDevices;
-                inp.Type=item.IdDevicesNavigation.Type;
-                inp.Brand=item.IdDevicesNavigation.Brand;
-                inp.Model=item.IdDevicesNavigation.Model;
+                inp.Email=item.IdClientNavigation.Email;
+                inp.IdDevice=item.IdDeviceNavigation.IdDevice;
+                inp.Type=item.IdDeviceNavigation.Type;
+                inp.Brand=item.IdDeviceNavigation.Brand;
+                inp.Model=item.IdDeviceNavigation.Model;
                 commIt.Add(inp);
             }
             return Ok(_mapper.Map<IEnumerable<TicketsReadDto>>(commIt));
@@ -50,7 +48,7 @@ namespace CommandApi.Controllers
 
         //GET api/tickets/{Rma}
         [HttpGet("{Rma}", Name="GetTicketsByRma")]
-        public ActionResult<TicketsReadDto> GetTicketsByRma(short Rma){
+        public ActionResult<TicketsReadDto> GetTicketsByRma(int Rma){
             var commandItem = _repoTickets.GetTicketsByRma(Rma);
             if(commandItem!=null){
                 TicketsReadDto inp=new TicketsReadDto();
@@ -58,12 +56,10 @@ namespace CommandApi.Controllers
                 inp.Name=commandItem.IdClientNavigation.Name;
                 inp.Surname=commandItem.IdClientNavigation.Surname;
                 inp.PhoneNumber=commandItem.IdClientNavigation.PhoneNumber;
-                inp.EMail=commandItem.IdClientNavigation.EMail;
-                inp.Nip=commandItem.IdClientNavigation.Nip;
-                inp.CompanyName=commandItem.IdClientNavigation.CompanyName;
-                inp.Type=commandItem.IdDevicesNavigation.Type;
-                inp.Brand=commandItem.IdDevicesNavigation.Brand;
-                inp.Model=commandItem.IdDevicesNavigation.Model;
+                inp.Email=commandItem.IdClientNavigation.Email;
+                inp.Type=commandItem.IdDeviceNavigation.Type;
+                inp.Brand=commandItem.IdDeviceNavigation.Brand;
+                inp.Model=commandItem.IdDeviceNavigation.Model;
                 return Ok(_mapper.Map<TicketsReadDto>(inp));
             }
             else{
@@ -91,18 +87,18 @@ namespace CommandApi.Controllers
             }
 
             ticketModel.IdClient=_repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname).IdClient;
-            ticketModel.IdDevices=_repoDevices.GetDeviceByModel(deviceModel.Type,deviceModel.Brand,deviceModel.Model).IdDevices;
+            ticketModel.IdDevice=_repoDevices.GetDeviceByModel(deviceModel.Type,deviceModel.Brand,deviceModel.Model).IdDevice;
 
             if(ticketModel.Status=="done")
             {
-                ticketModel.IssueDate=DateTime.Now;
+                ticketModel.EndDate=DateTime.Now;
             }
             _repoTickets.CreateTicket(ticketModel);
             _repoTickets.SaveChanges();
 
             var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
             _mapper.Map(ticketModel.IdClientNavigation,TicketsReadDto);
-            _mapper.Map(ticketModel.IdDevicesNavigation,TicketsReadDto);
+            _mapper.Map(ticketModel.IdDeviceNavigation,TicketsReadDto);
 
 
             return CreatedAtRoute(nameof(GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
@@ -112,30 +108,30 @@ namespace CommandApi.Controllers
 
         //PUT api/tickets/{rma}
         [HttpPut("{rma}")]
-        public ActionResult UpdateTicket(short rma, TicketsCreateDto ticketsUpdate){
+        public ActionResult UpdateTicket(int rma, TicketsCreateDto ticketsUpdate){
             var ticketModel = _repoTickets.GetTicketsByRma(rma);
             var clientModel = _repoClients.GetClientById(ticketModel.IdClient);
-            var deviceModel = _repoDevices.GetDeviceById(ticketModel.IdDevices);
+            var deviceModel = _repoDevices.GetDeviceById(ticketModel.IdDevice);
             if(ticketModel!=null){
                 if(ticketsUpdate.Status=="done")
                 {
-                    if(ticketModel.IssueDate==null)
+                    if(ticketModel.EndDate==null)
                     {
-                        ticketsUpdate.IssueDate=DateTime.Now;
+                        ticketsUpdate.EndDate=DateTime.Now;
                     }
                 }
                 else
                 {
-                    if(ticketModel.IssueDate!=null)
+                    if(ticketModel.EndDate!=null)
                     {
-                        ticketsUpdate.IssueDate=null;
+                        ticketsUpdate.EndDate=null;
                     }
                 }
                 if(_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model)==null){
                     var inp = _mapper.Map<Device>(ticketsUpdate);
                     _repoDevices.CreateDevice(inp);
                     _repoDevices.SaveChanges();
-                    ticketModel.IdDevices=_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model).IdDevices;
+                    ticketModel.IdDevice=_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model).IdDevice;
                 }
                 _mapper.Map(ticketsUpdate,ticketModel);
                 _mapper.Map(ticketsUpdate,clientModel);
@@ -146,7 +142,7 @@ namespace CommandApi.Controllers
                 
                 var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
                 _mapper.Map(ticketModel.IdClientNavigation,TicketsReadDto);
-                _mapper.Map(ticketModel.IdDevicesNavigation,TicketsReadDto);
+                _mapper.Map(ticketModel.IdDeviceNavigation,TicketsReadDto);
 
                 return CreatedAtRoute(nameof(GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
             }
@@ -158,7 +154,7 @@ namespace CommandApi.Controllers
 
         //DELETE api/tickets/{rma}
         [HttpDelete("{rma}")]
-        public ActionResult DeleteTicket(short rma)
+        public ActionResult DeleteTicket(int rma)
         {
             var commandItem=_repoTickets.GetTicketsByRma(rma);
             if(commandItem!=null){

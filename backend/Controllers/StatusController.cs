@@ -25,7 +25,7 @@ namespace CommandApi.Controllers
 
         //Get api/status/{Rma + PhoneNumber}
         [HttpGet("{Rma}+{PhoneNumber}", Name="GetTicketsStatus")]
-        public ActionResult<String> GetTicketsStatus(short Rma, int PhoneNumber){
+        public ActionResult<String> GetTicketsStatus(int Rma, string PhoneNumber){
             var commandItem=_repoTickets.GetTicketsByRma(Rma);
             if(commandItem==null){
                 return NotFound();
@@ -34,8 +34,8 @@ namespace CommandApi.Controllers
                 StatusReadDto inp = new StatusReadDto();
                 inp.Status=commandItem.Status;
                 inp.Glitch=commandItem.Glitch;
-                inp.Brand=commandItem.IdDevicesNavigation.Brand;
-                inp.Model=commandItem.IdDevicesNavigation.Model;
+                inp.Brand=commandItem.IdDeviceNavigation.Brand;
+                inp.Model=commandItem.IdDeviceNavigation.Model;
                 inp.RepairCost=commandItem.RepairCost;
                 inp.Rma=Rma;
                 return Ok(inp);
@@ -48,7 +48,7 @@ namespace CommandApi.Controllers
 
          //PUT api/status/{rma}+{phoneNumber}+{status}
         [HttpPut("{rma}+{PhoneNumber}",Name="UpdateTicketStatus")]
-        public ActionResult UpdateTicketStatus(short rma, int PhoneNumber, StatusCreateDto status){
+        public ActionResult UpdateTicketStatus(int rma, string PhoneNumber, StatusCreateDto status){
             var ticketModel = _repoTickets.GetTicketsByRma(rma);
             if(ticketModel==null){
                 return NotFound();
@@ -59,8 +59,8 @@ namespace CommandApi.Controllers
                 ticketsUpdate.Status=status.Status;
                 inp.Status=ticketModel.Status;
                 inp.Glitch=ticketModel.Glitch;
-                inp.Brand=ticketModel.IdDevicesNavigation.Brand;
-                inp.Model=ticketModel.IdDevicesNavigation.Model;
+                inp.Brand=ticketModel.IdDeviceNavigation.Brand;
+                inp.Model=ticketModel.IdDeviceNavigation.Model;
                 inp.RepairCost=ticketModel.RepairCost;
                 inp.Rma=rma;
                 _mapper.Map(ticketsUpdate,ticketModel);

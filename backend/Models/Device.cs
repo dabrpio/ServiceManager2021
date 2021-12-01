@@ -17,22 +17,22 @@ namespace CommandApi.Models
         }
 
         [Key]
-        [Column("id_devices")]
-        public short IdDevices { get; set; }
+        [Column("idDevice")]
+        public int IdDevice { get; set; }
         [Required]
         [Column("type")]
-        [StringLength(50)]
+        [StringLength(255)]
         public string Type { get; set; }
         [Required]
         [Column("brand")]
-        [StringLength(50)]
+        [StringLength(255)]
         public string Brand { get; set; }
         [Required]
         [Column("model")]
-        [StringLength(50)]
+        [StringLength(255)]
         public string Model { get; set; }
 
-        [InverseProperty(nameof(Ticket.IdDevicesNavigation))]
+        [InverseProperty(nameof(Ticket.IdDeviceNavigation))]
         public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }
