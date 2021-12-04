@@ -15,8 +15,8 @@ const escapeRegExp = (text) => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 const filterTickets = (data, regex) => {
   return data.filter((ticket) => {
     const {
-      date,
-      issueDate,
+      beginDate,
+      endDate,
       idClient,
       information,
       partsCost,

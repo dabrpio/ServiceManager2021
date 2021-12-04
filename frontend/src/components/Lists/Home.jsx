@@ -12,17 +12,17 @@ const headCells = [
     label: 'Rma',
   },
   {
-    id: 'dataPrzyjecia',
+    id: 'beginDate',
     label: 'Data',
     smUp: true,
   },
   {
-    id: 'rodzaj',
+    id: 'type',
     label: 'Rodzaj',
     smUp: true,
   },
   {
-    id: 'marka',
+    id: 'brand',
     label: 'Marka',
   },
   {
@@ -30,7 +30,7 @@ const headCells = [
     label: 'Model',
   },
   {
-    id: 'informacje',
+    id: 'information',
     label: 'Informacje',
     smUp: true,
   },

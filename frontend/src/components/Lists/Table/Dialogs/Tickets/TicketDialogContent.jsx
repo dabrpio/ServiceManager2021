@@ -111,9 +111,9 @@ function TicketDialogContent(props) {
       : !`${ticket.phoneNumber}`.match(/^[0-9]{9}$/g);
 
   const checkEmailError = () =>
-    ['', null].includes(ticket.eMail)
+    ['', null].includes(ticket.email)
       ? false
-      : !`${ticket.eMail}`.match(/^.+@.+\..+$/g);
+      : !`${ticket.email}`.match(/^.+@.+\..+$/g);
 
   return (
     <DialogContent dividers classes={{ root: classes.contentWrapper }}>
@@ -295,8 +295,8 @@ function TicketDialogContent(props) {
           fullWidth
           label="Email"
           type="text"
-          value={ticket.eMail ?? ''}
-          onChange={handleTextFieldChange('eMail')}
+          value={ticket.email ?? ''}
+          onChange={handleTextFieldChange('email')}
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
           error={checkEmailError()}

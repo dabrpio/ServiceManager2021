@@ -6,7 +6,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
 import StepLabel from '@material-ui/core/StepLabel';
-import ErrorIcon from '@material-ui/icons/Error';
 import React, { useEffect, useMemo } from 'react';
 import { useStyles } from './styles';
 import { URL } from '../../constants';
@@ -33,7 +32,6 @@ const Status = ({ status, credentials }) => {
   const handleReject = () => {
     console.log('reject', { ...data, status: 'rejected' });
     updateState({ ...data, status: 'rejected' });
-    // setActiveStep(3);
   };
 
   const updateState = (data) => {
@@ -70,6 +68,7 @@ const Status = ({ status, credentials }) => {
         break;
       case states[3]:
         setActiveStep(4);
+        break;
       case states[4]:
         setActiveStep(4);
         break;
@@ -84,7 +83,7 @@ const Status = ({ status, credentials }) => {
         Service Manager 2021
       </Typography>
       <Typography component="h4" className={classes.description}>
-        {`Zlecenie nr 7 - ${data.brand} ${data.model}`}
+        {`Zlecenie nr 7 - ${data.brand} ${data.model}, ${data.glitch}`}
       </Typography>
       <Hidden xsDown>
         <Stepper activeStep={activeStep} alternativeLabel>

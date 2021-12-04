@@ -21,7 +21,6 @@ function DocsButton({ classes, ticket }) {
     if (anchorDocsRef.current && anchorDocsRef.current.contains(event.target)) {
       return;
     }
-
     setDocsOpen(false);
   };
 
@@ -68,7 +67,7 @@ function DocsButton({ classes, ticket }) {
                           }
                         </PDFDownloadLink>
                       </MenuItem>
-                      {ticket.issueDate && (
+                      {ticket.endDate && (
                         <MenuItem>
                           <PDFDownloadLink
                             document={<WarrantyDocument ticket={ticket} />}

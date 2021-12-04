@@ -18,6 +18,11 @@ const updateTicketState = (ticket) => ({
   payload: ticket,
 });
 
+export const clientUpdateTicketState = (client) => ({
+  type: ticketsAT.UPDATE_TICKET_PUT_CLIENT,
+  payload: client,
+});
+
 const deleteTicketState = (id) => ({
   type: ticketsAT.DELETE_TICKET,
   payload: id,
@@ -45,7 +50,6 @@ export const postTicket = (data) => (dispatch) => {
     body: JSON.stringify({
       repairCost: parseFloat(data.repairCost),
       partsCost: parseFloat(data.partsCost),
-      phoneNumber: parseInt(data.phoneNumber),
       ...data,
     }),
   })
@@ -66,7 +70,6 @@ export const putTicket = (ticket) => (dispatch) => {
     body: JSON.stringify({
       repairCost: parseFloat(ticket.repairCost),
       partsCost: parseFloat(ticket.partsCost),
-      phoneNumber: parseInt(ticket.phoneNumber),
       ...ticket,
     }),
   })
@@ -84,18 +87,25 @@ export const deleteTicket = (id) => (dispatch) => {
 };
 
 const handleErrors = (response) => {
+  console.log(response);
   if (!response.ok) {
     throw response;
   }
   return response;
 };
 
-const catchErrors = (error) =>
-  error.json().then((body) => {
-    console.log(body);
-    console.log(
-      `Server error: [${body.status} ${body.statusText ?? ''} ${
-        body.detail ?? ''
-      }]`
-    );
-  });
+const catchErrors = (error) => {
+  try {
+    error
+      .json()
+      .then((body) =>
+        console.log(
+          `Server error: [${body.status} ${body.statusText ?? ''} ${
+            body.detail ?? ''
+          }]`
+        )
+      );
+  } catch (error) {
+    console.log(error);
+  }
+};

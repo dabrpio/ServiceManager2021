@@ -13,7 +13,7 @@ const headCells = [
     label: 'Rma',
   },
   {
-    id: 'issueDate',
+    id: 'beginDate',
     label: 'Data',
     smUp: true,
   },

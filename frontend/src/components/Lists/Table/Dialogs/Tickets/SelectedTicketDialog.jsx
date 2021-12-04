@@ -40,9 +40,9 @@ const SelectedTicketDialog = (props) => {
     event.preventDefault();
     const {
       information,
-      eMail,
-      date,
-      issueDate,
+      email,
+      beginDate,
+      endDate,
       nip,
       companyName,
       idCompany,

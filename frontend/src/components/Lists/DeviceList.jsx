@@ -9,7 +9,7 @@ const DeviceTable = withEnhancedTable(DeviceTableRow);
 
 const headCells = [
   {
-    id: 'idDevices',
+    id: 'idDevice',
     label: 'ID',
   },
   {

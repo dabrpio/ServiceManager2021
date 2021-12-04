@@ -26,7 +26,7 @@ const headCells = [
     label: 'Nr telefonu',
   },
   {
-    id: 'eMail',
+    id: 'email',
     label: 'Email',
     smUp: true,
   },

@@ -1,7 +1,7 @@
 import * as employeesAT from './employees.action-types';
 import { URL } from '../../../constants';
 
-const baseUrl = `${URL}/users`;
+const baseUrl = `${URL}/employees`;
 
 const setEmployeesState = (data) => ({
   type: employeesAT.SET_EMPLOYEES,
@@ -42,10 +42,7 @@ export const postEmployee = (employee) => (dispatch) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      nrTel: parseInt(employee.nrTel),
-      ...employee,
-    }),
+    body: JSON.stringify(employee),
   })
     .then(handleErrors)
     .then((res) => res.json())
@@ -55,16 +52,13 @@ export const postEmployee = (employee) => (dispatch) => {
 
 // PUT
 export const putEmployee = (employee) => (dispatch) => {
-  fetch(baseUrl + `/${employee.id}`, {
+  fetch(baseUrl + `/${employee.idEmployee}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      phoneNumber: parseInt(employee.phoneNumber),
-      ...employee,
-    }),
+    body: JSON.stringify(employee),
   })
     .then(handleErrors)
     .then(() => dispatch(updateEmployeeState(employee)))
@@ -80,19 +74,25 @@ export const deleteEmployee = (id) => (dispatch) => {
 };
 
 const handleErrors = (response) => {
+  console.log(response);
   if (!response.ok) {
     throw response;
   }
   return response;
 };
 
-const catchErrors = (error) =>
-  error
-    .json()
-    .then((body) =>
-      console.log(
-        `Server error: [${body.status} ${body.statusText ?? ''} ${
-          body.detail ?? ''
-        }]`
-      )
-    );
+const catchErrors = (error) => {
+  try {
+    error
+      .json()
+      .then((body) =>
+        console.log(
+          `Server error: [${body.status} ${body.statusText ?? ''} ${
+            body.detail ?? ''
+          }]`
+        )
+      );
+  } catch (error) {
+    console.log(error);
+  }
+};

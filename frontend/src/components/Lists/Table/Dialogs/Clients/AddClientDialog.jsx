@@ -15,7 +15,7 @@ const initialClient = {
   name: null,
   surname: null,
   phoneNumber: null,
-  eMail: null,
+  email: null,
   companyName: null,
   nip: null,
 };

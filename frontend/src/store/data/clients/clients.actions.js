@@ -1,5 +1,6 @@
 import * as clientsAT from './clients.action-types';
 import { URL } from '../../../constants';
+import { clientUpdateTicketState } from '../tickets/tickets.actions';
 
 const baseUrl = `${URL}/clients`;
 
@@ -54,11 +55,7 @@ export const postClient = (client) => (dispatch) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      phoneNumber: parseInt(client.phoneNumber),
-      nip: parseInt(client.nip),
-      ...client,
-    }),
+    body: JSON.stringify(client),
   })
     .then(handleErrors)
     .then((res) => res.json())
@@ -75,17 +72,14 @@ export const putClient = (client) => (dispatch) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      phoneNumber: parseInt(client.phoneNumber),
-      nip: parseInt(client.nip),
-      ...client,
-    }),
+    body: JSON.stringify(client),
   })
     .then(handleErrors)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
       dispatch(updateClientState(client));
+      dispatch(clientUpdateTicketState(client));
     })
     .catch(catchErrors);
 };
@@ -98,29 +92,33 @@ export const deleteClient = (id) => (dispatch) =>
       dispatch(deleteClientState(id));
     })
     .catch((error) =>
-      error
-        .json()
-        .then((response) =>
-          response.detail === 'Nie usunięto zleceń klienta'
-            ? dispatch(
-                setDeleteClientError(error.url.slice(error.url.length - 3))
-              )
-            : null
-        )
+      error.json().then((response) => {
+        console.log(response);
+        if (response.detail === 'Nie usunięto zleceń klienta')
+          dispatch(setDeleteClientError(error.url.slice(error.url.length - 3)));
+      })
     );
 
 const handleErrors = (response) => {
+  console.log(response);
   if (!response.ok) {
     throw response;
   }
   return response;
 };
 
-const catchErrors = async (error) =>
-  error.json().then((body) => {
-    console.log(
-      `Server error: [${body.status} ${body.statusText ?? ''} ${
-        body.detail ?? ''
-      }]`
-    );
-  });
+const catchErrors = (error) => {
+  try {
+    error
+      .json()
+      .then((body) =>
+        console.log(
+          `Server error: [${body.status} ${body.statusText ?? ''} ${
+            body.detail ?? ''
+          }]`
+        )
+      );
+  } catch (error) {
+    console.log(error);
+  }
+};

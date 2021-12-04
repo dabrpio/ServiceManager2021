@@ -9,11 +9,11 @@ export const stableSort = (array, comparator) => {
 };
 
 export const getComparator = (order, orderBy) => {
-  if (orderBy === 'date') {
+  if (orderBy === 'beginDate') {
     return order === 'desc'
       ? (a, b) => descendingDateComparator(a, b, orderBy)
       : (a, b) => -descendingDateComparator(a, b, orderBy);
-  } else if (orderBy === 'eMail') {
+  } else if (orderBy === 'email') {
     return order === 'desc'
       ? (a, b) => possibleNullComparatorDesc(a, b, orderBy)
       : (a, b) => possibleNullComparatorAsc(a, b, orderBy);
@@ -22,7 +22,7 @@ export const getComparator = (order, orderBy) => {
     orderBy === 'rma' ||
     orderBy === 'repairCost' ||
     orderBy === 'idClient' ||
-    orderBy === 'idDevices'
+    orderBy === 'idDevice'
   ) {
     return order === 'desc'
       ? (a, b) => descendingNumberComparator(a, b, orderBy)

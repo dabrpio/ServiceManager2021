@@ -23,7 +23,8 @@ const SelectedEmployeeDialog = (props) => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    if (Object.values(employee).some((e) => e === null || e === '')) {
+    const { companyName, nip, ...dataToVerify } = employee;
+    if (Object.values(dataToVerify).some((e) => e === null || e === '')) {
       console.log('employee data is not fully filled');
     } else {
       if (JSON.stringify(employeeData) !== JSON.stringify(employee)) {
@@ -36,7 +37,7 @@ const SelectedEmployeeDialog = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();
     handleClose();
-    deleteEmployee(employee.id);
+    deleteEmployee(employee.idEmployee);
   };
 
   return (
@@ -48,7 +49,7 @@ const SelectedEmployeeDialog = (props) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Pracownik {employee.id}
+          Pracownik {employee.idEmployee}
         </DialogTitle>
         <EmployeeDialogContent employee={employee} setEmployee={setEmployee} />
         <DialogActions classes={{ root: classes.dialogActions }}>

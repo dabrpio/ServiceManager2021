@@ -32,7 +32,7 @@ export default function devicesReducer(state = initialState, action) {
       return {
         ...state,
         models: state.models.map((device) =>
-          device.idDevices === action.payload.id ? action.payload : device
+          device.idDevice === action.payload.idDevice ? action.payload : device
         ),
       };
     }
@@ -40,7 +40,7 @@ export default function devicesReducer(state = initialState, action) {
       return {
         ...state,
         models: state.models.filter(
-          (device) => device.idDevices !== action.payload
+          (device) => device.idDevice !== action.payload
         ),
       };
     }

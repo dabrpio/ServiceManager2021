@@ -14,7 +14,7 @@ function DeviceTableRow({ row, classes, handleClick }) {
       tabIndex={-1}
       key={row.id}
     >
-      <TableCell className={classes.td}>{row.idDevices}</TableCell>
+      <TableCell className={classes.td}>{row.idDevice}</TableCell>
       <TableCell className={classes.td}>{row.type}</TableCell>
       <TableCell className={classes.td}>{row.brand}</TableCell>
       <TableCell className={classes.td}>{row.model}</TableCell>

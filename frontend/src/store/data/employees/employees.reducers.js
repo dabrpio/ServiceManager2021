@@ -12,11 +12,13 @@ export default function employeesReducer(state = initialState, action) {
     }
     case employeesAT.UPDATE_EMPLOYEE: {
       return state.map((employee) =>
-        employee.id === action.payload.id ? action.payload : employee
+        employee.idEmployee === action.payload.idEmployee
+          ? action.payload
+          : employee
       );
     }
     case employeesAT.DELETE_EMPLOYEE: {
-      return state.filter((employee) => employee.id !== action.payload);
+      return state.filter((employee) => employee.idEmployee !== action.payload);
     }
     default:
       return state;

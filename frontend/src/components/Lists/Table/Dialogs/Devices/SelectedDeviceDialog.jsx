@@ -36,7 +36,7 @@ const SelectedDeviceDialog = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();
     handleClose();
-    deleteDevice(device.idDevices);
+    deleteDevice(device.idDevice);
   };
 
   return (
@@ -49,7 +49,7 @@ const SelectedDeviceDialog = (props) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Urządzenie {device.idDevices}
+          Urządzenie {device.idDevice}
         </DialogTitle>
         <DeviceDialogContent device={device} setDevice={setDevice} />
         <DialogActions classes={{ root: classes.dialogActions }}>

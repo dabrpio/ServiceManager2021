@@ -21,7 +21,7 @@ function ClientTableRow({ row, classes, handleClick }) {
       <TableCell className={classes.td}>{row.surname}</TableCell>
       <TableCell className={classes.td}>{row.phoneNumber}</TableCell>
       <Hidden smDown>
-        <TableCell className={classes.td}>{row.eMail}</TableCell>
+        <TableCell className={classes.td}>{row.email}</TableCell>
       </Hidden>
     </TableRow>
   );

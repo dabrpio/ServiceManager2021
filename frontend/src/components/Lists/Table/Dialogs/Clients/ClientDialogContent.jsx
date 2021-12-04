@@ -18,9 +18,9 @@ function ClientDialogContent(props) {
       : !`${client.phoneNumber}`.match(/^[0-9]{9}$/g);
 
   const checkEmailError = () =>
-    ['', null].includes(client.eMail)
+    ['', null].includes(client.email)
       ? false
-      : !`${client.eMail}`.match(/^.+@.+\..+$/g);
+      : !`${client.email}`.match(/^.+@.+\..+$/g);
 
   return (
     <DialogContent dividers>
@@ -56,8 +56,8 @@ function ClientDialogContent(props) {
         fullWidth
         label="Email"
         type="email"
-        value={client.eMail ?? ''}
-        onChange={handleTextFieldChange('eMail')}
+        value={client.email ?? ''}
+        onChange={handleTextFieldChange('email')}
         style={{ marginTop: 16, marginBottom: 8 }}
         size="small"
         error={checkEmailError()}

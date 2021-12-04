@@ -41,7 +41,7 @@ const WarrantyDocument = ({ ticket }) => {
             <View style={styles.verticalLine} />
             <View style={[styles.text, { padding: 3 }]}>
               <Text style={[styles.fontMd, styles.textBold]}>
-                {new Date(ticket.date).toLocaleDateString('pl')}
+                {new Date(ticket.beginDate).toLocaleDateString('pl')}
               </Text>
             </View>
           </View>
@@ -55,7 +55,7 @@ const WarrantyDocument = ({ ticket }) => {
             <View style={styles.verticalLine} />
             <View style={[styles.text, { padding: 3 }]}>
               <Text style={[styles.fontMd, styles.textBold]}>
-                {new Date(ticket.issueDate).toLocaleDateString('pl')}
+                {new Date(ticket.endDate).toLocaleDateString('pl')}
               </Text>
             </View>
           </View>

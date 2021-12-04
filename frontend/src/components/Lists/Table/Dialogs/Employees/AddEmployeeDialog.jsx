@@ -12,12 +12,15 @@ import { postEmployee } from '../../../../../store/data/employees/employees.acti
 import EmployeeDialogContent from './EmployeeDialogContent';
 
 const initialEmployee = {
+  idCompany: 1,
   type: null,
   name: null,
   surname: null,
   login: null,
   password: null,
   phoneNumber: null,
+  // companyName: null,
+  // nip: null
 };
 
 const AddEmployeeDialog = ({ addEmployee }) => {

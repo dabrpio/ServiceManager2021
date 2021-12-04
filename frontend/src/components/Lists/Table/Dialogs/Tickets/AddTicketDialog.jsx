@@ -23,7 +23,7 @@ const initialTicket = {
   name: null,
   surname: null,
   phoneNumber: null,
-  eMail: null,
+  email: null,
   status: null,
 };
 
@@ -39,7 +39,7 @@ const AddTicketDialog = ({ addTicket }) => {
 
   const handleAdd = (event) => {
     event.preventDefault();
-    const { information, eMail, repairCost, status, ...dataToValidate } =
+    const { information, email, repairCost, status, ...dataToValidate } =
       ticket;
     if (
       Object.values(dataToValidate).some((e) => e === null || e?.trim() === '')

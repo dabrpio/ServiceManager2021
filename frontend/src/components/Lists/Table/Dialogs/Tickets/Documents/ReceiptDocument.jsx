@@ -27,11 +27,10 @@ const ReceiptDocument = ({ ticket }) => {
             RMA - {ticket.rma}
           </Text>
           <Text style={[styles.fontMd, styles.textBold]}>
-            {new Date(ticket.date).toLocaleDateString('pl')}
+            {new Date(ticket.beginDate).toLocaleDateString('pl')}
           </Text>
         </View>
         <View style={styles.horizontalLine} />
-
         <View style={styles.clientData}>
           <View style={styles.leftDataFields}>
             <Text style={[styles.fontSm, styles.textBold, { padding: 3 }]}>
