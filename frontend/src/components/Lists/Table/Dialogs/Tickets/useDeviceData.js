@@ -5,10 +5,10 @@ export const useDeviceData = (deviceBrands, deviceModels, ticket) => {
     deviceModels.find((m) => m.model === ticket.model) ?? null
   );
   const [brand, setBrand] = useState(
-    deviceBrands.find((b) => b.brand === ticket.marka) ?? null
+    deviceBrands.find((b) => b.brand === ticket.brand) ?? null
   );
   const [type, setType] = useState(
-    deviceBrands.find((t) => t.type === ticket.rodzaj) ?? null
+    deviceBrands.find((t) => t.type === ticket.type) ?? null
   );
 
   const deviceTypeFilter = (types) => {

@@ -57,17 +57,17 @@ const SelectedClientDialog = (props) => {
         </DialogTitle>
         <ClientDialogContent client={client} setClient={setClient} />
         <DialogActions classes={{ root: classes.dialogActions }}>
-          <div>
-            <Button onClick={handleSave} color="primary">
-              Zapisz
-            </Button>
-            <Button onClick={handleClose} color="primary">
-              Cofnij
-            </Button>
-          </div>
           <Button onClick={handleDelete} color="primary">
             Usuń
           </Button>
+          <div>
+            <Button onClick={handleClose} color="primary">
+              Cofnij
+            </Button>
+            <Button onClick={handleSave} color="primary">
+              Zapisz
+            </Button>
+          </div>
         </DialogActions>
       </Dialog>
     </>
