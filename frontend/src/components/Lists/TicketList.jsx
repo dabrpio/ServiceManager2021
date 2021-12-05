@@ -43,7 +43,12 @@ const headCells = [
 
 function TicketList({ tickets }) {
   return (
-    <TicketTable headCells={headCells} data={tickets} heading="Zlecenia" />
+    <TicketTable
+      headCells={headCells}
+      data={tickets}
+      heading="Zlecenia"
+      view="tickets"
+    />
   );
 }
 

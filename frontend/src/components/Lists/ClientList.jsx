@@ -33,7 +33,14 @@ const headCells = [
 ];
 
 function ClientList({ clients }) {
-  return <ClientTable headCells={headCells} data={clients} heading="Klienci" />;
+  return (
+    <ClientTable
+      headCells={headCells}
+      data={clients}
+      heading="Klienci"
+      view="clients"
+    />
+  );
 }
 
 const mapStateToProps = (state, ownProps) => ({

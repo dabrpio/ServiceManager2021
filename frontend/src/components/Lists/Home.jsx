@@ -42,6 +42,7 @@ function Home({ tickets }) {
       headCells={headCells}
       data={tickets}
       heading={`W naprawie: ${tickets.length}`}
+      view="home"
     />
   );
 }

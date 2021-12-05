@@ -1,4 +1,4 @@
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Font } from '@react-pdf/renderer';
 import fontRegular from '../../../fonts/Roboto-Regular.ttf';
 import fontBold from '../../../fonts/Roboto-Bold.ttf';
@@ -18,18 +18,20 @@ Font.register({
 
 export const useToolbarStyles = makeStyles((theme) => ({
   root: {
-    padding: `0 ${theme.spacing(3)}px 0 ${theme.spacing(1)}px`,
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+
+    padding: 0,
   },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+  toolbar: {
+    padding: `0 ${theme.spacing(3)}px 0 ${theme.spacing(1)}px`,
+    width: '100%',
+    height: '64px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   title: {
     flex: '1 1 100%',
   },
@@ -57,6 +59,12 @@ export const useTableStyles = makeStyles((theme) => ({
       height: `calc(100% - 116px)`,
     },
     height: `calc(100% - 108px)`,
+  },
+  homeContainer: {
+    [theme.breakpoints.up('sm')]: {
+      height: `calc(100% - 164px)`,
+    },
+    height: `calc(100% - 156px)`,
   },
   table: {
     tableLayout: 'fixed',
@@ -92,13 +100,12 @@ export const useTableStyles = makeStyles((theme) => ({
   },
   tr: {
     cursor: 'pointer',
+    height: '58px',
   },
-  buildIcon: {
+  icon: {
     color: theme.palette.grey[500],
+    margin: 'auto',
     marginLeft: theme.spacing(1),
-  },
-  checkIcon: {
-    color: theme.palette.success.light,
-    marginLeft: theme.spacing(1),
+    fontSize: '20px',
   },
 }));
