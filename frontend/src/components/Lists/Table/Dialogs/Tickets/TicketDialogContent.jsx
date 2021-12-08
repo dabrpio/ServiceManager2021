@@ -29,9 +29,6 @@ function TicketDialogContent(props) {
     deviceModelFilter,
   } = useDeviceData(deviceBrands, deviceModels, ticket);
 
-  console.log(ticket);
-  console.log(type, brand, model);
-
   const handleDeviceTypeChange = (_, newValue) => {
     if (typeof newValue === 'string') {
       setType({

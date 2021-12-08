@@ -33,6 +33,7 @@ function EmployeeList({ employees }) {
       headCells={headCells}
       data={employees}
       heading="Pracownicy"
+      view="employees"
     />
   );
 }

@@ -6,7 +6,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import SelectedClientDialog from './Dialogs/Clients/SelectedClientDialog';
 import SelectedDeviceDialog from './Dialogs/Devices/SelectedDeviceDialog';
 import SelectedEmployeeDialog from './Dialogs/Employees/SelectedEmployeeDialog';
@@ -20,15 +19,15 @@ import { useTableStyles } from './styles';
 
 const withEnhancedTable =
   (EnhancedRow) =>
-  ({ data, headCells, heading }) => {
-    const location = useLocation();
+  ({ data, headCells, heading, view }) => {
     const [order, setOrder] = useState('desc');
     const [orderBy, setOrderBy] = useState('undefined');
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(25);
     const [searchInput, setSearchInput] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
-    const filteredData = useFilter(data, searchInput);
+    const [ticketStatus, setTicketStatus] = useState(2);
+    const filteredData = useFilter(view, data, searchInput, ticketStatus);
     const classes = useTableStyles();
 
     const handleRequestSort = (_, property) => {
@@ -56,28 +55,27 @@ const withEnhancedTable =
 
     return (
       <>
-        {location.pathname === '/clients' && <DeleteErrorSnackbar />}
+        {view === 'clients' && <DeleteErrorSnackbar />}
 
-        {selectedRowData &&
-          (location.pathname === '/tickets' || location.pathname === '/') && (
-            <SelectedTicketDialog
-              ticketData={selectedRowData}
-              closeDialog={handleCloseDialog}
-            />
-          )}
-        {selectedRowData && location.pathname === '/employees' && (
+        {selectedRowData && (view === 'tickets' || view === 'home') && (
+          <SelectedTicketDialog
+            ticketData={selectedRowData}
+            closeDialog={handleCloseDialog}
+          />
+        )}
+        {selectedRowData && view === 'employees' && (
           <SelectedEmployeeDialog
             employeeData={selectedRowData}
             closeDialog={handleCloseDialog}
           />
         )}
-        {selectedRowData && location.pathname === '/clients' && (
+        {selectedRowData && view === 'clients' && (
           <SelectedClientDialog
             clientData={selectedRowData}
             closeDialog={handleCloseDialog}
           />
         )}
-        {selectedRowData && location.pathname === '/devices' && (
+        {selectedRowData && view === 'devices' && (
           <SelectedDeviceDialog
             deviceData={selectedRowData}
             closeDialog={handleCloseDialog}
@@ -88,8 +86,15 @@ const withEnhancedTable =
             heading={heading}
             searchInput={searchInput}
             setSearchInput={setSearchInput}
+            view={view}
+            ticketStatus={ticketStatus}
+            setTicketStatus={setTicketStatus}
           />
-          <TableContainer className={classes.container}>
+          <TableContainer
+            className={
+              view === 'home' ? classes.homeContainer : classes.container
+            }
+          >
             <Table
               aria-labelledby="tableTitle"
               aria-label="enhanced table"

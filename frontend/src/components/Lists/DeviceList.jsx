@@ -29,7 +29,12 @@ const headCells = [
 
 function DeviceList({ devices }) {
   return (
-    <DeviceTable headCells={headCells} data={devices} heading="Urządzenia" />
+    <DeviceTable
+      headCells={headCells}
+      data={devices}
+      heading="Urządzenia"
+      view="devices"
+    />
   );
 }
 

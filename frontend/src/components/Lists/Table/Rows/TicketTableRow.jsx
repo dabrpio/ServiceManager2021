@@ -1,6 +1,9 @@
 import { Hidden, TableCell, TableRow } from '@material-ui/core';
 import BuildIcon from '@material-ui/icons/Build';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import FiberNewIcon from '@material-ui/icons/FiberNew';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -33,19 +36,37 @@ function TicketTableRow({ row, classes, handleClick }) {
       </Hidden>
 
       <TableCell className={classes.td}>
-        {row.status === 'done' ? (
-          <CheckCircleIcon
+        {row.status === 'created' ? (
+          <FiberNewIcon
             classes={{
-              root: classes.checkIcon,
+              root: classes.icon,
             }}
           />
-        ) : (
+        ) : row.status === 'cost_approval' ? (
+          <HourglassEmptyIcon
+            classes={{
+              root: classes.icon,
+            }}
+          />
+        ) : row.status === 'accepted' ? (
           <BuildIcon
             classes={{
-              root: classes.buildIcon,
+              root: classes.icon,
             }}
           />
-        )}
+        ) : row.status === 'done' ? (
+          <CheckCircleIcon
+            classes={{
+              root: classes.icon,
+            }}
+          />
+        ) : row.status === 'rejected' ? (
+          <DeleteIcon
+            classes={{
+              root: classes.icon,
+            }}
+          />
+        ) : null}
       </TableCell>
     </TableRow>
   );
