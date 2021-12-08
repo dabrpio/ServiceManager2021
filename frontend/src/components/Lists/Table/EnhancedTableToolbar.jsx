@@ -11,19 +11,20 @@ import AddDeviceDialog from './Dialogs/Devices/AddDeviceDialog';
 import AddEmployeeDialog from './Dialogs/Employees/AddEmployeeDialog';
 import AddTicketDialog from './Dialogs/Tickets/AddTicketDialog';
 import { useToolbarStyles } from './styles';
+import { Hidden } from '@material-ui/core';
 
 export default function EnhancedTableToolbar({
   heading,
   searchInput,
   setSearchInput,
   view,
+  ticketStatus,
+  setTicketStatus,
 }) {
   const classes = useToolbarStyles();
 
-  const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setTicketStatus(newValue);
   };
 
   const a11yProps = (index) => {
@@ -59,21 +60,43 @@ export default function EnhancedTableToolbar({
         />
       </div>
       {view === 'home' && (
-        <AppBar position="static" color="transparent">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab label="Utworzone" {...a11yProps(0)} />
-            <Tab label="Akceptacja kosztów" {...a11yProps(0)} />
-            <Tab label="Do zrobienia" {...a11yProps(0)} />
-            <Tab label="Zrobione" {...a11yProps(0)} />
-            <Tab label="Odrzucone" {...a11yProps(0)} />
-          </Tabs>
+        <AppBar
+          position="static"
+          color="transparent"
+          className={classes.appBar}
+        >
+          <Hidden mdUp>
+            <Tabs
+              value={ticketStatus}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="scrollable"
+              scrollButtons="auto"
+              centered
+            >
+              <Tab label="Utworzone" {...a11yProps(0)} />
+              <Tab label="Akceptacja kosztów" {...a11yProps(1)} />
+              <Tab label="Do zrobienia" {...a11yProps(2)} />
+              <Tab label="Zrobione" {...a11yProps(3)} />
+              <Tab label="Odrzucone" {...a11yProps(4)} />
+            </Tabs>
+          </Hidden>
+          <Hidden smDown>
+            <Tabs
+              value={ticketStatus}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+            >
+              <Tab label="Utworzone" {...a11yProps(0)} />
+              <Tab label="Akceptacja kosztów" {...a11yProps(1)} />
+              <Tab label="Do zrobienia" {...a11yProps(2)} />
+              <Tab label="Zrobione" {...a11yProps(3)} />
+              <Tab label="Odrzucone" {...a11yProps(4)} />
+            </Tabs>
+          </Hidden>
         </AppBar>
       )}
     </Toolbar>

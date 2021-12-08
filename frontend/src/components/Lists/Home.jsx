@@ -41,7 +41,7 @@ function Home({ tickets }) {
     <HomeTable
       headCells={headCells}
       data={tickets}
-      heading={`W naprawie: ${tickets.length}`}
+      heading={`Ilość zleceń: ${tickets.length}`}
       view="home"
     />
   );

@@ -26,7 +26,8 @@ const withEnhancedTable =
     const [rowsPerPage, setRowsPerPage] = useState(25);
     const [searchInput, setSearchInput] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
-    const filteredData = useFilter(data, searchInput);
+    const [ticketStatus, setTicketStatus] = useState(2);
+    const filteredData = useFilter(view, data, searchInput, ticketStatus);
     const classes = useTableStyles();
 
     const handleRequestSort = (_, property) => {
@@ -86,6 +87,8 @@ const withEnhancedTable =
             searchInput={searchInput}
             setSearchInput={setSearchInput}
             view={view}
+            ticketStatus={ticketStatus}
+            setTicketStatus={setTicketStatus}
           />
           <TableContainer
             className={

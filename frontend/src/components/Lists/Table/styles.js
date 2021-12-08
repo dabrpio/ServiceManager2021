@@ -35,6 +35,10 @@ export const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
+  appBar: {
+    boxShadow: theme.shadows[1],
+    // backgroundColor: '#eee',
+  },
 }));
 
 export const useTableStyles = makeStyles((theme) => ({
