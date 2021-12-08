@@ -32,7 +32,7 @@ const SelectedTicketDialog = (props) => {
     setSwitchState(event.target.checked);
     setTicket({
       ...ticket,
-      status: event.target.checked ? 'done' : 'created',
+      status: event.target.checked ? 'done' : 'accepted',
     });
   };
 
@@ -79,36 +79,40 @@ const SelectedTicketDialog = (props) => {
         <Typography component="h2" variant="h6">
           Zlecenie {ticket.rma}
         </Typography>
-        <Hidden smUp>
-          <Switch
-            color="primary"
-            checked={switchState}
-            onChange={handleChangeSwitchState}
-            name="status"
-          />
-        </Hidden>
+        {(ticket.status === 'done' || ticket.status === 'accepted') && (
+          <>
+            <Hidden smUp>
+              <Switch
+                color="primary"
+                checked={switchState}
+                onChange={handleChangeSwitchState}
+                name="status"
+              />
+            </Hidden>
 
-        <Hidden xsDown>
-          <div className={classes.titleActions}>
-            <DocsButton classes={classes} ticket={ticket} />
-            <FormControlLabel
-              classes={{
-                root: classes.formControlLabel,
-                label: classes.switchLabel,
-              }}
-              control={
-                <Switch
-                  color="primary"
-                  checked={switchState}
-                  onChange={handleChangeSwitchState}
-                  name="status"
+            <Hidden xsDown>
+              <div className={classes.titleActions}>
+                <DocsButton classes={classes} ticket={ticket} />
+                <FormControlLabel
+                  classes={{
+                    root: classes.formControlLabel,
+                    label: classes.switchLabel,
+                  }}
+                  control={
+                    <Switch
+                      color="primary"
+                      checked={switchState}
+                      onChange={handleChangeSwitchState}
+                      name="status"
+                    />
+                  }
+                  label={switchState ? 'Zrobione' : 'W naprawie'}
+                  labelPlacement="start"
                 />
-              }
-              label={switchState ? 'Zrobione' : 'W naprawie'}
-              labelPlacement="start"
-            />
-          </div>
-        </Hidden>
+              </div>
+            </Hidden>
+          </>
+        )}
       </DialogTitle>
       <TicketDialogContent
         classes={classes}
