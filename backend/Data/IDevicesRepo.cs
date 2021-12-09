@@ -22,7 +22,7 @@ namespace CommandApi.Data
         Device GetDeviceByModel(string type, string brand, string model);
 
         void CreateDevice(Device urzadzenie);
-        void DeleteUrzadzenia(Device urzadzenie);
+        void DeleteDevice(Device urzadzenie);
         void UpdateUrzadzenia(Device urzadzenie);
 
     }

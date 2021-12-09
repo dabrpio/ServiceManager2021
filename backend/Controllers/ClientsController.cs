@@ -118,14 +118,14 @@ namespace CommandApi.Controllers
 
         //DELETE api/kliecni/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteKlienci(int id)
+        public ActionResult DeleteClient(int id)
         {
             var commandItem=_repoClients.GetClientById(id);
             if(commandItem!=null){
                 if(commandItem.Tickets.Count!=0){
                     return Problem("Nie usunięto zleceń klienta");
                 }
-                _repoClients.DeleteKlienci(commandItem);
+                _repoClients.DeleteClient(commandItem);
                 _repoClients.SaveChanges();
                 return NoContent();
             }

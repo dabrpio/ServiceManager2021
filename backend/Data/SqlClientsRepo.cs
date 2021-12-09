@@ -53,7 +53,7 @@ namespace CommandApi.Data
             //nothing
         }
 
-        public void DeleteKlienci(Client klient)
+        public void DeleteClient(Client klient)
         {
             if(klient==null){
                 throw new ArgumentNullException(nameof(klient));

@@ -131,17 +131,30 @@ namespace CommandApi.Controllers
 
         //DELETE api/devices/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteUrzadzenia(int id)
+        public ActionResult DeleteDevice(int id)
         {
             var commandItem=_repoDevices.GetDeviceById(id);
             if(commandItem!=null){
-                _repoDevices.DeleteUrzadzenia(commandItem);
+                if(commandItem.Tickets.Count!=0){
+                    return Problem("Nie usunięto zleceń urządzenia");
+                }
+                _repoDevices.DeleteDevice(commandItem);
                 _repoDevices.SaveChanges();
                 return NoContent();
             }
             else{
                 return NotFound();
             }
+       /* {
+            var commandItem=_repoDevices.GetDeviceById(id);
+            if(commandItem!=null){
+                _repoDevices.DeleteDevice(commandItem);
+                _repoDevices.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }*/
         }
 
         //POST api/devices

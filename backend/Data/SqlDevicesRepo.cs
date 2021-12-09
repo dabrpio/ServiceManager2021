@@ -22,7 +22,7 @@ namespace CommandApi.Data
             _context.Devices.Add(urzadzenie);
         }
 
-        public void DeleteUrzadzenia(Device urzadzenia)
+        public void DeleteDevice(Device urzadzenia)
         {
             if(urzadzenia==null){
                 throw new ArgumentNullException(nameof(urzadzenia));
