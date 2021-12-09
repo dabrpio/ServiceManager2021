@@ -83,7 +83,7 @@ const Status = ({ status, credentials }) => {
         Service Manager 2021
       </Typography>
       <Typography component="h4" className={classes.description}>
-        {`Zlecenie nr 7 - ${data.brand} ${data.model}, ${data.glitch}`}
+        {`Zlecenie nr ${data.rma} - ${data.brand} ${data.model}, ${data.glitch}`}
       </Typography>
       <Hidden xsDown>
         <Stepper activeStep={activeStep} alternativeLabel>
