@@ -32,6 +32,15 @@ export const fetchDevices = () => (dispatch) => {
   dispatch(fetchDeviceModels());
 };
 
+const setDeleteDeviceError = (error) => ({
+  type: devicesAT.SET_DELETE_DEVICE_ERROR,
+  payload: error,
+});
+
+export const unsetDeleteDeviceError = () => ({
+  type: devicesAT.UNSET_DELETE_DEVICE_ERROR,
+});
+
 // GET models
 const fetchDeviceModels = () => {
   return (dispatch) => {
@@ -92,7 +101,13 @@ export const deleteDevice = (id) => (dispatch) => {
   fetch(baseUrl + '/' + id, { method: 'DELETE' })
     .then(handleErrors)
     .then(() => dispatch(deleteDeviceState(id)))
-    .catch(catchErrors);
+    .catch((error) =>
+      error.json().then((response) => {
+        console.log(response);
+        if (response.detail === 'Nie usunięto zleceń urządzenia')
+          dispatch(setDeleteDeviceError(id));
+      })
+    );
 };
 
 const handleErrors = (response) => {

@@ -55,7 +55,7 @@ const withEnhancedTable =
 
     return (
       <>
-        {view === 'clients' && <DeleteErrorSnackbar />}
+        {(view === 'clients' || view === 'devices') && <DeleteErrorSnackbar />}
 
         {selectedRowData && (view === 'tickets' || view === 'home') && (
           <SelectedTicketDialog

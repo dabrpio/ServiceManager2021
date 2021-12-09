@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { connect } from 'react-redux';
 import { unsetDeleteClientError } from '../../../store/data/clients/clients.actions';
-import { selectDeleteError } from '../../../store/data/clients/clients.selectors';
+import { selectDeleteClientError } from '../../../store/data/clients/clients.selectors';
+import { selectDeleteDeviceError } from '../../../store/data/devices/devices.selectors';
+import { unsetDeleteDeviceError } from '../../../store/data/devices/devices.actions';
 
 const useStyles = makeStyles((theme) => ({
   close: {
@@ -13,24 +15,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DeleteErrorSnackbar({ deleteError, closeDeleteError }) {
-  const [snackPack, setSnackPack] = React.useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [messageInfo, setMessageInfo] = React.useState(undefined);
+function DeleteErrorSnackbar({
+  deleteClientError,
+  closeDeleteClientError,
+  deleteDeviceError,
+  closeDeleteDeviceError,
+}) {
+  const [snackPack, setSnackPack] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [messageInfo, setMessageInfo] = useState(undefined);
 
-  React.useEffect(() => {
-    if (deleteError)
+  useEffect(() => {
+    if (deleteClientError || deleteDeviceError)
       setSnackPack((prev) => [
         ...prev,
         {
-          message: 'Nie można usunąć klienta, który posiada zlecenia',
+          message: deleteClientError
+            ? 'Nie można usunąć klienta, który posiada zlecenia'
+            : 'Nie można usunąć urządzenia, które jest w zleceniu',
           key: new Date().getTime(),
         },
       ]);
-    return () => (deleteError ? closeDeleteError() : null);
-  }, [deleteError, closeDeleteError]);
+    return () =>
+      deleteClientError
+        ? closeDeleteClientError()
+        : deleteDeviceError
+        ? closeDeleteDeviceError()
+        : null;
+  }, [
+    deleteClientError,
+    closeDeleteClientError,
+    deleteDeviceError,
+    closeDeleteDeviceError,
+  ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (snackPack.length && !messageInfo) {
       // Set a new snack when we don't have an active one
       setMessageInfo({ ...snackPack[0] });
@@ -39,16 +58,23 @@ function DeleteErrorSnackbar({ deleteError, closeDeleteError }) {
     } else if (snackPack.length && messageInfo && open) {
       // Close an active snack when a new one is added
       setOpen(false);
-      closeDeleteError();
+      closeDeleteClientError();
     }
-  }, [snackPack, messageInfo, open, closeDeleteError]);
+  }, [
+    snackPack,
+    messageInfo,
+    open,
+    closeDeleteClientError,
+    closeDeleteDeviceError,
+  ]);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
-    if (deleteError) closeDeleteError();
+    if (deleteClientError) closeDeleteClientError();
+    if (deleteDeviceError) closeDeleteDeviceError();
   };
 
   const handleExited = () => {
@@ -70,7 +96,7 @@ function DeleteErrorSnackbar({ deleteError, closeDeleteError }) {
         onExited={handleExited}
         message={messageInfo ? messageInfo.message : undefined}
         action={
-          <React.Fragment>
+          <Fragment>
             <IconButton
               aria-label="close"
               color="inherit"
@@ -79,7 +105,7 @@ function DeleteErrorSnackbar({ deleteError, closeDeleteError }) {
             >
               <CloseIcon />
             </IconButton>
-          </React.Fragment>
+          </Fragment>
         }
       />
     </div>
@@ -87,11 +113,13 @@ function DeleteErrorSnackbar({ deleteError, closeDeleteError }) {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  deleteError: selectDeleteError(state),
+  deleteClientError: selectDeleteClientError(state),
+  deleteDeviceError: selectDeleteDeviceError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  closeDeleteError: () => dispatch(unsetDeleteClientError()),
+  closeDeleteClientError: () => dispatch(unsetDeleteClientError()),
+  closeDeleteDeviceError: () => dispatch(unsetDeleteDeviceError()),
 });
 
 export default connect(

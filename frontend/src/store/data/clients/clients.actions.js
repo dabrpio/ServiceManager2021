@@ -88,14 +88,12 @@ export const putClient = (client) => (dispatch) => {
 export const deleteClient = (id) => (dispatch) =>
   fetch(baseUrl + '/' + id, { method: 'DELETE' })
     .then(handleErrors)
-    .then((data) => {
-      dispatch(deleteClientState(id));
-    })
+    .then(() => dispatch(deleteClientState(id)))
     .catch((error) =>
       error.json().then((response) => {
         console.log(response);
         if (response.detail === 'Nie usunięto zleceń klienta')
-          dispatch(setDeleteClientError(error.url.slice(error.url.length - 3)));
+          dispatch(setDeleteClientError(id));
       })
     );
 
