@@ -73,7 +73,6 @@ export default function EnhancedTableToolbar({
               textColor="primary"
               variant="scrollable"
               scrollButtons="auto"
-              centered
             >
               <Tab label="Utworzone" {...a11yProps(0)} />
               <Tab label="Akceptacja kosztów" {...a11yProps(1)} />

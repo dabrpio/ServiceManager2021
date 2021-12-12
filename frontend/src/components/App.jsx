@@ -16,6 +16,7 @@ import Login from './Login/Login';
 import StatusLogin from './Login/StatusLogin';
 import NavBar from './NavBar';
 import Settings from './Settings';
+import Stats from './Stats';
 
 const theme = createMuiTheme({}, plPL);
 
@@ -51,11 +52,12 @@ const DefaultContainer = () => (
     <NavBar />
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/settings" component={Settings} />
+      <Route exact path="/stats" component={Stats} />
       <Route exact path="/tickets" component={TicketList} />
       <Route exact path="/employees" component={EmployeeList} />
       <Route exact path="/clients" component={ClientList} />
       <Route exact path="/devices" component={DeviceList} />
+      <Route exact path="/settings" component={Settings} />
       <Redirect to="/" />
     </Switch>
   </>
