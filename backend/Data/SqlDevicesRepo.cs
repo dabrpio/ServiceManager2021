@@ -30,7 +30,7 @@ namespace CommandApi.Data
             _context.Devices.Remove(urzadzenia);
         }
 
-        public IEnumerable<Device> GetAllUrzadzenia()
+        public IEnumerable<Device> GetAllDevices()
         {
             return _context.Devices.OrderByDescending(p=>p.IdDevice).ToList();
         }

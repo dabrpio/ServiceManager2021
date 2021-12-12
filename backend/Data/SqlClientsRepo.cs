@@ -15,15 +15,15 @@ namespace CommandApi.Data
             _context.Tickets.ToList();
         }
 
-        public void CreateClient(Client klient)
+        public void CreateClient(Client client)
         {
-            if(klient==null){
-                throw new ArgumentNullException(nameof(klient));
+            if(client==null){
+                throw new ArgumentNullException(nameof(client));
             }
-            _context.Clients.Add(klient);
+            _context.Clients.Add(client);
         }
 
-        public IEnumerable<Client> GetAllKlienci()
+        public IEnumerable<Client> GetAllClients()
         {
             return _context.Clients.OrderByDescending(p=>p.IdClient).ToList();
         }
@@ -32,16 +32,21 @@ namespace CommandApi.Data
         {
             return _context.Clients.FirstOrDefault(p=>p.IdClient==id);
         }
-        public Client GetClientByPhNumer(string phone, string imie, string nazwisko)
+        public Client GetClientByPhNumer(string phone, string name, string surname)
         {
-            return _context.Clients.FirstOrDefault(p=>p.PhoneNumber==phone&&p.Name==imie&&p.Surname==nazwisko);
+            return _context.Clients.FirstOrDefault(p=>p.PhoneNumber==phone&&p.Name==name&&p.Surname==surname);
         }
 
-        public IEnumerable<Client> GetKlienciByName(string imie){
-            return _context.Clients.OrderByDescending(p=>p.IdClient).Where(p=>p.Name.StartsWith(imie)).ToList();
+          public Client GetClientByEmail(string email, string name, string surname)
+        {
+            return _context.Clients.FirstOrDefault(p=>p.Email==email&&p.Name==name&&p.Surname==surname);
         }
-        public IEnumerable<Client> GetKlienciBySur(string nazwisko){
-            return _context.Clients.OrderByDescending(p=>p.IdClient).Where(p=>p.Surname.StartsWith(nazwisko)).ToList();
+
+        public IEnumerable<Client> GetKlienciByName(string name){
+            return _context.Clients.OrderByDescending(p=>p.IdClient).Where(p=>p.Name.StartsWith(name)).ToList();
+        }
+        public IEnumerable<Client> GetKlienciBySur(string surname){
+            return _context.Clients.OrderByDescending(p=>p.IdClient).Where(p=>p.Surname.StartsWith(surname)).ToList();
         }
 
         public bool SaveChanges()
@@ -49,16 +54,16 @@ namespace CommandApi.Data
            return (_context.SaveChanges()>=0);
         }
 
-        public void UpdateClient(Client klient){
+        public void UpdateClient(Client client){
             //nothing
         }
 
-        public void DeleteClient(Client klient)
+        public void DeleteClient(Client client)
         {
-            if(klient==null){
-                throw new ArgumentNullException(nameof(klient));
+            if(client==null){
+                throw new ArgumentNullException(nameof(client));
             }
-            _context.Clients.Remove(klient);
+            _context.Clients.Remove(client);
         }
     }
 }

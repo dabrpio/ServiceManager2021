@@ -5,6 +5,7 @@ using CommandApi.Data;
 using CommandApi.Dtos;
 using CommandApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using CommandApi.Services;
 
 namespace CommandApi.Controllers
 {
@@ -74,24 +75,55 @@ namespace CommandApi.Controllers
             var ticketModel =_mapper.Map<Ticket>(ticketsCreateDto);
             var clientModel =_mapper.Map<Client>(ticketsCreateDto);
             var deviceModel =_mapper.Map<Device>(ticketsCreateDto);
-
- 
-            if(_repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname)==null){
+            var byphone = _repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname);
+            var byemail = _repoClients.GetClientByEmail(clientModel.Email,clientModel.Name,clientModel.Surname);         
+            if(byphone==null&&byemail==null){
                 _repoClients.CreateClient(clientModel);
                 _repoClients.SaveChanges();
+                if(clientModel.PhoneNumber!=null){
+                    ticketModel.IdClient=_repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname).IdClient;
+                }
+                else{
+                    ticketModel.IdClient=_repoClients.GetClientByEmail(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname).IdClient;
+                }
+            }
+            else{
+                if(byphone==null&&clientModel.PhoneNumber!=null){
+                    byemail.PhoneNumber=clientModel.PhoneNumber;
+                    ticketModel.IdClient=byemail.IdClient;
+                    _repoClients.UpdateClient(byemail);
+                    _repoClients.SaveChanges();
+                }
+                else{
+                    if(byemail==null&&clientModel.Email!=null){                    
+                        byphone.Email=clientModel.Email;
+                        ticketModel.IdClient=byphone.IdClient;
+                        _repoClients.UpdateClient(byphone);
+                        _repoClients.SaveChanges();
+                    }
+                    else{
+                        if(byemail==null){
+                            ticketModel.IdClient=byphone.IdClient;
+                        }
+                        ticketModel.IdClient=byemail.IdClient;
+                    }                   
+                }
             }
 
             if(_repoDevices.GetDeviceByModel(deviceModel.Type,deviceModel.Brand,deviceModel.Model)==null){
                 _repoDevices.CreateDevice(deviceModel);
                 _repoDevices.SaveChanges();
             }
-
-            ticketModel.IdClient=_repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname).IdClient;
+            
             ticketModel.IdDevice=_repoDevices.GetDeviceByModel(deviceModel.Type,deviceModel.Brand,deviceModel.Model).IdDevice;
 
             if(ticketModel.Status=="done")
             {
                 ticketModel.EndDate=DateTime.Now;
+                if(clientModel.Email!=null){
+                    Mailing.SendMail(clientModel.Email);
+                }
+                
             }
             _repoTickets.CreateTicket(ticketModel);
             _repoTickets.SaveChanges();
@@ -102,7 +134,7 @@ namespace CommandApi.Controllers
 
 
             return CreatedAtRoute(nameof(GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
-
+            
         }
 
 

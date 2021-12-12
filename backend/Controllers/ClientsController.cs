@@ -23,8 +23,8 @@ namespace CommandApi.Controllers
 
         //GET api/clients
         [HttpGet]
-        public ActionResult<IEnumerable<ClientsReadDto>> GetAllKlienci(){
-            var commandItems = _repoClients.GetAllKlienci();
+        public ActionResult<IEnumerable<ClientsReadDto>> GetAllClients(){
+            var commandItems = _repoClients.GetAllClients();
             return Ok(_mapper.Map<IEnumerable<ClientsReadDto>>(commandItems));
         }
 
@@ -81,18 +81,38 @@ namespace CommandApi.Controllers
         [HttpPost]
         public ActionResult<ClientsReadDto> CreateClient(ClientsCreateDto clientCreateDto){
             var clientModel =_mapper.Map<Client>(clientCreateDto);
-            if(_repoClients.GetClientByPhNumer(clientCreateDto.PhoneNumber,clientCreateDto.Name,clientCreateDto.Surname)==null){
+            var byphone = _repoClients.GetClientByPhNumer(clientModel.PhoneNumber,clientModel.Name,clientModel.Surname);
+            var byemail = _repoClients.GetClientByEmail(clientModel.Email,clientModel.Name,clientModel.Surname);         
+            if(byphone==null&&byemail==null){
                 _repoClients.CreateClient(clientModel);
                 _repoClients.SaveChanges();
-
                 var clientReadDto = _mapper.Map<ClientsReadDto>(clientModel);
-
                 return CreatedAtRoute(nameof(GetClientById), new {id = clientReadDto.IdClient},clientReadDto);
             }
             else{
+                if(byphone==null&&clientModel.PhoneNumber!=null){
+                    byemail.PhoneNumber=clientModel.PhoneNumber;
+                    _repoClients.UpdateClient(byemail);
+                    _repoClients.SaveChanges();
+                    var clientReadDto = _mapper.Map<ClientsReadDto>(byemail);
+                    return RedirectToRoute(nameof(GetClientById), new {id = clientReadDto.IdClient});
+                }
+                else{
+                    if(byemail==null&&clientModel.Email!=null){                    
+                        byphone.Email=clientModel.Email;
+                        _repoClients.UpdateClient(byphone);
+                        _repoClients.SaveChanges();
+                        var clientReadDto = _mapper.Map<ClientsReadDto>(byphone);
+                        return RedirectToRoute(nameof(GetClientById), new {id = clientReadDto.IdClient});
+                    }
+                    else{
+                        if(byemail==null){
+                            return RedirectToRoute(nameof(GetClientById), new {id = byphone.IdClient});
+                        }
+                        return RedirectToRoute(nameof(GetClientById), new {id = byemail.IdClient});
 
-                var clientReadDto= _repoClients.GetClientByPhNumer(clientCreateDto.PhoneNumber,clientCreateDto.Name,clientCreateDto.Surname);
-                return RedirectToRoute(nameof(GetClientById), new {id = clientReadDto.IdClient});
+                    }
+                }
             }
         }
 

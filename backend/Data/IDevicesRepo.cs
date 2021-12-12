@@ -10,7 +10,7 @@ namespace CommandApi.Data
     public interface IDevicesRepo
     {
         bool SaveChanges();
-        IEnumerable<Device> GetAllUrzadzenia();
+        IEnumerable<Device> GetAllDevices();
         Device GetDeviceById(int id);
         List<string> GetAllTypes();
         List<string> GetSpecificBrand(string type);

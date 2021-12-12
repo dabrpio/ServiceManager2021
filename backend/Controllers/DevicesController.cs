@@ -24,8 +24,8 @@ namespace CommandApi.Controllers
 
         //GET api/devices
         [HttpGet]
-        public ActionResult<IEnumerable<DevicesReadDto>> GetAllUrzadzenia(){
-            var commandItems = _repoDevices.GetAllUrzadzenia();
+        public ActionResult<IEnumerable<DevicesReadDto>> GetAllDevices(){
+            var commandItems = _repoDevices.GetAllDevices();
             return Ok(_mapper.Map<IEnumerable<DevicesReadDto>>(commandItems));
         }
 

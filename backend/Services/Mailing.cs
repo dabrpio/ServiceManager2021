@@ -9,7 +9,12 @@ namespace CommandApi.Services
 {
     public class Mailing
     {
-        public static void SentMail(string destination)
+        public static void SendMail(string destination)
+        {
+            //testing rest of app
+        }
+        /*
+        public static void SendMail(string destination)
         {
             SmtpClient client = new SmtpClient("naprawmnie.com");
             client.Port=25;
@@ -34,6 +39,6 @@ namespace CommandApi.Services
                 client.Dispose();
                 Console.WriteLine("Done.");
             }
-        }
+        }*/
     }
 }
