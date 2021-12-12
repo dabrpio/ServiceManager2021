@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Font } from '@react-pdf/renderer';
-import fontRegular from '../../../fonts/Roboto-Regular.ttf';
-import fontBold from '../../../fonts/Roboto-Bold.ttf';
+import fontRegular from '../../../../fonts/Roboto-Regular.ttf';
+import fontBold from '../../../../fonts/Roboto-Bold.ttf';
 
 Font.register({
   family: 'Roboto',

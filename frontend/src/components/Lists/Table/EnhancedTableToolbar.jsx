@@ -10,7 +10,7 @@ import AddClientDialog from './Dialogs/Clients/AddClientDialog';
 import AddDeviceDialog from './Dialogs/Devices/AddDeviceDialog';
 import AddEmployeeDialog from './Dialogs/Employees/AddEmployeeDialog';
 import AddTicketDialog from './Dialogs/Tickets/AddTicketDialog';
-import { useToolbarStyles } from './styles';
+import { useToolbarStyles } from './utils/styles';
 import { Hidden } from '@material-ui/core';
 
 export default function EnhancedTableToolbar({
