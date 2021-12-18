@@ -14,21 +14,20 @@ using FluentAssertions;
 
 namespace Catalog.UnitTests;
 
-    public class DeviceControllerTests
+    public class TicketControllerTests
     {
-        private readonly Mock<IDevicesRepo> repositoryStub = new();
-        private readonly Mock<ILogger<DevicesController>> loggerStub = new();
+        private readonly Mock<ITicketsRepo> repositoryStub = new();
+        private readonly Mock<ILogger<TicketsController>> loggerStub = new();
         private readonly Random rand = new();
-
         private static IMapper _mapper;
         
-        public DeviceControllerTests()
+        public TicketControllerTests()
         {
             if (_mapper == null)
             {
                 var mappingConfig = new MapperConfiguration(mc =>
                 {
-                    mc.AddProfile(new CommandApi.Profiles.DevicesProfile());
+                    mc.AddProfile(new CommandApi.Profiles.TicketsProfile());
                 });
                 IMapper mapper = mappingConfig.CreateMapper();
                 _mapper = mapper;
@@ -36,15 +35,15 @@ namespace Catalog.UnitTests;
         }
 
         [Fact]
-        public async Task GetDeviceById_WithUnexistingItem_ReturnsNotFound()
+        public async Task GetTicketById_WithUnexistingItem_ReturnsNotFound()
         {
             // Arrange
-            repositoryStub.Setup(repo => repo.GetDeviceById(It.IsAny<int>())).Returns((Device)null);
+            repositoryStub.Setup(repo => repo.GetTicketsByRma(It.IsAny<int>())).Returns((Ticket)null);
 
-            var controller = new DevicesController(repositoryStub.Object, _mapper);
+            var controller = new TicketsController(repositoryStub.Object, _mapper);
 
             // Act
-            var result =  controller.GetDeviceById(It.IsAny<int>());
+            var result =  controller.GetTicketsByRma(It.IsAny<int>());
 
             // Assert
             result.Result.Should().BeOfType<NotFoundResult>();

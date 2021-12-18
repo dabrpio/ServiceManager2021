@@ -14,7 +14,7 @@ using FluentAssertions;
 
 namespace Catalog.UnitTests;
 
-    public class ControllerTests
+    public class ClientControllerTests
     {
         private readonly Mock<IClientsRepo> repositoryStub = new();
         private readonly Mock<ILogger<ClientsController>> loggerStub = new();
@@ -28,7 +28,7 @@ namespace Catalog.UnitTests;
             {
                 var mappingConfig = new MapperConfiguration(mc =>
                 {
-                    mc.AddProfile(new CommandApi.Profiles.DevicesProfile());
+                    mc.AddProfile(new CommandApi.Profiles.ClientsProfile());
                 });
                 IMapper mapper = mappingConfig.CreateMapper();
                 _mapper = mapper;
@@ -36,15 +36,15 @@ namespace Catalog.UnitTests;
         }
 
         [Fact]
-        public async Task GetDeviceById_WithUnexistingItem_ReturnsNotFound()
+        public async Task GetClientById_WithUnexistingItem_ReturnsNotFound()
         {
             // Arrange
-            repositoryStub.Setup(repo => repo.GetDeviceById(It.IsAny<int>())).Returns((Device)null);
+            repositoryStub.Setup(repo => repo.GetClientById(It.IsAny<int>())).Returns((Client)null);
 
-            var controller = new DevicesController(repositoryStub.Object, _mapper);
+            var controller = new ClientsController(repositoryStub.Object, _mapper);
 
             // Act
-            var result =  controller.GetDeviceById(It.IsAny<int>());
+            var result =  controller.GetClientById(It.IsAny<int>());
 
             // Assert
             result.Result.Should().BeOfType<NotFoundResult>();
