@@ -56,7 +56,6 @@ export const useStyles = makeStyles((theme) => ({
       width: '90%',
       height: '90%',
       maxHeight: '60px',
-      maxHeight: '60px',
     },
   },
   text: {

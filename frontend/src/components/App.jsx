@@ -6,6 +6,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { fetchClients } from '../store/data/clients/clients.actions';
 import { fetchDevices } from '../store/data/devices/devices.actions';
 import { fetchEmployees } from '../store/data/employees/employees.actions';
+import { fetchStats } from '../store/data/stats/stats.actions';
 import { fetchTickets } from '../store/data/tickets/tickets.actions';
 import ClientList from './Lists/ClientList';
 import DeviceList from './Lists/DeviceList';
@@ -69,6 +70,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(fetchEmployees());
     dispatch(fetchClients());
     dispatch(fetchDevices());
+    dispatch(fetchStats());
   },
 });
 
