@@ -1,17 +1,33 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { Font } from '@react-pdf/renderer';
+import fontRegular from '../fonts/Roboto-Regular.ttf';
+import fontBold from '../fonts/Roboto-Bold.ttf';
+
+Font.register({
+  family: 'Roboto',
+  fonts: [
+    {
+      src: fontRegular,
+    },
+    {
+      src: fontBold,
+      fontWeight: 'bold',
+    },
+  ],
+});
 
 export const useCommonSettingsStatsStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.up('sm')]: {
       marginTop: 0,
       marginLeft: '150px',
-      height: '100vh',
+      minHeight: '100vh',
     },
     display: 'flex',
     alignItems: 'stretch',
     justifyContent: 'center',
     marginTop: `calc(${theme.mixins.toolbar.minHeight}px )`,
-    height: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+    minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
     overflow: 'hidden',
   },
   wrapper: {
@@ -26,9 +42,6 @@ export const useCommonSettingsStatsStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   heading: {
-    [theme.breakpoints.up('sm')]: {
-      marginBottom: theme.spacing(3),
-    },
     marginBottom: theme.spacing(2),
     fontSize: '1.7rem',
   },
