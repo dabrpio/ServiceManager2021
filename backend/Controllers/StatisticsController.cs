@@ -4,12 +4,14 @@ using AutoMapper;
 using CommandApi.Data;
 using CommandApi.Dtos;
 using CommandApi.Models;
+using CommandApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CommandApi.Controllers
 {
     [Route("api/statistics")]
     [ApiController]
+    [ApiKeyAuth]
     public class StatisticsController:ControllerBase
     {
 
@@ -24,7 +26,7 @@ namespace CommandApi.Controllers
             _mapper=mapper;
         }
         
-        //GET api/statistics
+        //GET api/statistics/profit/{multi}
         [HttpGet("profit/{multi}")]
         public ActionResult<IEnumerable<Stat2>> GetAllMoney(int multi){
             var commandItems = _repoStats.GetAllMoney(multi);
@@ -58,7 +60,7 @@ namespace CommandApi.Controllers
         }
         
 
-        //GET api/statistics
+        //GET api/statistics/count/{multi}
         [HttpGet("count/{multi}")]
         public ActionResult<IEnumerable<Stat2>> GetCount(int multi){
             var commandItems = _repoStats.CountTickets(multi);
@@ -92,7 +94,7 @@ namespace CommandApi.Controllers
         }
 
 
-        //GET api/statistics
+        //GET api/statistics/best/{multi}
         [HttpGet("best/{multi}")]
         public ActionResult<TicketsReadDto> GetBestTicket(int multi){
             var commandItem = _repoStats.GetBestTicket(multi);
@@ -102,5 +104,8 @@ namespace CommandApi.Controllers
             _mapper.Map(retu.IdDeviceNavigation,inp);
             return Ok(inp);
         }
+
+        
+        //GET api/statistics/topbrands
     }
 }

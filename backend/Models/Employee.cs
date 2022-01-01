@@ -44,5 +44,8 @@ namespace CommandApi.Models
         [Column("NIP")]
         [StringLength(10)]
         public string Nip { get; set; }
+        public string ApiKey { get; set; }
+        [Column("TTL", TypeName = "datetime")]
+        public DateTime? Ttl { get; set; }
     }
 }

@@ -5,12 +5,15 @@ using CommandApi.Data;
 using CommandApi.Dtos;
 using CommandApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using CommandApi.Services;
 
 namespace CommandApi.Controllers
 {
 
     [Route("api/clients")]
     [ApiController]
+    [ApiKeyAuth]
+
     public class ClientsController:ControllerBase
     {
         private readonly IClientsRepo _repoClients;

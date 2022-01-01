@@ -13,12 +13,12 @@ namespace CommandApi.Services
         {
             //testing rest of app
         }
-        /*
-        public static void SendMail(string destination)
+        
+       /* public static void SendMail(string destination)
         {
             SmtpClient client = new SmtpClient("naprawmnie.com");
             client.Port=25;
-            client.Credentials=new System.Net.NetworkCredential("test@naprawmnie.com","B%ffi710");
+            client.Credentials=new System.Net.NetworkCredential("test@naprawmnie.com",Configuration.GetConnectionString("MailPasswd"));
             MailAddress from = new MailAddress("test@naprawmnie.com", "NoReply", System.Text.Encoding.UTF8);
             MailAddress to = new MailAddress(destination);
             MailMessage message = new MailMessage(from, to);

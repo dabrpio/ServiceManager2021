@@ -4,6 +4,7 @@ using AutoMapper;
 using CommandApi.Data;
 using CommandApi.Dtos;
 using CommandApi.Models;
+using CommandApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CommandApi.Controllers
@@ -11,6 +12,7 @@ namespace CommandApi.Controllers
 
     [Route("api/Employees")]
     [ApiController]
+    [ApiKeyAuth]
     public class EmployeeController:ControllerBase
     {
         private readonly IEmployeeRepo _repoEmployee;

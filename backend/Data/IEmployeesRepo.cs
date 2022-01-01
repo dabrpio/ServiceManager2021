@@ -12,5 +12,9 @@ namespace CommandApi.Data
         void UpdateEmployee(Employee EmployeeUpdate);
         void DeleteEmployee(Employee Employee);
         Employee GetEmployeeByLoginPasswordId(string login, string password, int id);
+        Employee GetEmployeeByLoginPassword(string login, string password);
+        
+        Employee GetEmployeeByApiKey(string ApiKey);
+
     }
 }

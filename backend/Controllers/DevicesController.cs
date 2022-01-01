@@ -4,6 +4,7 @@ using AutoMapper;
 using CommandApi.Data;
 using CommandApi.Dtos;
 using CommandApi.Models;
+using CommandApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -12,6 +13,7 @@ namespace CommandApi.Controllers
 
     [Route("api/devices")]
     [ApiController]
+    [ApiKeyAuth]
     public class DevicesController:ControllerBase
     {
         private readonly IDevicesRepo _repoDevices;

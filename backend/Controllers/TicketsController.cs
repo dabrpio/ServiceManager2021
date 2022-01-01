@@ -12,6 +12,7 @@ namespace CommandApi.Controllers
 
     [Route("api/tickets")]
     [ApiController]
+    [ApiKeyAuth]
     public class TicketsController:ControllerBase
     {
         private readonly ITicketsRepo _repoTickets;

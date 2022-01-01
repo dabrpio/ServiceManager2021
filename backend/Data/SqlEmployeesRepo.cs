@@ -44,7 +44,15 @@ namespace CommandApi.Data
         {
             return _context.Employees.FirstOrDefault(p=>p.IdCompany==id && p.Login==login && p.Password == password);
         }
+        
+        public Employee GetEmployeeByLoginPassword(string login, string password)
+        {
+            return _context.Employees.FirstOrDefault(p=>p.Login==login && p.Password == password);
+        }
 
+        public Employee GetEmployeeByApiKey(string apiKey){
+            return _context.Employees.FirstOrDefault(p=>p.ApiKey==apiKey);
+        }
         public bool SaveChanges()
         {
            return (_context.SaveChanges()>=0);
