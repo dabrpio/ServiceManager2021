@@ -12,7 +12,7 @@ namespace CommandApi.Controllers
 
     [Route("api/status")]
     [ApiController]
-    [ApiKeyAuth]
+    //[ApiKeyAuth]
     public class StatusController:ControllerBase
     {
         private readonly ITicketsRepo _repoTickets;
