@@ -5,7 +5,7 @@ namespace CommandApi.Services{
     public class Security
     {
         public const string separator = "..|..";
-        public static string Hashing(string password)
+        public static string Hashing(string password, int type)
         {
             byte[] salt = new byte[128 / 8];
             using (var rngCsp = new RNGCryptoServiceProvider())
@@ -20,9 +20,9 @@ namespace CommandApi.Services{
                 prf: KeyDerivationPrf.HMACSHA512,
                 iterationCount: 100000,
                 numBytesRequested: 512 / 8));
-            return hashed+separator+Convert.ToBase64String(salt);
+            return hashed+separator+Convert.ToBase64String(salt)+separator+type;
         }
-        public static string HashingWithSalt(string password, string Salt)
+        public static string HashingWithSalt(string password, string Salt, int type)
         {
             byte[] salt = Convert.FromBase64String(Salt);
 
@@ -33,7 +33,7 @@ namespace CommandApi.Services{
                 prf: KeyDerivationPrf.HMACSHA512,
                 iterationCount: 100000,
                 numBytesRequested: 512 / 8));
-            return hashed+separator+Salt;
+            return hashed+separator+Salt+separator+type;
         }
     }
 }

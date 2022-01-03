@@ -28,7 +28,7 @@ namespace CommandApi.Controllers
             var commandItem = _repoEmployee.GetEmployeeByLoginPassword(login,passwd);
             var updated = _mapper.Map<Employee>(commandItem);
             if(commandItem!=null){
-                updated.ApiKey=Security.Hashing(DateTime.Now.ToString());
+                updated.ApiKey=Security.Hashing(DateTime.Now.ToString(),commandItem.Type);
                 updated.Ttl=DateTime.Now.AddHours(1);
                 _mapper.Map(updated, commandItem);
                 _repoEmployee.UpdateEmployee(commandItem);
