@@ -8,19 +8,33 @@ const updateAuthState = (newAuthState) => ({
   payload: newAuthState,
 });
 
+// right now good response is text and bad json
 export const tryLogin = ({ login, password }) => {
   return (dispatch) => {
     fetch(`${baseUrl}/${login}+${password}`)
+      .then((res) => handleResponse(res, dispatch))
       .then((res) => res.text())
       .then((res) => {
-        // right now good response is text and bad json
         console.log(res);
+        localStorage.setItem('apiKey', res);
         dispatch(updateAuthState(true));
       })
       .catch((res) => {
         console.error(res);
+        localStorage.removeItem('apiKey');
       });
   };
+};
+
+const handleResponse = (response, dispatch) => {
+  if (!response.ok) {
+    if (response?.status === 404) {
+      throw response;
+    }
+
+    throw response;
+  }
+  return response;
 };
 
 export const logout = () => (dispatch) => dispatch(updateAuthState(false));

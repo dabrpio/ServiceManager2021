@@ -1,6 +1,7 @@
-import * as statsAT from './stats.action-types';
 import { URL } from '../../../constants';
 import { logout } from '../../auth/auth.actions';
+import { createHeaders } from '../../constants';
+import * as statsAT from './stats.action-types';
 
 const baseUrl = `${URL}/statistics`;
 
@@ -20,7 +21,7 @@ const setTopBrandsStatsState = (data) => ({
 });
 
 const fetchCountStats = (endpoint) => (dispatch) => {
-  fetch(baseUrl + endpoint)
+  fetch(baseUrl + endpoint, { headers: createHeaders() })
     .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setCountStatsState(data)))
@@ -28,7 +29,7 @@ const fetchCountStats = (endpoint) => (dispatch) => {
 };
 
 const fetchProfitStats = (endpoint) => (dispatch) => {
-  fetch(baseUrl + endpoint)
+  fetch(baseUrl + endpoint, { headers: createHeaders() })
     .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setProfitStatsState(data)))
@@ -36,7 +37,7 @@ const fetchProfitStats = (endpoint) => (dispatch) => {
 };
 
 const fetchTopBrandsStats = (endpoint) => (dispatch) => {
-  fetch(baseUrl + endpoint)
+  fetch(baseUrl + endpoint, { headers: createHeaders() })
     .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setTopBrandsStatsState(data)))

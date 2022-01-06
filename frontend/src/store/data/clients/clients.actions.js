@@ -1,7 +1,8 @@
-import * as clientsAT from './clients.action-types';
 import { URL } from '../../../constants';
-import { clientUpdateTicketState } from '../tickets/tickets.actions';
 import { logout } from '../../auth/auth.actions';
+import { createHeaders } from '../../constants';
+import { clientUpdateTicketState } from '../tickets/tickets.actions';
+import * as clientsAT from './clients.action-types';
 
 const baseUrl = `${URL}/clients`;
 
@@ -36,7 +37,9 @@ export const unsetDeleteClientError = () => ({
 // GET
 export const fetchClients = () => {
   return (dispatch) => {
-    fetch(baseUrl)
+    fetch(baseUrl, {
+      headers: createHeaders(),
+    })
       .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => {
@@ -52,10 +55,7 @@ export const fetchClients = () => {
 export const postClient = (client) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(client),
   })
     .then((res) => handleErrors(res, dispatch))
@@ -69,10 +69,7 @@ export const putClient = (client) => (dispatch) => {
   console.log(client);
   fetch(baseUrl + `/${client.idClient}`, {
     method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(client),
   })
     .then((res) => handleErrors(res, dispatch))
@@ -87,7 +84,10 @@ export const putClient = (client) => (dispatch) => {
 
 // DELETE
 export const deleteClient = (id) => (dispatch) =>
-  fetch(baseUrl + '/' + id, { method: 'DELETE' })
+  fetch(baseUrl + '/' + id, {
+    method: 'DELETE',
+    headers: createHeaders(),
+  })
     .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteClientState(id)))
     .catch((error) =>

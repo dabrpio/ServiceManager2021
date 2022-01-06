@@ -5,3 +5,9 @@ export const FEATURE_TICKETS_NAME = 'tickets';
 export const FEATURE_DEVICES_NAME = 'devices';
 export const FEATURE_STATS_NAME = 'stats';
 export const FEATURE_AUTH_NAME = 'auth';
+
+export const createHeaders = () => ({
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+  apiKey: localStorage.getItem('apiKey'),
+});

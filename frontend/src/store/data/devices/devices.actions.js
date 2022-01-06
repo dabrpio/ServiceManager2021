@@ -1,6 +1,7 @@
-import * as devicesAT from './devices.action-types';
 import { URL } from '../../../constants';
 import { logout } from '../../auth/auth.actions';
+import { createHeaders } from '../../constants';
+import * as devicesAT from './devices.action-types';
 
 const baseUrl = `${URL}/devices`;
 
@@ -45,17 +46,18 @@ export const unsetDeleteDeviceError = () => ({
 // GET models
 const fetchDeviceModels = () => {
   return (dispatch) => {
-    fetch(baseUrl)
+    fetch(baseUrl, { headers: createHeaders() })
       .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceModelsState(data)))
       .catch((error) => console.log(error));
   };
 };
+
 // GET brands
 const fetchDeviceBrands = () => {
   return (dispatch) => {
-    fetch(baseUrl + '/brands')
+    fetch(baseUrl + '/brands', { headers: createHeaders() })
       .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceBrandsState(data)))
@@ -67,10 +69,7 @@ const fetchDeviceBrands = () => {
 export const postDevice = (device) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(device),
   })
     .then((res) => handleErrors(res, dispatch))
@@ -83,10 +82,7 @@ export const postDevice = (device) => (dispatch) => {
 export const putDevice = (device) => (dispatch) => {
   fetch(baseUrl + `/${device.idDevice}`, {
     method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(device),
   })
     .then((res) => handleErrors(res, dispatch))
@@ -99,7 +95,10 @@ export const putDevice = (device) => (dispatch) => {
 
 // DELETE
 export const deleteDevice = (id) => (dispatch) => {
-  fetch(baseUrl + '/' + id, { method: 'DELETE' })
+  fetch(baseUrl + '/' + id, {
+    method: 'DELETE',
+    headers: createHeaders(),
+  })
     .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteDeviceState(id)))
     .catch((error) =>

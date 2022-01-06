@@ -39,7 +39,6 @@ const ProtectedContainer = ({ init }) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   init: () => {
-    console.log(ownProps);
     if (ownProps.authenticated) {
       dispatch(fetchTickets());
       dispatch(fetchEmployees());

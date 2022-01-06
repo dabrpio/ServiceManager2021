@@ -1,7 +1,7 @@
 import * as authAT from './auth.action-types';
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: localStorage.getItem('apiKey') ? true : false,
 };
 
 export default function authReducers(state = initialState, action) {

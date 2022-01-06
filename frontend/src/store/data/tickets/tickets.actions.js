@@ -1,6 +1,7 @@
-import * as ticketsAT from './tickets.action-types';
 import { URL } from '../../../constants';
 import { logout } from '../../auth/auth.actions';
+import { createHeaders } from '../../constants';
+import * as ticketsAT from './tickets.action-types';
 
 const baseUrl = `${URL}/tickets`;
 
@@ -32,7 +33,7 @@ const deleteTicketState = (id) => ({
 // GET
 export const fetchTickets = () => {
   return (dispatch) => {
-    fetch(baseUrl)
+    fetch(baseUrl, { headers: createHeaders() })
       .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setTicketsState(data)))
@@ -44,10 +45,7 @@ export const fetchTickets = () => {
 export const postTicket = (data) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify({
       repairCost: parseFloat(data.repairCost),
       partsCost: parseFloat(data.partsCost),
@@ -64,10 +62,7 @@ export const postTicket = (data) => (dispatch) => {
 export const putTicket = (ticket) => (dispatch) => {
   fetch(baseUrl + `/${ticket.rma}`, {
     method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify({
       repairCost: parseFloat(ticket.repairCost),
       partsCost: parseFloat(ticket.partsCost),
@@ -81,7 +76,7 @@ export const putTicket = (ticket) => (dispatch) => {
 
 // DELETE
 export const deleteTicket = (id) => (dispatch) => {
-  fetch(baseUrl + '/' + id, { method: 'DELETE' })
+  fetch(baseUrl + '/' + id, { method: 'DELETE', headers: createHeaders() })
     .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteTicketState(id)))
     .catch(catchErrors);

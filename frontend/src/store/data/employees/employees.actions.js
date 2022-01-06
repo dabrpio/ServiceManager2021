@@ -1,6 +1,7 @@
-import * as employeesAT from './employees.action-types';
 import { URL } from '../../../constants';
 import { logout } from '../../auth/auth.actions';
+import { createHeaders } from '../../constants';
+import * as employeesAT from './employees.action-types';
 
 const baseUrl = `${URL}/employees`;
 
@@ -27,7 +28,7 @@ const deleteEmployeeState = (id) => ({
 // GET
 export const fetchEmployees = () => {
   return (dispatch) => {
-    fetch(baseUrl)
+    fetch(baseUrl, { headers: createHeaders() })
       .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setEmployeesState(data)))
@@ -39,10 +40,7 @@ export const fetchEmployees = () => {
 export const postEmployee = (employee) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(employee),
   })
     .then((res) => handleErrors(res, dispatch))
@@ -55,10 +53,7 @@ export const postEmployee = (employee) => (dispatch) => {
 export const putEmployee = (employee) => (dispatch) => {
   fetch(baseUrl + `/${employee.idEmployee}`, {
     method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(employee),
   })
     .then((res) => handleErrors(res, dispatch))
@@ -68,7 +63,7 @@ export const putEmployee = (employee) => (dispatch) => {
 
 // DELETE
 export const deleteEmployee = (id) => (dispatch) => {
-  fetch(baseUrl + '/' + id, { method: 'DELETE' })
+  fetch(baseUrl + '/' + id, { method: 'DELETE', headers: createHeaders() })
     .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteEmployeeState(id)))
     .catch(catchErrors);
