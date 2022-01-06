@@ -1,6 +1,5 @@
 import { URL } from '../../../constants';
-import { logout } from '../../auth/auth.actions';
-import { createHeaders } from '../../constants';
+import { handleErrors, createHeaders } from '../../utils';
 import { clientUpdateTicketState } from '../tickets/tickets.actions';
 import * as clientsAT from './clients.action-types';
 
@@ -97,17 +96,6 @@ export const deleteClient = (id) => (dispatch) =>
           dispatch(setDeleteClientError(id));
       })
     );
-
-const handleErrors = (response, dispatch) => {
-  if (!response.ok) {
-    if (response?.status === 401) {
-      dispatch(logout());
-    }
-
-    throw response;
-  }
-  return response;
-};
 
 const catchErrors = (error) => {
   try {

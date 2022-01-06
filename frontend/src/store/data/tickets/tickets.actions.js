@@ -1,6 +1,5 @@
 import { URL } from '../../../constants';
-import { logout } from '../../auth/auth.actions';
-import { createHeaders } from '../../constants';
+import { handleErrors, createHeaders } from '../../utils';
 import * as ticketsAT from './tickets.action-types';
 
 const baseUrl = `${URL}/tickets`;
@@ -80,17 +79,6 @@ export const deleteTicket = (id) => (dispatch) => {
     .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteTicketState(id)))
     .catch(catchErrors);
-};
-
-const handleErrors = (response, dispatch) => {
-  if (!response.ok) {
-    if (response?.status === 401) {
-      dispatch(logout());
-    }
-
-    throw response;
-  }
-  return response;
 };
 
 const catchErrors = (error) => {

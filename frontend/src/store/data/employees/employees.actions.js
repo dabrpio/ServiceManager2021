@@ -1,6 +1,5 @@
 import { URL } from '../../../constants';
-import { logout } from '../../auth/auth.actions';
-import { createHeaders } from '../../constants';
+import { handleErrors, createHeaders } from '../../utils';
 import * as employeesAT from './employees.action-types';
 
 const baseUrl = `${URL}/employees`;
@@ -67,17 +66,6 @@ export const deleteEmployee = (id) => (dispatch) => {
     .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteEmployeeState(id)))
     .catch(catchErrors);
-};
-
-const handleErrors = (response, dispatch) => {
-  if (!response.ok) {
-    if (response?.status === 401) {
-      dispatch(logout());
-    }
-
-    throw response;
-  }
-  return response;
 };
 
 const catchErrors = (error) => {

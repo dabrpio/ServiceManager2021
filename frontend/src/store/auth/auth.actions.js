@@ -37,4 +37,7 @@ const handleResponse = (response, dispatch) => {
   return response;
 };
 
-export const logout = () => (dispatch) => dispatch(updateAuthState(false));
+export const logout = () => (dispatch) => {
+  dispatch(updateAuthState(false));
+  localStorage.removeItem('apiKey');
+};

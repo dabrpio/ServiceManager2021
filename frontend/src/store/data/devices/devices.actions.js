@@ -1,6 +1,5 @@
 import { URL } from '../../../constants';
-import { logout } from '../../auth/auth.actions';
-import { createHeaders } from '../../constants';
+import { handleErrors, createHeaders } from '../../utils';
 import * as devicesAT from './devices.action-types';
 
 const baseUrl = `${URL}/devices`;
@@ -108,17 +107,6 @@ export const deleteDevice = (id) => (dispatch) => {
           dispatch(setDeleteDeviceError(id));
       })
     );
-};
-
-const handleErrors = (response, dispatch) => {
-  if (!response.ok) {
-    if (response?.status === 401) {
-      dispatch(logout());
-    }
-
-    throw response;
-  }
-  return response;
 };
 
 const catchErrors = (error) => {

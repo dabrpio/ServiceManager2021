@@ -1,6 +1,5 @@
 import { URL } from '../../../constants';
-import { logout } from '../../auth/auth.actions';
-import { createHeaders } from '../../constants';
+import { handleErrors, createHeaders } from '../../utils';
 import * as statsAT from './stats.action-types';
 
 const baseUrl = `${URL}/statistics`;
@@ -48,17 +47,6 @@ export const fetchStats = () => (dispatch) => {
   dispatch(fetchCountStats('/count/31'));
   dispatch(fetchProfitStats('/profit/31'));
   // dispatch(fetchTopBrandsStats('/topbrands'))
-};
-
-const handleErrors = (response, dispatch) => {
-  if (!response.ok) {
-    if (response?.status === 401) {
-      dispatch(logout());
-    }
-
-    throw response;
-  }
-  return response;
 };
 
 const catchErrors = (error) => {
