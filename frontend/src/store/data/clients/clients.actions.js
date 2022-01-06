@@ -1,6 +1,7 @@
 import * as clientsAT from './clients.action-types';
 import { URL } from '../../../constants';
 import { clientUpdateTicketState } from '../tickets/tickets.actions';
+import { logout } from '../../auth/auth.actions';
 
 const baseUrl = `${URL}/clients`;
 
@@ -36,7 +37,7 @@ export const unsetDeleteClientError = () => ({
 export const fetchClients = () => {
   return (dispatch) => {
     fetch(baseUrl)
-      .then(handleErrors)
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => {
         dispatch(
@@ -57,7 +58,7 @@ export const postClient = (client) => (dispatch) => {
     },
     body: JSON.stringify(client),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((client) => dispatch(addClientState(client)))
     .catch(catchErrors);
@@ -74,7 +75,7 @@ export const putClient = (client) => (dispatch) => {
     },
     body: JSON.stringify(client),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -87,7 +88,7 @@ export const putClient = (client) => (dispatch) => {
 // DELETE
 export const deleteClient = (id) => (dispatch) =>
   fetch(baseUrl + '/' + id, { method: 'DELETE' })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteClientState(id)))
     .catch((error) =>
       error.json().then((response) => {
@@ -97,9 +98,12 @@ export const deleteClient = (id) => (dispatch) =>
       })
     );
 
-const handleErrors = (response) => {
-  console.log(response);
+const handleErrors = (response, dispatch) => {
   if (!response.ok) {
+    if (response?.status === 401) {
+      dispatch(logout());
+    }
+
     throw response;
   }
   return response;

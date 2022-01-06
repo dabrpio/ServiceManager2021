@@ -1,5 +1,6 @@
 import * as statsAT from './stats.action-types';
 import { URL } from '../../../constants';
+import { logout } from '../../auth/auth.actions';
 
 const baseUrl = `${URL}/statistics`;
 
@@ -20,7 +21,7 @@ const setTopBrandsStatsState = (data) => ({
 
 const fetchCountStats = (endpoint) => (dispatch) => {
   fetch(baseUrl + endpoint)
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setCountStatsState(data)))
     .catch(catchErrors);
@@ -28,7 +29,7 @@ const fetchCountStats = (endpoint) => (dispatch) => {
 
 const fetchProfitStats = (endpoint) => (dispatch) => {
   fetch(baseUrl + endpoint)
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setProfitStatsState(data)))
     .catch(catchErrors);
@@ -36,7 +37,7 @@ const fetchProfitStats = (endpoint) => (dispatch) => {
 
 const fetchTopBrandsStats = (endpoint) => (dispatch) => {
   fetch(baseUrl + endpoint)
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setTopBrandsStatsState(data)))
     .catch(catchErrors);
@@ -48,9 +49,12 @@ export const fetchStats = () => (dispatch) => {
   // dispatch(fetchTopBrandsStats('/topbrands'))
 };
 
-const handleErrors = (response) => {
-  console.log(response);
+const handleErrors = (response, dispatch) => {
   if (!response.ok) {
+    if (response?.status === 401) {
+      dispatch(logout());
+    }
+
     throw response;
   }
   return response;

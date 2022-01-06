@@ -1,5 +1,6 @@
 import * as employeesAT from './employees.action-types';
 import { URL } from '../../../constants';
+import { logout } from '../../auth/auth.actions';
 
 const baseUrl = `${URL}/employees`;
 
@@ -27,7 +28,7 @@ const deleteEmployeeState = (id) => ({
 export const fetchEmployees = () => {
   return (dispatch) => {
     fetch(baseUrl)
-      .then(handleErrors)
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setEmployeesState(data)))
       .catch((error) => console.log(error));
@@ -44,7 +45,7 @@ export const postEmployee = (employee) => (dispatch) => {
     },
     body: JSON.stringify(employee),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(addEmployeeState(data)))
     .catch(catchErrors);
@@ -60,7 +61,7 @@ export const putEmployee = (employee) => (dispatch) => {
     },
     body: JSON.stringify(employee),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(updateEmployeeState(employee)))
     .catch(catchErrors);
 };
@@ -68,14 +69,17 @@ export const putEmployee = (employee) => (dispatch) => {
 // DELETE
 export const deleteEmployee = (id) => (dispatch) => {
   fetch(baseUrl + '/' + id, { method: 'DELETE' })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteEmployeeState(id)))
     .catch(catchErrors);
 };
 
-const handleErrors = (response) => {
-  console.log(response);
+const handleErrors = (response, dispatch) => {
   if (!response.ok) {
+    if (response?.status === 401) {
+      dispatch(logout());
+    }
+
     throw response;
   }
   return response;

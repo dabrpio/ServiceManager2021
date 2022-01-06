@@ -1,5 +1,6 @@
 import * as devicesAT from './devices.action-types';
 import { URL } from '../../../constants';
+import { logout } from '../../auth/auth.actions';
 
 const baseUrl = `${URL}/devices`;
 
@@ -45,7 +46,7 @@ export const unsetDeleteDeviceError = () => ({
 const fetchDeviceModels = () => {
   return (dispatch) => {
     fetch(baseUrl)
-      .then(handleErrors)
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceModelsState(data)))
       .catch((error) => console.log(error));
@@ -55,7 +56,7 @@ const fetchDeviceModels = () => {
 const fetchDeviceBrands = () => {
   return (dispatch) => {
     fetch(baseUrl + '/brands')
-      .then(handleErrors)
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceBrandsState(data)))
       .catch((error) => console.log(error));
@@ -72,7 +73,7 @@ export const postDevice = (device) => (dispatch) => {
     },
     body: JSON.stringify(device),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((device) => dispatch(addDeviceState(device)))
     .catch(catchErrors);
@@ -88,7 +89,7 @@ export const putDevice = (device) => (dispatch) => {
     },
     body: JSON.stringify(device),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => {
       dispatch(updateDeviceState(device));
       dispatch(fetchDeviceBrands());
@@ -99,7 +100,7 @@ export const putDevice = (device) => (dispatch) => {
 // DELETE
 export const deleteDevice = (id) => (dispatch) => {
   fetch(baseUrl + '/' + id, { method: 'DELETE' })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteDeviceState(id)))
     .catch((error) =>
       error.json().then((response) => {
@@ -110,9 +111,12 @@ export const deleteDevice = (id) => (dispatch) => {
     );
 };
 
-const handleErrors = (response) => {
-  console.log(response);
+const handleErrors = (response, dispatch) => {
   if (!response.ok) {
+    if (response?.status === 401) {
+      dispatch(logout());
+    }
+
     throw response;
   }
   return response;

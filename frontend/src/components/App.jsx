@@ -22,7 +22,7 @@ const App = ({ authState }) => {
           <Switch>
             <Route exact path="/status" component={StatusLogin} />
             <Route exact path="/login" component={Login} />
-            <Redirect to="/" />
+            <Redirect to="/login" />
           </Switch>
         )}
       </BrowserRouter>
@@ -35,7 +35,7 @@ const ProtectedRoutes = ({ authenticated }) => {
     <Route
       render={() => {
         return authenticated ? (
-          <ProtectedContainer />
+          <ProtectedContainer authenticated={authenticated} />
         ) : (
           <Route exact path="/login" component={Login} />
         );

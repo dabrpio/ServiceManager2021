@@ -1,5 +1,6 @@
 import * as ticketsAT from './tickets.action-types';
 import { URL } from '../../../constants';
+import { logout } from '../../auth/auth.actions';
 
 const baseUrl = `${URL}/tickets`;
 
@@ -32,7 +33,7 @@ const deleteTicketState = (id) => ({
 export const fetchTickets = () => {
   return (dispatch) => {
     fetch(baseUrl)
-      .then(handleErrors)
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setTicketsState(data)))
       .catch((error) => console.log(error));
@@ -53,7 +54,7 @@ export const postTicket = (data) => (dispatch) => {
       ...data,
     }),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((ticket) => dispatch(addTicketState(ticket)))
     .catch(catchErrors);
@@ -73,7 +74,7 @@ export const putTicket = (ticket) => (dispatch) => {
       ...ticket,
     }),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(updateTicketState(ticket)))
     .catch(catchErrors);
 };
@@ -81,14 +82,17 @@ export const putTicket = (ticket) => (dispatch) => {
 // DELETE
 export const deleteTicket = (id) => (dispatch) => {
   fetch(baseUrl + '/' + id, { method: 'DELETE' })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteTicketState(id)))
     .catch(catchErrors);
 };
 
-const handleErrors = (response) => {
-  console.log(response);
+const handleErrors = (response, dispatch) => {
   if (!response.ok) {
+    if (response?.status === 401) {
+      dispatch(logout());
+    }
+
     throw response;
   }
   return response;

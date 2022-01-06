@@ -13,6 +13,7 @@ export const tryLogin = ({ login, password }) => {
     fetch(`${baseUrl}/${login}+${password}`)
       .then((res) => res.text())
       .then((res) => {
+        // right now good response is text and bad json
         console.log(res);
         dispatch(updateAuthState(true));
       })
@@ -22,4 +23,4 @@ export const tryLogin = ({ login, password }) => {
   };
 };
 
-export const logout = (dispatch) => dispatch(updateAuthState(false));
+export const logout = () => (dispatch) => dispatch(updateAuthState(false));
