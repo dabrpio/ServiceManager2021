@@ -10,7 +10,7 @@ import AddClientDialog from './Dialogs/Clients/AddClientDialog';
 import AddDeviceDialog from './Dialogs/Devices/AddDeviceDialog';
 import AddEmployeeDialog from './Dialogs/Employees/AddEmployeeDialog';
 import AddTicketDialog from './Dialogs/Tickets/AddTicketDialog';
-import { useToolbarStyles } from './styles';
+import { useToolbarStyles } from './utils/styles';
 import { Hidden } from '@material-ui/core';
 
 export default function EnhancedTableToolbar({
@@ -73,7 +73,6 @@ export default function EnhancedTableToolbar({
               textColor="primary"
               variant="scrollable"
               scrollButtons="auto"
-              centered
             >
               <Tab label="Utworzone" {...a11yProps(0)} />
               <Tab label="Akceptacja kosztów" {...a11yProps(1)} />

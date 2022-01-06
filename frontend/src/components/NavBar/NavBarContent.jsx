@@ -10,6 +10,7 @@ import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import RecentActorsRoundedIcon from '@material-ui/icons/RecentActorsRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import WorkOutlineRoundedIcon from '@material-ui/icons/WorkOutlineRounded';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -29,6 +30,19 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
             <HomeRoundedIcon className={classes.icon} />
           </ListItemIcon>
           <ListItemText className={classes.text}>Home</ListItemText>
+        </ListItem>
+        <ListItem
+          button
+          component={Link}
+          to="/stats"
+          selected={'/stats' === pathname}
+          onClick={handleMenuItemClick}
+          classes={{ root: classes.listItemWrapper }}
+        >
+          <ListItemIcon className={classes.listItem}>
+            <AssessmentIcon className={classes.icon} />
+          </ListItemIcon>
+          <ListItemText className={classes.text}>Statystyki</ListItemText>
         </ListItem>
         <ListItem
           button
@@ -70,7 +84,6 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           <ListItemText className={classes.text}>Urządzenia</ListItemText>
         </ListItem>
         <ListItem
-          // classes={{root: classes.listItem}}
           button
           component={Link}
           to="/employees"

@@ -12,10 +12,10 @@ import SelectedEmployeeDialog from './Dialogs/Employees/SelectedEmployeeDialog';
 import SelectedTicketDialog from './Dialogs/Tickets/SelectedTicketDialog';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
-import { useFilter } from './filtering';
+import { useFilter } from './utils/filtering';
 import DeleteErrorSnackbar from './SnackBar';
-import { getComparator, stableSort } from './sorting';
-import { useTableStyles } from './styles';
+import { getComparator, stableSort } from './utils/sorting';
+import { useTableStyles } from './utils/styles';
 
 const withEnhancedTable =
   (EnhancedRow) =>

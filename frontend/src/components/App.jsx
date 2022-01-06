@@ -6,6 +6,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { fetchClients } from '../store/data/clients/clients.actions';
 import { fetchDevices } from '../store/data/devices/devices.actions';
 import { fetchEmployees } from '../store/data/employees/employees.actions';
+import { fetchStats } from '../store/data/stats/stats.actions';
 import { fetchTickets } from '../store/data/tickets/tickets.actions';
 import ClientList from './Lists/ClientList';
 import DeviceList from './Lists/DeviceList';
@@ -16,6 +17,7 @@ import Login from './Login/Login';
 import StatusLogin from './Login/StatusLogin';
 import NavBar from './NavBar';
 import Settings from './Settings';
+import Stats from './Stats';
 
 const theme = createMuiTheme({}, plPL);
 
@@ -51,11 +53,12 @@ const DefaultContainer = () => (
     <NavBar />
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/settings" component={Settings} />
+      <Route exact path="/stats" component={Stats} />
       <Route exact path="/tickets" component={TicketList} />
       <Route exact path="/employees" component={EmployeeList} />
       <Route exact path="/clients" component={ClientList} />
       <Route exact path="/devices" component={DeviceList} />
+      <Route exact path="/settings" component={Settings} />
       <Redirect to="/" />
     </Switch>
   </>
@@ -67,6 +70,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(fetchEmployees());
     dispatch(fetchClients());
     dispatch(fetchDevices());
+    dispatch(fetchStats());
   },
 });
 

@@ -44,7 +44,7 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       alignItems: 'center',
       height: '6vh',
-      maxHeight: '120px',
+      maxHeight: '66px',
       color: '#fff',
       justifyContent: 'center',
       width: '100%',
@@ -52,21 +52,27 @@ export const useStyles = makeStyles((theme) => ({
   },
   icon: {
     [theme.breakpoints.up('sm')]: {
-      fontSize: '90%',
+      // fontSize: '90%',
       width: '90%',
       height: '90%',
+      maxHeight: '60px',
     },
   },
   text: {
     [theme.breakpoints.up('sm')]: {
       '& .MuiTypography-body1': {
-        fontSize: 'max(2vh, 12px)',
+        fontSize: `0.875rem`,
         color: '#ffffff',
+      },
+    },
+    [theme.breakpoints.up('md')]: {
+      '& .MuiTypography-body1': {
+        fontSize: `1rem`,
       },
     },
     [theme.breakpoints.up('lg')]: {
       '& .MuiTypography-body1': {
-        fontSize: `0.875rem`,
+        fontSize: `1.125rem`,
       },
     },
   },
@@ -75,6 +81,7 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
       flexDirection: 'column',
+      padding: '4px 8px',
     },
   },
 }));
