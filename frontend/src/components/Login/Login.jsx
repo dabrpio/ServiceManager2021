@@ -3,22 +3,25 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { useStyles } from './styles';
+import { tryLogin } from '../../store/auth/auth.actions';
 
-function Login() {
+function Login({ login }) {
   const classes = useStyles();
   const [loginData, setLoginData] = useState({
-    email: '',
+    login: '',
     password: '',
   });
   const [loginErrors] = useState({
-    emailError: '',
+    loginError: '',
     passwordError: '',
   });
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     console.log(loginData);
+    login(loginData);
   };
 
   return (
@@ -29,14 +32,14 @@ function Login() {
             Service Manager 2021
           </Typography>
           <TextField
-            error={loginErrors.emailError.length > 0}
+            error={loginErrors.loginError.length > 0}
             fullWidth
-            label="Email"
+            label="Login"
             type="text"
-            value={loginData.email}
-            helperText={loginErrors.emailError}
+            value={loginData.login}
+            helperText={loginErrors.loginError}
             onChange={(event) =>
-              setLoginData({ ...loginData, email: event.target.value })
+              setLoginData({ ...loginData, login: event.target.value })
             }
             size="small"
             margin="normal"
@@ -69,4 +72,8 @@ function Login() {
   );
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  login: (credentials) => dispatch(tryLogin(credentials)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
