@@ -1,5 +1,6 @@
-import * as ticketsAT from './tickets.action-types';
 import { URL } from '../../../constants';
+import { handleErrors, createHeaders } from '../../utils';
+import * as ticketsAT from './tickets.action-types';
 
 const baseUrl = `${URL}/tickets`;
 
@@ -31,8 +32,8 @@ const deleteTicketState = (id) => ({
 // GET
 export const fetchTickets = () => {
   return (dispatch) => {
-    fetch(baseUrl)
-      .then(handleErrors)
+    fetch(baseUrl, { headers: createHeaders() })
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setTicketsState(data)))
       .catch((error) => console.log(error));
@@ -43,17 +44,14 @@ export const fetchTickets = () => {
 export const postTicket = (data) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify({
       repairCost: parseFloat(data.repairCost),
       partsCost: parseFloat(data.partsCost),
       ...data,
     }),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((ticket) => dispatch(addTicketState(ticket)))
     .catch(catchErrors);
@@ -63,35 +61,24 @@ export const postTicket = (data) => (dispatch) => {
 export const putTicket = (ticket) => (dispatch) => {
   fetch(baseUrl + `/${ticket.rma}`, {
     method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify({
       repairCost: parseFloat(ticket.repairCost),
       partsCost: parseFloat(ticket.partsCost),
       ...ticket,
     }),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(updateTicketState(ticket)))
     .catch(catchErrors);
 };
 
 // DELETE
 export const deleteTicket = (id) => (dispatch) => {
-  fetch(baseUrl + '/' + id, { method: 'DELETE' })
-    .then(handleErrors)
+  fetch(baseUrl + '/' + id, { method: 'DELETE', headers: createHeaders() })
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteTicketState(id)))
     .catch(catchErrors);
-};
-
-const handleErrors = (response) => {
-  console.log(response);
-  if (!response.ok) {
-    throw response;
-  }
-  return response;
 };
 
 const catchErrors = (error) => {

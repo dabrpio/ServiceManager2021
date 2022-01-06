@@ -1,5 +1,6 @@
-import * as statsAT from './stats.action-types';
 import { URL } from '../../../constants';
+import { handleErrors, createHeaders } from '../../utils';
+import * as statsAT from './stats.action-types';
 
 const baseUrl = `${URL}/statistics`;
 
@@ -19,24 +20,24 @@ const setTopBrandsStatsState = (data) => ({
 });
 
 const fetchCountStats = (endpoint) => (dispatch) => {
-  fetch(baseUrl + endpoint)
-    .then(handleErrors)
+  fetch(baseUrl + endpoint, { headers: createHeaders() })
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setCountStatsState(data)))
     .catch(catchErrors);
 };
 
 const fetchProfitStats = (endpoint) => (dispatch) => {
-  fetch(baseUrl + endpoint)
-    .then(handleErrors)
+  fetch(baseUrl + endpoint, { headers: createHeaders() })
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setProfitStatsState(data)))
     .catch(catchErrors);
 };
 
 const fetchTopBrandsStats = (endpoint) => (dispatch) => {
-  fetch(baseUrl + endpoint)
-    .then(handleErrors)
+  fetch(baseUrl + endpoint, { headers: createHeaders() })
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setTopBrandsStatsState(data)))
     .catch(catchErrors);
@@ -46,14 +47,6 @@ export const fetchStats = () => (dispatch) => {
   dispatch(fetchCountStats('/count/31'));
   dispatch(fetchProfitStats('/profit/31'));
   // dispatch(fetchTopBrandsStats('/topbrands'))
-};
-
-const handleErrors = (response) => {
-  console.log(response);
-  if (!response.ok) {
-    throw response;
-  }
-  return response;
 };
 
 const catchErrors = (error) => {

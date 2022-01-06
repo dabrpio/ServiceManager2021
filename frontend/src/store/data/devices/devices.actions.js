@@ -1,5 +1,6 @@
-import * as devicesAT from './devices.action-types';
 import { URL } from '../../../constants';
+import { handleErrors, createHeaders } from '../../utils';
+import * as devicesAT from './devices.action-types';
 
 const baseUrl = `${URL}/devices`;
 
@@ -44,18 +45,19 @@ export const unsetDeleteDeviceError = () => ({
 // GET models
 const fetchDeviceModels = () => {
   return (dispatch) => {
-    fetch(baseUrl)
-      .then(handleErrors)
+    fetch(baseUrl, { headers: createHeaders() })
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceModelsState(data)))
       .catch((error) => console.log(error));
   };
 };
+
 // GET brands
 const fetchDeviceBrands = () => {
   return (dispatch) => {
-    fetch(baseUrl + '/brands')
-      .then(handleErrors)
+    fetch(baseUrl + '/brands', { headers: createHeaders() })
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceBrandsState(data)))
       .catch((error) => console.log(error));
@@ -66,13 +68,10 @@ const fetchDeviceBrands = () => {
 export const postDevice = (device) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(device),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((device) => dispatch(addDeviceState(device)))
     .catch(catchErrors);
@@ -82,13 +81,10 @@ export const postDevice = (device) => (dispatch) => {
 export const putDevice = (device) => (dispatch) => {
   fetch(baseUrl + `/${device.idDevice}`, {
     method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(device),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => {
       dispatch(updateDeviceState(device));
       dispatch(fetchDeviceBrands());
@@ -98,8 +94,11 @@ export const putDevice = (device) => (dispatch) => {
 
 // DELETE
 export const deleteDevice = (id) => (dispatch) => {
-  fetch(baseUrl + '/' + id, { method: 'DELETE' })
-    .then(handleErrors)
+  fetch(baseUrl + '/' + id, {
+    method: 'DELETE',
+    headers: createHeaders(),
+  })
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteDeviceState(id)))
     .catch((error) =>
       error.json().then((response) => {
@@ -108,14 +107,6 @@ export const deleteDevice = (id) => (dispatch) => {
           dispatch(setDeleteDeviceError(id));
       })
     );
-};
-
-const handleErrors = (response) => {
-  console.log(response);
-  if (!response.ok) {
-    throw response;
-  }
-  return response;
 };
 
 const catchErrors = (error) => {

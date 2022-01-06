@@ -12,9 +12,11 @@ import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import WorkOutlineRoundedIcon from '@material-ui/icons/WorkOutlineRounded';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../store/auth/auth.actions';
 
-const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
+const NavBarContent = ({ handleMenuItemClick, classes, pathname, logout }) => {
   return (
     <List classes={{ root: classes.list }}>
       <div className={classes.main}>
@@ -117,7 +119,7 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
           component={Link}
           to="/login"
           selected={'/login' === pathname}
-          onClick={handleMenuItemClick}
+          onClick={logout}
           classes={{ root: classes.listItemWrapper }}
         >
           <ListItemIcon className={classes.listItem}>
@@ -130,4 +132,8 @@ const NavBarContent = ({ handleMenuItemClick, classes, pathname }) => {
   );
 };
 
-export default NavBarContent;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  logout: () => dispatch(logout()),
+});
+
+export default connect(null, mapDispatchToProps)(NavBarContent);

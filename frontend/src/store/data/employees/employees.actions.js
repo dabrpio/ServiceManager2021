@@ -1,5 +1,6 @@
-import * as employeesAT from './employees.action-types';
 import { URL } from '../../../constants';
+import { handleErrors, createHeaders } from '../../utils';
+import * as employeesAT from './employees.action-types';
 
 const baseUrl = `${URL}/employees`;
 
@@ -26,8 +27,8 @@ const deleteEmployeeState = (id) => ({
 // GET
 export const fetchEmployees = () => {
   return (dispatch) => {
-    fetch(baseUrl)
-      .then(handleErrors)
+    fetch(baseUrl, { headers: createHeaders() })
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setEmployeesState(data)))
       .catch((error) => console.log(error));
@@ -38,13 +39,10 @@ export const fetchEmployees = () => {
 export const postEmployee = (employee) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(employee),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(addEmployeeState(data)))
     .catch(catchErrors);
@@ -54,31 +52,20 @@ export const postEmployee = (employee) => (dispatch) => {
 export const putEmployee = (employee) => (dispatch) => {
   fetch(baseUrl + `/${employee.idEmployee}`, {
     method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(employee),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(updateEmployeeState(employee)))
     .catch(catchErrors);
 };
 
 // DELETE
 export const deleteEmployee = (id) => (dispatch) => {
-  fetch(baseUrl + '/' + id, { method: 'DELETE' })
-    .then(handleErrors)
+  fetch(baseUrl + '/' + id, { method: 'DELETE', headers: createHeaders() })
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteEmployeeState(id)))
     .catch(catchErrors);
-};
-
-const handleErrors = (response) => {
-  console.log(response);
-  if (!response.ok) {
-    throw response;
-  }
-  return response;
 };
 
 const catchErrors = (error) => {

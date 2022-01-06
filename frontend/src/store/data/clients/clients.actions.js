@@ -1,6 +1,7 @@
-import * as clientsAT from './clients.action-types';
 import { URL } from '../../../constants';
+import { handleErrors, createHeaders } from '../../utils';
 import { clientUpdateTicketState } from '../tickets/tickets.actions';
+import * as clientsAT from './clients.action-types';
 
 const baseUrl = `${URL}/clients`;
 
@@ -35,8 +36,10 @@ export const unsetDeleteClientError = () => ({
 // GET
 export const fetchClients = () => {
   return (dispatch) => {
-    fetch(baseUrl)
-      .then(handleErrors)
+    fetch(baseUrl, {
+      headers: createHeaders(),
+    })
+      .then((res) => handleErrors(res, dispatch))
       .then((res) => res.json())
       .then((data) => {
         dispatch(
@@ -51,13 +54,10 @@ export const fetchClients = () => {
 export const postClient = (client) => (dispatch) => {
   fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(client),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((client) => dispatch(addClientState(client)))
     .catch(catchErrors);
@@ -68,13 +68,10 @@ export const putClient = (client) => (dispatch) => {
   console.log(client);
   fetch(baseUrl + `/${client.idClient}`, {
     method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify(client),
   })
-    .then(handleErrors)
+    .then((res) => handleErrors(res, dispatch))
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -86,8 +83,11 @@ export const putClient = (client) => (dispatch) => {
 
 // DELETE
 export const deleteClient = (id) => (dispatch) =>
-  fetch(baseUrl + '/' + id, { method: 'DELETE' })
-    .then(handleErrors)
+  fetch(baseUrl + '/' + id, {
+    method: 'DELETE',
+    headers: createHeaders(),
+  })
+    .then((res) => handleErrors(res, dispatch))
     .then(() => dispatch(deleteClientState(id)))
     .catch((error) =>
       error.json().then((response) => {
@@ -96,14 +96,6 @@ export const deleteClient = (id) => (dispatch) =>
           dispatch(setDeleteClientError(id));
       })
     );
-
-const handleErrors = (response) => {
-  console.log(response);
-  if (!response.ok) {
-    throw response;
-  }
-  return response;
-};
 
 const catchErrors = (error) => {
   try {
