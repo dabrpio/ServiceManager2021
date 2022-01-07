@@ -8,6 +8,11 @@ const updateAuthState = (newAuthState) => ({
   payload: newAuthState,
 });
 
+const setUserType = (type) => ({
+  type: authAT.SET_USER_TYPE,
+  payload: type,
+});
+
 // right now good response is text and bad json
 export const tryLogin = ({ login, password }) => {
   return (dispatch) => {
@@ -17,6 +22,7 @@ export const tryLogin = ({ login, password }) => {
       .then((res) => {
         console.log(res);
         localStorage.setItem('apiKey', res);
+        dispatch(setUserType(parseInt(res.charAt(res.length - 1))));
         dispatch(updateAuthState(true));
       })
       .catch((res) => {
