@@ -50,7 +50,7 @@ namespace CommandApi.Controllers
         public ActionResult<EmployeeReadDto> CreateEmployee(EmployeeCreateDto EmployeeCreateDto){
             var EmployeeModel =_mapper.Map<Employee>(EmployeeCreateDto);
 
-            if(_repoEmployee.GetEmployeeByLoginPasswordId(EmployeeCreateDto.Login, EmployeeCreateDto.Password, EmployeeCreateDto.IdCompany)==null){
+            if(_repoEmployee.GetEmployeeByLoginPassword(EmployeeCreateDto.Login, EmployeeCreateDto.Password)==null){
                 _repoEmployee.CreateEmployee(EmployeeModel);
                 _repoEmployee.SaveChanges();
 
@@ -59,7 +59,7 @@ namespace CommandApi.Controllers
                 return CreatedAtRoute(nameof(GetEmployeeById), new {id = uzytkownicyReadDto.IdEmployee},uzytkownicyReadDto);    
             }
             else{
-                var EmployeeReadDto= _repoEmployee.GetEmployeeByLoginPasswordId(EmployeeCreateDto.Login, EmployeeCreateDto.Password, EmployeeCreateDto.IdCompany);
+                var EmployeeReadDto= _repoEmployee.GetEmployeeByLoginPassword(EmployeeCreateDto.Login, EmployeeCreateDto.Password);
                 return RedirectToRoute(nameof(GetEmployeeById), new {id = EmployeeReadDto.IdEmployee});
             }
         }

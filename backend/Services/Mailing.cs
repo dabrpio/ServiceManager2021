@@ -13,6 +13,9 @@ namespace CommandApi.Services
         {
             //testing rest of app
         }
+        public static void SendMailCostApproval(string destination){
+            
+        }
         
        /* public static void SendMail(string destination)
         {

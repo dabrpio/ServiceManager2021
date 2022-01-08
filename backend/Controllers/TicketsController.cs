@@ -69,6 +69,26 @@ namespace CommandApi.Controllers
             }
         }
 
+        //GET api/tickets/biz/{idCompany}
+        [HttpGet("biz/{idCompany}", Name="GetCompanyTickets")]
+        public ActionResult<TicketsReadDto> GetCompanyTickets(int idCompany){
+            var commandItems = _repoTickets.GetCompanyTickets(idCompany);
+            List<TicketsReadDto> commIt = new List<TicketsReadDto>();
+            foreach(var item in commandItems){
+                TicketsReadDto inp=new TicketsReadDto();
+                inp=_mapper.Map<TicketsReadDto>(item);
+                inp.Name=item.IdClientNavigation.Name;
+                inp.Surname=item.IdClientNavigation.Surname;
+                inp.PhoneNumber=item.IdClientNavigation.PhoneNumber;
+                inp.Email=item.IdClientNavigation.Email;
+                inp.IdDevice=item.IdDeviceNavigation.IdDevice;
+                inp.Type=item.IdDeviceNavigation.Type;
+                inp.Brand=item.IdDeviceNavigation.Brand;
+                inp.Model=item.IdDeviceNavigation.Model;
+                commIt.Add(inp);
+            }
+            return Ok(_mapper.Map<IEnumerable<TicketsReadDto>>(commIt));
+        }
 
         //POST api/tickets
         [HttpPost]
@@ -126,6 +146,16 @@ namespace CommandApi.Controllers
                 }
                 
             }
+            else{
+                if(ticketModel.Status==null){
+                    if(ticketModel.RepairCost!=null){
+                        ticketModel.Status="created";
+                    }
+                    else{
+                        ticketModel.Status="accepted";                        
+                    }
+                }
+            }
             _repoTickets.CreateTicket(ticketModel);
             _repoTickets.SaveChanges();
 
@@ -165,6 +195,12 @@ namespace CommandApi.Controllers
                     _repoDevices.CreateDevice(inp);
                     _repoDevices.SaveChanges();
                     ticketModel.IdDevice=_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model).IdDevice;
+                }
+                if(ticketModel.RepairCost!=ticketsUpdate.RepairCost){
+                    ticketsUpdate.Status="cost_approval";
+                    if(clientModel.Email!=null){
+                        Mailing.SendMailCostApproval(clientModel.Email);
+                    }
                 }
                 _mapper.Map(ticketsUpdate,ticketModel);
                 _mapper.Map(ticketsUpdate,clientModel);

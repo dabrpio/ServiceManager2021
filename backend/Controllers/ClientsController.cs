@@ -30,6 +30,7 @@ namespace CommandApi.Controllers
             var commandItems = _repoClients.GetAllClients();
             return Ok(_mapper.Map<IEnumerable<ClientsReadDto>>(commandItems));
         }
+        
 
 
         //GET api/clients/{id}

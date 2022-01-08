@@ -14,20 +14,27 @@ namespace CommandApi.Data
             _context = context;
         }
 
-        public void CreateEmployee(Employee uzytkownik)
+        public void CreateEmployee(Employee employee)
         {
-            if(uzytkownik==null){
-                throw new ArgumentNullException(nameof(uzytkownik));
+            if(employee==null){
+                throw new ArgumentNullException(nameof(employee));
             }
-            _context.Employees.Add(uzytkownik);
+            if(employee.Nip!=null&&_context.Employees.Where(p=>p.Nip==employee.Nip).FirstOrDefault()==null){
+                int incrementedID=_context.Employees.OrderByDescending(p=>p.IdCompany).Select(p=>p.IdCompany).First() + 1;
+                employee.IdCompany=incrementedID;
+            }
+            else{
+                employee.IdCompany=1;
+            }
+            _context.Employees.Add(employee);
         }
 
-        public void DeleteEmployee(Employee uzytkownik)
+        public void DeleteEmployee(Employee employee)
         {
-           if(uzytkownik==null){
-                throw new ArgumentNullException(nameof(uzytkownik));
+           if(employee==null){
+                throw new ArgumentNullException(nameof(employee));
             }
-            _context.Employees.Remove(uzytkownik);
+            _context.Employees.Remove(employee);
         }
 
         public IEnumerable<Employee> GetAllEmployee()
@@ -62,6 +69,7 @@ namespace CommandApi.Data
         {
             //nothing
         }
+
 
     }
 }

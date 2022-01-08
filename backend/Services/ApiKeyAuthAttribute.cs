@@ -44,6 +44,8 @@ namespace CommandApi.Services{
                         return;
                     }
                 }
+                commandItem.Ttl=DateTime.Now.AddHours(1);
+                db.SaveChanges();
             }
         }
         public void OnActionExecuted(ActionExecutedContext context){

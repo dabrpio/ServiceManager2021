@@ -6,6 +6,7 @@ namespace CommandApi.Data
     public interface ITicketsRepo
     {
         bool SaveChanges();
+        IEnumerable<Ticket> GetCompanyTickets(int idCompany);
         IEnumerable<Ticket> GetAllTickets();
         Ticket GetTicketsByRma(int Rma);
         void CreateTicket(Ticket ticket);

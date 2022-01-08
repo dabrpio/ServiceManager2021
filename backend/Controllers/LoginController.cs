@@ -9,7 +9,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CommandApi.Controllers
 {
-
+    public struct Response1
+    {
+        public Response1(string _apiKey, string _companyName, string _nip, int _idCompany)
+        {
+            ApiKey=_apiKey;
+            CompanyName=_companyName;
+            Nip=_nip;
+            IdCompany=_idCompany;
+        }
+        public string ApiKey { get; set; }
+        public string CompanyName { get; set; }
+        public string Nip {get;set;}
+        public int IdCompany {get;set;}
+    }
+    public struct Response2
+    {
+        public Response2(string _apiKey)
+        {
+            ApiKey=_apiKey;
+        }
+        public string ApiKey { get; set; }
+    }
     [Route("api/login")]
     [ApiController]
     public class LoginController:ControllerBase
@@ -33,7 +54,14 @@ namespace CommandApi.Controllers
                 _mapper.Map(updated, commandItem);
                 _repoEmployee.UpdateEmployee(commandItem);
                 _repoEmployee.SaveChanges();
-                return Ok(updated.ApiKey);
+                if(commandItem.Nip!=null){
+                    Response1 resp1 = new Response1(updated.ApiKey,updated.CompanyName,updated.Nip,updated.IdCompany);
+                    return Ok(resp1);
+                }
+                else{
+                    Response2 resp2 = new Response2(updated.ApiKey);
+                    return Ok(resp2);
+                }
             }
             else{
                 return NotFound();

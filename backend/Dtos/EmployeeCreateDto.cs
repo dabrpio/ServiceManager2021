@@ -5,8 +5,6 @@ namespace CommandApi.Dtos
 {
     public partial class EmployeeCreateDto
     {
-        [Required]
-        public int IdCompany { get; set; }
         public int Type { get; set; }
         [Required]
         [StringLength(255)]

@@ -28,6 +28,10 @@ namespace CommandApi.Data
         {
             return _context.Tickets.OrderByDescending(p=>p.Rma).ToList();
         }
+        
+        public IEnumerable<Ticket> GetCompanyTickets(int idCompany){
+            return _context.Tickets.Where(p=>p.IdCompany==idCompany).OrderByDescending(p=>p.Rma).ToList();
+        }
 
         public IEnumerable<Ticket> Get25Tickets()
         {
