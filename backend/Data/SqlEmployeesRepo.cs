@@ -24,7 +24,7 @@ namespace CommandApi.Data
                 employee.IdCompany=incrementedID;
             }
             else{
-                employee.IdCompany=1;
+                employee.IdCompany=_context.Employees.Where(p=>p.Nip==employee.Nip).FirstOrDefault().IdCompany;
             }
             _context.Employees.Add(employee);
         }
