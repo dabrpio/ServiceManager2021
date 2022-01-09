@@ -1,5 +1,5 @@
 import { URL } from '../../../constants';
-import { handleErrors, createHeaders } from '../../utils';
+import { handleResponse, createHeaders } from '../../utils';
 import * as devicesAT from './devices.action-types';
 
 const baseUrl = `${URL}/devices`;
@@ -46,7 +46,7 @@ export const unsetDeleteDeviceError = () => ({
 const fetchDeviceModels = () => {
   return (dispatch) => {
     fetch(baseUrl, { headers: createHeaders() })
-      .then((res) => handleErrors(res, dispatch))
+      .then((res) => handleResponse(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceModelsState(data)))
       .catch((error) => console.log(error));
@@ -57,7 +57,7 @@ const fetchDeviceModels = () => {
 const fetchDeviceBrands = () => {
   return (dispatch) => {
     fetch(baseUrl + '/brands', { headers: createHeaders() })
-      .then((res) => handleErrors(res, dispatch))
+      .then((res) => handleResponse(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setDeviceBrandsState(data)))
       .catch((error) => console.log(error));
@@ -71,7 +71,7 @@ export const postDevice = (device) => (dispatch) => {
     headers: createHeaders(),
     body: JSON.stringify(device),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((device) => dispatch(addDeviceState(device)))
     .catch(catchErrors);
@@ -84,7 +84,7 @@ export const putDevice = (device) => (dispatch) => {
     headers: createHeaders(),
     body: JSON.stringify(device),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then(() => {
       dispatch(updateDeviceState(device));
       dispatch(fetchDeviceBrands());
@@ -98,7 +98,7 @@ export const deleteDevice = (id) => (dispatch) => {
     method: 'DELETE',
     headers: createHeaders(),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then(() => dispatch(deleteDeviceState(id)))
     .catch((error) =>
       error.json().then((response) => {

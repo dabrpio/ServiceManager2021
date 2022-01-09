@@ -17,7 +17,7 @@ const App = ({ authState }) => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         {authState ? (
-          <ProtectedRoutes authenticated={authState} />
+          <ProtectedRoutes authState={authState} />
         ) : (
           <Switch>
             <Route exact path="/status" component={StatusLogin} />
@@ -30,12 +30,12 @@ const App = ({ authState }) => {
   );
 };
 
-const ProtectedRoutes = ({ authenticated }) => {
+const ProtectedRoutes = ({ authState }) => {
   return (
     <Route
       render={() => {
-        return authenticated ? (
-          <ProtectedContainer authenticated={authenticated} />
+        return authState.isAuthenticated ? (
+          <ProtectedContainer authState={authState} />
         ) : (
           <Route exact path="/login" component={Login} />
         );

@@ -7,6 +7,11 @@ const getUserType = () => {
 const initialState = {
   isAuthenticated: localStorage.getItem('apiKey') ? true : false,
   userType: getUserType(),
+  userInfo: {
+    companyName: null,
+    nip: null,
+    idCompany: null,
+  },
 };
 
 export default function authReducers(state = initialState, action) {
@@ -16,6 +21,12 @@ export default function authReducers(state = initialState, action) {
     }
     case authAT.SET_USER_TYPE: {
       return { ...state, userType: action.payload };
+    }
+    case authAT.SET_USER_INFO: {
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
     }
     default:
       return state;

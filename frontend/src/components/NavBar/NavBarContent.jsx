@@ -99,12 +99,11 @@ const NavBarContent = ({
       case 2:
         return linksData;
       case 3:
-        return linksData[3];
-      case 4: {
         return linksData.filter((l) => l.path !== routes[1]);
-      }
+      case 4:
+        return [linksData[2]];
       default:
-        return null;
+        return [];
     }
   };
 

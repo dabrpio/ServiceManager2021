@@ -1,5 +1,5 @@
 import { URL } from '../../../constants';
-import { handleErrors, createHeaders } from '../../utils';
+import { handleResponse, createHeaders } from '../../utils';
 import * as employeesAT from './employees.action-types';
 
 const baseUrl = `${URL}/employees`;
@@ -28,7 +28,7 @@ const deleteEmployeeState = (id) => ({
 export const fetchEmployees = () => {
   return (dispatch) => {
     fetch(baseUrl, { headers: createHeaders() })
-      .then((res) => handleErrors(res, dispatch))
+      .then((res) => handleResponse(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setEmployeesState(data)))
       .catch((error) => console.log(error));
@@ -42,7 +42,7 @@ export const postEmployee = (employee) => (dispatch) => {
     headers: createHeaders(),
     body: JSON.stringify(employee),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(addEmployeeState(data)))
     .catch(catchErrors);
@@ -55,7 +55,7 @@ export const putEmployee = (employee) => (dispatch) => {
     headers: createHeaders(),
     body: JSON.stringify(employee),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then(() => dispatch(updateEmployeeState(employee)))
     .catch(catchErrors);
 };
@@ -63,7 +63,7 @@ export const putEmployee = (employee) => (dispatch) => {
 // DELETE
 export const deleteEmployee = (id) => (dispatch) => {
   fetch(baseUrl + '/' + id, { method: 'DELETE', headers: createHeaders() })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then(() => dispatch(deleteEmployeeState(id)))
     .catch(catchErrors);
 };

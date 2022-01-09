@@ -1,5 +1,5 @@
 import { URL } from '../../../constants';
-import { handleErrors, createHeaders } from '../../utils';
+import { handleResponse, createHeaders } from '../../utils';
 import * as ticketsAT from './tickets.action-types';
 
 const baseUrl = `${URL}/tickets`;
@@ -33,7 +33,18 @@ const deleteTicketState = (id) => ({
 export const fetchTickets = () => {
   return (dispatch) => {
     fetch(baseUrl, { headers: createHeaders() })
-      .then((res) => handleErrors(res, dispatch))
+      .then((res) => handleResponse(res, dispatch))
+      .then((res) => res.json())
+      .then((data) => dispatch(setTicketsState(data)))
+      .catch((error) => console.log(error));
+  };
+};
+
+// GET [business client]
+export const fetchTicketsBusinessClient = (idCompany) => {
+  return (dispatch) => {
+    fetch(`${baseUrl}/biz/${idCompany}`, { headers: createHeaders() })
+      .then((res) => handleResponse(res, dispatch))
       .then((res) => res.json())
       .then((data) => dispatch(setTicketsState(data)))
       .catch((error) => console.log(error));
@@ -51,7 +62,7 @@ export const postTicket = (data) => (dispatch) => {
       ...data,
     }),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((ticket) => dispatch(addTicketState(ticket)))
     .catch(catchErrors);
@@ -68,7 +79,7 @@ export const putTicket = (ticket) => (dispatch) => {
       ...ticket,
     }),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then(() => dispatch(updateTicketState(ticket)))
     .catch(catchErrors);
 };
@@ -76,7 +87,7 @@ export const putTicket = (ticket) => (dispatch) => {
 // DELETE
 export const deleteTicket = (id) => (dispatch) => {
   fetch(baseUrl + '/' + id, { method: 'DELETE', headers: createHeaders() })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then(() => dispatch(deleteTicketState(id)))
     .catch(catchErrors);
 };

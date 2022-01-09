@@ -1,5 +1,6 @@
 import * as authAT from './auth.action-types';
 import { URL } from '../../constants';
+import { handleResponse } from '../utils';
 
 const baseUrl = `${URL}/login`;
 
@@ -13,16 +14,31 @@ const setUserType = (type) => ({
   payload: type,
 });
 
-// right now good response is text and bad json
+const setUserInfo = (info) => ({
+  type: authAT.SET_USER_INFO,
+  payload: info,
+});
+
 export const tryLogin = ({ login, password }) => {
   return (dispatch) => {
     fetch(`${baseUrl}/${login}+${password}`)
       .then((res) => handleResponse(res, dispatch))
-      .then((res) => res.text())
+      .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        localStorage.setItem('apiKey', res);
-        dispatch(setUserType(parseInt(res.charAt(res.length - 1))));
+        if (res.hasOwnProperty('idCompany')) {
+          dispatch(
+            setUserInfo({
+              companyName: res.companyName,
+              nip: res.nip,
+              idCompany: res.idCompany,
+            })
+          );
+        }
+        localStorage.setItem('apiKey', res.apiKey);
+        dispatch(
+          setUserType(parseInt(res.apiKey.charAt(res.apiKey.length - 1)))
+        );
         dispatch(updateAuthState(true));
       })
       .catch((res) => {
@@ -30,17 +46,6 @@ export const tryLogin = ({ login, password }) => {
         localStorage.removeItem('apiKey');
       });
   };
-};
-
-const handleResponse = (response, dispatch) => {
-  if (!response.ok) {
-    if (response?.status === 404) {
-      throw response;
-    }
-
-    throw response;
-  }
-  return response;
 };
 
 export const logout = () => (dispatch) => {
