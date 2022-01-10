@@ -87,9 +87,32 @@ function EmployeeDialogContent(props) {
           type="password"
           value={employee.password ?? ''}
           onChange={handleTextFieldChange('password')}
-          style={{ marginTop: 16, marginBottom: 24 }}
+          style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
         />
+      )}
+      {(newEmployee || employee.companyName || employee.nip) && (
+        <>
+          <TextField
+            fullWidth
+            label="Nazwa firmy"
+            type="text"
+            value={employee.companyName ?? ''}
+            onChange={handleTextFieldChange('companyName')}
+            style={{ marginTop: 16, marginBottom: 8 }}
+            size="small"
+          />
+
+          <TextField
+            fullWidth
+            label="NIP"
+            type="text"
+            value={employee.nip ?? ''}
+            onChange={handleTextFieldChange('nip')}
+            style={{ marginTop: 16, marginBottom: 24 }}
+            size="small"
+          />
+        </>
       )}
     </DialogContent>
   );

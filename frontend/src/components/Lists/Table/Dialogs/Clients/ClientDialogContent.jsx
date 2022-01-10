@@ -3,9 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function ClientDialogContent(props) {
-  const { client, setClient, newClient } = props;
-
+function ClientDialogContent({ client, setClient }) {
   const handleTextFieldChange =
     (name) =>
     ({ target: { value } }) => {
@@ -62,30 +60,6 @@ function ClientDialogContent(props) {
         size="small"
         error={checkEmailError()}
       />
-
-      {(newClient || client.companyName || client.nip) && (
-        <>
-          <TextField
-            fullWidth
-            label="Nazwa"
-            type="text"
-            value={client.companyName ?? ''}
-            onChange={handleTextFieldChange('companyName')}
-            style={{ marginTop: 16, marginBottom: 8 }}
-            size="small"
-          />
-
-          <TextField
-            fullWidth
-            label="NIP"
-            type="text"
-            value={client.nip ?? ''}
-            onChange={handleTextFieldChange('nip')}
-            style={{ marginTop: 16, marginBottom: 24 }}
-            size="small"
-          />
-        </>
-      )}
     </DialogContent>
   );
 }

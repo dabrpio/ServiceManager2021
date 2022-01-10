@@ -19,8 +19,8 @@ const initialEmployee = {
   login: null,
   password: null,
   phoneNumber: null,
-  // companyName: null,
-  // nip: null
+  companyName: null,
+  nip: null,
 };
 
 const AddEmployeeDialog = ({ addEmployee }) => {
@@ -61,7 +61,7 @@ const AddEmployeeDialog = ({ addEmployee }) => {
         <EmployeeDialogContent
           employee={employee}
           setEmployee={setEmployee}
-          newEmployee={true}
+          newEmployee
         />
         <DialogActions>
           <Button onClick={handleClose} color="primary">

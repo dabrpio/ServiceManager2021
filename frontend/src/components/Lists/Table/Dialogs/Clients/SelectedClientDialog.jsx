@@ -26,9 +26,8 @@ const SelectedClientDialog = (props) => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    const { companyName, nip, email, ...data } = client;
-    if (Object.values(data).some((e) => e === null || e === '')) {
-      console.log(data);
+    if (Object.values(client).some((e) => e === null || e === '')) {
+      console.log(client);
       console.log('client data is not fully filled');
     } else {
       if (JSON.stringify(clientData) !== JSON.stringify(client)) {

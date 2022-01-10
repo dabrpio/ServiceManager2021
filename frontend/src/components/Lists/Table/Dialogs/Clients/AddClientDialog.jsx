@@ -16,8 +16,6 @@ const initialClient = {
   surname: null,
   phoneNumber: null,
   email: null,
-  companyName: null,
-  nip: null,
 };
 
 const AddClientDialog = ({ addClient }) => {
@@ -31,8 +29,7 @@ const AddClientDialog = ({ addClient }) => {
 
   const handleAdd = (event) => {
     event.preventDefault();
-    const { companyName, nip, ...data } = client;
-    if (Object.values(data).some((e) => e === null || `${e}`.trim() === '')) {
+    if (Object.values(client).some((e) => e === null || `${e}`.trim() === '')) {
       console.log('client data is not fully filled');
     } else {
       addClient(client);
@@ -54,11 +51,7 @@ const AddClientDialog = ({ addClient }) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Nowy klient</DialogTitle>
-        <ClientDialogContent
-          client={client}
-          setClient={setClient}
-          newClient={true}
-        />
+        <ClientDialogContent client={client} setClient={setClient} />
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cofnij
