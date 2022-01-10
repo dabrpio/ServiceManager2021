@@ -16,7 +16,7 @@ const App = ({ authState }) => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        {authState ? (
+        {authState.isAuthenticated ? (
           <ProtectedRoutes authState={authState} />
         ) : (
           <Switch>

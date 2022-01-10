@@ -4,6 +4,13 @@ import { handleResponse } from '../utils';
 
 const baseUrl = `${URL}/login`;
 
+const clearLocalStorage = () => {
+  localStorage.removeItem('apiKey');
+  localStorage.removeItem('idCompany');
+  localStorage.removeItem('nip');
+  localStorage.removeItem('idCompany');
+};
+
 const updateAuthState = (newAuthState) => ({
   type: authAT.SET_AUTH_STATE,
   payload: newAuthState,
@@ -27,6 +34,9 @@ export const tryLogin = ({ login, password }) => {
       .then((res) => {
         console.log(res);
         if (res.hasOwnProperty('idCompany')) {
+          localStorage.setItem('companyName', res.companyName);
+          localStorage.setItem('nip', res.nip);
+          localStorage.setItem('idCompany', res.idCompany);
           dispatch(
             setUserInfo({
               companyName: res.companyName,
@@ -43,12 +53,12 @@ export const tryLogin = ({ login, password }) => {
       })
       .catch((res) => {
         console.error(res);
-        localStorage.removeItem('apiKey');
+        clearLocalStorage();
       });
   };
 };
 
 export const logout = () => (dispatch) => {
   dispatch(updateAuthState(false));
-  localStorage.removeItem('apiKey');
+  clearLocalStorage();
 };
