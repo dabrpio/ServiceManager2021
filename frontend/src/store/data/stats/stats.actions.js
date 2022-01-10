@@ -19,6 +19,10 @@ const setTopBrandsStatsState = (data) => ({
   payload: data,
 });
 
+export const resetStatsState = () => ({
+  type: statsAT.RESET_STATS,
+});
+
 const fetchCountStats = (endpoint) => (dispatch) => {
   fetch(baseUrl + endpoint, { headers: createHeaders() })
     .then((res) => handleResponse(res, dispatch))

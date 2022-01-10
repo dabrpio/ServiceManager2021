@@ -47,6 +47,9 @@ export default function clientsReducer(state = initialState, action) {
         error: false,
       };
     }
+    case clientsAT.RESET_CLIENTS: {
+      return initialState;
+    }
     default:
       return state;
   }

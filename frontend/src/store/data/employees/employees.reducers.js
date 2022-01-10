@@ -20,6 +20,9 @@ export default function employeesReducer(state = initialState, action) {
     case employeesAT.DELETE_EMPLOYEE: {
       return state.filter((employee) => employee.idEmployee !== action.payload);
     }
+    case employeesAT.RESET_EMPLOYEES: {
+      return initialState;
+    }
     default:
       return state;
   }

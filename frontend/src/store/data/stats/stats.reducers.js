@@ -26,6 +26,9 @@ export default function statsReducer(state = initialState, action) {
         topBrands: action.payload,
       };
     }
+    case statsAT.RESET_STATS: {
+      return initialState;
+    }
     default:
       return state;
   }

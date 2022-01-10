@@ -8,6 +8,7 @@ const setDeviceModelsState = (data) => ({
   type: devicesAT.SET_DEVICE_MODELS,
   payload: data,
 });
+
 const setDeviceBrandsState = (data) => ({
   type: devicesAT.SET_DEVICE_BRANDS,
   payload: data,
@@ -40,6 +41,10 @@ const setDeleteDeviceError = (error) => ({
 
 export const unsetDeleteDeviceError = () => ({
   type: devicesAT.UNSET_DELETE_DEVICE_ERROR,
+});
+
+export const resetDeviceModelsState = () => ({
+  type: devicesAT.RESET_DEVICES,
 });
 
 // GET models

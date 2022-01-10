@@ -24,6 +24,10 @@ const deleteEmployeeState = (id) => ({
   payload: id,
 });
 
+export const resetEmployeesState = () => ({
+  type: employeesAT.RESET_EMPLOYEES,
+});
+
 // GET
 export const fetchEmployees = () => {
   return (dispatch) => {

@@ -9,3 +9,4 @@ export const DELETE_TICKET = decorateAT('Delete ticket');
 export const UPDATE_TICKET_PUT_CLIENT = decorateAT(
   'Update ticket (client update)'
 );
+export const RESET_TCIKETS = decorateAT('Reset tickets');

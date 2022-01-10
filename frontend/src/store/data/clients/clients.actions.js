@@ -33,6 +33,10 @@ export const unsetDeleteClientError = () => ({
   type: clientsAT.UNSET_DELETE_CLIENT_ERROR,
 });
 
+export const resetClientsState = () => ({
+  type: clientsAT.RESET_CLIENTS,
+});
+
 // GET
 export const fetchClients = () => {
   return (dispatch) => {

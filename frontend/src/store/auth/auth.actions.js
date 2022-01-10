@@ -1,6 +1,11 @@
 import * as authAT from './auth.action-types';
 import { URL } from '../../constants';
 import { handleResponse } from '../utils';
+import { resetClientsState } from '../data/clients/clients.actions';
+import { resetDeviceModelsState } from '../data/devices/devices.actions';
+import { resetEmployeesState } from '../data/employees/employees.actions';
+import { resetStatsState } from '../data/stats/stats.actions';
+import { resetTicketsState } from '../data/tickets/tickets.actions';
 
 const baseUrl = `${URL}/login`;
 
@@ -58,7 +63,16 @@ export const tryLogin = ({ login, password }) => {
   };
 };
 
+const clearAllData = () => (dispatch) => {
+  dispatch(resetClientsState());
+  dispatch(resetDeviceModelsState());
+  dispatch(resetEmployeesState());
+  dispatch(resetStatsState());
+  dispatch(resetTicketsState());
+};
+
 export const logout = () => (dispatch) => {
   dispatch(updateAuthState(false));
   clearLocalStorage();
+  dispatch(clearAllData());
 };

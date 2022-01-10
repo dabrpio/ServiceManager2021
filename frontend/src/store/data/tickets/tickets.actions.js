@@ -29,6 +29,10 @@ const deleteTicketState = (id) => ({
   payload: id,
 });
 
+export const resetTicketsState = () => ({
+  type: ticketsAT.RESET_TCIKETS,
+});
+
 // GET
 export const fetchTickets = () => {
   return (dispatch) => {
