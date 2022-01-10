@@ -57,6 +57,9 @@ export default function devicesReducer(state = initialState, action) {
         error: false,
       };
     }
+    case devicesAT.RESET_DEVICES: {
+      return initialState;
+    }
     default:
       return state;
   }

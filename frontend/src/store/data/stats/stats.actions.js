@@ -1,5 +1,5 @@
 import { URL } from '../../../constants';
-import { handleErrors, createHeaders } from '../../utils';
+import { handleResponse, createHeaders } from '../../utils';
 import * as statsAT from './stats.action-types';
 
 const baseUrl = `${URL}/statistics`;
@@ -19,9 +19,13 @@ const setTopBrandsStatsState = (data) => ({
   payload: data,
 });
 
+export const resetStatsState = () => ({
+  type: statsAT.RESET_STATS,
+});
+
 const fetchCountStats = (endpoint) => (dispatch) => {
   fetch(baseUrl + endpoint, { headers: createHeaders() })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setCountStatsState(data)))
     .catch(catchErrors);
@@ -29,7 +33,7 @@ const fetchCountStats = (endpoint) => (dispatch) => {
 
 const fetchProfitStats = (endpoint) => (dispatch) => {
   fetch(baseUrl + endpoint, { headers: createHeaders() })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setProfitStatsState(data)))
     .catch(catchErrors);
@@ -37,7 +41,7 @@ const fetchProfitStats = (endpoint) => (dispatch) => {
 
 const fetchTopBrandsStats = (endpoint) => (dispatch) => {
   fetch(baseUrl + endpoint, { headers: createHeaders() })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((data) => dispatch(setTopBrandsStatsState(data)))
     .catch(catchErrors);

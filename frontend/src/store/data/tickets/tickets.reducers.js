@@ -26,6 +26,9 @@ export default function ticketsReducer(state = initialState, action) {
     case ticketsAT.DELETE_TICKET: {
       return state.filter((ticket) => ticket.rma !== payload);
     }
+    case ticketsAT.RESET_TCIKETS: {
+      return initialState;
+    }
     default:
       return state;
   }

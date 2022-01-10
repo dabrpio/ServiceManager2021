@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { selectUserType } from '../store/auth/auth.selectors';
 import { fetchClients } from '../store/data/clients/clients.actions';
 import { fetchDevices } from '../store/data/devices/devices.actions';
 import { fetchEmployees } from '../store/data/employees/employees.actions';
 import { fetchStats } from '../store/data/stats/stats.actions';
-import { fetchTickets } from '../store/data/tickets/tickets.actions';
+import {
+  fetchTickets,
+  fetchTicketsBusinessClient,
+} from '../store/data/tickets/tickets.actions';
 import ClientList from './Lists/ClientList';
 import DeviceList from './Lists/DeviceList';
 import EmployeeList from './Lists/EmployeeList';
@@ -26,7 +28,8 @@ const routes = [
   { path: '/settings', component: Settings },
 ];
 
-const ProtectedContainer = ({ init, userType }) => {
+const ProtectedContainer = ({ init, authState }) => {
+  const { userType } = authState;
   useEffect(() => {
     init();
   }, [init]);
@@ -45,8 +48,6 @@ const ProtectedContainer = ({ init, userType }) => {
             />
           ))
         ) : userType === 3 ? (
-          <Route path="/tickets" component={TicketList} exact />
-        ) : userType === 4 ? (
           routes
             .filter((r) => r.path !== '/stats')
             .map((route) => (
@@ -57,32 +58,39 @@ const ProtectedContainer = ({ init, userType }) => {
                 exact
               />
             ))
+        ) : userType === 4 ? (
+          <Route path="/tickets" component={TicketList} exact />
         ) : (
           <Route
             path={routes[0].path}
             component={() => <h2>404 Not Found</h2>}
           />
         )}
-        <Redirect to="/" />;
+        <Redirect to={userType === 4 ? '/tickets' : '/'} />;
       </Switch>
     </>
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  userType: selectUserType(state),
-});
-
 const mapDispatchToProps = (dispatch, ownProps) => ({
   init: () => {
-    if (ownProps.authenticated) {
-      dispatch(fetchTickets());
-      dispatch(fetchEmployees());
-      dispatch(fetchClients());
-      dispatch(fetchDevices());
-      dispatch(fetchStats());
+    console.log(ownProps);
+    if (ownProps.authState.isAuthenticated) {
+      console.log('authenticated', ownProps.authState.userType);
+
+      if (ownProps.authState.userType === 4) {
+        dispatch(
+          fetchTicketsBusinessClient(ownProps.authState.userInfo.idCompany)
+        );
+      } else {
+        dispatch(fetchTickets());
+        dispatch(fetchEmployees());
+        dispatch(fetchClients());
+        dispatch(fetchDevices());
+        dispatch(fetchStats());
+      }
     }
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProtectedContainer);
+export default connect(null, mapDispatchToProps)(ProtectedContainer);

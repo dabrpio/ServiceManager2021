@@ -11,3 +11,4 @@ export const SET_DELETE_DEVICE_ERROR = decorateAT('Set delete device error');
 export const UNSET_DELETE_DEVICE_ERROR = decorateAT(
   'Unset delete device error'
 );
+export const RESET_DEVICES = decorateAT('Reset devices');

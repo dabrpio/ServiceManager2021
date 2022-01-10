@@ -1,5 +1,5 @@
 import { URL } from '../../../constants';
-import { handleErrors, createHeaders } from '../../utils';
+import { handleResponse, createHeaders } from '../../utils';
 import { clientUpdateTicketState } from '../tickets/tickets.actions';
 import * as clientsAT from './clients.action-types';
 
@@ -33,13 +33,17 @@ export const unsetDeleteClientError = () => ({
   type: clientsAT.UNSET_DELETE_CLIENT_ERROR,
 });
 
+export const resetClientsState = () => ({
+  type: clientsAT.RESET_CLIENTS,
+});
+
 // GET
 export const fetchClients = () => {
   return (dispatch) => {
     fetch(baseUrl, {
       headers: createHeaders(),
     })
-      .then((res) => handleErrors(res, dispatch))
+      .then((res) => handleResponse(res, dispatch))
       .then((res) => res.json())
       .then((data) => {
         dispatch(
@@ -57,7 +61,7 @@ export const postClient = (client) => (dispatch) => {
     headers: createHeaders(),
     body: JSON.stringify(client),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((client) => dispatch(addClientState(client)))
     .catch(catchErrors);
@@ -71,7 +75,7 @@ export const putClient = (client) => (dispatch) => {
     headers: createHeaders(),
     body: JSON.stringify(client),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -87,7 +91,7 @@ export const deleteClient = (id) => (dispatch) =>
     method: 'DELETE',
     headers: createHeaders(),
   })
-    .then((res) => handleErrors(res, dispatch))
+    .then((res) => handleResponse(res, dispatch))
     .then(() => dispatch(deleteClientState(id)))
     .catch((error) =>
       error.json().then((response) => {

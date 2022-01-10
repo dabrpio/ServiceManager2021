@@ -1,6 +1,6 @@
 import { logout } from './auth/auth.actions';
 
-export const handleErrors = (response, dispatch) => {
+export const handleResponse = (response, dispatch) => {
   if (!response.ok) {
     if (response?.status === 401) {
       dispatch(logout());

@@ -10,3 +10,4 @@ export const SET_DELETE_CLIENT_ERROR = decorateAT('Set delete client error');
 export const UNSET_DELETE_CLIENT_ERROR = decorateAT(
   'Unset delete client error'
 );
+export const RESET_CLIENTS = decorateAT('Reset clients');
