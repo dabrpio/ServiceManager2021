@@ -17,6 +17,8 @@ namespace Catalog.UnitTests;
     public class TicketControllerTests
     {
         private readonly Mock<ITicketsRepo> repositoryStub = new();
+        private readonly Mock<IDevicesRepo> repositoryStub1 = new();
+        private readonly Mock<IClientsRepo> repositoryStub2 = new();
         private readonly Mock<ILogger<TicketsController>> loggerStub = new();
         private readonly Random rand = new();
         private static IMapper _mapper;
@@ -40,7 +42,7 @@ namespace Catalog.UnitTests;
             // Arrange
             repositoryStub.Setup(repo => repo.GetTicketsByRma(It.IsAny<int>())).Returns((Ticket)null);
 
-            var controller = new TicketsController(repositoryStub.Object, _mapper);
+            var controller = new TicketsController(repositoryStub.Object, repositoryStub2.Object, repositoryStub1.Object, _mapper);
 
             // Act
             var result =  controller.GetTicketsByRma(It.IsAny<int>());
