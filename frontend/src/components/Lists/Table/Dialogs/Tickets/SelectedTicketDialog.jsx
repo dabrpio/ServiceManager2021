@@ -46,8 +46,11 @@ const SelectedTicketDialog = (props) => {
       nip,
       companyName,
       idCompany,
+      repairCost,
+      partsCost,
       ...dataToValidate
     } = ticket;
+
     if (Object.values(dataToValidate).some((e) => e === null || e === '')) {
       console.log('ticket is not fully filled:', ticket);
     } else {
