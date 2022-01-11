@@ -32,7 +32,7 @@ function TicketTableRow({ row, classes, handleClick }) {
       <TableCell className={classes.td}>{row.brand}</TableCell>
       <TableCell className={classes.td}>{row.model}</TableCell>
       <Hidden smDown>
-        <TableCell className={classes.td}>{row.repairCost}</TableCell>
+        <TableCell className={classes.td}>{row.repairCost ?? '—'}</TableCell>
       </Hidden>
 
       <TableCell className={classes.td}>
