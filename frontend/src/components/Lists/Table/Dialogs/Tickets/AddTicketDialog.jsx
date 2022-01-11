@@ -39,8 +39,14 @@ const AddTicketDialog = ({ addTicket }) => {
 
   const handleAdd = (event) => {
     event.preventDefault();
-    const { information, email, repairCost, status, ...dataToValidate } =
-      ticket;
+    const {
+      information,
+      email,
+      repairCost,
+      partsCost,
+      status,
+      ...dataToValidate
+    } = ticket;
     if (
       Object.values(dataToValidate).some(
         (e) => e === null || `${e}`.trim() === ''

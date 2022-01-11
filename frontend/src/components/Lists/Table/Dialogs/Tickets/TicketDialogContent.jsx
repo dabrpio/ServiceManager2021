@@ -7,6 +7,7 @@ import Autocomplete, {
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { selectUserType } from '../../../../../store/auth/auth.selectors';
 import {
   selectDeviceBrandsState,
   selectDeviceModelsState,
@@ -16,7 +17,8 @@ import { useDeviceData } from './useDeviceData';
 const filter = createFilterOptions();
 
 function TicketDialogContent(props) {
-  const { classes, ticket, setTicket, deviceModels, deviceBrands } = props;
+  const { classes, ticket, setTicket, deviceModels, deviceBrands, userType } =
+    props;
   const {
     model,
     setModel,
@@ -236,28 +238,32 @@ function TicketDialogContent(props) {
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
         />
-        <div className={classes.costs}>
-          <TextField
-            fullWidth
-            label="Koszt części"
-            type="text"
-            value={ticket.partsCost ?? ''}
-            onChange={handleTextFieldChange('partsCost')}
-            style={{ marginTop: 16, marginBottom: 8 }}
-            size="small"
-            error={checkNumberErrors('partsCost')}
-          />
-          <TextField
-            fullWidth
-            label="Koszt naprawy"
-            type="text"
-            value={ticket.repairCost ?? ''}
-            onChange={handleTextFieldChange('repairCost')}
-            style={{ marginTop: 16, marginBottom: 8 }}
-            size="small"
-            error={checkNumberErrors('repairCost')}
-          />
-        </div>
+        {userType !== 4 && (
+          <>
+            <div className={classes.costs}>
+              <TextField
+                fullWidth
+                label="Koszt części"
+                type="text"
+                value={ticket.partsCost ?? ''}
+                onChange={handleTextFieldChange('partsCost')}
+                style={{ marginTop: 16, marginBottom: 8 }}
+                size="small"
+                error={checkNumberErrors('partsCost')}
+              />
+              <TextField
+                fullWidth
+                label="Koszt naprawy"
+                type="text"
+                value={ticket.repairCost ?? ''}
+                onChange={handleTextFieldChange('repairCost')}
+                style={{ marginTop: 16, marginBottom: 8 }}
+                size="small"
+                error={checkNumberErrors('repairCost')}
+              />
+            </div>
+          </>
+        )}
       </div>
       <div className={classes.dialogRight}>
         <DialogContentText classes={{ root: classes.heading }}>
@@ -320,6 +326,7 @@ function TicketDialogContent(props) {
 const mapStateToProps = (state, ownProps) => ({
   deviceModels: selectDeviceModelsState(state),
   deviceBrands: selectDeviceBrandsState(state),
+  userType: selectUserType(state),
 });
 
 export default connect(mapStateToProps, null)(TicketDialogContent);
