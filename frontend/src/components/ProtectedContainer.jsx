@@ -82,6 +82,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch(
           fetchTicketsBusinessClient(ownProps.authState.userInfo.idCompany)
         );
+        dispatch(fetchDevices());
       } else {
         dispatch(fetchTickets());
         dispatch(fetchEmployees());

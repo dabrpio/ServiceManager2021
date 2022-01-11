@@ -12,13 +12,13 @@ import { postEmployee } from '../../../../../store/data/employees/employees.acti
 import EmployeeDialogContent from './EmployeeDialogContent';
 
 const initialEmployee = {
-  idCompany: 1,
   type: null,
   name: null,
   surname: null,
   login: null,
   password: null,
   phoneNumber: null,
+  idCompany: 1,
   companyName: null,
   nip: null,
 };
@@ -34,9 +34,8 @@ const AddEmployeeDialog = ({ addEmployee }) => {
 
   const handleAdd = (event) => {
     event.preventDefault();
-    if (
-      Object.values(employee).some((e) => e === null || `${e}`.trim() === '')
-    ) {
+    const { idCompany, nip, companyName, ...rest } = employee;
+    if (Object.values(rest).some((e) => e === null || `${e}`.trim() === '')) {
       console.log('employee data is not fully filled');
     } else {
       addEmployee(employee);

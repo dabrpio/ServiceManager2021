@@ -56,15 +56,23 @@ export const fetchTicketsBusinessClient = (idCompany) => {
 };
 
 // POST
-export const postTicket = (data) => (dispatch) => {
+export const postTicket = (data) => (dispatch, getState) => {
+  const state = getState();
+
+  const ticket = {
+    repairCost: parseFloat(data.repairCost),
+    partsCost: parseFloat(data.partsCost),
+    ...data,
+  };
+
+  if (state.auth.userInfo.idCompany)
+    Object.assign(ticket, { idCompany: state.auth.userInfo.idCompany });
+  else Object.assign(ticket, { idCompany: 1 });
+
   fetch(baseUrl, {
     method: 'POST',
     headers: createHeaders(),
-    body: JSON.stringify({
-      repairCost: parseFloat(data.repairCost),
-      partsCost: parseFloat(data.partsCost),
-      ...data,
-    }),
+    body: JSON.stringify(ticket),
   })
     .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
@@ -84,7 +92,8 @@ export const putTicket = (ticket) => (dispatch) => {
     }),
   })
     .then((res) => handleResponse(res, dispatch))
-    .then(() => dispatch(updateTicketState(ticket)))
+    .then((res) => res.json())
+    .then((data) => dispatch(updateTicketState(data)))
     .catch(catchErrors);
 };
 

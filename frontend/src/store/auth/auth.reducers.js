@@ -10,7 +10,8 @@ const getUserInfo = () => {
   const nip = localStorage.getItem('nip');
   const idCompany = localStorage.getItem('idCompany');
 
-  if (companyName && nip && idCompany) return { companyName, nip, idCompany };
+  if (companyName && nip && idCompany)
+    return { companyName, nip, idCompany: parseInt(idCompany) };
   else
     return {
       companyName: null,

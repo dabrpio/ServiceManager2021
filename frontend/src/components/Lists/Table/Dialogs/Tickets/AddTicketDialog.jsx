@@ -42,7 +42,9 @@ const AddTicketDialog = ({ addTicket }) => {
     const { information, email, repairCost, status, ...dataToValidate } =
       ticket;
     if (
-      Object.values(dataToValidate).some((e) => e === null || e?.trim() === '')
+      Object.values(dataToValidate).some(
+        (e) => e === null || `${e}`.trim() === ''
+      )
     ) {
       console.log('ticket is not fully filled');
     } else {
