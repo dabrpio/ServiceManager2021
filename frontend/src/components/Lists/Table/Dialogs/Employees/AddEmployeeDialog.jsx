@@ -32,10 +32,24 @@ const AddEmployeeDialog = ({ addEmployee }) => {
     setEmployee(initialEmployee);
   };
 
+  const destructureEmployee = (employee) => {
+    if (employee.type === 4) {
+      const { idCompany, ...rest } = employee;
+      return rest;
+    } else {
+      const { idCompany, nip, companyName, ...rest } = employee;
+      return rest;
+    }
+  };
+
   const handleAdd = (event) => {
     event.preventDefault();
-    const { idCompany, nip, companyName, ...rest } = employee;
-    if (Object.values(rest).some((e) => e === null || `${e}`.trim() === '')) {
+
+    if (
+      Object.values(destructureEmployee(employee)).some(
+        (e) => e === null || `${e}`.trim() === ''
+      )
+    ) {
       console.log('employee data is not fully filled');
     } else {
       addEmployee(employee);

@@ -91,7 +91,7 @@ function EmployeeDialogContent(props) {
           size="small"
         />
       )}
-      {(newEmployee || employee.companyName || employee.nip) && (
+      {employee.type === 4 && (
         <>
           <TextField
             fullWidth
