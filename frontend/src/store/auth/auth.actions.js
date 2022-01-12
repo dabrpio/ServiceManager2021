@@ -12,8 +12,7 @@ const baseUrl = `${URL}/login`;
 const clearLocalStorage = () => {
   localStorage.removeItem('apiKey');
   localStorage.removeItem('idCompany');
-  localStorage.removeItem('nip');
-  localStorage.removeItem('idCompany');
+  localStorage.removeItem('idEmployee');
 };
 
 const updateAuthState = (newAuthState) => ({
@@ -38,22 +37,29 @@ export const tryLogin = ({ login, password }) => {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
+
         if (res.hasOwnProperty('idCompany')) {
-          localStorage.setItem('companyName', res.companyName);
-          localStorage.setItem('nip', res.nip);
           localStorage.setItem('idCompany', res.idCompany);
           dispatch(
             setUserInfo({
-              companyName: res.companyName,
-              nip: res.nip,
               idCompany: res.idCompany,
+              idEmployee: res.idEmployee,
+            })
+          );
+        } else {
+          dispatch(
+            setUserInfo({
+              idCompany: null,
+              idEmployee: res.idEmployee,
             })
           );
         }
+        localStorage.setItem('idEmployee', res.idEmployee);
         localStorage.setItem('apiKey', res.apiKey);
         dispatch(
           setUserType(parseInt(res.apiKey.charAt(res.apiKey.length - 1)))
         );
+
         dispatch(updateAuthState(true));
       })
       .catch((res) => {
@@ -69,6 +75,13 @@ const clearAllData = () => (dispatch) => {
   dispatch(resetEmployeesState());
   dispatch(resetStatsState());
   dispatch(resetTicketsState());
+  dispatch(setUserType(null));
+  dispatch(
+    setUserInfo({
+      idCompany: null,
+      idEmployee: null,
+    })
+  );
 };
 
 export const logout = () => (dispatch) => {

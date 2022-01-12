@@ -6,17 +6,18 @@ const getUserType = () => {
 };
 
 const getUserInfo = () => {
-  const companyName = localStorage.getItem('companyName');
-  const nip = localStorage.getItem('nip');
   const idCompany = localStorage.getItem('idCompany');
+  const idEmployee = localStorage.getItem('idEmployee');
 
-  if (companyName && nip && idCompany)
-    return { companyName, nip, idCompany: parseInt(idCompany) };
+  if (idEmployee || idCompany)
+    return {
+      idEmployee: idEmployee ? parseInt(idEmployee) : null,
+      idCompany: idCompany ? parseInt(idCompany) : null,
+    };
   else
     return {
-      companyName: null,
-      nip: null,
       idCompany: null,
+      idEmployee: null,
     };
 };
 

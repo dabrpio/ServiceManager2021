@@ -6,9 +6,18 @@ import Typography from '@material-ui/core/Typography';
 import React, { useState } from 'react';
 import { useStyles } from './styles';
 import { useCommonSettingsStatsStyles } from '../styles';
+import { changePassword } from '../../store/data/employees/employees.actions';
+import { connect } from 'react-redux';
 
-function Settings() {
+function Settings({ changePassword }) {
   const classes = { ...useStyles(), ...useCommonSettingsStatsStyles() };
+  const initialState = {
+    wrongPassword: false,
+    notMatchingPasswords: false,
+    emptyOldPasword: false,
+    emptyNewPassword: false,
+  };
+  const [error, setError] = useState(initialState);
 
   const [password, setPassword] = useState({
     oldPassword: '',
@@ -19,6 +28,31 @@ function Settings() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(password);
+    if (password.oldPassword.trim() === '') {
+      setError({ ...error, emptyOldPasword: true });
+    } else {
+      if (password.newPassword.trim() === '') {
+        setError({ ...error, emptyNewPassword: true });
+      } else {
+        if (password.newPassword !== password.newPasswordRepeated) {
+          setError({ ...error, notMatchingPasswords: true });
+        } else {
+          changePassword({
+            password: password.oldPassword,
+            newPassword: password.newPassword,
+          });
+          // console.log(success);
+          // if (!success) {
+          //   setError({ ...error, wrongPassword: true });
+          // }
+        }
+      }
+    }
+  };
+
+  const handleChange = (property, value) => {
+    setPassword({ ...password, [property]: value });
+    setError(initialState);
   };
 
   return (
@@ -45,10 +79,18 @@ function Settings() {
             type="password"
             value={password.oldPassword}
             onChange={(event) =>
-              setPassword({ ...password, oldPassword: event.target.value })
+              handleChange('oldPassword', event.target.value)
             }
             size="small"
             margin="normal"
+            error={error.emptyOldPasword || error.wrongPassword}
+            helperText={
+              error.emptyOldPasword
+                ? 'Aktualne hasło nie może być puste'
+                : error.wrongPassword
+                ? 'Nieprawidłowe hasło'
+                : ''
+            }
           />
           <TextField
             fullWidth
@@ -56,10 +98,14 @@ function Settings() {
             type="password"
             value={password.newPassword}
             onChange={(event) =>
-              setPassword({ ...password, newPassword: event.target.value })
+              handleChange('newPassword', event.target.value)
             }
             size="small"
             margin="normal"
+            error={error.emptyNewPassword || error.notMatchingPasswords}
+            helperText={
+              error.emptyNewPassword ? 'Hasło nie może być puste' : ''
+            }
           />
           <TextField
             fullWidth
@@ -67,13 +113,12 @@ function Settings() {
             type="password"
             value={password.newPasswordRepeated}
             onChange={(event) =>
-              setPassword({
-                ...password,
-                newPasswordRepeated: event.target.value,
-              })
+              handleChange('newPasswordRepeated', event.target.value)
             }
             size="small"
             margin="normal"
+            error={error.notMatchingPasswords}
+            helperText={error.notMatchingPasswords ? 'Hasła się różnią' : ''}
           />
           <Button
             variant="contained"
@@ -90,4 +135,8 @@ function Settings() {
   );
 }
 
-export default Settings;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  changePassword: (credentials) => dispatch(changePassword(credentials)),
+});
+
+export default connect(null, mapDispatchToProps)(Settings);

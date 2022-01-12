@@ -101,7 +101,7 @@ const NavBarContent = ({
       case 3:
         return linksData.filter((l) => l.path !== routes[1]);
       case 4:
-        return [linksData[2]];
+        return [linksData[2], linksData[6]];
       default:
         return [];
     }

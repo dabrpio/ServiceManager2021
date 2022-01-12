@@ -17,6 +17,7 @@ import TicketList from './Lists/TicketList';
 import NavBar from './NavBar';
 import Settings from './Settings';
 import Stats from './Stats';
+import Alert from './Alert';
 
 const routes = [
   { path: '/', component: Home },
@@ -33,10 +34,11 @@ const ProtectedContainer = ({ init, authState }) => {
   useEffect(() => {
     init();
   }, [init]);
-
+  console.log(userType);
   return (
     <>
       <NavBar />
+      <Alert />
       <Switch>
         {userType === 1 || userType === 2 ? (
           routes.map((route) => (
@@ -59,8 +61,19 @@ const ProtectedContainer = ({ init, authState }) => {
               />
             ))
         ) : userType === 4 ? (
-          <Route path="/tickets" component={TicketList} exact />
+          // <>
+          routes
+            .filter((r) => r.path === '/tickets' || r.path === '/settings')
+            .map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                component={route.component}
+                exact
+              />
+            ))
         ) : (
+          // </>
           <Route
             path={routes[0].path}
             component={() => <h2>404 Not Found</h2>}
