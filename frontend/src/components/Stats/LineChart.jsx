@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const options = {
+const createOtions = (title) => ({
   maintainAspectRatio: true,
   responsive: true,
   plugins: {
@@ -39,31 +39,27 @@ const options = {
         weight: 700,
       },
       color: '#3f51b5',
-      text: 'Przychody',
+      text: title,
     },
   },
+});
+
+export const createData = (data, label) => {
+  return {
+    labels: [...data].reverse().map((e) => e.month),
+    datasets: [
+      {
+        label: label,
+        data: [...data].reverse().map((e) => e.value),
+        borderColor: '#3f51b5',
+        backgroundColor: '#3f51b5',
+      },
+    ],
+  };
 };
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Przychody roczne',
-      data: labels.map(() => getRandomInt(0, 1000)),
-      borderColor: '#3f51b5',
-      backgroundColor: '#3f51b5',
-    },
-  ],
-};
-
-const LineChart = () => <Line options={options} data={data} />;
+const LineChart = ({ data, label, title }) => (
+  <Line options={createOtions(title)} data={createData(data, label)} />
+);
 
 export default LineChart;
