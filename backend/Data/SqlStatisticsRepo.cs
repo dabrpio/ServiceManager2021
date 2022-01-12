@@ -32,6 +32,11 @@ namespace CommandApi.Data
             var commandTicket = _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-multi)).Max(x=>(x.RepairCost-x.PartsCost)*CommandApi.Controllers.StatisticsController.VAT);
             return _context.Tickets.Where(p=>p.BeginDate>DateTime.Now.AddDays(-multi) && (p.RepairCost-p.PartsCost)*CommandApi.Controllers.StatisticsController.VAT == commandTicket).FirstOrDefault();
         }
+
+        public IEnumerable<Stat3> GetTopBrands(){
+            IEnumerable<Stat3> commandItem = _context.Devices.GroupBy(x => x.Brand).Select(x => new Stat3{Brand=x.Key,Coun = x.Count()}).OrderByDescending(x => x.Coun).Take(5);
+            return commandItem;
+        }
       
     }
 }

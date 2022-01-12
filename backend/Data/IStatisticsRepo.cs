@@ -33,7 +33,17 @@ namespace CommandApi.Data
         public decimal? Profit { get; set; }
     }
 
+    public struct Stat3
+    {
 
+        public Stat3(string brand, int counte)
+        {
+            Brand=brand;
+            Coun=counte;
+        }
+        public string Brand { get; set; }
+        public int Coun { get; set; }
+    }
 
     
     public interface IStatisticsRepo
@@ -43,6 +53,8 @@ namespace CommandApi.Data
         IEnumerable<Stat1> CountTickets(int multi);
 
         Ticket GetBestTicket(int multi);
+
+        IEnumerable<Stat3> GetTopBrands();
 
     }
 }

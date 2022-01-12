@@ -107,5 +107,11 @@ namespace CommandApi.Controllers
 
         
         //GET api/statistics/topbrands
+        [HttpGet("topbrands")]
+        public ActionResult<IEnumerable<Stat3>> GetTopBrands(){
+            var commandItem = _repoStats.GetTopBrands();
+
+            return Ok(commandItem);
+        }
     }
 }

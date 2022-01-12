@@ -11,24 +11,26 @@ namespace CommandApi.Controllers
 {
     public struct Response1
     {
-        public Response1(string _apiKey, string _companyName, string _nip, int _idCompany)
+        public Response1(string _apiKey, int _idCompany, int _idEmployee)
         {
             ApiKey=_apiKey;
-            CompanyName=_companyName;
-            Nip=_nip;
             IdCompany=_idCompany;
+            IdEmployee=_idEmployee;
         }
         public string ApiKey { get; set; }
-        public string CompanyName { get; set; }
-        public string Nip {get;set;}
+        public int IdEmployee{get;set;}
         public int IdCompany {get;set;}
     }
     public struct Response2
     {
-        public Response2(string _apiKey)
+        public Response2(string _apiKey, int _idEmployee)
         {
             ApiKey=_apiKey;
+            IdEmployee=_idEmployee;
+
         }
+        public int IdEmployee{get;set;}
+
         public string ApiKey { get; set; }
     }
     [Route("api/login")]
@@ -55,11 +57,11 @@ namespace CommandApi.Controllers
                 _repoEmployee.UpdateEmployee(commandItem);
                 _repoEmployee.SaveChanges();
                 if(commandItem.Nip!=null){
-                    Response1 resp1 = new Response1(updated.ApiKey,updated.CompanyName,updated.Nip,updated.IdCompany);
+                    Response1 resp1 = new Response1(updated.ApiKey,updated.IdCompany,commandItem.IdEmployee);
                     return Ok(resp1);
                 }
                 else{
-                    Response2 resp2 = new Response2(updated.ApiKey);
+                    Response2 resp2 = new Response2(updated.ApiKey,commandItem.IdEmployee);
                     return Ok(resp2);
                 }
             }

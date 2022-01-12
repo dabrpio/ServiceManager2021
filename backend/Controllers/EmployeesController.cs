@@ -17,6 +17,17 @@ namespace CommandApi.Controllers
     {
         private readonly IEmployeeRepo _repoEmployee;
         private readonly IMapper _mapper;
+        public struct ChangePassw
+        {
+
+            public ChangePassw(string _password, string _newPassword)
+            {
+                Password=_password;
+                NewPassword=_newPassword;
+            }
+            public string Password { get; set; }
+            public string NewPassword { get; set; }
+        }
 
         public EmployeeController(IEmployeeRepo repository, IMapper mapper){
             _repoEmployee=repository;
@@ -70,6 +81,28 @@ namespace CommandApi.Controllers
         public ActionResult UpdateEmployee(int id, EmployeeCreateDto EmployeeUpdate){
              var commandItem = _repoEmployee.GetEmployeeById(id);
             
+            if(commandItem!=null){
+                _mapper.Map(EmployeeUpdate, commandItem);
+                _repoEmployee.UpdateEmployee(commandItem);
+                _repoEmployee.SaveChanges();
+                return NoContent();
+            }
+            else{
+                return NotFound();
+            }
+        }
+
+        //PUT api/Employees/pswd/{id}
+        [HttpPut("pswd/{id}")]
+        public ActionResult UpdateEmployeePaswd(int id, ChangePassw pas){
+            var commandItem = _repoEmployee.GetEmployeeById(id);
+            Console.WriteLine(id);
+            Console.WriteLine(pas.Password);
+            if(commandItem.Password!=pas.Password){
+                return NotFound();
+            }
+            var EmployeeUpdate=commandItem;
+            EmployeeUpdate.Password=pas.NewPassword;
             if(commandItem!=null){
                 _mapper.Map(EmployeeUpdate, commandItem);
                 _repoEmployee.UpdateEmployee(commandItem);
