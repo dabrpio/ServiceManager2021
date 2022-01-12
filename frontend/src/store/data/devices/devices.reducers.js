@@ -3,7 +3,6 @@ import * as devicesAT from './devices.action-types';
 const initialState = {
   brands: [],
   models: [],
-  error: false,
 };
 
 export default function devicesReducer(state = initialState, action) {
@@ -43,18 +42,6 @@ export default function devicesReducer(state = initialState, action) {
         models: state.models.filter(
           (device) => device.idDevice !== action.payload
         ),
-      };
-    }
-    case devicesAT.SET_DELETE_DEVICE_ERROR: {
-      return {
-        ...state,
-        error: action.payload,
-      };
-    }
-    case devicesAT.UNSET_DELETE_DEVICE_ERROR: {
-      return {
-        ...state,
-        error: false,
       };
     }
     case devicesAT.RESET_DEVICES: {

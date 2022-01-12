@@ -1,4 +1,5 @@
 import { URL } from '../../../constants';
+import { setAlert } from '../../alerts/alerts.actions';
 import { handleResponse, createHeaders } from '../../utils';
 import { clientUpdateTicketState } from '../tickets/tickets.actions';
 import * as clientsAT from './clients.action-types';
@@ -23,14 +24,6 @@ const updateClientState = (client) => ({
 const deleteClientState = (id) => ({
   type: clientsAT.DELETE_CLIENT,
   payload: id,
-});
-const setDeleteClientError = (error) => ({
-  type: clientsAT.SET_DELETE_CLIENT_ERROR,
-  payload: error,
-});
-
-export const unsetDeleteClientError = () => ({
-  type: clientsAT.UNSET_DELETE_CLIENT_ERROR,
 });
 
 export const resetClientsState = () => ({
@@ -97,7 +90,8 @@ export const deleteClient = (id) => (dispatch) =>
       error.json().then((response) => {
         console.log(response);
         if (response.detail === 'Nie usunięto zleceń klienta')
-          dispatch(setDeleteClientError(id));
+          // dispatch(setDeleteClientError(id));
+          dispatch(setAlert(response.detail));
       })
     );
 

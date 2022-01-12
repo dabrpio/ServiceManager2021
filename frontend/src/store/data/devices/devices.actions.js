@@ -1,4 +1,5 @@
 import { URL } from '../../../constants';
+import { setAlert } from '../../alerts/alerts.actions';
 import { handleResponse, createHeaders } from '../../utils';
 import * as devicesAT from './devices.action-types';
 
@@ -33,15 +34,6 @@ export const fetchDevices = () => (dispatch) => {
   dispatch(fetchDeviceBrands());
   dispatch(fetchDeviceModels());
 };
-
-const setDeleteDeviceError = (error) => ({
-  type: devicesAT.SET_DELETE_DEVICE_ERROR,
-  payload: error,
-});
-
-export const unsetDeleteDeviceError = () => ({
-  type: devicesAT.UNSET_DELETE_DEVICE_ERROR,
-});
 
 export const resetDeviceModelsState = () => ({
   type: devicesAT.RESET_DEVICES,
@@ -109,7 +101,7 @@ export const deleteDevice = (id) => (dispatch) => {
       error.json().then((response) => {
         console.log(response);
         if (response.detail === 'Nie usunięto zleceń urządzenia')
-          dispatch(setDeleteDeviceError(id));
+          dispatch(setAlert(response.detail));
       })
     );
 };

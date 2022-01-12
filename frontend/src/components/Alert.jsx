@@ -6,10 +6,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import { connect } from 'react-redux';
 import { selectAlertsState } from '../store/alerts/alerts.selectors';
 import { unsetAlert } from '../store/alerts/alerts.actions';
-// import { unsetDeleteClientError } from '../../../store/data/clients/clients.actions';
-// import { selectDeleteClientError } from '../../../store/data/clients/clients.selectors';
-// import { selectDeleteDeviceError } from '../../../store/data/devices/devices.selectors';
-// import { unsetDeleteDeviceError } from '../../../store/data/devices/devices.actions';
 
 const useStyles = makeStyles((theme) => ({
   close: {
@@ -17,15 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alert(
-  //     {
-  //   deleteClientError,
-  //   closeDeleteClientError,
-  //   deleteDeviceError,
-  //   closeDeleteDeviceError,
-  // }
-  { alertState, closeAlert }
-) {
+function Alert({ alertState, closeAlert }) {
   const [snackPack, setSnackPack] = useState([]);
   const [open, setOpen] = useState(false);
   const [messageInfo, setMessageInfo] = useState(undefined);
@@ -99,14 +87,10 @@ function Alert(
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  //   deleteClientError: selectDeleteClientError(state),
-  //   deleteDeviceError: selectDeleteDeviceError(state),
   alertState: selectAlertsState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  //   closeDeleteClientError: () => dispatch(unsetDeleteClientError()),
-  //   closeDeleteDeviceError: () => dispatch(unsetDeleteDeviceError()),
   closeAlert: () => dispatch(unsetAlert()),
 });
 

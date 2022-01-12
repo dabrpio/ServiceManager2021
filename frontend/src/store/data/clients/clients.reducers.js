@@ -2,7 +2,7 @@ import * as clientsAT from './clients.action-types';
 
 const initialState = {
   clients: [],
-  error: false,
+  // error: false,
 };
 
 export default function clientsReducer(state = initialState, action) {
@@ -33,18 +33,6 @@ export default function clientsReducer(state = initialState, action) {
         clients: state.clients.filter(
           (client) => client.idClient !== action.payload
         ),
-      };
-    }
-    case clientsAT.SET_DELETE_CLIENT_ERROR: {
-      return {
-        ...state,
-        error: action.payload,
-      };
-    }
-    case clientsAT.UNSET_DELETE_CLIENT_ERROR: {
-      return {
-        ...state,
-        error: false,
       };
     }
     case clientsAT.RESET_CLIENTS: {

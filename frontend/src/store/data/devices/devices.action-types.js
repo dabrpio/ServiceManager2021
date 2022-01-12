@@ -7,8 +7,4 @@ export const SET_DEVICE_MODELS = decorateAT('Set device models');
 export const ADD_DEVICE = decorateAT('Add device');
 export const UPDATE_DEVICE = decorateAT('Update device');
 export const DELETE_DEVICE = decorateAT('Delete device');
-export const SET_DELETE_DEVICE_ERROR = decorateAT('Set delete device error');
-export const UNSET_DELETE_DEVICE_ERROR = decorateAT(
-  'Unset delete device error'
-);
 export const RESET_DEVICES = decorateAT('Reset devices');

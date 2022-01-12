@@ -6,6 +6,3 @@ export const selectDeviceBrandsState = (state) =>
 
 export const selectDeviceModelsState = (state) =>
   selectDataState(state)[FEATURE_DEVICES_NAME]['models'];
-
-export const selectDeleteDeviceError = (state) =>
-  selectDataState(state)[FEATURE_DEVICES_NAME]['error'];

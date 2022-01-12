@@ -13,7 +13,6 @@ import SelectedTicketDialog from './Dialogs/Tickets/SelectedTicketDialog';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import { useFilter } from './utils/filtering';
-import DeleteErrorSnackbar from './SnackBar';
 import { getComparator, stableSort } from './utils/sorting';
 import { useTableStyles } from './utils/styles';
 
@@ -55,8 +54,6 @@ const withEnhancedTable =
 
     return (
       <>
-        {(view === 'clients' || view === 'devices') && <DeleteErrorSnackbar />}
-
         {selectedRowData && (view === 'tickets' || view === 'home') && (
           <SelectedTicketDialog
             ticketData={selectedRowData}
