@@ -184,7 +184,7 @@ namespace CommandApi.Controllers
             
             if(commandItem!=null){
                 _mapper.Map(device,commandItem);
-                _repoDevices.UpdateUrzadzenia(commandItem);
+                _repoDevices.UpdateDevice(commandItem);
                 _repoDevices.SaveChanges();
                 return CreatedAtRoute(nameof(GetDeviceById), new {id = commandItem.IdDevice},commandItem);
             }

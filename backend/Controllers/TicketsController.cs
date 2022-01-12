@@ -196,6 +196,12 @@ namespace CommandApi.Controllers
                     _repoDevices.SaveChanges();
                     ticketModel.IdDevice=_repoDevices.GetDeviceByModel(ticketsUpdate.Type,ticketsUpdate.Brand,ticketsUpdate.Model).IdDevice;
                 }
+                else{
+                _mapper.Map(ticketsUpdate,deviceModel);
+                _repoDevices.UpdateDevice(deviceModel);
+                _repoDevices.SaveChanges();
+                }
+
                 if(ticketModel.RepairCost!=ticketsUpdate.RepairCost){
                     ticketsUpdate.Status="cost_approval";
                     if(clientModel.Email!=null){
@@ -208,7 +214,6 @@ namespace CommandApi.Controllers
                 _repoClients.UpdateClient(clientModel);
                 _repoTickets.SaveChanges();
                 _repoClients.SaveChanges();
-                
                 var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
                 _mapper.Map(ticketModel.IdClientNavigation,TicketsReadDto);
                 _mapper.Map(ticketModel.IdDeviceNavigation,TicketsReadDto);

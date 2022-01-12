@@ -65,7 +65,7 @@ namespace CommandApi.Data
            return (_context.SaveChanges()>=0);
         }
 
-        public void UpdateUrzadzenia(Device urzadzenie)
+        public void UpdateDevice(Device urzadzenie)
         {
             //nothing
         }

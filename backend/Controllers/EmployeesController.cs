@@ -107,7 +107,7 @@ namespace CommandApi.Controllers
                 _mapper.Map(EmployeeUpdate, commandItem);
                 _repoEmployee.UpdateEmployee(commandItem);
                 _repoEmployee.SaveChanges();
-                return NoContent();
+                return Ok();
             }
             else{
                 return NotFound();

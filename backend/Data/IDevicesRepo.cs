@@ -23,7 +23,7 @@ namespace CommandApi.Data
 
         void CreateDevice(Device urzadzenie);
         void DeleteDevice(Device urzadzenie);
-        void UpdateUrzadzenia(Device urzadzenie);
+        void UpdateDevice(Device urzadzenie);
 
     }
 }
