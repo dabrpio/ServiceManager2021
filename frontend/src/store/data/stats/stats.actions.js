@@ -54,7 +54,7 @@ export const fetchStats = () => (dispatch) => {
   dispatch(
     fetchProfitStats(`/profit/${365 - 31 + new Date(Date.now()).getDate()}`)
   );
-  // dispatch(fetchTopBrandsStats('/topbrands'))
+  dispatch(fetchTopBrandsStats('/topbrands'));
 };
 
 const catchErrors = (error) => {
