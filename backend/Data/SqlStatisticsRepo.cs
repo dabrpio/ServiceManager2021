@@ -34,8 +34,8 @@ namespace CommandApi.Data
         }
 
         public IEnumerable<Stat3> GetTopBrands(){
-            IEnumerable<Stat3> commandItem = _context.Devices.Select(p=>new Stat3{Brand=p.Brand, Coun=p.Tickets.Count});  
-            var inp = commandItem.GroupBy(p=>new{p.Brand},(key,group)=>new Stat3{Brand=key.Brand,Coun=group.Sum(p=>p.Coun)}).OrderByDescending(p=>p.Coun).Take(5);  
+            IEnumerable<Stat3> commandItem = _context.Devices.Select(p=>new Stat3{Brand=p.Brand, Count=p.Tickets.Count});  
+            var inp = commandItem.GroupBy(p=>new{p.Brand},(key,group)=>new Stat3{Brand=key.Brand,Count=group.Sum(p=>p.Count)}).OrderByDescending(p=>p.Count).Take(5);  
             return inp;
         }
       

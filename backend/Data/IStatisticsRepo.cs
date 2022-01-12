@@ -39,10 +39,10 @@ namespace CommandApi.Data
         public Stat3(string brand, int counte)
         {
             Brand=brand;
-            Coun=counte;
+            Count=counte;
         }
         public string Brand { get; set; }
-        public int Coun { get; set; }
+        public int Count { get; set; }
     }
 
     
