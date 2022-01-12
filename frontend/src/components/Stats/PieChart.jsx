@@ -4,13 +4,12 @@ import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const data = {
-  labels: ['Apple', 'Samsung', 'Xiaomi', 'Nokia', 'Inne'],
-
+const createData = (data) => ({
+  labels: data.map((rec) => rec.brand),
   datasets: [
     {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2],
+      label: 'Ilość urządzeń',
+      data: data.map((rec) => rec.count),
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -28,7 +27,7 @@ const data = {
       borderWidth: 1,
     },
   ],
-};
+});
 
 const options = {
   maintainAspectRatio: true,
@@ -50,8 +49,8 @@ const options = {
   },
 };
 
-const PieChart = () => (
-  <Pie data={data} options={options} width={10} height={5} />
+const PieChart = ({ data }) => (
+  <Pie data={createData(data)} options={options} width={10} height={5} />
 );
 
 export default PieChart;

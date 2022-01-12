@@ -25,7 +25,7 @@ const Stats = ({ statsData }) => {
           <Grid item xs={12} sm={7}>
             <Paper className={classes.smallStat}>
               <Box className={classes.pieContainer}>
-                <PieChart />
+                <PieChart data={statsData.topBrands} />
               </Box>
             </Paper>
           </Grid>
