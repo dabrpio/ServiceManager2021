@@ -48,8 +48,12 @@ const fetchTopBrandsStats = (endpoint) => (dispatch) => {
 };
 
 export const fetchStats = () => (dispatch) => {
-  dispatch(fetchCountStats('/count/31'));
-  dispatch(fetchProfitStats('/profit/31'));
+  dispatch(
+    fetchCountStats(`/count/${365 - 31 + new Date(Date.now()).getDate()}`)
+  );
+  dispatch(
+    fetchProfitStats(`/profit/${365 - 31 + new Date(Date.now()).getDate()}`)
+  );
   // dispatch(fetchTopBrandsStats('/topbrands'))
 };
 
