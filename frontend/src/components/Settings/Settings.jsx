@@ -27,7 +27,6 @@ function Settings({ changePassword }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(password);
     if (password.oldPassword.trim() === '') {
       setError({ ...error, emptyOldPasword: true });
     } else {
@@ -41,10 +40,6 @@ function Settings({ changePassword }) {
             password: password.oldPassword,
             newPassword: password.newPassword,
           });
-          // console.log(success);
-          // if (!success) {
-          //   setError({ ...error, wrongPassword: true });
-          // }
         }
       }
     }

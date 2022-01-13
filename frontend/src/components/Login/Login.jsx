@@ -20,7 +20,6 @@ function Login({ login }) {
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
-    console.log(loginData);
     login(loginData);
   };
 

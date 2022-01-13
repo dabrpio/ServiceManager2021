@@ -21,7 +21,6 @@ function StatusLogin() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(credentials);
 
     fetch(`${URL}/status/${credentials.rma}+${credentials.phoneNumber}`)
       .then((response) => {

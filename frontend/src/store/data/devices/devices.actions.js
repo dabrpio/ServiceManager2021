@@ -99,7 +99,6 @@ export const deleteDevice = (id) => (dispatch) => {
     .then(() => dispatch(deleteDeviceState(id)))
     .catch((error) =>
       error.json().then((response) => {
-        console.log(response);
         if (response.detail === 'Nie usunięto zleceń urządzenia')
           dispatch(setAlert(response.detail));
       })

@@ -11,8 +11,6 @@ import ProtectedContainer from './ProtectedContainer';
 const theme = createMuiTheme({}, plPL);
 
 const App = ({ authState }) => {
-  console.log(authState);
-
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>

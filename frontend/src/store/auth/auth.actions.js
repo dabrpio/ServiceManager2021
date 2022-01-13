@@ -36,8 +36,6 @@ export const tryLogin = ({ login, password }) => {
       .then((res) => handleResponse(res, dispatch))
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-
         if (res.hasOwnProperty('idCompany')) {
           localStorage.setItem('idCompany', res.idCompany);
           dispatch(

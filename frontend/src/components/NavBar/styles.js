@@ -52,7 +52,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   icon: {
     [theme.breakpoints.up('sm')]: {
-      // fontSize: '90%',
       width: '90%',
       height: '90%',
       maxHeight: '60px',

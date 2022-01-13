@@ -2,7 +2,6 @@ import * as clientsAT from './clients.action-types';
 
 const initialState = {
   clients: [],
-  // error: false,
 };
 
 export default function clientsReducer(state = initialState, action) {

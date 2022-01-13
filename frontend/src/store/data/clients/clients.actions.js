@@ -62,7 +62,6 @@ export const postClient = (client) => (dispatch) => {
 
 // PUT
 export const putClient = (client) => (dispatch) => {
-  console.log(client);
   fetch(baseUrl + `/${client.idClient}`, {
     method: 'PUT',
     headers: createHeaders(),
@@ -71,7 +70,6 @@ export const putClient = (client) => (dispatch) => {
     .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       dispatch(updateClientState(client));
       dispatch(clientUpdateTicketState(client));
     })
@@ -88,9 +86,7 @@ export const deleteClient = (id) => (dispatch) =>
     .then(() => dispatch(deleteClientState(id)))
     .catch((error) =>
       error.json().then((response) => {
-        console.log(response);
         if (response.detail === 'Nie usunięto zleceń klienta')
-          // dispatch(setDeleteClientError(id));
           dispatch(setAlert(response.detail));
       })
     );

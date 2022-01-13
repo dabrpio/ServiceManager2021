@@ -34,7 +34,6 @@ const ProtectedContainer = ({ init, authState }) => {
   useEffect(() => {
     init();
   }, [init]);
-  console.log(userType);
   return (
     <>
       <NavBar />
@@ -61,7 +60,6 @@ const ProtectedContainer = ({ init, authState }) => {
               />
             ))
         ) : userType === 4 ? (
-          // <>
           routes
             .filter((r) => r.path === '/tickets' || r.path === '/settings')
             .map((route) => (
@@ -73,7 +71,6 @@ const ProtectedContainer = ({ init, authState }) => {
               />
             ))
         ) : (
-          // </>
           <Route
             path={routes[0].path}
             component={() => <h2>404 Not Found</h2>}
@@ -87,10 +84,7 @@ const ProtectedContainer = ({ init, authState }) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   init: () => {
-    console.log(ownProps);
     if (ownProps.authState.isAuthenticated) {
-      console.log('authenticated', ownProps.authState.userType);
-
       if (ownProps.authState.userType === 4) {
         dispatch(
           fetchTicketsBusinessClient(ownProps.authState.userInfo.idCompany)

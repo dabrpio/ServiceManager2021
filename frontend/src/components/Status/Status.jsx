@@ -26,11 +26,9 @@ const Status = ({ status, credentials }) => {
   ];
 
   const handleAccept = () => {
-    console.log('accept', { ...data, status: 'accepted' });
     updateState({ ...data, status: 'accepted' });
   };
   const handleReject = () => {
-    console.log('reject', { ...data, status: 'rejected' });
     updateState({ ...data, status: 'rejected' });
   };
 
@@ -49,7 +47,6 @@ const Status = ({ status, credentials }) => {
       })
       .then((response) => response.json())
       .then((newState) => {
-        console.log(newState);
         setData(newState);
       })
       .catch((error) => console.log(error));

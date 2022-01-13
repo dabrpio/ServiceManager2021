@@ -315,8 +315,6 @@ function TicketDialogContent(props) {
           onChange={handleTextFieldChange('information')}
           style={{ marginTop: 16, marginBottom: 8 }}
           size="small"
-          // multiline
-          // rows={4}
         />
       </div>
     </DialogContent>
