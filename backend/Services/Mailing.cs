@@ -12,7 +12,7 @@ namespace CommandApi.Services
     {
         private static AlternateView Mail_Body3(int rma)  
         {  
-            LinkedResource Img = new LinkedResource(@"C:\Users\zjaro\Downloads\stopka1.jpeg", MediaTypeNames.Image.Jpeg);  
+            LinkedResource Img = new LinkedResource(@"/ServiceManager2021/backend/stopka1.jpeg", MediaTypeNames.Image.Jpeg);  
             Img.ContentId = "MyImage";  
             string str = @"  <table>
                 <tr>
@@ -36,7 +36,7 @@ namespace CommandApi.Services
                 <tr>
                     Serwis Napraw Mnie</tr>
                 <tr>
-                    <img src=cid:MyImage  id='img' alt='' width='378px' height='140px'/></tr>  
+                    <img src=cid:MyImage  id='img' alt='' width='464px' height='171px'/></tr>  
                 </table>
                 ";  
             AlternateView AV =   
@@ -78,7 +78,7 @@ namespace CommandApi.Services
         }
         private static AlternateView Mail_Body2( string brand, string model, int rma)  
         {  
-            LinkedResource Img = new LinkedResource(@"C:\Users\zjaro\Downloads\stopka1.jpeg", MediaTypeNames.Image.Jpeg);  
+            LinkedResource Img = new LinkedResource(@"/ServiceManager2021/backend/stopka1.jpeg", MediaTypeNames.Image.Jpeg);  
             Img.ContentId = "MyImage";  
             string str = @"  <table>
                 <tr>
@@ -95,7 +95,7 @@ namespace CommandApi.Services
                 <tr>
                     Serwis Napraw Mnie</tr>
                 <tr>
-                    <img src=cid:MyImage  id='img' alt='' width='378px' height='140px'/></tr>  
+                    <img src=cid:MyImage  id='img' alt='' width='464px' height='171px'/></tr>  
                 </table>
                 ";  
             AlternateView AV =   
@@ -137,7 +137,7 @@ namespace CommandApi.Services
         }
         private static AlternateView Mail_Body( string brand, string model, int rma)  
         {  
-            LinkedResource Img = new LinkedResource(@"C:\Users\zjaro\Downloads\stopka1.jpeg", MediaTypeNames.Image.Jpeg);  
+            LinkedResource Img = new LinkedResource(@"/ServiceManager2021/backend/stopka1.jpeg", MediaTypeNames.Image.Jpeg);  
             Img.ContentId = "MyImage";  
             string str = @"  <table>
                 <tr>
@@ -161,7 +161,7 @@ namespace CommandApi.Services
                 <tr>
                     Serwis Napraw Mnie</tr>
                 <tr>
-                    <img src=cid:MyImage  id='img' alt='' width='378px' height='140px'/></tr>  
+                    <img src=cid:MyImage  id='img' alt='' width='464px' height='171px'/></tr>  
                 </table>
                 ";  
             AlternateView AV =   

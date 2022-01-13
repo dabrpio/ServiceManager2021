@@ -39,6 +39,18 @@ namespace CommandApi.Services{
                     return;
                 }
                 else{
+                    if(commandItem.Type==4){
+                        string comp=context.HttpContext.Request.Path.Value.ToString();
+                        if(
+                        comp.Contains("/api/employees/pswd")||
+                        comp.Contains("/api/devices")||
+                        comp.Contains("/api/tickets/biz/")
+                        ){
+                        }else{
+                            context.Result = new UnauthorizedResult();
+                            return;
+                        }
+                    }
                     if(commandItem.Ttl<DateTime.Now){
                         context.Result = new UnauthorizedResult();
                         return;

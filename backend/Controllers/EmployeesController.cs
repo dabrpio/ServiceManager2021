@@ -96,8 +96,6 @@ namespace CommandApi.Controllers
         [HttpPut("pswd/{id}")]
         public ActionResult UpdateEmployeePaswd(int id, ChangePassw pas){
             var commandItem = _repoEmployee.GetEmployeeById(id);
-            Console.WriteLine(id);
-            Console.WriteLine(pas.Password);
             if(commandItem.Password!=pas.Password){
                 return NotFound();
             }
