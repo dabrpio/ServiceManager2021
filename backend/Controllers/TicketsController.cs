@@ -116,7 +116,8 @@ namespace CommandApi.Controllers
                     _repoClients.SaveChanges();
                 }
                 else{
-                    if(byemail==null&&clientModel.Email!=null){                    
+                    if(byemail==null&&clientModel.Email!=null){     
+               
                         byphone.Email=clientModel.Email;
                         ticketModel.IdClient=byphone.IdClient;
                         _repoClients.UpdateClient(byphone);
@@ -124,9 +125,13 @@ namespace CommandApi.Controllers
                     }
                     else{
                         if(byemail==null){
+
                             ticketModel.IdClient=byphone.IdClient;
+                            Console.WriteLine(ticketModel.IdClient);
                         }
-                        ticketModel.IdClient=byemail.IdClient;
+                        else{
+                            ticketModel.IdClient=byemail.IdClient;
+                        }
                     }                   
                 }
             }
@@ -141,9 +146,6 @@ namespace CommandApi.Controllers
             if(ticketModel.Status=="done")
             {
                 ticketModel.EndDate=DateTime.Now;
-                if(clientModel.Email!=null){
-                    Mailing.SendMail(clientModel.Email);
-                }
                 
             }
             else{
@@ -162,6 +164,12 @@ namespace CommandApi.Controllers
             var TicketsReadDto = _mapper.Map<TicketsReadDto>(ticketModel);
             _mapper.Map(ticketModel.IdClientNavigation,TicketsReadDto);
             _mapper.Map(ticketModel.IdDeviceNavigation,TicketsReadDto);
+
+            if(TicketsReadDto.Status=="created"||TicketsReadDto.Status=="accepted"){
+                if(clientModel.Email!=null){
+                    Mailing.SendMail(clientModel.Email, deviceModel.Brand, deviceModel.Model, TicketsReadDto.Rma);
+                }
+            }
 
 
             return CreatedAtRoute(nameof(GetTicketsByRma), new {Rma = TicketsReadDto.Rma},TicketsReadDto);
@@ -205,7 +213,12 @@ namespace CommandApi.Controllers
                 if(ticketModel.RepairCost!=ticketsUpdate.RepairCost){
                     ticketsUpdate.Status="cost_approval";
                     if(clientModel.Email!=null){
-                        Mailing.SendMailCostApproval(clientModel.Email);
+                        Mailing.SendMailCostApproval(clientModel.Email,ticketModel.Rma);
+                    }
+                }
+                if(ticketModel.Status=="done"){
+                    if(clientModel.Email!=null){
+                        Mailing.SendMailDone(clientModel.Email,deviceModel.Brand,deviceModel.Model,ticketModel.Rma);
                     }
                 }
                 _mapper.Map(ticketsUpdate,ticketModel);
