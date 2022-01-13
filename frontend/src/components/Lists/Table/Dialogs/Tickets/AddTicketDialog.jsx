@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { postTicket } from '../../../../../store/data/tickets/tickets.actions';
+import { setAlert } from '../../../../../store/alerts/alerts.actions';
 import { useTicketDialogStyles } from '../styles';
 import TicketDialogContent from './TicketDialogContent';
 
@@ -27,7 +28,7 @@ const initialTicket = {
   status: null,
 };
 
-const AddTicketDialog = ({ addTicket }) => {
+const AddTicketDialog = ({ addTicket, showAlert }) => {
   const classes = useTicketDialogStyles();
   const [ticket, setTicket] = useState(initialTicket);
   const [open, setOpen] = useState(false);
@@ -51,9 +52,9 @@ const AddTicketDialog = ({ addTicket }) => {
       Object.values(dataToValidate).some(
         (e) => e === null || `${e}`.trim() === ''
       )
-    ) {
-      console.log('ticket is not fully filled');
-    } else {
+    )
+      showAlert('Dane zlecenia nie są w pełni uzupełnione.');
+    else {
       if (ticket.repairCost === null) {
         ticket.status = 'created';
       } else {
@@ -98,6 +99,7 @@ const AddTicketDialog = ({ addTicket }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addTicket: (data) => dispatch(postTicket(data)),
+  showAlert: (message) => dispatch(setAlert(message)),
 });
 
 export default connect(null, mapDispatchToProps)(AddTicketDialog);

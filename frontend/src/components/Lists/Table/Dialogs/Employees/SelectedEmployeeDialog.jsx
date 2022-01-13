@@ -9,11 +9,17 @@ import {
   deleteEmployee,
   putEmployee,
 } from '../../../../../store/data/employees/employees.actions';
+import { setAlert } from '../../../../../store/alerts/alerts.actions';
 import { useTicketDialogStyles } from '../styles';
 import EmployeeDialogContent from './EmployeeDialogContent';
 
-const SelectedEmployeeDialog = (props) => {
-  const { employeeData, closeDialog, updateEmployee, deleteEmployee } = props;
+const SelectedEmployeeDialog = ({
+  employeeData,
+  closeDialog,
+  updateEmployee,
+  deleteEmployee,
+  showAlert,
+}) => {
   const [employee, setEmployee] = useState(employeeData);
   const classes = useTicketDialogStyles();
 
@@ -24,9 +30,9 @@ const SelectedEmployeeDialog = (props) => {
   const handleSave = (event) => {
     event.preventDefault();
     const { companyName, nip, ...dataToVerify } = employee;
-    if (Object.values(dataToVerify).some((e) => e === null || e === '')) {
-      console.log('employee data is not fully filled');
-    } else {
+    if (Object.values(dataToVerify).some((e) => e === null || e === ''))
+      showAlert('Dane pracownika nie są w pełni uzupełnione.');
+    else {
       if (JSON.stringify(employeeData) !== JSON.stringify(employee)) {
         updateEmployee(employee);
       }
@@ -73,6 +79,7 @@ const SelectedEmployeeDialog = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   updateEmployee: (data) => dispatch(putEmployee(data)),
   deleteEmployee: (id) => dispatch(deleteEmployee(id)),
+  showAlert: (message) => dispatch(setAlert(message)),
 });
 
 export default connect(null, mapDispatchToProps)(SelectedEmployeeDialog);

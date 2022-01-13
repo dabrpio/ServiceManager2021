@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { postEmployee } from '../../../../../store/data/employees/employees.actions';
+import { setAlert } from '../../../../../store/alerts/alerts.actions';
 import EmployeeDialogContent from './EmployeeDialogContent';
 
 const initialEmployee = {
@@ -23,7 +24,7 @@ const initialEmployee = {
   nip: null,
 };
 
-const AddEmployeeDialog = ({ addEmployee }) => {
+const AddEmployeeDialog = ({ addEmployee, showAlert }) => {
   const [employee, setEmployee] = useState(initialEmployee);
   const [open, setOpen] = useState(false);
 
@@ -49,9 +50,9 @@ const AddEmployeeDialog = ({ addEmployee }) => {
       Object.values(destructureEmployee(employee)).some(
         (e) => e === null || `${e}`.trim() === ''
       )
-    ) {
-      console.log('employee data is not fully filled');
-    } else {
+    )
+      showAlert('Dane pracownika nie są w pełni uzupełnione.');
+    else {
       addEmployee(employee);
       handleClose();
     }
@@ -91,6 +92,7 @@ const AddEmployeeDialog = ({ addEmployee }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addEmployee: (data) => dispatch(postEmployee(data)),
+  showAlert: (message) => dispatch(setAlert(message)),
 });
 
 export default connect(null, mapDispatchToProps)(AddEmployeeDialog);

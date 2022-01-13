@@ -12,21 +12,23 @@ import {
   deleteTicket,
   putTicket,
 } from '../../../../../store/data/tickets/tickets.actions';
+import { setAlert } from '../../../../../store/alerts/alerts.actions';
 import { useTicketDialogStyles } from '../styles';
 import DocsButton from './DocsButton';
 import TicketDialogContent from './TicketDialogContent';
 
-const SelectedTicketDialog = (props) => {
-  const { ticketData, closeDialog, deleteTicket, updateTicket } = props;
+const SelectedTicketDialog = ({
+  ticketData,
+  closeDialog,
+  deleteTicket,
+  updateTicket,
+  showAlert,
+}) => {
   const classes = useTicketDialogStyles();
   const [ticket, setTicket] = useState(ticketData);
   const [switchState, setSwitchState] = useState(
     ticket.status === 'done' ? true : false
   );
-
-  const handleClose = () => {
-    closeDialog();
-  };
 
   const handleChangeSwitchState = (event) => {
     setSwitchState(event.target.checked);
@@ -52,18 +54,18 @@ const SelectedTicketDialog = (props) => {
     } = ticket;
 
     if (Object.values(dataToValidate).some((e) => e === null || e === '')) {
-      console.log('ticket is not fully filled:', ticket);
+      showAlert('Dane zlecenia nie są w pełni uzupełnione.');
     } else {
       if (JSON.stringify(ticketData) !== JSON.stringify(ticket)) {
         updateTicket(ticket);
       }
-      handleClose();
+      closeDialog();
     }
   };
 
   const handleDelete = (event) => {
     event.preventDefault();
-    handleClose();
+    closeDialog();
     deleteTicket(ticket.rma);
   };
 
@@ -71,7 +73,7 @@ const SelectedTicketDialog = (props) => {
     <Dialog
       maxWidth="md"
       open={Object.keys(ticketData).length > 0}
-      onClose={handleClose}
+      onClose={closeDialog}
       aria-labelledby="form-dialog-title"
     >
       <DialogTitle
@@ -127,7 +129,7 @@ const SelectedTicketDialog = (props) => {
           Usuń
         </Button>
         <div>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={closeDialog} color="primary">
             Cofnij
           </Button>
           <Button onClick={handleUpdate} color="primary">
@@ -142,6 +144,7 @@ const SelectedTicketDialog = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   deleteTicket: (id) => dispatch(deleteTicket(id)),
   updateTicket: (data) => dispatch(putTicket(data)),
+  showAlert: (message) => dispatch(setAlert(message)),
 });
 
 export default connect(null, mapDispatchToProps)(SelectedTicketDialog);

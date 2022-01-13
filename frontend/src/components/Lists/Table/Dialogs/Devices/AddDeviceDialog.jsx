@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { postDevice } from '../../../../../store/data/devices/devices.actions';
+import { setAlert } from '../../../../../store/alerts/alerts.actions';
 import DeviceDialogContent from './DeviceDialogContent';
 
 const initialDevice = {
@@ -17,7 +18,7 @@ const initialDevice = {
   model: null,
 };
 
-const AddDeviceDialog = ({ addDevice }) => {
+const AddDeviceDialog = ({ addDevice, showAlert }) => {
   const [device, setDevice] = useState(initialDevice);
   const [open, setOpen] = useState(false);
 
@@ -29,7 +30,7 @@ const AddDeviceDialog = ({ addDevice }) => {
   const handleAdd = (event) => {
     event.preventDefault();
     if (Object.values(device).some((e) => e === null || `${e}`.trim() === '')) {
-      console.log('device data is not fully filled');
+      showAlert('Dane urządzenia nie są w pełni uzupełnione.');
     } else {
       addDevice(device);
       handleClose();
@@ -71,6 +72,7 @@ const AddDeviceDialog = ({ addDevice }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addDevice: (data) => dispatch(postDevice(data)),
+  showAlert: (message) => dispatch(setAlert(message)),
 });
 
 export default connect(null, mapDispatchToProps)(AddDeviceDialog);

@@ -9,36 +9,38 @@ import {
   deleteClient,
   putClient,
 } from '../../../../../store/data/clients/clients.actions';
+import { setAlert } from '../../../../../store/alerts/alerts.actions';
 import { useTicketDialogStyles } from '../styles';
 import ClientDialogContent from './ClientDialogContent';
 
-const SelectedClientDialog = (props) => {
-  const { clientData, closeDialog, updateClient, deleteClient, deleteError } =
-    props;
+const SelectedClientDialog = ({
+  clientData,
+  closeDialog,
+  updateClient,
+  deleteClient,
+  deleteError,
+  showAlert,
+}) => {
   const [client, setClient] = useState(clientData);
   const classes = useTicketDialogStyles();
 
   useEffect(() => {}, [deleteError]);
 
-  const handleClose = () => {
-    closeDialog();
-  };
-
   const handleSave = (event) => {
     event.preventDefault();
     if (Object.values(client).some((e) => e === null || e === '')) {
-      console.log('client data is not fully filled');
+      showAlert('Dane klienta nie są w pełni uzupełnione.');
     } else {
       if (JSON.stringify(clientData) !== JSON.stringify(client)) {
         updateClient(client);
       }
-      handleClose();
+      closeDialog();
     }
   };
 
   const handleDelete = (event) => {
     event.preventDefault();
-    handleClose();
+    closeDialog();
     deleteClient(client.idClient);
   };
 
@@ -47,7 +49,7 @@ const SelectedClientDialog = (props) => {
       <Dialog
         maxWidth="sm"
         open={Object.keys(clientData).length > 0}
-        onClose={handleClose}
+        onClose={closeDialog}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
@@ -59,7 +61,7 @@ const SelectedClientDialog = (props) => {
             Usuń
           </Button>
           <div>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={closeDialog} color="primary">
               Cofnij
             </Button>
             <Button onClick={handleSave} color="primary">
@@ -75,6 +77,7 @@ const SelectedClientDialog = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   updateClient: (data) => dispatch(putClient(data)),
   deleteClient: (id) => dispatch(deleteClient(id)),
+  showAlert: (message) => dispatch(setAlert(message)),
 });
 
 export default connect(null, mapDispatchToProps)(SelectedClientDialog);

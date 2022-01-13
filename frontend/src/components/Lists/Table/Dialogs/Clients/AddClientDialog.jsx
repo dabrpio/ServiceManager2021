@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { setAlert } from '../../../../../store/alerts/alerts.actions';
 import { postClient } from '../../../../../store/data/clients/clients.actions';
 import ClientDialogContent from './ClientDialogContent';
 
@@ -18,7 +19,7 @@ const initialClient = {
   email: null,
 };
 
-const AddClientDialog = ({ addClient }) => {
+const AddClientDialog = ({ addClient, showAlert }) => {
   const [client, setClient] = useState(initialClient);
   const [open, setOpen] = useState(false);
 
@@ -30,7 +31,7 @@ const AddClientDialog = ({ addClient }) => {
   const handleAdd = (event) => {
     event.preventDefault();
     if (Object.values(client).some((e) => e === null || `${e}`.trim() === '')) {
-      console.log('client data is not fully filled');
+      showAlert('Dane klienta nie są w pełni uzupełnione.');
     } else {
       addClient(client);
       handleClose();
@@ -67,6 +68,7 @@ const AddClientDialog = ({ addClient }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addClient: (data) => dispatch(postClient(data)),
+  showAlert: (message) => dispatch(setAlert(message)),
 });
 
 export default connect(null, mapDispatchToProps)(AddClientDialog);

@@ -9,33 +9,35 @@ import {
   deleteDevice,
   putDevice,
 } from '../../../../../store/data/devices/devices.actions';
+import { setAlert } from '../../../../../store/alerts/alerts.actions';
 import { useTicketDialogStyles } from '../styles';
 import DeviceDialogContent from './DeviceDialogContent';
 
-const SelectedDeviceDialog = (props) => {
-  const { deviceData, closeDialog, updateDevice, deleteDevice } = props;
+const SelectedDeviceDialog = ({
+  deviceData,
+  closeDialog,
+  updateDevice,
+  deleteDevice,
+  showAlert,
+}) => {
   const [device, setDevice] = useState(deviceData);
   const classes = useTicketDialogStyles();
 
-  const handleClose = () => {
-    closeDialog();
-  };
-
   const handleSave = (event) => {
     event.preventDefault();
-    if (Object.values(device).some((e) => e === null || e === '')) {
-      console.log('Device data is not fully filled');
-    } else {
+    if (Object.values(device).some((e) => e === null || e === ''))
+      showAlert('Dane urządzenia nie są w pełni uzupełnione.');
+    else {
       if (JSON.stringify(deviceData) !== JSON.stringify(device)) {
         updateDevice(device);
       }
-      handleClose();
+      closeDialog();
     }
   };
 
   const handleDelete = (event) => {
     event.preventDefault();
-    handleClose();
+    closeDialog();
     deleteDevice(device.idDevice);
   };
 
@@ -45,7 +47,7 @@ const SelectedDeviceDialog = (props) => {
         maxWidth="sm"
         fullWidth
         open={Object.keys(deviceData).length > 0}
-        onClose={handleClose}
+        onClose={closeDialog}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
@@ -57,7 +59,7 @@ const SelectedDeviceDialog = (props) => {
             Usuń
           </Button>
           <div>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={closeDialog} color="primary">
               Cofnij
             </Button>
             <Button onClick={handleSave} color="primary">
@@ -73,6 +75,7 @@ const SelectedDeviceDialog = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   updateDevice: (data) => dispatch(putDevice(data)),
   deleteDevice: (id) => dispatch(deleteDevice(id)),
+  showAlert: (message) => dispatch(setAlert(message)),
 });
 
 export default connect(null, mapDispatchToProps)(SelectedDeviceDialog);
