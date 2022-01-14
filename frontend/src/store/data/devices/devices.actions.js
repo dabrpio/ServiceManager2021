@@ -15,7 +15,7 @@ const setDeviceBrandsState = (data) => ({
   payload: data,
 });
 
-const addDeviceState = (device) => ({
+export const addDeviceState = (device) => ({
   type: devicesAT.ADD_DEVICE,
   payload: device,
 });

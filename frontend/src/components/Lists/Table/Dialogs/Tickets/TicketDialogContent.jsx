@@ -105,17 +105,17 @@ function TicketDialogContent(props) {
   const checkNumberErrors = (name) =>
     ['', null].includes(ticket[name])
       ? false
-      : !`${ticket[name]}`.match(/^[0-9]+\.{0,1}[0-9]*$/g);
+      : !`${ticket[name]}`.match(/^[0-9]+\.{0,1}[0-9]{0,2}$/g);
 
   const checkPhoneError = () =>
     ['', null].includes(ticket.phoneNumber)
       ? false
-      : !`${ticket.phoneNumber}`.match(/^[0-9]{9}$/g);
+      : !`${ticket.phoneNumber}`.match(/^[0-9+\-#]*$/g);
 
   const checkEmailError = () =>
     ['', null].includes(ticket.email)
       ? false
-      : !`${ticket.email}`.match(/^.+@.+\..+$/g);
+      : !`${ticket.email}`.match(/^\S+@\S+\.\S+$/g);
 
   return (
     <DialogContent dividers classes={{ root: classes.contentWrapper }}>

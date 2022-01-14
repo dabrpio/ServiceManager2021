@@ -66,9 +66,16 @@ const SelectedTicketDialog = ({
       showAlert('Dane zlecenia nie są w pełni uzupełnione.');
     } else {
       if (JSON.stringify(ticketData) !== JSON.stringify(ticket)) {
-        updateTicket(ticket);
+        if (
+          new RegExp(/^\S+@\S+\.\S+$/g).test(ticket.email) ||
+          ticket.email === null ||
+          new RegExp(/^[0-9+\-#]*$/g).test(ticket.phoneNumber) ||
+          ticket.phoneNumber === null
+        ) {
+          updateTicket(ticket);
+          closeDialog();
+        }
       }
-      closeDialog();
     }
   };
 
@@ -147,7 +154,6 @@ const SelectedTicketDialog = ({
 
             <Hidden xsDown>
               <div className={classes.titleActions}>
-                {/* <DocsButton classes={classes} ticket={ticket} /> */}
                 <FormControlLabel
                   classes={{
                     root: classes.formControlLabel,

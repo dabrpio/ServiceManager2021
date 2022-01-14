@@ -54,7 +54,12 @@ const AddTicketDialog = ({ addTicket, showAlert }) => {
       )
     )
       showAlert('Dane zlecenia nie są w pełni uzupełnione.');
-    else {
+    else if (
+      new RegExp(/^\S+@\S+\.\S+$/g).test(ticket.email) ||
+      email === null ||
+      new RegExp(/^[0-9+\-#]*$/g).test(ticket.phoneNumber) ||
+      ticket.phoneNumber === null
+    ) {
       if (ticket.repairCost === null) {
         ticket.status = 'created';
       } else {

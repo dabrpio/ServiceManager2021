@@ -1,5 +1,6 @@
 import { URL } from '../../../constants';
 import { handleResponse, createHeaders } from '../../utils';
+import { addDeviceState } from '../devices/devices.actions';
 import * as ticketsAT from './tickets.action-types';
 
 const baseUrl = `${URL}/tickets`;
@@ -76,7 +77,16 @@ export const postTicket = (data) => (dispatch, getState) => {
   })
     .then((res) => handleResponse(res, dispatch))
     .then((res) => res.json())
-    .then((ticket) => dispatch(addTicketState(ticket)))
+    .then((ticket) => {
+      dispatch(addTicketState(ticket));
+      dispatch(
+        addDeviceState({
+          type: ticket.type,
+          brand: ticket.brand,
+          model: ticket.model,
+        })
+      );
+    })
     .catch(catchErrors);
 };
 
