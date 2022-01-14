@@ -21,7 +21,7 @@ namespace CommandApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://naprawmnie.com:5000","https://naprawmnie.com:5001");
+                    //webBuilder.UseUrls("http://naprawmnie.com:5000","https://naprawmnie.com:5001");
                 });
     }
 }

@@ -51,7 +51,7 @@ namespace CommandApi.Services{
                             return;
                         }
                     }
-                    if(commandItem.Ttl<DateTime.Now){
+                    if(commandItem.Ttl<DateTime.Now.AddHours(-1)){
                         context.Result = new UnauthorizedResult();
                         return;
                     }
