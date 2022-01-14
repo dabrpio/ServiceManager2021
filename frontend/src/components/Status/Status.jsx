@@ -33,7 +33,7 @@ const Status = ({ status, credentials }) => {
   };
 
   const updateState = (data) => {
-    fetch(`${URL}/status/${credentials.rma}+${credentials.phoneNumber}`, {
+    fetch(`${URL}/status/${credentials.rma}+${credentials.email}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
