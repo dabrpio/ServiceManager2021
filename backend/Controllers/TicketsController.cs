@@ -212,6 +212,7 @@ namespace CommandApi.Controllers
 
                 if(ticketModel.RepairCost!=ticketsUpdate.RepairCost){
                     ticketsUpdate.Status="cost_approval";
+                    ticketsUpdate.EndDate=null;
                     if(clientModel.Email!=null){
                         Mailing.SendMailCostApproval(clientModel.Email,ticketModel.Rma);
                     }

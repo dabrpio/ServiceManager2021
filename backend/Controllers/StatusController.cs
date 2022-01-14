@@ -26,13 +26,13 @@ namespace CommandApi.Controllers
         
 
         //Get api/status/{Rma + PhoneNumber}
-        [HttpGet("{Rma}+{PhoneNumber}", Name="GetTicketsStatus")]
-        public ActionResult<String> GetTicketsStatus(int Rma, string PhoneNumber){
+        [HttpGet("{Rma}+{email}", Name="GetTicketsStatus")]
+        public ActionResult<String> GetTicketsStatus(int Rma, string email){
             var commandItem=_repoTickets.GetTicketsByRma(Rma);
             if(commandItem==null){
                 return NotFound();
             }
-            if(commandItem.IdClientNavigation.PhoneNumber==PhoneNumber){
+            if(commandItem.IdClientNavigation.Email==email){
                 StatusReadDto inp = new StatusReadDto();
                 inp.Status=commandItem.Status;
                 inp.Glitch=commandItem.Glitch;
@@ -49,13 +49,13 @@ namespace CommandApi.Controllers
         }
 
          //PUT api/status/{rma}+{phoneNumber}+{status}
-        [HttpPut("{rma}+{PhoneNumber}",Name="UpdateTicketStatus")]
-        public ActionResult UpdateTicketStatus(int rma, string PhoneNumber, StatusCreateDto status){
+        [HttpPut("{rma}+{email}",Name="UpdateTicketStatus")]
+        public ActionResult UpdateTicketStatus(int rma, string email, StatusCreateDto status){
             var ticketModel = _repoTickets.GetTicketsByRma(rma);
             if(ticketModel==null){
                 return NotFound();
             }
-            if(ticketModel.IdClientNavigation.PhoneNumber==PhoneNumber){
+            if(ticketModel.IdClientNavigation.Email==email){
                 StatusReadDto inp = new StatusReadDto();
                 var ticketsUpdate = ticketModel;
                 ticketsUpdate.Status=status.Status;

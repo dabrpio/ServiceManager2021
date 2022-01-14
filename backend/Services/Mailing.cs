@@ -25,7 +25,7 @@ namespace CommandApi.Services
                     Zlecenie o numerze RMA - "+rma.ToString()+@" -  oczekuje na decyzję w sprawie kosztów.</tr>
                 <tr></br></tr>
                 <tr>
-                    Prosimy o podjęcie decyzji i wybranie właściwej opcji po kliknięciu w <a href=""https://www.naprawmnie.com/status"">link</a>.</tr>
+                    Prosimy o podjęcie decyzji i wybranie właściwej opcji po kliknięciu w <a href=""https://naprawmnie.com:3000/status"">link</a>.</tr>
                 <tr></br></tr>
                 <tr></br></tr>                
                 <tr></br></tr>

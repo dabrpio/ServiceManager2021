@@ -26,6 +26,7 @@ namespace CommandApi.Data
             else{
                 employee.IdCompany=_context.Employees.Where(p=>p.Nip==employee.Nip).FirstOrDefault().IdCompany;
             }
+            employee.Password=Services.Security.Hashing1(employee.Password);
             _context.Employees.Add(employee);
         }
 
@@ -54,7 +55,15 @@ namespace CommandApi.Data
         
         public Employee GetEmployeeByLoginPassword(string login, string password)
         {
-            return _context.Employees.FirstOrDefault(p=>p.Login==login && p.Password == password);
+            IEnumerable<Employee> byLogin = _context.Employees.Where(p=>p.Login==login).ToList();
+            foreach(var i in byLogin){
+                string salt = i.Password.Split(Services.Security.separator)[1];
+                string hashPasswd = Services.Security.HashingWithSalt1(password,salt);
+                if(i.Password==hashPasswd){
+                    return _context.Employees.FirstOrDefault(p=>p.Login==login && p.Password == hashPasswd);
+                }
+            }
+            return null;
         }
 
         public Employee GetEmployeeByApiKey(string apiKey){

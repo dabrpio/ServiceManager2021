@@ -96,11 +96,12 @@ namespace CommandApi.Controllers
         [HttpPut("pswd/{id}")]
         public ActionResult UpdateEmployeePaswd(int id, ChangePassw pas){
             var commandItem = _repoEmployee.GetEmployeeById(id);
-            if(commandItem.Password!=pas.Password){
+            string hasPasswd = Services.Security.HashingWithSalt1(pas.Password,commandItem.Password.Split(Services.Security.separator)[1]);
+            if(commandItem.Password!=hasPasswd){
                 return NotFound();
             }
             var EmployeeUpdate=commandItem;
-            EmployeeUpdate.Password=pas.NewPassword;
+            EmployeeUpdate.Password=Services.Security.Hashing1(pas.NewPassword);
             if(commandItem!=null){
                 _mapper.Map(EmployeeUpdate, commandItem);
                 _repoEmployee.UpdateEmployee(commandItem);
