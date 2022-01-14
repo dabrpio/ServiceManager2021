@@ -118,6 +118,17 @@ namespace CommandApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteEmployee(int id)
         {
+            IEnumerable<Employee> test1 = _repoEmployee.GetAllEmployee();
+            int it=0;
+            foreach(var i in test1){
+                it++;
+                if(it==3){
+                    break;
+                }
+            }
+            if(it<3){
+                return BadRequest("Za mało urzytkowników");
+            }
             var commandItem=_repoEmployee.GetEmployeeById(id);
             if(commandItem!=null){
                 _repoEmployee.DeleteEmployee(commandItem);
