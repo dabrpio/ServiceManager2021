@@ -13,14 +13,11 @@ function Login({ login }) {
     login: '',
     password: '',
   });
-  const [loginErrors] = useState({
-    loginError: '',
-    passwordError: '',
-  });
+  const [loginError, setLoginError] = useState('');
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
-    login(loginData);
+    login(loginData, setLoginError);
   };
 
   return (
@@ -31,28 +28,29 @@ function Login({ login }) {
             Service Manager 2021
           </Typography>
           <TextField
-            error={loginErrors.loginError.length > 0}
+            error={loginError.length > 0}
             fullWidth
             label="Login"
             type="text"
             value={loginData.login}
-            helperText={loginErrors.loginError}
-            onChange={(event) =>
-              setLoginData({ ...loginData, login: event.target.value })
-            }
+            onChange={(event) => {
+              setLoginData({ ...loginData, login: event.target.value });
+              setLoginError('');
+            }}
             size="small"
             margin="normal"
           />
           <TextField
-            error={loginErrors.passwordError.length > 0}
+            error={loginError.length > 0}
             fullWidth
             label="Hasło"
             type="password"
             value={loginData.password}
-            helperText={loginErrors.passwordError}
-            onChange={(event) =>
-              setLoginData({ ...loginData, password: event.target.value })
-            }
+            helperText={loginError}
+            onChange={(event) => {
+              setLoginData({ ...loginData, password: event.target.value });
+              setLoginError('');
+            }}
             size="small"
             margin="normal"
           />
@@ -72,7 +70,8 @@ function Login({ login }) {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  login: (credentials) => dispatch(tryLogin(credentials)),
+  login: (credentials, setLoginError) =>
+    dispatch(tryLogin(credentials, setLoginError)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

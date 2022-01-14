@@ -11,18 +11,15 @@ function StatusLogin() {
   const classes = useStyles();
   const [credentials, setCredentials] = useState({
     rma: '',
-    phoneNumber: '',
+    email: '',
   });
-  const [loginErrors] = useState({
-    rmaError: '',
-    phoneNumberError: '',
-  });
+  const [loginError, setLoginError] = useState('');
   const [status, setStatus] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch(`${URL}/status/${credentials.rma}+${credentials.phoneNumber}`)
+    fetch(`${URL}/status/${credentials.rma}+${credentials.email}`)
       .then((response) => {
         if (!response.ok) {
           throw response;
@@ -31,7 +28,7 @@ function StatusLogin() {
       })
       .then((res) => res.json())
       .then((data) => setStatus(data))
-      .catch((error) => console.log(error));
+      .catch(() => setLoginError('Nieprawidłowe dane logowanie'));
   };
 
   return (
@@ -48,31 +45,32 @@ function StatusLogin() {
               Sprawdź status swojego zlecenia.
             </Typography>
             <TextField
-              error={loginErrors.rmaError.length > 0}
+              error={loginError.length > 0}
               fullWidth
-              label="RMA"
+              label="Email"
               type="text"
-              value={credentials.rma}
-              helperText={loginErrors.rmaError}
-              onChange={(event) =>
-                setCredentials({ ...credentials, rma: event.target.value })
-              }
+              value={credentials.email}
+              onChange={(event) => {
+                setCredentials({
+                  ...credentials,
+                  email: event.target.value,
+                });
+                setLoginError('');
+              }}
               size="small"
               margin="normal"
             />
             <TextField
-              error={loginErrors.phoneNumberError.length > 0}
+              error={loginError.length > 0}
               fullWidth
-              label="Nr telefonu"
+              label="RMA"
               type="text"
-              value={credentials.phoneNumber}
-              helperText={loginErrors.phoneNumberError}
-              onChange={(event) =>
-                setCredentials({
-                  ...credentials,
-                  phoneNumber: event.target.value,
-                })
-              }
+              value={credentials.rma}
+              helperText={loginError}
+              onChange={(event) => {
+                setCredentials({ ...credentials, rma: event.target.value });
+                setLoginError('');
+              }}
               size="small"
               margin="normal"
             />

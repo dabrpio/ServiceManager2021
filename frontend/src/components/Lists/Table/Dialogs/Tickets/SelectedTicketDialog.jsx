@@ -1,4 +1,5 @@
 import { Hidden, Typography } from '@material-ui/core';
+import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -29,12 +30,23 @@ const SelectedTicketDialog = ({
   const [switchState, setSwitchState] = useState(
     ticket.status === 'done' ? true : false
   );
+  const [switchStateCost, setSwitchStateCost] = useState(
+    ticket.status === 'cost_approval' ? false : true
+  );
 
   const handleChangeSwitchState = (event) => {
     setSwitchState(event.target.checked);
     setTicket({
       ...ticket,
       status: event.target.checked ? 'done' : 'accepted',
+    });
+  };
+
+  const handleChangeSwitchStateCost = (event) => {
+    setSwitchStateCost(event.target.checked);
+    setTicket({
+      ...ticket,
+      status: event.target.checked ? 'accepted' : 'cost_approval',
     });
   };
 
@@ -45,9 +57,6 @@ const SelectedTicketDialog = ({
       email,
       beginDate,
       endDate,
-      nip,
-      companyName,
-      idCompany,
       repairCost,
       partsCost,
       ...dataToValidate
@@ -84,7 +93,7 @@ const SelectedTicketDialog = ({
         <Typography component="h2" variant="h6">
           Zlecenie {ticket.rma}
         </Typography>
-        {(ticket.status === 'done' || ticket.status === 'accepted') && (
+        {(ticketData.status === 'done' || ticketData.status === 'accepted') && (
           <>
             <Hidden smUp>
               <Switch
@@ -100,7 +109,14 @@ const SelectedTicketDialog = ({
                 <DocsButton classes={classes} ticket={ticket} />
                 <FormControlLabel
                   classes={{
-                    root: classes.formControlLabel,
+                    root: clsx(
+                      classes.formControlLabel,
+                      ticketData.type === 'cost_approval' &&
+                        classes.formControlLabelWide,
+                      (ticketData.type === 'accepted' ||
+                        ticketData.type === 'done') &&
+                        classes.formControlLabelNarrow
+                    ),
                     label: classes.switchLabel,
                   }}
                   control={
@@ -112,6 +128,42 @@ const SelectedTicketDialog = ({
                     />
                   }
                   label={switchState ? 'Zrobione' : 'W naprawie'}
+                  labelPlacement="start"
+                />
+              </div>
+            </Hidden>
+          </>
+        )}
+        {ticketData.status === 'cost_approval' && (
+          <>
+            <Hidden smUp>
+              <Switch
+                color="primary"
+                checked={switchStateCost}
+                onChange={handleChangeSwitchStateCost}
+                name="cost"
+              />
+            </Hidden>
+
+            <Hidden xsDown>
+              <div className={classes.titleActions}>
+                {/* <DocsButton classes={classes} ticket={ticket} /> */}
+                <FormControlLabel
+                  classes={{
+                    root: classes.formControlLabel,
+                    label: classes.switchLabel,
+                  }}
+                  control={
+                    <Switch
+                      color="primary"
+                      checked={switchStateCost}
+                      onChange={handleChangeSwitchStateCost}
+                      name="cost"
+                    />
+                  }
+                  label={
+                    switchStateCost ? 'Zaakceptowane' : 'Do zaakceptowania'
+                  }
                   labelPlacement="start"
                 />
               </div>

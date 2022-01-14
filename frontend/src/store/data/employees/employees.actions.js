@@ -66,17 +66,18 @@ export const putEmployee = (employee) => (dispatch) => {
 };
 
 // PUT [change password]
-export const changePassword = (credentials) => (dispatch, getState) => {
-  const state = getState();
-  fetch(baseUrl + `/pswd/${state.auth.userInfo.idEmployee}`, {
-    method: 'PUT',
-    headers: createHeaders(),
-    body: JSON.stringify(credentials),
-  })
-    .then((res) => handleResponse(res, dispatch))
-    .then(() => dispatch(setAlert('Hasło zostało zmienione')))
-    .catch(() => dispatch(setAlert('Nieudana zmiana hasła')));
-};
+export const changePassword =
+  (credentials, errorCallback) => (dispatch, getState) => {
+    const state = getState();
+    fetch(baseUrl + `/pswd/${state.auth.userInfo.idEmployee}`, {
+      method: 'PUT',
+      headers: createHeaders(),
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => handleResponse(res, dispatch))
+      .then(() => dispatch(setAlert('Hasło zostało zmienione')))
+      .catch(() => errorCallback());
+  };
 
 // DELETE
 export const deleteEmployee = (id) => (dispatch) => {

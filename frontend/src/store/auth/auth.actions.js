@@ -30,7 +30,7 @@ const setUserInfo = (info) => ({
   payload: info,
 });
 
-export const tryLogin = ({ login, password }) => {
+export const tryLogin = ({ login, password }, setLoginErros) => {
   return (dispatch) => {
     fetch(`${baseUrl}/${login}+${password}`)
       .then((res) => handleResponse(res, dispatch))
@@ -62,6 +62,7 @@ export const tryLogin = ({ login, password }) => {
       })
       .catch((res) => {
         console.error(res);
+        setLoginErros('Nieprawidłowe dane logowania.');
         clearLocalStorage();
       });
   };

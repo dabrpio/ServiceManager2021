@@ -31,7 +31,12 @@ export const useTicketDialogStyles = makeStyles((theme) => ({
   },
   formControlLabel: {
     flexDirection: 'row-reverse',
+  },
+  formControlLabelNarrow: {
     width: '170px',
+  },
+  formControlLabelWide: {
+    width: '231px',
   },
   switchLabel: {
     ...theme.typography.button,

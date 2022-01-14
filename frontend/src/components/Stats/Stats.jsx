@@ -34,7 +34,7 @@ const Stats = ({ statsData }) => {
               <Paper className={classes.smallStat}>
                 <Typography
                   className={classes.number}
-                >{`${statsData.profit[0].value} zł`}</Typography>
+                >{`${statsData.profit[0].value.toFixed(2)} zł`}</Typography>
                 <Typography>Zysk w tym miesiącu</Typography>
               </Paper>
             </Grid>

@@ -60,8 +60,8 @@ export const postTicket = (data) => (dispatch, getState) => {
   const state = getState();
 
   const ticket = {
-    repairCost: parseFloat(data.repairCost),
-    partsCost: parseFloat(data.partsCost),
+    repairCost: parseFloat(data.repairCost).toFixed(2),
+    partsCost: parseFloat(data.partsCost).toFixed(2),
     ...data,
   };
 

@@ -25,6 +25,8 @@ function Settings({ changePassword }) {
     newPasswordRepeated: '',
   });
 
+  const errorCallback = () => setError({ ...error, wrongPassword: true });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password.oldPassword.trim() === '') {
@@ -36,10 +38,13 @@ function Settings({ changePassword }) {
         if (password.newPassword !== password.newPasswordRepeated) {
           setError({ ...error, notMatchingPasswords: true });
         } else {
-          changePassword({
-            password: password.oldPassword,
-            newPassword: password.newPassword,
-          });
+          changePassword(
+            {
+              password: password.oldPassword,
+              newPassword: password.newPassword,
+            },
+            errorCallback
+          );
         }
       }
     }
@@ -131,7 +136,8 @@ function Settings({ changePassword }) {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  changePassword: (credentials) => dispatch(changePassword(credentials)),
+  changePassword: (credentials, errorCallback) =>
+    dispatch(changePassword(credentials, errorCallback)),
 });
 
 export default connect(null, mapDispatchToProps)(Settings);
