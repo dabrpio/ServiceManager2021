@@ -84,6 +84,7 @@ export const postTicket = (data) => (dispatch, getState) => {
           type: ticket.type,
           brand: ticket.brand,
           model: ticket.model,
+          idDevice: ticket.idDevice,
         })
       );
     })
