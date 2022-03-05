@@ -44,7 +44,7 @@ namespace CommandApi.Services{
                         if(
                         comp.Contains("/api/employees/pswd")||
                         comp.Contains("/api/devices")||
-                        comp.Contains("/api/tickets/biz/")
+                        comp.Contains("/api/tickets/biz")
                         ){
                         }else{
                             context.Result = new UnauthorizedResult();

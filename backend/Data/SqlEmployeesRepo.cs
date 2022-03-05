@@ -20,7 +20,7 @@ namespace CommandApi.Data
                 throw new ArgumentNullException(nameof(employee));
             }
             if(employee.Nip!=null&&_context.Employees.Where(p=>p.Nip==employee.Nip).FirstOrDefault()==null){
-                int incrementedID=_context.Employees.OrderByDescending(p=>p.IdCompany).Select(p=>p.IdCompany).First() + 1;
+                int incrementedID=_context.Tickets.OrderByDescending(p=>p.IdCompany).Select(p=>p.IdCompany).First() + 1;
                 employee.IdCompany=incrementedID;
             }
             else{
